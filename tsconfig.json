@@ -11,5 +11,6 @@
       "strict": true,
       "strictNullChecks": true,
       "skipLibCheck": true
-    }
+    },
+    "include": ["./**/*.ts"],
   }

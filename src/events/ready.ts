@@ -7,6 +7,8 @@ export default (client: Client): void => {
             return;
         }
         
+        client.application.commands.set(Commands);
+
         console.log(`Готово ! ${client.user.username} готов к работе !`);
     });
 };

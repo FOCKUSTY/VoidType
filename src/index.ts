@@ -1,4 +1,4 @@
-import { Client } from "discord.js";
+import { Client, Guild } from "discord.js";
 import { config } from "./config";
 // import { deployCommands } from "./deploy-commands";
 import interactionCreate from "./events/interaction-create";
