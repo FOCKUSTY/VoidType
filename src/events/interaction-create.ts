@@ -1,22 +1,24 @@
-import { CommandInteraction, Client, Interaction, } from "discord.js";
-import { Commands } from "../SlashCommands";
+import { ChatInputApplicationCommandData, SlashCommandBuilder, Interaction } from 'discord.js'
+import { commands } from '../SlashCommands';
 
-export default (client: Client): void => {
-    client.on("interactionCreate", async (interaction: Interaction) => {
-    if (interaction.isCommand() || interaction.isContextMenuCommand()) {
-        await handleSlashCommand(client, interaction);
-    }
+export async function intCreate(commands: any, interaction: Interaction) {
+    if (!interaction.isChatInputCommand()) return;
+
+    const command = commands.get(interaction.commandName) as {
+        execute: (interaction: Interaction) => Promise<void>;
+    };
+
+    if (!command)
+    return console.error(
+        `No command matching ${interaction.commandName} was found.`
+    );
+
+try {
+    await command.execute(interaction);
+} catch (error) {
+    await interaction.reply({
+        content: "There was an error while executing this command!",
+        ephemeral: true,
     });
-};
-
-const handleSlashCommand = async (
-    client: Client,
-    interaction: CommandInteraction,
-): Promise<void> => {
-    const slashCommand = Commands.find((c) => c.name === interaction.commandName);
-    if (!slashCommand) {
-    return;
-    }
-
-    slashCommand.run(client, interaction);
-};
+}
+}

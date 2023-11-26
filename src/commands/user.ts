@@ -1,5 +1,5 @@
 import {
-    CommandInteraction,
+    CommandInteraction, SlashCommandBuilder,
     Client,
     ApplicationCommandType,
     ApplicationCommandOptionType,
@@ -10,18 +10,12 @@ import {
 } from "discord.js";
 import { Command } from "../Command";
 
-export const user: Command = {
-    name: "user",
-    description: "Пользователь !",
-    options: [
-        {
-            name: `member`,
-            type: ApplicationCommandOptionType.User,
-            description: `Участник`
-        }
-    ],
-    type: ApplicationCommandType.ChatInput,
-    run: async (client: Client, interaction: CommandInteraction) => {
+export = {
+	data: new SlashCommandBuilder()
+    .setName("user")
+    .setDescription("Пользователь !")
+	.addUserOption(o => o.setName('member').setDescription('Участник')),
+    async execute(interaction: CommandInteraction) {
 
         let iconURL: string = 'https://cdn.discordapp.com/icons/1169284741846016061/63ff0e27c4c5de492894df065ef72266.png'
 		const int: CommandInteraction = interaction

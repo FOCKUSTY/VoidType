@@ -1,28 +1,18 @@
-import { CommandInteraction, Client, ApplicationCommandType, InteractionReplyOptions, Interaction, ApplicationCommandOptionType } from "discord.js";
+import { CommandInteraction, Client, SlashCommandBuilder, ApplicationCommandType, InteractionReplyOptions, Interaction, ApplicationCommandOptionType } from "discord.js";
 import { Command } from "../Command";
 import { Random } from "random-js";
 const r = new Random();
 
-export const random: Command = {
-    name: "random",
-    description: "Случайный выбор чисел !",
-    type: ApplicationCommandType.ChatInput,
-    options: [
-            {
-                name: `first`,
-                type: ApplicationCommandOptionType.Integer,
-                description: `Первое число`,
-                required: true
-            },
-            {
-                name: `second`,
-                type: ApplicationCommandOptionType.Integer,
-                description: `Второе число`,
-                required: true
-            }
-            ],
+export = {
+	data: new SlashCommandBuilder()
+    .setName("random")
+    .setDescription("Случайный выбор чисел !")
+	.addIntegerOption(option =>
+		option.setName('first').setDescription('Первое число').setRequired(true))
+	.addIntegerOption(option =>
+		option.setName('second').setDescription('Второе число').setRequired(true)),
 
-    run: async (client: Client, interaction: CommandInteraction) => {
+    async execute(interaction: CommandInteraction) {
         
         const firstInt: number = Number(interaction.options.get('first')?.value)|| 0
         const secondInt: number = Number(interaction.options.get('second')?.value)|| 0

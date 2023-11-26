@@ -1,14 +1,16 @@
-import { Client } from "discord.js";
-import { Commands } from "../SlashCommands";
+import { Client, Events } from "discord.js";
+import { commands } from "../SlashCommands";
 
-export default (client: Client): void => {
-    client.on("ready", async () => {
+export = {
+    name: Events.ClientReady,
+    once: true,
+    async execute(client: Client) {
         if (!client.user || !client.application) {
             return;
-        }
-        
-        client.application.commands.set(Commands);
+        };
 
-        console.log(`Готово ! ${client.user.username} готов к работе !`);
-    });
-};
+        await client.application.commands.set(commands);
+
+		console.log(`Готово! The Void готов к работе, как ${client.user.tag}\n`);
+    }
+}

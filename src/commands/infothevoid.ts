@@ -1,11 +1,11 @@
-import { CommandInteraction, Client, ApplicationCommandType, InteractionReplyOptions, Interaction, EmbedBuilder, Embed } from "discord.js";
+import { CommandInteraction, SlashCommandBuilder, Client, ApplicationCommandType, InteractionReplyOptions, Interaction, EmbedBuilder, Embed } from "discord.js";
 import { Command } from "../Command";
 
-export const thevoid: Command = {
-    name: "thevoid",
-    description: "Информация о The Void !",
-    type: ApplicationCommandType.ChatInput,
-    run: async (client: Client, interaction: CommandInteraction) => {
+export = {
+	data: new SlashCommandBuilder()
+    .setName("thevoid")
+    .setDescription("Информация о The Void !"),
+    async execute(interaction: CommandInteraction) {
 
 		const embed = new EmbedBuilder()
 		.setColor(0x161618)

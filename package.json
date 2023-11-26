@@ -1,10 +1,10 @@
 {
   "name": "voidbotts",
-  "version": "1.0.0",
+  "version": "1-a2",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "deployc": "tsx watch src/deploy-commands.ts",
+    "slash": "tsx watch src/SlashCommands.ts",
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
     "build": "tsup src/index.ts --minify"
@@ -16,7 +16,16 @@
     "discord.js": "^14.14.1",
     "dotenv": "^16.3.1",
     "random-js": "^2.1.0",
-    "yarn": "^1.22.19"
+    "yarn": "^1.22.19",
+    "@discordjs/voice": "^0.16.0",
+    "date-fns": "^2.30.0",
+    "ffmpeg-static": "^5.2.0",
+    "libsodium-wrappers": "^0.7.13",
+    "mysql": "^2.18.1",
+    "opusscript": "^0.0.8",
+    "sequelize": "^6.35.0",
+    "sqlite3": "^5.1.6"
+
   },
   "devDependencies": {
     "tsup": "^7.2.0",

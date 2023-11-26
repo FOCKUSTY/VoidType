@@ -1,11 +1,11 @@
-import { CommandInteraction, Client, ApplicationCommandType, InteractionReplyOptions, Interaction } from "discord.js";
+import { CommandInteraction, SlashCommandBuilder, Client, ApplicationCommandType, InteractionReplyOptions, Interaction } from "discord.js";
 import { Command } from "../Command";
 
-export const kill: Command = {
-    name: "kill",
-    description: "Убить бота !",
-    type: ApplicationCommandType.ChatInput,
-    run: async (client: Client, interaction: CommandInteraction) => {
+export = {
+    data: new SlashCommandBuilder()
+    .setName("kill")
+    .setDescription("Убить бота !"),
+    async execute(interaction: CommandInteraction) {
         const cl: Client = interaction.client
 
         if(interaction.user.id === `877154902244216852`) {

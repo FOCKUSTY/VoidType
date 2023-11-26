@@ -1,11 +1,11 @@
-import { CommandInteraction, Client, ApplicationCommandType, InteractionReplyOptions, Interaction } from "discord.js";
+import { CommandInteraction, SlashCommandBuilder, Client, ApplicationCommandType, InteractionReplyOptions, Interaction } from "discord.js";
 import { Command } from "../Command";
 
-export const ping: Command = {
-    name: "ping",
-    description: "Вовращает понг !",
-    type: ApplicationCommandType.ChatInput,
-    run: async (client: Client, interaction: CommandInteraction) => {
+export = {
+    data: new SlashCommandBuilder()
+    .setName("ping")
+    .setDescription("Вовращает понг !"),
+    async execute(interaction: CommandInteraction) {
 
         const sent = await interaction.reply({ content: '# Pong ! :tophat:\n Считаем время...', fetchReply: true, ephemeral: true});
 
