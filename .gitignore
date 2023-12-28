@@ -6,6 +6,7 @@ start.bat
 start.bat.lnk
 sounds/
 music/
+names.json
 
 # Logs
 logs

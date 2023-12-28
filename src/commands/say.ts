@@ -1,4 +1,11 @@
-import { SlashCommandBuilder, PermissionFlagsBits, CommandInteraction, ChannelType, PermissionsBitField, EmbedBuilder } from 'discord.js';
+import {
+    SlashCommandBuilder, PermissionFlagsBits, ModalActionRowComponentBuilder,
+    CommandInteraction, ChannelType, TextInputBuilder,
+    PermissionsBitField, EmbedBuilder, TextInputStyle,
+    ModalBuilder, ActionRowBuilder
+} from 'discord.js';
+
+import { setChannel, setBool } from '../events/modals';
 
     export = {
         cooldown: 5,
@@ -16,13 +23,6 @@ import { SlashCommandBuilder, PermissionFlagsBits, CommandInteraction, ChannelTy
                 .setDescriptionLocalizations({ru:'Канал на который вы хотите отправить сообщение',"en-US":'The channel you want to send a message to'})
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText))
-        .addStringOption(option =>
-            option
-                .setName('message')
-                .setDescription('Ваше сообщение !')
-                .setNameLocalizations({ru:'сообщение',"en-US":'message'})
-                .setDescriptionLocalizations({ru:'Ваше сообщение',"en-US":'Your message'})
-                .setRequired(true))
         .addBooleanOption(option =>
             option
             .setName(`embed`).setDescription('Сообщение в виде embed? (Вложенный текст)').setRequired(true)
@@ -30,12 +30,51 @@ import { SlashCommandBuilder, PermissionFlagsBits, CommandInteraction, ChannelTy
             .setDescriptionLocalizations({ru:'embed сообщение? (Вложенный текст)',"en-US":'embed message?'})),
         async execute(interaction: CommandInteraction) {
 
-        const int = interaction;
-        const channel: any = int.options.get(`channel`)?.value;
-        const msg: any = int.options.get(`message`)?.value;
-        const bool: any = int.options.get('embed')?.value;
+            const int = interaction;
+            const channel: any = int.options.get(`channel`)?.value;
+            const bool: any = int.options.get('embed')?.value;
+            console.log(channel)
         
-        if(!(channel?.permissionsFor(interaction.client.user.id).has([PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ViewChannel]))) {
+            setChannel(channel, int);
+            setBool(bool)
+
+        const modal = new ModalBuilder().setCustomId(`sayModal`).setTitle(`Ваше сообщение !`);
+
+    let ideaDetailPH: string = `Хочу, чтобы Валя был администратором на The Void Community!!!!`
+
+    if(bool) {
+        modal.addComponents(
+            new ActionRowBuilder<ModalActionRowComponentBuilder>()
+                .addComponents(
+                    new TextInputBuilder()
+                    .setCustomId('message')
+                    .setLabel("Ваше сообщение")
+                    .setStyle(TextInputStyle.Paragraph)
+                    .setRequired(true)
+                    .setMaxLength(4000)
+                    .setPlaceholder(`${ideaDetailPH}`)
+                )
+        );
+        await int.showModal(modal)
+
+    }
+    else {
+        modal.addComponents(
+            new ActionRowBuilder<ModalActionRowComponentBuilder>()
+                .addComponents(
+                    new TextInputBuilder()
+                    .setCustomId('message')
+                    .setLabel("Ваше сообщение")
+                    .setStyle(TextInputStyle.Paragraph)
+                    .setRequired(true)
+                    .setMaxLength(2000)
+                    .setPlaceholder(`${ideaDetailPH}`)
+                )
+        );
+        await int.showModal(modal)
+    }
+
+/*         if(!(channel?.permissionsFor(interaction.client.user.id).has([PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ViewChannel]))) {
             await int.reply({
             content:
             `Сообщение не было доставлено на Ваш канал, возможны причины:\nВаш канал не является текстовым каналом\nУ меня не достаточно прав отправить сообщение на Ваш канал`,
@@ -74,6 +113,6 @@ import { SlashCommandBuilder, PermissionFlagsBits, CommandInteraction, ChannelTy
         content:
         `Сообщение не было доставлено на Ваш канал, возможны причины:\nВаш канал не является текстовым каналом\nУ меня не достаточно прав отправить сообщение на Ваш канал\n## Ошибка:\n\`\`\`${err}\`\`\``,
         ephemeral: true});
-    }
+    } */
 	},
 };

@@ -27,10 +27,6 @@ module.exports = {
     let ideaPH: string = `Добавить Валю в команду The Void Community`
     let ideaDetailPH: string = `Хочу, чтобы Валя был администратором на The Void Community!!!!`
 
-/*     let randomNumber: number = random.integer(0, objectIdeas.length-1);
-    ideaPH = objectIdeas[randomNumber].idea
-    ideaDetailPH = objectIdeas[randomNumber].ideaDetail */
-
     modal.addComponents(
         new ActionRowBuilder<ModalActionRowComponentBuilder>()
             .addComponents(

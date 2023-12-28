@@ -4,12 +4,17 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { config } from "./config";
 import { intCreate } from './events/interaction-create'
+import { modalSubmit } from "./events/modals";
 
 export const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.DirectMessages,
     GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildVoiceStates,
+    GatewayIntentBits.GuildPresences,
   ],
 });
 
@@ -34,6 +39,7 @@ const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts'));
 
 (async () => {
+  console.log('Начало обновления обработчиков событий')
   for (const file of eventFiles) {
     const filePath = path.join(eventsPath, file);
     const event = await require(filePath);
@@ -43,59 +49,11 @@ const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts'
       client.on(event.name, (...args) => event.execute(...args));
     }
   }
+  console.log('Конец обновления обработчиков событий')
 })();
 
-client.on(Events.InteractionCreate, async int => {
-	const user = int.user.globalName;
-	const userAvatar = `https://cdn.discordapp.com/avatars/${int.user.id}/${int.user.avatar}.png`;
-	let iconURL;
-	if(int.guild!=undefined||int.guild!=null) {
-		iconURL = `https://cdn.discordapp.com/icons/${int?.guild?.id}/${int?.guild?.icon}.png`
-	} else {
-		iconURL = `https://cdn.discordapp.com/avatars/${int.user.id}/${int.user.avatar}.png`
-	}
-	
-	if(int.type === InteractionType.ModalSubmit) {
-
-		const ideaTitle = int.fields.getTextInputValue(`ideaTitle`);
-		const ideaDetails = int.fields.getTextInputValue(`ideaDetails`);
-
-			const embed = new EmbedBuilder()
-			.setColor(0x161618)
-			.setAuthor({name: `${user}`, iconURL: `${userAvatar}`})
-			.setTitle(`${ideaTitle}`)
-			.setThumbnail(`${iconURL}`)
-			.setDescription(`${ideaDetails}`)
-			.setFields(
-				{name: `Пользователь:`, value: `<@${int.user.id}>`, inline: true},
-				{name: `\n`, value: `\n`, inline: true},
-				{name: `Сервер:`, value: `${int.guild?.name||`Не на сервере`}`, inline: true}
-			)
-			.setTimestamp();
-
-      (client.channels.cache.get("1171051517910986752") as TextChannel).send({content: ``, embeds: [embed]});
-      
-			int.reply({content: `Ваша идея была доставлена!`, embeds: [embed], ephemeral: true});
-
-			console.log(`Идея была доставлена\nИдея: ${ideaTitle}\nОписание: ${ideaDetails}\nНаписал: ${user} (${int.user.id})\nС сервера: ${int.guild?.name||`Не на сервере`} (${int.guild?.id||``})\n`);
-			
-/* 			try {
-				const tag = await Tags.create({
-					name: ideaTitle,
-					username: int.user.username,
-					globalname: int.user.globalName,
-					description: ideaDetails,
-					guildname: int?.guild?.name||`Не на сервере`
-				});
-        console.log(tag)
-        // console.log(`Тег идеи успешно добавлен\nНазвание: ${tag.name}\nОписание: ${tag.description}\nОтправил: ${tag.username}\nС сервера: ${tag.guildname}`)
-			} catch (error) {
-				console.log(`Ошибка с добавление тега\n${error}`)
-			} */
-		};
-})
-
-
+client.on(Events.InteractionCreate, int => modalSubmit(int))
 client.on(Events.InteractionCreate, async(interaction: Interaction) => intCreate(commands, interaction))
-
+/* client.on(Events.VoiceStateUpdate, (oldVS, VS) => {console.log(true)})
+ */
 client.login(config.DISCORD_TOKEN);

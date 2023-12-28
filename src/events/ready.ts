@@ -13,35 +13,36 @@ export = {
             return;
         };
 
-        await client.application.commands.set(commands);
+		if(!client.application?.commands) await client.application.commands.set(commands);
 
 		client.guilds.cache.forEach(guild => {
 			guilds.push(guild)
 		});
-			
-			downloadActivities();	
-			console.log(`Рандомные активности:`.bold + `\n`);
+		
+		setTimeout(() => { downloadActivities();
+			if(!client||!client.user) return;
+			console.log(`Рандомные активности:\n`);
 			for (let e of randomActivity) {
 				console.log(`${e[0]} - ${randomActivity.indexOf(e)}`);
 			};
+			console.log()
 
 			console.log(`Всего ${actLength()} Активность(и)(ей)`);
-			
-            for(let el of actLengths) {
-				console.log(`Всего ${el[0]} ${el[1]}`);
+			for(let el of actLengths) {
+				console.log(`Всего ${`${el[0]}`} ${el[1]}`);
 				actDownload += Number(el[0]);
 			};
 
 			console.log(`Всего загружено: ${actDownload} разных(ые) активности(ей)`);
 			console.log();
 	
+			console.log(`Готово! The Abissia готова к работе в The Void, мое имя ${client.user.tag}\n`);
+	
 			functionRandomActivity(client, guilds);
 	
 			setInterval(() => {
 				functionRandomActivity(client, guilds);
-			}, 60000);
-
-            console.log(`Готово! The Abissia готова к работе в The Void, мое имя ${client.user.tag}\n`);
-
+			}, 80000);
+		}, 5000);
     }
 }
