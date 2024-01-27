@@ -1,7 +1,7 @@
-import { CommandInteraction, SlashCommandBuilder, Client, ApplicationCommandType, InteractionReplyOptions, Interaction, EmbedBuilder, Embed } from "discord.js";
-import { Command } from "../Command";
+import { CommandInteraction, SlashCommandBuilder, EmbedBuilder } from "discord.js";
 
-export = {
+module.exports =
+{
 	data: new SlashCommandBuilder()
     .setName("thevoid")
     .setDescription("Информация о The Void !"),

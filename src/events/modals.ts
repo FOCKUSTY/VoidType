@@ -1,9 +1,11 @@
-import {
+import
+{
 	Interaction, InteractionType, EmbedBuilder, TextChannel,
 	PermissionsBitField
 } from "discord.js";
-import { addRowIdeaDB } from '../develop';
-import { debug } from "../develop";
+
+import { addRowIdeaDB } from '../utils/tags';
+import { debug } from "../utils/developConsole";
 
 let channel: any;
 let bool: boolean;
@@ -55,7 +57,7 @@ export async function modalSubmit(this: any, int: Interaction) {
 					addRowIdeaDB(`${ideaTitle}`, `${int.user?.username}`, `${int.user?.globalName}`, `${ideaDetails}`, `${int.guild?.name}`)
 				} catch (e) {
 					console.log('Идея не была доставлена !')
-					debug(e, true, this, true, true, true)
+					debug([e, true])
 				}
 		} else if(int.customId==='sayModal') {
 			if(!(channel?.permissionsFor(interaction.client.user.id).has([PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ViewChannel]))) {

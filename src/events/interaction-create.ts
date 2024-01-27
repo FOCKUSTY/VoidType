@@ -1,7 +1,7 @@
-import { ChatInputApplicationCommandData, SlashCommandBuilder, Interaction } from 'discord.js'
-import { commands } from '../SlashCommands';
+import { Interaction } from 'discord.js'
 
-export async function intCreate(commands: any, interaction: Interaction) {
+export async function intCreate(commands: any, interaction: Interaction)
+{
     if (!interaction.isChatInputCommand()) return;
 
     const command = commands.get(interaction.commandName) as {
@@ -13,12 +13,15 @@ export async function intCreate(commands: any, interaction: Interaction) {
         `No command matching ${interaction.commandName} was found.`
     );
 
-try {
-    await command.execute(interaction);
-} catch (error) {
-    await interaction.reply({
-        content: "There was an error while executing this command!",
-        ephemeral: true,
-    });
-}
+    try
+    {
+        await command.execute(interaction);
+    }
+    catch (error)
+    {
+        await interaction.reply({
+            content: "There was an error while executing this command!",
+            ephemeral: true,
+        });
+    }
 }

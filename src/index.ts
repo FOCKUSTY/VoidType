@@ -3,7 +3,7 @@ import { Client, Events, GatewayIntentBits, Collection, Interaction, Guild, Inte
 import fs from 'node:fs';
 import path from 'node:path';
 import { config } from "./config";
-import { intCreate } from './events/interaction-create'
+import { intCreate } from './events/interaction-create';
 import { modalSubmit } from "./events/modals";
 
 export const client = new Client({
@@ -18,42 +18,57 @@ export const client = new Client({
   ],
 });
 
-const commands = new Collection();
-const filesPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(filesPath).filter(file => file.endsWith('.ts'));
+const Commands = new Collection();
 
-(async () => {
-  for (const file of commandFiles) {
-    const filePath = path.join(filesPath, file);
-    const command = await require(filePath);
-    if ('data' in command && 'execute' in command) {
-      commands.set(command.data.name, command);
-    } else {
-      if(filePath==='D:\\VoidBotTs\\src\\commands\\download.ts') continue;
-      console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
-    }
-  }
-})();
+const foldersPath = path.join(__dirname, 'commands');
+const commandFolders = fs.readdirSync(foldersPath);
+
+for (const folder of commandFolders)
+{
+	const commandsPath = path.join(foldersPath, folder);
+	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.ts'));
+	for (const file of commandFiles)
+  {
+		const filePath = path.join(commandsPath, file);
+		const command = require(filePath);
+		if ('data' in command && 'execute' in command)
+    {
+      Commands.set(command.data.name, command)
+			client.application?.commands.set(command.data.name, command);
+		}
+    else
+    {
+      if(!(filePath==='F:\\VoidBotTs\\src\\commands\\utility\\download.ts'))
+      {
+        console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+      }
+		}
+	}
+}
 
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts'));
 
-(async () => {
+(async () =>
+{
   console.log('Начало обновления обработчиков событий')
-  for (const file of eventFiles) {
+  for (const file of eventFiles)
+  {
     const filePath = path.join(eventsPath, file);
     const event = await require(filePath);
-    if (event.once) {
+    if (event.once)
+    {
       client.once(event.name, (...args) => event.execute(...args));
-    } else {
+    }
+    else
+    {
       client.on(event.name, (...args) => event.execute(...args));
     }
   }
   console.log('Конец обновления обработчиков событий')
 })();
 
-client.on(Events.InteractionCreate, int => modalSubmit(int))
-client.on(Events.InteractionCreate, async(interaction: Interaction) => intCreate(commands, interaction))
-/* client.on(Events.VoiceStateUpdate, (oldVS, VS) => {console.log(true)})
- */
+client.on(Events.InteractionCreate, int => modalSubmit(int));
+client.on(Events.InteractionCreate, async(interaction: Interaction) => intCreate(Commands, interaction));
+
 client.login(config.DISCORD_TOKEN);

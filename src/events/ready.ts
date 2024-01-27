@@ -1,17 +1,18 @@
 import { Client, Events } from "discord.js";
 import { commands } from "../SlashCommands";
-import { randomActivity, functionRandomActivity, actLengths, actLength, downloadActivities } from '../develop'
+import { functionRandomActivity } from "../utils/randomActivities";
+import { downloadActivities, getActivities } from "../utils/updateActivities";
 
+const randomActivity = getActivities('randomActivity');
 const guilds: any[] = [];
-let actDownload = 0;
 
-export = {
+module.exports =
+{
     name: Events.ClientReady,
     once: true,
-    async execute(client: Client) {
-        if (!client.user || !client.application) {
-            return;
-        };
+    async execute(client: Client)
+	{
+        if (!client.user || !client.application) return;
 
 		if(!client.application?.commands) await client.application.commands.set(commands);
 
@@ -19,22 +20,17 @@ export = {
 			guilds.push(guild)
 		});
 		
-		setTimeout(() => { downloadActivities();
+		setTimeout(() =>
+		{
+			downloadActivities();
+		
 			if(!client||!client.user) return;
 			console.log(`Рандомные активности:\n`);
-			for (let e of randomActivity) {
+
+			for (let e of randomActivity)
+			{
 				console.log(`${e[0]} - ${randomActivity.indexOf(e)}`);
 			};
-			console.log()
-
-			console.log(`Всего ${actLength()} Активность(и)(ей)`);
-			for(let el of actLengths) {
-				console.log(`Всего ${`${el[0]}`} ${el[1]}`);
-				actDownload += Number(el[0]);
-			};
-
-			console.log(`Всего загружено: ${actDownload} разных(ые) активности(ей)`);
-			console.log();
 	
 			console.log(`Готово! The Abissia готова к работе в The Void, мое имя ${client.user.tag}\n`);
 	
