@@ -27,9 +27,9 @@ module.exports =
 			if(!client||!client.user) return;
 			console.log(`Рандомные активности:\n`);
 
-			for (let e of randomActivity)
+			for (let el of randomActivity)
 			{
-				console.log(`${e[0]} - ${randomActivity.indexOf(e)}`);
+				console.log(`${el[0]} - ${randomActivity.indexOf(el)}`);
 			};
 	
 			console.log(`Готово! The Abissia готова к работе в The Void, мое имя ${client.user.tag}\n`);

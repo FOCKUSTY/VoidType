@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from 'discord.js';
 import { updateActivities } from '../../utils/updateActivities';
 
-module.exports =
+export =
 {
     cooldown: 5,
     data: new SlashCommandBuilder()

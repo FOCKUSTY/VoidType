@@ -7,7 +7,7 @@ let verLevel = [
 	`Серьезный`,
 ]
 
-module.exports =
+export =
 {
 	cooldown: 5,
 	data: new SlashCommandBuilder()

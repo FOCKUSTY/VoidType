@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder, CommandInteraction } from 'discord.js';
 
-module.exports =
+export =
 {
     cooldown: 5,
     data: new SlashCommandBuilder()

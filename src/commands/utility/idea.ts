@@ -20,7 +20,7 @@ let booleanVar = false;
 let ideaPH: string = `Добавить Валю в команду The Void Community`
 let ideaDetailPH: string = `Хочу, чтобы Валя был администратором на The Void Community!!!!`
 
-module.exports =
+export =
 {
     cooldown: 5,
     data: new SlashCommandBuilder()

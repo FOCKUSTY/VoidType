@@ -5,7 +5,7 @@ import
     time,
 } from "discord.js";
 
-module.exports =
+export =
 {
 	data: new SlashCommandBuilder()
     .setName("user")

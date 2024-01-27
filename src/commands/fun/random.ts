@@ -2,7 +2,7 @@ import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { Random } from "random-js";
 const r = new Random();
 
-module.exports =
+export =
 {
 	data: new SlashCommandBuilder()
     .setName("random")

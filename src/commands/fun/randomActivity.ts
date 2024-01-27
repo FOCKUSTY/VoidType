@@ -3,7 +3,7 @@ import { functionRandomActivity } from '../../utils/randomActivities';
     
 const guilds: any[] = [];
 
-module.exports =
+export =
 {
     cooldown: 9600,
     data: new SlashCommandBuilder()

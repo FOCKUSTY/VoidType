@@ -1,7 +1,7 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { getCommands } from "../../utils/commandsList";
 
-module.exports =
+export =
 {
     data: new SlashCommandBuilder()
         .setName("help")

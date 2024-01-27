@@ -3,7 +3,7 @@ import { Random } from "random-js";
 import { shuffle } from '../../utils/shuffle';
 const random = new Random();
 
-module.exports =
+export =
 {
     cooldown: 5,
     data: new SlashCommandBuilder()

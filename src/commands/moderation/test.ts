@@ -1,6 +1,6 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 
-module.exports =
+export =
 {
     data: new SlashCommandBuilder()
     .setName("test")

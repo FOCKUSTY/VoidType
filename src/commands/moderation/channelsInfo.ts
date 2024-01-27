@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, EmbedBuilder, CommandInteraction } from 'discord.js';
 const userGuildChannelsId: any = [];
 
-module.exports =
+export =
 {
     cooldown: 5,
     data: new SlashCommandBuilder()

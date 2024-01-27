@@ -13,7 +13,7 @@ import
 
 import { setChannel, setBool } from '../../events/modals';
 
-module.exports =
+export =
 {
     cooldown: 5,
     data: new SlashCommandBuilder()	.setName('say')	.setDescription('Сообщение с помощью бота!')
