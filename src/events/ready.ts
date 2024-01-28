@@ -2,6 +2,7 @@ import { Client, Events } from "discord.js";
 import { commands } from "../SlashCommands";
 import { functionRandomActivity } from "../utils/randomActivities";
 import { downloadActivities, getActivities } from "../utils/updateActivities";
+import { setDevelop } from "../utils/develop";
 
 const randomActivity = getActivities('randomActivity');
 const guilds: any[] = [];
@@ -20,6 +21,8 @@ module.exports =
 			guilds.push(guild)
 		});
 		
+		setDevelop(client)
+
 		setTimeout(() =>
 		{
 			downloadActivities();

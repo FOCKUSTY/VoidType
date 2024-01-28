@@ -4,7 +4,7 @@ let
 
 const setGMPlaying = async (arg: any, boolean=false) =>
 {
-  if(globalMusicPlaying.size===0 && arg.guilds.cache) await arg.guilds.cache.forEach((guild: any) =>
+  if(globalMusicPlaying.size===0 && arg?.guilds?.cache) await arg?.guilds?.cache.forEach((guild: any) =>
     {
       globalMusicPlaying.set(guild, boolean);
     })
