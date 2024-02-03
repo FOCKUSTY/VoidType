@@ -13,8 +13,8 @@ export =
 	data: new SlashCommandBuilder()
 		.setName('server')
 		.setDescription('Информация о сервере')
-		.setNameLocalizations({ru:'сервер',"en-US":'server'})
-		.setDescriptionLocalizations({ru:'Информация о сервере',"en-US":'Info about server'}),
+		.setNameLocalizations({ ru: 'сервер', "en-US": 'server' })
+		.setDescriptionLocalizations({ ru: 'Информация о сервере', "en-US": 'Info about server' }),
 	async execute(interaction: CommandInteraction)
 	{
 		const int: CommandInteraction = interaction;

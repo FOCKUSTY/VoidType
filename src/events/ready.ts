@@ -1,5 +1,5 @@
 import { Client, Events } from "discord.js";
-import { commands } from "../SlashCommands";
+import { guildCommands, globalCommands } from "../SlashCommands";
 import { functionRandomActivity } from "../utils/randomActivities";
 import { downloadActivities, getActivities } from "../utils/updateActivities";
 import { setDevelop } from "../utils/develop";
@@ -15,7 +15,7 @@ module.exports =
 	{
         if (!client.user || !client.application) return;
 
-		if(!client.application?.commands) await client.application.commands.set(commands);
+		// if(!client.application?.commands) await client.application.commands.set(commands);
 
 		client.guilds.cache.forEach(guild => {
 			guilds.push(guild)

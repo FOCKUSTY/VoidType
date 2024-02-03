@@ -1,13 +1,14 @@
 {
   "name": "voidbotts",
-  "version": "1-a4a",
+  "version": "1-a4.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "slash": "tsx watch src/SlashCommands.ts",
     "dev": "tsx watch src/index.ts",
-    "start": "node dist/index.js",
-    "build": "tsup src/* && tsup src/commands/* && tsup src/events/*"
+    "start": "node dist/SlashCommands.js && node dist/index.js",
+    "build": "tsup src/**",
+    "go": "tsup src/** && node dist/SlashCommands.js && node dist/index.js"
   },
   "author": "FOCKUSTY",
   "license": "ISC",

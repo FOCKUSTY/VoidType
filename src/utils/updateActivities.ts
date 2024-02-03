@@ -52,14 +52,15 @@ const THEVOIDSARRAY: any =
 
     dataVars: any =
     [
-        [   'arrKristyAct',         'jsonKristyActivities'      ],
-        [   'download',             'jsonDownload'              ],
-        [   'guildActivities',      'jsonGuildActivities'       ],
-        [   'randomActivities',     'jsonActivities'            ],
-        [   'jokes',                'jsonJokes'                 ],
-        [   'objectIdeas',          'jsonObjectIdeas'           ],
-        [   'namesActivities',      'jsonRandomNameActivities'  ],
-        [   'randomNames',          'jsonNames'                 ],
+        [   'парень',              'THEVOIDSBOT_REVERSE_GENDER'  ],
+        [   'arrKristyAct',         'jsonKristyActivities'        ],
+        [   'download',             'jsonDownload'                ],
+        [   'guildActivities',      'jsonGuildActivities'         ],
+        [   'randomActivities',     'jsonActivities'              ],
+        [   'jokes',                'jsonJokes'                   ],
+        [   'objectIdeas',          'jsonObjectIdeas'             ],
+        [   'namesActivities',      'jsonRandomNameActivities'    ],
+        [   'randomNames',          'jsonNames'                   ],
     ],
 
     dataFiles: any =
@@ -161,10 +162,13 @@ const clearActivity = () =>
 const readActivityDB = () =>
 {
   const path = '../../VoidDataBase/data.json';
-  const file = (fs.readFileSync(path, {encoding: 'utf8'}));
+  const file = fs.readFileSync(path, {encoding: 'utf8'});
   let json: any;
 
-  JSON.stringify(file, (key, value) => { json = eval(` ${json} = ${value} `) } );
+
+  eval(`json = ${file}`)
+
+  // JSON.stringify(file, (key, value) => { json = eval(` ${json} = ${value} `) } );
 
   jsonCicle: for (let el in json)
   {

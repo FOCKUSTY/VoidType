@@ -5,6 +5,7 @@ import path from 'node:path';
 import { config } from "./config";
 import { intCreate } from './events/interaction-create';
 import { modalSubmit } from "./events/modals";
+import { skip } from "./utils/developConsole";
 
 export const client = new Client({
   intents: [
@@ -18,15 +19,45 @@ export const client = new Client({
   ],
 });
 
+const guildId = '1169284741846016061';
+
 const Commands = new Collection();
+const globalfoldersPath = path.join(__dirname, 'globalCommands');
+const globalcommandFolders = fs.readdirSync(globalfoldersPath);
 
-const foldersPath = path.join(__dirname, 'commands');
-const commandFolders = fs.readdirSync(foldersPath);
+const guildFoldersPath = path.join(__dirname, 'guildCommands');
+const guildCommandFolders = fs.readdirSync(guildFoldersPath);
 
-for (const folder of commandFolders)
+
+for (const folder of globalcommandFolders)
 {
-	const commandsPath = path.join(foldersPath, folder);
-	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.ts'));
+	const commandsPath = path.join(globalfoldersPath, folder);
+	let commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.ts'));
+  if(commandFiles.length===0) commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+	for (const file of commandFiles)
+  {
+		const filePath = path.join(commandsPath, file);
+		const command = require(filePath);
+		if ('data' in command && 'execute' in command)
+    {
+      Commands.set(command.data.name, command)
+			client.application?.commands.set(command.data.name, command);
+		}
+    else
+    {
+      if(!(filePath==='F:\\VoidBotTs\\src\\commands\\utility\\download.ts'))
+      {
+        console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+      }
+		}
+	}
+}
+
+for (const folder of guildCommandFolders)
+{
+	const commandsPath = path.join(guildFoldersPath, folder);
+	let commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.ts'));
+  if(commandFiles.length===0) commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles)
   {
 		const filePath = path.join(commandsPath, file);
@@ -47,7 +78,8 @@ for (const folder of commandFolders)
 }
 
 const eventsPath = path.join(__dirname, 'events');
-const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts'));
+let eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts'));
+if(eventFiles.length===0) eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
 (async () =>
 {

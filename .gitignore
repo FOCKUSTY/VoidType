@@ -1,9 +1,9 @@
 # My files
-start.bat
+*.bat
 .env
 .vscode/
 .vs/
-start.bat.lnk
+*.lnk
 sounds/
 music/
 names.json
