@@ -1,6 +1,6 @@
 const oneTimeFunctionCache = new Map();
 
-const oneTimeFunction = (name: string, boolean=true, isUpdate=false, isGet=false) =>
+const oneTimeFunction = (name: any, boolean=true, isUpdate=false, isGet=false, activity?: any, ...args: any[]) =>
 {
   if(isGet) return oneTimeFunctionCache.get(name)
 
@@ -8,16 +8,20 @@ const oneTimeFunction = (name: string, boolean=true, isUpdate=false, isGet=false
 
   else if(oneTimeFunctionCache.get(name)) return;
   
-  else oneTimeFunctionCache.set(name, boolean);  
+  else
+  {
+    if(activity) activity(...args);
+    oneTimeFunctionCache.set(name, boolean);  
+    return(oneTimeFunctionCache.get(name));
+  }
 };
 
-class OnTime
+class OneTime
 {
-  
   _boolean_: boolean;
   name: string;
 
-  constructor(_boolean_: boolean, _name_: string)
+  constructor(_boolean_: any, _name_: any)
   {
     this._boolean_ = _boolean_;
     this.name = _name_;
@@ -50,5 +54,5 @@ class OnTime
 export
 {
   oneTimeFunction,
-  OnTime
+  OneTime
 };

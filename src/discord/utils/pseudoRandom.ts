@@ -204,7 +204,7 @@ const historyRandom = (num: number, min=0, max=100, array: any[], n=3, dOaF=1, p
     return num;
 }; */
 
-function pseudoRandomNumber(min=0, max=100, n=3, m=2, historyArr=historyArray, yourArr?: any[], array?: any[], history=true, chanceNull=true, chanceMax=true)
+function pseudoRandomNumber(min=0, max=100, n=3, m=2, historyArr=historyArray, yourArr?: any[], array?: any[], history:any = true, chanceNull=true, chanceMax=true)
 {
   let
     someMin,

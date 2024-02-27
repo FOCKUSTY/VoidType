@@ -37,14 +37,15 @@ let arrKristyAct: any = jsonKristyActivities,
 const THEVOIDSARRAY: any =
     [
     
-        [    'The Abyssia',  'THEVOIDSBOT_NREVERSE'     ],
-        [    'The Void',     'THEVOIDSBOT_REVERSE'      ],
-        [    'The Void',     'THEVOIDSBOT_LOVE'         ],
-        [    'Kristy',       'THEVOIDSBOT_REVERSE_LOVE' ],
-        [    'Kristy',       'THEVOID_LOVE'             ],
-        [    'The Void',     'THEVOID'                  ],
-        [    'а',            'typend_A'                 ],
-        [    'ой',           'typend_B'                 ]
+        [    'парень',       'THEVOIDSBOT_REVERSE_GENDER' ],
+        [    'The Abyssia',  'THEVOIDSBOT_NREVERSE'       ],
+        [    'The Void',     'THEVOIDSBOT_REVERSE'        ],
+        [    'The Void',     'THEVOIDSBOT_LOVE'           ],
+        [    'Kristy',       'THEVOIDSBOT_REVERSE_LOVE'   ],
+        [    'Kristy',       'THEVOID_LOVE'               ],
+        [    'The Void',     'THEVOID'                    ],
+        [    'а',            'typend_A'                   ],
+        [    'ой',           'typend_B'                   ]
     
     ],
 
@@ -52,7 +53,6 @@ const THEVOIDSARRAY: any =
 
     dataVars: any =
     [
-        [   'парень',              'THEVOIDSBOT_REVERSE_GENDER'  ],
         [   'arrKristyAct',         'jsonKristyActivities'        ],
         [   'download',             'jsonDownload'                ],
         [   'guildActivities',      'jsonGuildActivities'         ],

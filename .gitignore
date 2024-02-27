@@ -8,6 +8,7 @@ sounds/
 music/
 names.json
 ideadb.sqlite
+config.json
 
 # Logs
 logs
