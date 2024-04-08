@@ -1,36 +1,23 @@
-const
-  devDebug = false;
+const devDebug = false;
 
-const debug = ( arr: any, dev = devDebug, isLog = false, isTrace = false): void =>
+const debug = (args: any[] = [true], debugging: boolean = true, trace: boolean = false, isError: boolean = false) =>
 {
-  let arg = arr[0]
-  
-  if(!Array.isArray(arr) && ( arr[1] || devDebug ) ) arg = arr
+  if(!(devDebug || debugging)) return;
+
+  if(isError)
+  {
+    console.error(...args);
+  }
   else
   {
-    
-    console.error(arg);
-    console.trace(arg);
-    return;
-
-  };
+    console.log(...args);
   
-  try
-  {
-    if(devDebug || dev)
+    if(trace)
     {
-
-      if(isLog)     console.log(arg);
-      if(isTrace)   console.trace(arg);
-
-    }
-    else console.log(arg);
+      console.trace();
+    };
   }
-  catch (err)
-  {
-    console.log(err);
-  };
-};
+}
 
 const skip = ( value = 1 ): void =>
 {
@@ -43,14 +30,14 @@ const skip = ( value = 1 ): void =>
   }
   catch (err)
   {
-    console.log();
-    debug([err, true]);
-    console.log();
-  }
+    skip();
+    debug([err], true, false, true);
+    skip();
+  };
 };
 
 export
 {
  debug,
  skip
-}
+};

@@ -6,6 +6,7 @@ import { config } from "./config";
 import { intCreate } from './events/interaction-create';
 import { modalSubmit } from "./events/modals";
 import { skip } from "./utils/developConsole";
+import { setCommand } from "./utils/commandsList";
 
 export const client = new Client({
   intents: [
@@ -19,15 +20,12 @@ export const client = new Client({
   ],
 });
 
-const guildId = '1169284741846016061';
-
 const Commands = new Collection();
 const globalfoldersPath = path.join(__dirname, 'globalCommands');
 const globalcommandFolders = fs.readdirSync(globalfoldersPath);
 
 const guildFoldersPath = path.join(__dirname, 'guildCommands');
 const guildCommandFolders = fs.readdirSync(guildFoldersPath);
-
 
 for (const folder of globalcommandFolders)
 {
@@ -64,16 +62,12 @@ for (const folder of guildCommandFolders)
 		const command = require(filePath);
 		if ('data' in command && 'execute' in command)
     {
-      Commands.set(command.data.name, command)
+      Commands.set(command.data.name, command);
+      setCommand(command.data.name)
 			client.application?.commands.set(command.data.name, command);
 		}
     else
-    {
-      if(!(filePath==='F:\\VoidBotTs\\src\\commands\\utility\\download.ts'))
-      {
-        console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
-      }
-		}
+      console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
 	}
 }
 
@@ -103,4 +97,4 @@ if(eventFiles.length===0) eventFiles = fs.readdirSync(eventsPath).filter(file =>
 client.on(Events.InteractionCreate, int => modalSubmit(int));
 client.on(Events.InteractionCreate, async(interaction: Interaction) => intCreate(Commands, interaction));
 
-client.login(config.DISCORD_TOKEN);
+client.login(config.token);

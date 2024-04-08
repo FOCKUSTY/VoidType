@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { updateActivities } from '../../utils/updateActivities';
+import { updateActivities } from '../../utils/updatejson';
 
 export =
 {
@@ -13,6 +13,6 @@ export =
     {
         updateActivities(interaction.client);
         
-        return await interaction.reply( { content: `Активности были успешно обновлены !`, ephemeral: true } );
+        await interaction.reply( { content: `Активности были успешно обновлены !`, ephemeral: true } );
     },
 };

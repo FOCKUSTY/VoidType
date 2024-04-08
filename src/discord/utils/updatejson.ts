@@ -1,37 +1,35 @@
-import fs from 'node:fs'
-import { ActivityType } from 'discord.js'
+import { ActivityType } from 'discord.js';
+import fs, { copyFileSync } from 'node:fs';
 
-import {
+import
+    {
         jsonActivities,
+        jsonBotVersion,
+        jsonDownload,
         jsonGuildActivities,
         jsonJokes,
-        jsonDownload,
-        jsonRandomNameActivities,
+        jsonKristyActivities,
         jsonNames,
         jsonObjectIdeas,
-        jsonKristyActivities,
-        jsonBotVersion
-    } from '../../../../VoidDataBase/data.json'
-    
-import jsonExceptions from '../../../../VoidDataBase/exceptions.json'
-import { replies } from '../../../../VoidDataBase/replyesActivity.json'
+        jsonRandomNameActivities
+    } from '../../../../VoidDataBase/data.json';
 
-import { version } from '../../../package.json'
-import { debug, skip } from './developConsole'
-import { shuffle } from './shuffle'
-import { oneTimeFunction, OneTime} from './OneTimeFunction'
+import jsonExceptions from '../../../../VoidDataBase/exceptions.json';
+import { TheVoidReplies } from '../../../../VoidDataBase/replyesActivity.json';
 
-import {
-        kristyGuildId,
-        kristyId,
-    } from '../../../config.json'
+import { version } from '../../../package.json';
+import { OneTime, oneTimeFunction } from './OneTimeFunction';
+import { debug, skip } from './developConsole';
+import { shuffle } from './shuffle';
+
+import { kristyGuildId, kristyId } from '../../../config.json';
 
 
 
 let
     arrKristyAct = jsonKristyActivities,
     download = jsonDownload,
-    guildActivities = jsonGuildActivities,
+    guildActivities: any = jsonGuildActivities,
     jokes = jsonJokes,
     namesActivities = jsonRandomNameActivities,
     objectIdeas = jsonObjectIdeas,
@@ -80,6 +78,7 @@ const THEVOIDSARRAY =
     exceptions = new Map()
         .set('loveActivity',             false)
         .set("fockActivity",             false)
+        .set("fockustyIsLost",           true)
         .set("devActivity",              false)
         .set("sayActivity",              false)
         .set("watchActivity",            false)
@@ -93,6 +92,7 @@ const THEVOIDSARRAY =
         .set("cmdCommands",              false)
         .set("englishActivities",        false)
         .set("valentinActivity",         true)
+        .set("eightMarchActivity",       true)
         .set("jsonKristyActivities",     false)
         .set("jsonGuildActivities",      false)
         .set("jsonRandomNameActivities", false),
@@ -123,15 +123,17 @@ const THEVOIDSARRAY =
         jsonBotVersion
     ],
 
-    actTypes = new Map()
-        .set('play',   {   type: ActivityType.Playing    })
-        .set('stream', {   type: ActivityType.Streaming  })
-        .set('listen', {   type: ActivityType.Listening  })
-        .set('watch',  {   type: ActivityType.Watching   })
-        .set('cust',   {   type: ActivityType.Custom     })
-        .set('comp',   {   type: ActivityType.Competing  }),
+    actTypes: any =
+    {
+        play:   {   type: ActivityType.Playing    },
+        stream: {   type: ActivityType.Streaming  },
+        listen: {   type: ActivityType.Listening  },
+        watch:  {   type: ActivityType.Watching   },
+        cust:   {   type: ActivityType.Custom     },
+        comp:   {   type: ActivityType.Competing  },
+    },
     
-    actType =
+    actType: any =
     [
         `Играет`,
         `Стримит`,
@@ -147,7 +149,7 @@ const downloadActivities = () =>
 {
     let exceptionsReaded: any;
     const file = ( fs.readFileSync( '../../../VoidDataBase/exceptions.json', { encoding: 'utf8' } ) );
-    JSON.stringify(file, (key, value) => { exceptionsReaded = eval(` ${exceptionsReaded} = ${value} `) } );
+    JSON.stringify(file, (key, value) => { exceptionsReaded = value } );
 
     for(let i=0; i<jsonFiles.length-1;i++)
     {
@@ -160,23 +162,27 @@ const downloadActivities = () =>
         {
             for(let el in actTypes)
             {
-                if(arrKristyAct[i][1]===`actTypes.${el}`) arrKristyAct[i][1] = actTypes.get(el);
+                if(arrKristyAct[i][1]===`actTypes.${el}`) arrKristyAct[i][1] = actTypes[el];
             };
         };
-    };
-
+    }
   
     guildActivitiesCicle: for (let i in guildActivities)
     {
-        if(exceptions.get(`${i}`) || eval(exceptionsReaded[`${i}`])) continue guildActivitiesCicle;
-        
-        const arrTypes = [...actTypes];
-        for(let index in arrTypes)
+        if(exceptions.get('jsonGuildActivities') || eval(exceptionsReaded['jsonGuildActivities'])) continue guildActivitiesCicle;
+
+        for(let el in actTypes)
         {
-            const el = arrTypes[index][0];
-            if(guildActivities[i][1] === actTypes.get(el)) guildActivities[i][1] = actTypes.get(el);
-            if(guildActivities[i][2] === el) guildActivities[i][2] = el;
-        }
+            const index = actTypes[el].type;
+
+            debug([guildActivities[i][1], actTypes[el], guildActivities[i][1] === `actTypes.${el}`], false);
+            debug([actType[index], index], false);
+
+            if(guildActivities[i][1] === `actTypes.${el}`) guildActivities[i][1] = actTypes[el];
+            if(guildActivities[i][2] === `actType[${index}]`) guildActivities[i][2] = actType[index];
+        };
+
+        debug(guildActivities, false);
     };
   
     randomActivitiesCicle: for (let el in randomActivities)
@@ -190,10 +196,9 @@ const downloadActivities = () =>
   
             for(let index in THEVOIDSARRAY) elem[i][0] = elem[i][0].replace(`\${${THEVOIDSARRAY[index][1]}}`, THEVOIDSARRAY[index][0]);
   
-            const arrTypes = [...actTypes];
-            for(let index in arrTypes)
+            for(let type in actTypes)
             {
-              if(elem[i][1] === actTypes.get(arrTypes[index][0])) elem[i][1] = actTypes.get(arrTypes[index][0]);
+              if(elem[i][1] === `actTypes.${type}`) elem[i][1] = actTypes[type];
             };
         
             randomActivity.push(elem[i]);
@@ -202,47 +207,43 @@ const downloadActivities = () =>
     skip(1);
 };
 
-const clearActivity = () => { randomActivity.length = 0; };
+const clearActivity = () => randomActivity.length = 0;
   
 const readActivityDB = () =>
 {
-  const path = '../../VoidDataBase/data.json';
-  const file = ( fs.readFileSync( path, { encoding: 'utf8' } ) );
-  let json: any;
+    const path = '../../VoidDataBase/data.json';
+    const file = fs.readFileSync(path, {encoding: 'utf8'});
+    let json: any;
 
-  JSON.stringify(file, (key, value) => { json = eval(` ${json} = ${value} `) } );
 
-  jsonCicle: for (let el in json)
-  {
-    for(let elem of dataVars)
+    eval(`json = ${file}`)
+
+    jsonCicle: for (let el in json)
     {
-      if(json[elem[1]]===undefined)
-      {
-
-        delete json[elem[1]];
-        eval(`${elem[0]} = null`);
-        continue jsonCicle;
-        
-      }
-      
-      else if(`${elem[1]}`===`${el}`)
-      {
-        
-        eval(`${elem[0]} = json[el]`);
-        continue jsonCicle;
-
-      };
+        for(let elem of dataVars)
+        {
+            if(json[elem[1]]===undefined)
+            {
+                delete json[elem[1]];
+                eval(`${elem[0]} = null`);
+                continue jsonCicle;  
+            }
+            else if(`${elem[1]}`===`${el}`)
+            {
+                eval(`${elem[0]} = json[el]`);
+                continue jsonCicle;
+            };
+        };
     };
-  };
 };
 
 const funcKristyAct = async (client: any, log=true) =>
 {
   let exceptionsReaded: any;
   const file = ( fs.readFileSync( '../../../VoidDataBase/exceptions.json', { encoding: 'utf8' } ) );
-  JSON.stringify(file, (key, value) => { exceptionsReaded = eval(` ${exceptionsReaded} = ${value} `) } );
+  JSON.stringify(file, (key, value) => { exceptionsReaded = value } );
   
-  if(exceptions.get(`jsonKristyActivities`) || eval(exceptionsReaded['jsonKristyActivities'])) return;
+  if(exceptions.get('jsonKristyActivities') || eval(exceptionsReaded['jsonKristyActivities'])) return;
 
   const guild = await client?.guilds?.fetch(`${kristyGuildId}`);
   const kristyUser = await guild?.members?.fetch(`${kristyId}`);
@@ -263,22 +264,19 @@ const funcKristyAct = async (client: any, log=true) =>
 
   if(kristyAct.oneTimeFunction(false, false, true)) return;
 
-  if(log)
-  {
-      debug('Загружаю Kristy активности...'.bold)
-      skip();
+    debug(['Загружаю Kristy активности...'], log)
+    skip();
     
-      debug('Все Kristy активности'.bold);
-      skip();
-  }
+    debug(['Все Kristy активности'], log);
+    skip();
 
   for (let el of arrKristyAct)
   {
     randomActivity.push(el);
-    if(log) debug(`${el[0]}` + ` - ${`${arrKristyAct.indexOf(el)}`.bold}`);
+    debug([`${el[0]}` + ` - ${`${arrKristyAct.indexOf(el)}`}`], log);
   };
 
-  if(log) debug(`\nУспешно загружено ${`${arrKristyAct.length}`} Kristy активность(и)(ей)`);
+  debug([`\nУспешно загружено ${`${arrKristyAct.length}`} Kristy активность(и)(ей)`], log);
 
   shuffle(randomActivity);
   kristyAct.oneTimeFunction(true);
@@ -286,18 +284,16 @@ const funcKristyAct = async (client: any, log=true) =>
 
 const updateActivities = (client: any) =>
 {
-
   let length = randomActivity.length;
 
   clearActivity();
   readActivityDB();
   downloadActivities();
   if(!!client && oneTimeFunction('kristyAct', false, false, true)) for (let el of arrKristyAct) randomActivity.push(el);
-  debug('Были перезагружены активности');
-  debug('Общая длина составляет: ' + `${randomActivity.length}` + '\nБыла: "' + `${length}` + '"');
+  debug(['Были перезагружены активности']);
+  debug(['Общая длина составляет: ' + `${randomActivity.length}` + '\nБыла: "' + `${length}` + '"']);
   
   shuffle(randomActivity);
-
 };
 
 const getActivities = (variable: any) =>
@@ -338,10 +334,10 @@ const getActivities = (variable: any) =>
 
 export
 {
+    dataVars,
+    exceptions,
     downloadActivities,
-    updateActivities,
     funcKristyAct,
     getActivities,
-    dataVars,
-    exceptions
+    updateActivities
 };

@@ -19,14 +19,9 @@ export async function intCreate(commands: any, interaction: Interaction)
 
     const int: any = interaction;
 
-    const command = commands.get(interaction.commandName) as {
-        execute: (interaction: Interaction) => Promise<void>;
-    };
+    const command = commands.get(interaction.commandName) as { execute: (interaction: Interaction) => Promise<void> };
 
-    if (!command)
-    return console.error(
-        `No command matching ${interaction.commandName} was found.`
-    );
+    if (!command) return console.error(`No command matching ${interaction.commandName} was found.`);
 
     const subcommands = [];
     for (let key in int.options) {
@@ -74,10 +69,7 @@ console.log(
     }
     catch (err)
     {
-        await interaction.reply({
-            content: "There was an error while executing this command!",
-            ephemeral: true,
-        });
+        // await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true});
         console.log(err)
     }
 }

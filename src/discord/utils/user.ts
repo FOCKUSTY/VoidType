@@ -1,4 +1,5 @@
 import { pseudoRandomNumber } from './pseudoRandom'
+import { debug } from './developConsole';
 
 const
     users = new Map(),
@@ -19,11 +20,16 @@ const getAmount = (value='totalusers') =>
     else if(value==='totalbots') return totalBots;
     else if(value==='totalguilds') return totalGuilds;
     else return totalGuilds;
-};
+}
 
-const setUsernames = async(client: any, guildIds: any[]) =>
+const setUsernames = async(client: any, guildIds?: any[]) =>
 {
-    if(guildIds.length===0) for(let guild of await client.guilds.cache) guildIds.push(guild.id);
+    const guilds = await client.guilds.cache;
+    if(!guildIds)
+    {
+        guildIds = []
+        for(let guild of guilds) guildIds.push(guild[0]);
+    }
 
     guildCicle: for (let guildId of guildIds)
     {
@@ -60,18 +66,21 @@ const getUsernames = (isCache=false) =>
     else if(!isCache) return [...userInformations];
 };
 
+const clearUserInforamtions = () => userInformations.clear();
+
 const getRandomUserInformation = (info='username') =>
 {
-    const randomNumber = pseudoRandomNumber(0, userInformations.size-1, 2, 3, userInformationsHistoryArray, undefined, undefined, true, true, true);
+    const randomNumber = pseudoRandomNumber(0, userInformations.size-1, 2, 2, userInformationsHistoryArray, undefined, undefined, true, true, true);
     const key = Array.from(userInformations.keys())[randomNumber];
     
     info = info.toLocaleLowerCase();
     
+    debug([info, randomNumber, key], true);
+
     try
     {
         switch (info)
         {
-            
             case 'username':
                 return userInformations.get(key)[0];
             
@@ -190,5 +199,6 @@ export
     setUsernames,
     getUsernames,
     getRandomUserInformation,
-    getAmount
+    getAmount,
+    clearUserInforamtions
 }

@@ -10,7 +10,8 @@ import
     ModalActionRowComponentBuilder
 } from 'discord.js';
 
-import { setChannel,setBool } from '../../events/modals';
+import { setChannel, setBool } from '../../events/modals';
+import { config } from '../../config';
 
 export =
 {
@@ -29,7 +30,7 @@ export =
         const bool: any = int.options.get('embed')?.value;
         const channel: any = client?.channels.cache.get(channelId);
     
-        setChannel(channel, int);
+        setChannel(channel);
         setBool(bool);
 
         if(!(channel.permissionsFor(interaction.client.user.id).has([PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ViewChannel]))) {
@@ -40,50 +41,43 @@ export =
             return
         }
 
-        if (int.user.id === `877154902244216852`) {
-            const modal = new ModalBuilder().setCustomId(`sayModal`).setTitle(`Ваше сообщение !`);
-
-            let ideaDetailPH = `Хочу, чтобы Валя был администратором на The Void Community!!!!`
-        
-            if(bool)
-            {
-                modal.addComponents(
-                    new ActionRowBuilder<ModalActionRowComponentBuilder>()
-                        .addComponents(
-                            new TextInputBuilder()
-                            .setCustomId('message')
-                            .setLabel("Ваше сообщение")
-                            .setStyle(TextInputStyle.Paragraph)
-                            .setRequired(true)
-                            .setMaxLength(4000)
-                            .setPlaceholder(`${ideaDetailPH}`)
-                        )
-                );
-                await int.showModal(modal)
-            }
-            else
-            {
-                modal.addComponents(
-                    new ActionRowBuilder<ModalActionRowComponentBuilder>()
-                        .addComponents(
-                            new TextInputBuilder()
-                            .setCustomId('message')
-                            .setLabel("Ваше сообщение")
-                            .setStyle(TextInputStyle.Paragraph)
-                            .setRequired(true)
-                            .setMaxLength(2000)
-                            .setPlaceholder(`${ideaDetailPH}`)
-                        )
-                );
-                await int.showModal(modal);
-            }
+        if (!(int.user.id === config.authorId))
+            return await int.reply({ content: `У Вас нет прав на использование этой команды`, ephemeral: true })
+            
+        const modal = new ModalBuilder().setCustomId(`sayModal`).setTitle(`Ваше сообщение !`);
+        let ideaDetailPH = `Хочу, чтобы Валя был администратором на The Void Community!!!!`
+    
+        if(bool)
+        {
+            modal.addComponents(
+                new ActionRowBuilder<ModalActionRowComponentBuilder>()
+                    .addComponents(
+                        new TextInputBuilder()
+                        .setCustomId('message')
+                        .setLabel("Ваше сообщение")
+                        .setStyle(TextInputStyle.Paragraph)
+                        .setRequired(true)
+                        .setMaxLength(4000)
+                        .setPlaceholder(`${ideaDetailPH}`)
+                    )
+            );
+            await int.showModal(modal)
         }
         else
         {
-            await int.reply({
-                content: `У Вас нет прав на использование этой команды`,
-                ephemeral: true
-            })
+            modal.addComponents(
+                new ActionRowBuilder<ModalActionRowComponentBuilder>()
+                    .addComponents(
+                        new TextInputBuilder()
+                        .setCustomId('message')
+                        .setLabel("Ваше сообщение")
+                        .setStyle(TextInputStyle.Paragraph)
+                        .setRequired(true)
+                        .setMaxLength(2000)
+                        .setPlaceholder(`${ideaDetailPH}`)
+                    )
+            );
+            await int.showModal(modal);
         }
 
 	},

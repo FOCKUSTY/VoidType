@@ -79,7 +79,7 @@ export =
         try
         {
             const formatFiles = [".mpeg", ".mp3", ".mp4", ".opus", '.weba', '.m4a'];
-            const musicsPath = path.join(__dirname, '../../../../VoidMusic/music');
+            const musicsPath = path.join(__dirname, '../../../../../VoidMusic/music');
             const developEmbed = getDevelop('developEmbed');
             const musics: any[] = [];            
             const int = interaction;

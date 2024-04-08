@@ -90,7 +90,7 @@ const updateGuildLog = async (guildid: string,  optiondelete: boolean, optionupd
     }
 };
 
-const getLogGuild = async (findType='findAll', logId: string) =>
+const getLogGuild = async (findType='findAll', logId?: string) =>
 {
     if(findType==='findAll')
     {
@@ -121,22 +121,21 @@ const addUserTagToDB = async (title: string, user: { username: string; globalNam
             guildname: guild?.name||`Не на сервере`
         });
     
-        if(log) console.log(
+        debug([
         `Тег идеи успешно добавлен\n
         Название: ${title}\n
         Описание: ${detail}\n
         Отправил: ${user.username}\n
         С сервера: ${guild?.name}`
-        )
+        ], log)
     }
     catch (err)
     {
-        if(log) console.log('Ошибка с добавлением тега');
-        if(log) console.log(err);
+        debug(['Ошибка с добавлением тега\n', err], true, false, true);
     }
 };
 
-const getUserTagOutDB = async (findType='findAll', tagName: any) =>
+const getUserTagOutDB = async (findType='findAll', tagName?: any) =>
 {
     if(findType==='findAll')
     {

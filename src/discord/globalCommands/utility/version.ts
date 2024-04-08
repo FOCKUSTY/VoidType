@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, CommandInteraction } from 'discord.js';
-import { version } from '../../../package.json';
+import { version } from '../../../../package.json';
 
 export =
 {

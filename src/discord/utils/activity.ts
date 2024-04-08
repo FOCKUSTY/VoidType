@@ -1,4 +1,5 @@
 import { ActivityType, Client } from "discord.js";
+import { debug } from '../utils/developConsole';
   
 import
     {
@@ -15,7 +16,7 @@ import
 import fs from 'fs';
 import path from 'node:path';
 
-import { replies } from '../../../../VoidDataBase/replyesActivity.json';
+import { TheVoidReplies } from '../../../../VoidDataBase/replyesActivity.json';
 const repliesPath = path.join('../../../VoidDataBase/replyesActivity.json');
 
 const actTypes =
@@ -65,13 +66,15 @@ const checkKristyStatus = async (client: any, kristyActivity: string, textActivi
 
     await eval(`repliesSync = ${json}`);
 
-    for(let reply in repliesSync.replies)
+    debug([repliesSync, json], false)
+
+    for(let reply in repliesSync.TheVoidReplies)
     {
       if(`${kristyActivity}`?.toLowerCase()?.indexOf(`${reply}`) != -1)
       {
-        if(textActivity) return [ repliesSync.replies[reply][0], actType.get(repliesSync.replies[reply][1]) ];
+        if(textActivity) return [ repliesSync.TheVoidReplies[reply][0], actType.get(repliesSync.TheVoidReplies[reply][1]) ];
 
-        setTimeout(() => { setActivity(client, repliesSync.replies[reply][0], repliesSync.replies[reply][1]) }, 10000);
+        setTimeout(() => { setActivity(client, repliesSync.TheVoidReplies[reply][0], repliesSync.TheVoidReplies[reply][1]) }, 10000);
         return true;
       } else continue;
     };

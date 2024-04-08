@@ -21,7 +21,7 @@ async function msgPing(m: any)
         Автор: ${m.author.username} (${m.author.globalName}) - ${m.author.id}
         В чате: ${m.channel?.name} (${m.channel?.url})
         На сервере: ${m.guild?.name||'Не на сервере'}
-        Время: ${dateCheck(timestamp, m.guild?.name)||'Не на сервере'}`
+        Время: ${dateCheck(timestamp)||'Не на сервере'}`
         );
   
     const embed = new EmbedBuilder()
@@ -34,7 +34,7 @@ async function msgPing(m: any)
         .setFields(
             {name:`Чат:`, value:`[${m.channel.name}](<${m.channel.url}>)`, inline:true},
             {name:`Автор:`, value:`${m.author}`,inline:true},
-            {name:`Время`, value:`${dateCheck(timestamp, m.guild?.name)}`, inline:true}
+            {name:`Время`, value:`${dateCheck(timestamp)}`, inline:true}
         )
         .setFooter({text:`${m.guild?.name}`, iconURL:`${m.guild.iconURL()}`})
 

@@ -6,8 +6,8 @@ export =
     data: new SlashCommandBuilder()
         .setName("help")
         .setDescription('Все доступные команды !'),
-    async execute(interaction: CommandInteraction) {
-
+    async execute(interaction: any)
+    {
         const commands = getCommands();
 
         await interaction.reply({
@@ -15,4 +15,4 @@ export =
             content: `${commands.join('\n')}`
         });
     }
-}
+};

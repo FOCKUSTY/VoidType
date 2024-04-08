@@ -9,13 +9,17 @@ import { debug } from "../utils/developConsole";
 
 let channel: any;
 let bool: boolean;
+let versionUpdate: string;
 
-export async function setChannel(op: any, int: any) {
-	channel = await int.client.channels.fetch(`${op}`)
+export async function setChannel(op: any) {
+	channel = await op;
 };
 export function setBool(op: any) { bool = op };
 
-export async function modalSubmit(this: any, int: Interaction) {
+export function setVersionUpdate(version: string) { versionUpdate = `\n# Версия: ${version}` };
+
+export async function modalSubmit(this: any, int: Interaction)
+{
 
 	const interaction = int;
     const client = int.client

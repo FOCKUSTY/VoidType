@@ -17,7 +17,7 @@ export =
         const client = interaction.client;
         
         guilds.splice(0,guilds.length);
-        client.guilds.cache.forEach((guild: any) => { guilds.push(guild) } );
+        client.guilds.cache.forEach((guild: any) => guilds.push(guild) );
 
         functionRandomActivity(client, guilds);
 

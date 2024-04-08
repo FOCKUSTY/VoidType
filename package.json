@@ -1,10 +1,10 @@
 {
   "name": "voidbotts",
-  "version": "1-a4.1",
+  "version": "0.0.0-alpha.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "slash": "tsx watch src/SlashCommands.ts",
+    "slash": "tsx watch src/discord/SlashCommands.ts",
     "dev": "tsx watch src/index.ts",
     "start": "node dist/SlashCommands.js && node dist/index.js",
     "build": "tsup src/**",
@@ -17,12 +17,13 @@
     "colors": "^1.4.0",
     "date-fns": "^2.30.0",
     "discord.js": "^14.14.1",
-    "dotenv": "^16.3.1",
+    "dotenv": "^16.4.5",
     "ffmpeg-static": "^5.2.0",
     "libsodium-wrappers": "^0.7.13",
     "random-js": "^2.1.0",
     "sequelize": "^6.35.0",
-    "sqlite3": "^5.1.6"
+    "sqlite3": "^5.1.6",
+    "telegraf": "^4.16.2"
   },
   "devDependencies": {
     "@types/node": "^20.10.5",

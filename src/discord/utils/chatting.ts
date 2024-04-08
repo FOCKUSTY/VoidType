@@ -2,6 +2,7 @@ import { functionRandomActivity } from './randomActivities';
 import { OneTime } from './OneTimeFunction';
 import { checkKristyStatus } from '../utils/activity';
 import { clientId, kristyId, channelWithKristyChattingId, authorId } from '../../../config.json';
+import { debug } from '../utils/developConsole';
 
 let count = 0;
 let trueWarnMessage = 'Общение и так началось...';
@@ -44,7 +45,7 @@ class Timer
     value: any[];
     timeOut: any;
 
-	constructor(name: string, delay: number, func: any, value: any)
+	constructor(name: string, delay: number, func: any, ...value: any)
 	{
 		this.name = name;
 		this.delay = delay;
@@ -55,7 +56,14 @@ class Timer
 
 	setTimer()
 	{
-		this.timeOut = setTimeout(() => { this.func(...this.value) }, this.delay);
+		this.timeOut = setTimeout(() =>
+		{
+			debug(['Function:', this.func], false);
+			debug(['Value:', ...this.value], false);
+			debug(['Delay:', this.delay], false);
+
+			this.func(...this.value);
+		}, this.delay);
 	};
 
 	clearTimer()
@@ -65,10 +73,11 @@ class Timer
 
 }
 
-let chattingWithKristyTimer = new Timer('chattingWithKristyTimer', 10000, setBooleanChatting, false);
+let chattingWithKristyTimer = new Timer('chattingWithKristyTimer', 10000, setBooleanChatting, [false]);
 
 const getBooleanChatting = () =>
 {
+	debug(['isChatting:', isChatting], false);
 	return isChatting;
 };
 
@@ -84,7 +93,7 @@ const setGuilds = (client: any) =>
 	});
 };
 
-const chattingWithKristy = async (m: { channel: { id: string; }; mentions: { users: { get: (arg0: string) => undefined; }; }; author: { id: string; }; guild: { members: { fetch: (arg0: string) => any; }; }; client: { channels: { cache: { get: (arg0: any) => { (): any; new(): any; sendTyping: { (): void; new(): any; }; }; }; }; }; content: any; reply: (arg0: string) => any; }) =>
+const chattingWithKristy = async (m: any) =>
 {
 	setBooleanChatting(true);
 
@@ -117,14 +126,17 @@ const chattingWithKristy = async (m: { channel: { id: string; }; mentions: { use
 		setTimeout(async () =>
 		{
 			let replyed = false;
+
 			text
 				.then(async function(message: any)
 				{
-					checkKristyStatus(null, `${m.content}`.toLocaleLowerCase(), true)
+					await checkKristyStatus(null, `${m.content}`.toLocaleLowerCase(), true)
 						.then(async (text: any) =>
 						{
 							if(!!text)
 							{
+								debug([message[1], message[0]], false);
+								debug([m.content, text], false);
 								await m.reply(`${actType.get(`${text[1]}`)} ${text[0]}`);
 								replyed = true;
 								return;
@@ -134,6 +146,7 @@ const chattingWithKristy = async (m: { channel: { id: string; }; mentions: { use
 
 					setTimeout(async () =>
 					{
+						debug([message[1], message[0]], false)
 						if(!replyed) await m.reply(`${actType.get(`${message[1]}`)} ${message[0]}`);
 					}, 1000);
 
@@ -145,7 +158,7 @@ const chattingWithKristy = async (m: { channel: { id: string; }; mentions: { use
 	else return;
 }
 
-module.exports =
+export
 {
 	chattingWithKristy,
 	getBooleanChatting,

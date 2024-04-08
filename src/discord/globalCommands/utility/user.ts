@@ -10,20 +10,24 @@ export =
 	data: new SlashCommandBuilder()
     .setName("user")
     .setDescription("Пользователь !")
-	.addUserOption(o => o.setName('member').setDescription('Участник')),
+	.addUserOption(o => o.setName('member').setDescription('Участник')
+		.setNameLocalizations({ru:'участник',"en-US":'member'})
+		.setDescriptionLocalizations({ru:'Участник сервера',"en-US":'Member in guild'}))
+	.setNameLocalizations({ru:'пользователь',"en-US":'user'})
+	.setDescriptionLocalizations({ru:'Информация о пользователе',"en-US":'Info about user'}),
     async execute(interaction: CommandInteraction)
 	{
 
         let iconURL: string = 'https://cdn.discordapp.com/icons/1169284741846016061/63ff0e27c4c5de492894df065ef72266.png'
-		const int: CommandInteraction = interaction
+		const int: CommandInteraction = interaction;
 
-		if(int.guild!=null && int.guild!=undefined)
+		if(int.guild != null && int.guild != undefined)
 		{
 			let userO: any = int.user;
 			let member: any = int.member;
 			let serverGuildIcon: any = int?.guild.iconURL();
 			
-			if (int.options.getUser(`member`))
+			if(int.options.getUser(`member`))
 			{
 				const user: any = int.options.getUser(`member`);
 				userO = int.options.getUser(`member`);
@@ -35,16 +39,12 @@ export =
 			const guildUserRoles: any[] = []
 	
 			totalRoles?.forEach(role =>
-			{
-				memberRoles.set(role.position, role.id)
-			})
+				memberRoles.set(role.position, role.id));
 	
 			const memberRolesSort = new Map([...memberRoles.entries()].sort((a, b) => b[0] - a[0]));
 	
 			memberRolesSort.forEach(roleId =>
-			{
-				guildUserRoles.push(`\n<@&${roleId}>`)
-			})
+				guildUserRoles.push(`\n<@&${roleId}>`));
 	
 			await int.reply({
 				content: `# :tophat:\n Собираем информацию...`,
@@ -54,9 +54,10 @@ export =
 			const embed = new EmbedBuilder()
 				.setColor(0x161618)
 				.setAuthor({name: int.guild?.name, iconURL: serverGuildIcon })
-				.setTitle(`Об участнике ${member?.user.globalName}`)
+				.setTitle(`Об участнике ${member?.user.globalName || member?.user.username}`)
 				.setDescription(`Информация об участнике ${member?.user.username} на сервере ${int.guild?.name}`)
-				.addFields(
+				.addFields
+				(
 					{	name: `Команда запущена:`,
 					value: `${int.user} (${int.user.username})\n\n**Участник ${member?.user.username} присоединился:**\n${time(member?.joinedAt)}\nЭто:\n${time(member?.joinedAt, `R`)}
 					\n**Пользователь в Discord: **\n${time(userO.createdAt)}\nЭто:\n${time(userO.createdAt, `R`)}`, inline: true	},
@@ -66,41 +67,40 @@ export =
 				.setTimestamp()
 				.setFooter({ text: `${int.guild?.id} - ${int.guild?.name}`, iconURL: serverGuildIcon });
 	
-			int.editReply({
-				content: ``,
-				embeds: [embed], 
-			}
-			)
+			int.editReply({ embeds: [embed] });
 		}
 		else
 		{
 			let user: any = int.user
 			if(int.options.getUser(`member`))
-			{
-				user = int.options.getUser(`member`)
-			};
+				user = int.options.getUser(`member`);
 			
-			await int.reply({
-				content: `# :tophat:\n Собираем информацию...`,
-				fetchReply: true, ephemeral: true
-			})
-			
-			await int.editReply({
-				content: `# :tophat:\n Сервер не найден...`
-			})
+			await int.reply({ content: `# :tophat:\n Собираем информацию...`, fetchReply: true, ephemeral: true });
+			await int.editReply({ content: `# :tophat:\n Сервер не найден...` });
 			
 			const embed = new EmbedBuilder()
 				.setColor(0x161618)
 				.setAuthor({name: `The Void`, iconURL: `${iconURL}` })
 				.setTitle(`Об участнике ${user.username}`)
 				.setDescription(`Информация об участнике ${user?.globalName || user.username}`)
-				.addFields(
-					{name: `Команда запущена:`, value: `${int.user} (${int.user.username})`, inline: true	},
-					{name: `Пользователь ${user.username} присоединился:`, value: `${time(user.createdAt)}\nЭто:\n${time(user.createdAt, `R`)}`, inline: true}
+				.addFields
+				(
+					{
+						name: `Команда запущена:`,
+						value: `${int.user} (${int.user.username})`,
+						inline: true
+					},
+
+					{
+						name: `Пользователь ${user.username} присоединился:`,
+						value: `${time(user.createdAt)}\nЭто:\n${time(user.createdAt, `R`)}`,
+						inline: true
+					}
 				)
 				.setThumbnail(`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`)
 				.setTimestamp()
 				.setFooter({ text: `The Void`, iconURL: `${iconURL}` });
+			
 			await int.editReply({ embeds: [embed], });
         };
 	}

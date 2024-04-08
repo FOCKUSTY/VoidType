@@ -1,8 +1,10 @@
+import { dateCheck } from './date';
 import { debug, skip } from './developConsole';
 import { Random } from 'random-js';
 const random = new Random();
 
 let historyArray: any[] = [];
+const allRandomNumbers: number[] = [];
 
 const checkMinus = (num: number) =>
 {
@@ -42,9 +44,9 @@ const historyPseudoRandomNumber = (min: number, max: number, n: number, m: numbe
       {
         if(yourArr[num] === el)
         {
-          debug(`Было найдено совпадения элементов\nСтарое число: ${num}`);
+          debug([`Было найдено совпадения элементов\nСтарое число: ${num}`]);
           num = pseudoRandomNumber(min, max, n, m, arr, undefined, undefined, false, true, true);
-          debug(`Новое число: ${num}`);
+          debug([`Новое число: ${num}`]);
           checkArrays();
         };
       };
@@ -77,13 +79,13 @@ const historyRandom = (num: number, min=0, max=100, array: any[], n=3, dOaF=1, p
       iMax = i+dOaF;
       if( num===i || ( num > iMin && num < iMax ) )
       {
-        debug(`Область определения от ${ iMin } до ${ iMax }`);
-        debug(`Число: ${ num }`);
+        debug([`Область определения от ${ iMin } до ${ iMax }`]);
+        debug([`Число: ${ num }`]);
         
         if( !pseudoRandom ) num = random.integer(min, max)
         else num = pseudoRandomNumber(min, max, n, dOaF, array, undefined, undefined, false, false, false);
         
-        debug(`Новое число: ${ num }`);
+        debug([`Новое число: ${ num }`]);
         console.log();
       };
     };
@@ -212,30 +214,70 @@ function pseudoRandomNumber(min=0, max=100, n=3, m=2, historyArr=historyArray, y
   
   if(min === max)
   {
-    if(max===0) max +=100;
+    if(max === 0) max +=100;
     
     min = 0;
   };
 
-  const random = Math.round(Math.random()*1000);
+  let random = Math.round(Math.random()*1000);
+  if(allRandomNumbers.length != 0) random = allRandomNumbers[allRandomNumbers.length-1];
+  
+  if(random === 0)
+    random += 1;
 
   if(min===0) someMin = min + 1;
   else someMin = min;
   someMax = max * random;
 
+  let seconds = Number(dateCheck(Date.now(), 'mm'));
+  let minutes = Number(dateCheck(Date.now(), 'ss'));
+  let hours = Number(dateCheck(Date.now(), 'HH'));
+
+  if(seconds === 0) seconds += 1;
+  if(minutes === 0) minutes += 1;
+  if(hours === 0) hours += 1;
+
+  const first = someMin * someMax + ((someMax - someMin) * someMax) + random**2
+  const second = random * random * (someMax ** 2)
+  const third = Date.now()/10000/random;
+  const fourth = (seconds / minutes / hours);
+
+  debug(['first', first], false);
+  debug(['second', second], false);
+  debug(['third', third], false);
+  debug(['fourth', fourth], false);
+
   const
-    randomNumber = ( someMin * someMax + ((someMax - someMin) * someMax) + random**2 ) + (random * random * (someMax ** 2)),
-    text = `${randomNumber}`,
-    maxLength = `${max}`.length,
-    minLength = `${min}`.length;
+    maxLength = `${max}`.length, minLength = `${min}`.length,
 
+    randomNumber = BigInt(`${(first + second) * (third + fourth) / (maxLength ** minLength * 100)}`.replace('.', '')),
+
+    text = `${randomNumber}`;
+
+  debug(['Random: ', random], false);
+  
+  debug(
+    ['Date: ',
+    `Minutes: ${Number(dateCheck(Date.now(), 'mm'))}`,
+    `Seconds: ${Number(dateCheck(Date.now(), 'ss'))}`,
+    `Hours: ${Number(dateCheck(Date.now(), 'HH'))}`
+    ], false);
+  debug(['New random: ', randomNumber], false);
+
+  debug(['Max: ', max], false);
+  debug(['Min: ', min], false);
+  debug(['allRandomNumbers', allRandomNumbers], false);
+  
   let number = Number( text.slice( Math.round(text.length/2), Math.round(text.length/2+maxLength) ) );
-
+  
+  allRandomNumbers.push(number);
+  
   function checkMax()
   {
     if(number > max)
     {
       number = checkMinus( checkNull( number, true ) ) - checkMinus( checkNull ( max, true ) );
+      debug([number], false);
       checkMax();
     }
   };
@@ -244,19 +286,20 @@ function pseudoRandomNumber(min=0, max=100, n=3, m=2, historyArr=historyArray, y
 
   if(chanceNull)
   {
-    chanceBetween(5, function(){ number = 0 }, function(){ number = number }, pseudoRandomNumber( 0, 100, n, m, array, undefined, undefined, false, false, false ) );
+    chanceBetween(5, ()=>{ number = 0 }, ()=>{ number = number }, pseudoRandomNumber( 0, 100, n, m, array, undefined, undefined, false, false, false ) );
   };
 
   if(chanceMax)
   {
-    chanceBetween(5, function(){ number = max }, function(){ number = number }, pseudoRandomNumber( 0, 100, n, m, array, undefined, undefined, false, false, false ) );
+    chanceBetween(5, ()=>{ number = max }, ()=>{ number = number }, pseudoRandomNumber( 0, 100, n, m, array, undefined, undefined, false, false, false ) );
   };
   
   if(history) number = historyRandom(number, min, max, historyArr, n, m, false);
   if( yourArr && array && history ) number = historyPseudoRandomNumber(min, max, n, m, historyArr, yourArr, array, number);
 
-  return number
+  debug(['Number: ',number], true);
 
+  return number;
 }
 
 export

@@ -33,13 +33,11 @@ export =
         const
             rNum = random.integer(0, texts.length-1),
             text = texts[rNum],
-            question = interaction.options.get(`question`)
+            question = interaction.options.get(`question`)?.value;
 
         setTimeout(async () =>
         {            
-            await interaction.editReply({
-            content: `Ваш вопрос: ${question}\nМой ответ: ${text}`,
-            ephemeral: true});
+            await interaction.editReply({ content: `Ваш вопрос: ${question}\nМой ответ: ${text}`, ephemeral: true});
         }, 1000);
 	},
 };

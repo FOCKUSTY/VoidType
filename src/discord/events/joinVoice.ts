@@ -1,4 +1,4 @@
-import
+/* import
 {
   AudioPlayerStatus,
   NoSubscriberBehavior,
@@ -19,7 +19,7 @@ const Kristy = `1164228812217790565`;
 let booleanVar: boolean = false;
 let user;
 
-module.exports =
+export =
 {
   name: Events.VoiceStateUpdate,
   async execute(oldVS: VoiceState, vs: VoiceState)
@@ -81,7 +81,7 @@ const connectionHelper = (vs: VoiceState, off?: boolean) =>
       });
   };
 
-  player.play(createAudioResource(path.join(__dirname, "../../../VoidMusic/sounds/nea.mp3")));
+  player.play(createAudioResource(path.join(__dirname, "../../../../VoidMusic/sounds/nea.mp3")));
 
   player.on('error', error =>
   {
@@ -109,4 +109,4 @@ const connectionHelper = (vs: VoiceState, off?: boolean) =>
     if (connection) connection.disconnect()
   }
   }
-}
+} */

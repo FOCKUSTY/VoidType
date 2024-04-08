@@ -2,7 +2,7 @@ import { EmbedBuilder } from 'discord.js';
 import { skip, debug } from './developConsole';
 import { logChannelId, logGuildId } from '../../../config.json';
 
-const sendMessageLog = async ( m: { author: { bot: any; username: string; id: string; avatarURL: () => string | undefined; defaultAvatarURL: string | undefined; }; client: { guilds: { fetch: (arg0: string) => any; }; channels: { fetch: (arg0: string) => any; }; }; attachments: { forEach: (arg0: (attachment: any) => void) => void; size: number; map: (arg0: (att: any) => string) => any[]; }; content: any; guild: { iconURL: () => string | null; }; url: any; guildId: any; channel: { name: any; url: any; }; }, reason: string, m2: { content: any; attachments: { size: number; map: (arg0: (att: any) => string) => any[]; }; }, guildId = logGuildId, channelId = logChannelId) =>
+const sendMessageLog = async ( m: any, reason: string, m2: any, guildId = logGuildId, channelId = logChannelId ) =>
 {
     if (m.author.bot) return;
     
@@ -255,7 +255,7 @@ const sendMessageLog = async ( m: { author: { bot: any; username: string; id: st
     }; */
 };
 
-export =
+export
 {
     sendMessageLog
 };

@@ -13,13 +13,11 @@ const setGMPlaying = async (arg: any, boolean=false) =>
 
 const getGMPlaying = (guildName: string) =>
 {
-  return globalMusicPlaying.get(guildName)
+  return globalMusicPlaying.get(guildName);
 };
 
 const setMusic = (music: any) =>
-{
-  localMusic = music
-};
+  localMusic = music;
 
 const getMusic = () =>
 {

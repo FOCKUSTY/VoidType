@@ -1,5 +1,4 @@
-const
-    {
+import {
         token,
         channelWithKristyChattingId,
         authorId,
@@ -8,27 +7,22 @@ const
         kristyId,
         clientId,
         telegramToken
-    } = require('../../../../config.json'),
-    
-    { msgPing } = require('../msgPing'),
-
-    { chattingWithKristy } = require('../chatting'),
-
-    { getLogGuild } = require('../dataBase'),
-
-    { sendMessageLog } = require('../messageLog'),
-
-    { checkMessageToRead } = require('../develop');
+    } from '../../../../config.json'
+import { msgPing } from '../msgPing'
+import { chattingWithKristy } from '../chatting'
+import { getLogGuild } from '../tags'
+import { sendMessageLog } from '../messageLog'
+import { checkMessageToRead } from '../develop'
 
 let isTalkingEnabled = true;
 
-const messageDeleteLog = (m: { guild: { id: string; }; }, sendMessageLog: (arg0: any, arg1: string, arg2: undefined, arg3: string, arg4: string) => void) =>
+const messageDeleteLog = (m: any, sendMessageLog: any,) =>
 {
     getLogGuild('findAll')
     .then((guildId: any) =>
     {
         getLogGuild('findOne', guildId)
-            .then(async (data: { optionupdate: any; guildid: any; channellogid: any; }) =>
+            .then(async (data: any) =>
             {
                 if(data?.optionupdate && (data.guildid === m.guild.id) )
                 {
@@ -39,13 +33,13 @@ const messageDeleteLog = (m: { guild: { id: string; }; }, sendMessageLog: (arg0:
 
     sendMessageLog(m, "delete", undefined, logGuildId, logChannelId);
 };
-const messageUpdateLog = (m: { guild: { id: any; }; }, nm: any, sendMessageLog: (arg0: any, arg1: string, arg2: any, arg3: string, arg4: string) => void) =>
+const messageUpdateLog = (m: any, nm: any, sendMessageLog: any) =>
 {
 	getLogGuild('findAll')
 		.then((guildId: any) =>
 		{
 			getLogGuild('findOne', guildId)
-				.then(async (data: { optionupdate: any; guildid: string; channellogid: string; }) =>
+				.then(async (data: any) =>
 				{
 					if(data?.optionupdate && (data.guildid === m.guild.id) )
 					{

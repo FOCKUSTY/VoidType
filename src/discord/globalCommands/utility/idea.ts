@@ -11,7 +11,7 @@ import
 
 import { bannedUsers } from '../../whiteList';
 import { pseudoRandomNumber } from '../../utils/pseudoRandom';
-import { getActivities } from '../../utils/updateActivities';
+import { getActivities } from '../../utils/updatejson';
 
 const objectIdeas = getActivities('objectIdeas');
 const historyRandomObjectIdeas: any[] = [];
