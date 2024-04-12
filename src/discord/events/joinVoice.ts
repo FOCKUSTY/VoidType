@@ -62,7 +62,7 @@ export =
           return;
           
         if(!vs.guild.roles.botRoleFor(vs.client.application.id)?.permissions.has(permissionsForBot))
-          console.error(`У бота не хватает прав создать канал в ${vs.guild.name} (${vs.guild.id})`);
+          return console.error(`У бота не хватает прав создать канал в ${vs.guild.name} (${vs.guild.id})`);
 
         if(!vs.member)
           return;
