@@ -1,6 +1,6 @@
 import { Telegraf } from 'telegraf';
 import { telegramToken } from '../../config.json';
-import { deployCommands } from './deploy-commands';
+import { deployCommands } from './deploy-commands-telegram';
 import { messageListener } from './utility/messageListener';
 import { message } from 'telegraf/filters';
 const { setBot } = require('../utility/bots')

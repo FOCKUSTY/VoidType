@@ -4,7 +4,7 @@ import { getActivities, downloadActivities } from '../utils/updatejson'
 import { setGMPlaying } from '../utils/music'
 import { setDevelopClient, setDevelop, getDiscordUser } from '../utils/develop'
 import { setUsernames, getAmount } from '../utils/user'
-import { Tags, logMessagesSchema, deleteTable, sequelize } from '../utils/tags'
+import { sequelize } from '../utils/tags'
 import { checkNumber } from '../utils/stages'
 import { skip } from '../utils/developConsole'
 import { changeComma } from '../utils/changeComma'
@@ -31,8 +31,7 @@ module.exports =
 
 		// deleteTable(logMessagesSchema);
 
-		Tags.sync();
-		logMessagesSchema.sync();
+		sequelize.sync();
 
 		setDevelop(client);
 		setGMPlaying(client);

@@ -23,7 +23,7 @@ import { checkKristyStatus } from './discord/utils/activity';
 import { indexDeployCommands } from './discord/utils/deployCommands';
 import { messageCreateLog, messageDeleteLog, messageUpdateLog } from './discord/utils/logging/messageLog';
 import { sendMessageLog } from './discord/utils/messageLog';
-import { deployCommands } from './telegram/deploy-commands';
+import { deployCommands } from './telegram/deploy-commands-telegram';
 import { messageListener } from './telegram/utility/messageListener';
 
 import fs from 'node:fs';
@@ -53,13 +53,16 @@ const client = new Client({
 const tClient = new Telegraf(telegramToken);
 
 const Commands = new Collection();
-const globalfoldersPath = path.join(__dirname, 'discord/globalCommands');
+const globalfoldersPathText = 'discord/globalCommands';
+const globalfoldersPath = path.join(__dirname, globalfoldersPathText);
 const globalcommandFolders = fs.readdirSync(globalfoldersPath);
 
-const guildFoldersPath = path.join(__dirname, 'discord/guildCommands');
+const guildFoldersPathText = 'discord/guildCommands';
+const guildFoldersPath = path.join(__dirname, guildFoldersPathText);
 const guildCommandFolders = fs.readdirSync(guildFoldersPath);
 
-const telegramFoldersPath = path.join(__dirname, 'telegram/commands');
+const telegramFoldersPathText = 'telegram/commands';
+const telegramFoldersPath = path.join(__dirname, telegramFoldersPathText);
 const telegramCommandFolders = fs.readdirSync(telegramFoldersPath);
 
 console.log(`Мои команды:`);

@@ -61,7 +61,7 @@ export =
 
         let ideaDetailPH = objectIdeas[pseudoRandomNumber(0, objectIdeas.length-1, 1, 1, undefined, undefined, undefined, false, true, true)]['ideaDetail']
 
-        setChannel(channel, int);
+        setChannel(channel);
         setBool(bool);
         setVersionUpdate(versionUpdate);
 

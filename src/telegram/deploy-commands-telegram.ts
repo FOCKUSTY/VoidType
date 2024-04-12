@@ -12,7 +12,8 @@ const deployCommands = (client: any, commandFolders=globalCommandFolders, folder
     for (const folder of commandFolders)
     {
         const commandsPath = path.join(foldersPath, folder);
-        const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.ts'));
+        let commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.ts'));
+        if (commandFiles.length === 0) commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
     
         for (const file of commandFiles)
         {

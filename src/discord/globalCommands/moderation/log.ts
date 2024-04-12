@@ -8,7 +8,7 @@ export =
 	.setName('log')
 	.setDescription('Логирование сообщений !')
     .setNameLocalizations({ ru:'логирование', "en-US":'log' })
-    .setDescriptionLocalizations({ ru:'Логирование сообщений !', "en-US":'Mssage logging !' })
+    .setDescriptionLocalizations({ ru:'Логирование сообщений !', "en-US":'Message logging !' })
 
     .addSubcommand(s=>s.setName('add').setDescription('Добавить логирование')
         .setNameLocalizations({ru:'добавить',"en-US":'add'})
