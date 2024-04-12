@@ -1,15 +1,7 @@
-import
-{
-  AudioPlayerStatus,
-  NoSubscriberBehavior,
-  getVoiceConnection,
-  createAudioPlayer,
-  createAudioResource,
-  joinVoiceChannel
-} from "@discordjs/voice";
+import { Events, VoiceState, PermissionsBitField, ChannelType, VoiceChannel } from "discord.js";
+import { getVoiceCreateChannel } from '../utils/tags';
+import { sendVoiceTools } from '../utils/sendVoiceTools';
 
-import { Events, VoiceState, PermissionsBitField, ChannelType, PermissionOverwrites } from "discord.js";
-import { getVoiceCreateChannel } from '../utils/tags'
 
 const permissionsForBot = [ PermissionsBitField.Flags.ManageChannels, PermissionsBitField.Flags.MoveMembers ];
 const permissionsForUsers =
@@ -37,6 +29,9 @@ export =
   name: Events.VoiceStateUpdate,
   async execute(oldVS: VoiceState, vs: VoiceState)
   {
+    if(vs.member?.user.bot)
+      return vs.member?.voice.disconnect();
+
     if(createdVCC.has(vs.channelId) || createdVCC.has(oldVS.channelId))
     {
       if(typeof(createdVCC.get(vs.channelId)) === typeof(0))
@@ -44,12 +39,12 @@ export =
         console.log(createdVCC.get(vs.channelId));
         createdVCC.set(vs.channelId, vs.channel?.members.size);
       }
-      else if(typeof(createdVCC.get(oldVS.channelId)) === typeof(0))
+      else if(typeof(createdVCC.get(oldVS.channelId)) === typeof(0) && oldVS.channel?.members.size == 0)
       {
         createdVCC.set(oldVS.channelId, 0);
         oldVS.channel?.delete();
-      }
-    }
+      };
+    };
 
     if(!vs.member?.voice.channel || !vs.channelId)
       return;
@@ -58,21 +53,19 @@ export =
 
     await getVoiceCreateChannel({guildId: vs.guild.id, findType: 'findOne'}).then(async (data: any) =>
       {
-        if(data?.type != 'successed')
+        if(
+            (!data.text || data?.type != 'successed' || !vs.member)
+            ||
+            (data.text?.dataValues && vs.channel?.id != data.text.dataValues.channelid)
+          )
           return;
-          
+
         if(!vs.guild.roles.botRoleFor(vs.client.application.id)?.permissions.has(permissionsForBot))
           return console.error(`У бота не хватает прав создать канал в ${vs.guild.name} (${vs.guild.id})`);
 
-        if(!vs.member)
-          return;
-
-        if(vs.channel?.id != data.text.dataValues.channelid)
-          return;
-
         vs.guild.channels.create
         ({
-          name: `Голосовой канал ${vs.member.user.globalName}`,
+          name: `Канал ${vs.member.user.globalName}`,
           type: ChannelType.GuildVoice,
           permissionOverwrites:
           [
@@ -85,14 +78,19 @@ export =
               allow: permissionsForCreator
             }
           ],
-        }).then((channel) =>
+        }).then(async (channel: VoiceChannel) =>
           {
+            if(!vs.member)
+              return;
+
             vs.member?.voice.setChannel(channel.id);
             
             createdVCC.set(channel.id, vs.channel?.members.size);
 
             if(parent)
               channel.setParent(parent);
+
+            await sendVoiceTools(channel);
           });
       });
   }

@@ -195,7 +195,7 @@ const sendMessageToUser = async (id: string, message: any) =>
     console.log(err)
     return await { text: 'Я не смог написать Вам в личные сообщения, попробуйте их открыть >> Error', type: 'error' };
   }
-}
+};
 
 const getDiscordUser = async (id: string) =>
 {

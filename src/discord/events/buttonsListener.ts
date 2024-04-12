@@ -6,6 +6,7 @@ import
 
 import { getRandomCode } from "../../utility/hashing";
 import { responsiable } from "../utils/develop";
+import { replyOnVCCButton } from '../utils/sendVoiceTools';
 
 export async function buttonsListener(this: any, int: Interaction)
 {
@@ -35,6 +36,8 @@ export async function buttonsListener(this: any, int: Interaction)
             responsiable.set(`${int.user.id}`, false);
             
             await int.reply('Спасибо, извиняемся за беспокойство !');
-        };
+        }
+
+        else replyOnVCCButton(int)
     };
 }

@@ -6,6 +6,7 @@ import
 
 import { addUserTagToDB } from '../utils/tags';
 import { debug } from "../utils/developConsole";
+import { replyOnVCCModal } from "../utils/sendVoiceTools";
 
 let channel: any;
 let bool: boolean;
@@ -126,5 +127,8 @@ export async function modalSubmit(this: any, int: Interaction)
 				});
     		}
 		}
+
+
+		else replyOnVCCModal(int);
 	};
 }
