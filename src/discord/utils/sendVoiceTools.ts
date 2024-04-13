@@ -28,6 +28,7 @@ import { getDevelopClient, getDevelop } from './develop';
 const createdVCC = new Map();
 const usersBlocked = new Map();
 const usersAdmin = new Map();
+const chatBlocked = new Map();
 
 const permissionsForUsers =
 [
@@ -88,8 +89,19 @@ const sendVoiceTools = async (channel: VoiceChannel, creatorId: string) =>
             .setStyle(ButtonStyle.Danger)
     ];
 
+    const componentsPLUS: ButtonBuilder[] =
+    [
+        new ButtonBuilder()
+        .setCustomId('vcc-button-chat-block')
+        .setLabel('(Раз)Заблокировать чат ?')
+        .setStyle(ButtonStyle.Danger)
+    ]
+
     const row: any = new ActionRowBuilder()
         .addComponents(...components);
+
+    const rowPLUS: any = new ActionRowBuilder()
+        .addComponents(...componentsPLUS);
 
     createdVCC.set(channel.guildId, channel.id);
     usersAdmin.set(creatorId, true);
@@ -99,6 +111,13 @@ const sendVoiceTools = async (channel: VoiceChannel, creatorId: string) =>
         content: '',
         embeds: [embed],
         components: [row]
+    });
+    
+    await channel.send
+    ({
+        content: '',
+        embeds: [],
+        components: [rowPLUS]
     });
 };
 
@@ -120,7 +139,7 @@ const replyOnVCCButton = async (interaction: Interaction) =>
                     new TextInputBuilder()
                         .setCustomId('vcc-tib-name').setRequired(true) // tib - TextInputBuilder
                         .setLabel('Название канала').setStyle(TextInputStyle.Short)
-                        .setMaxLength(48).setMinLength(4)
+                        .setMaxLength(48).setMinLength(1)
                         .setPlaceholder('Адава кедавра')));
         
         await interaction.showModal(modal);
@@ -194,6 +213,50 @@ const replyOnVCCButton = async (interaction: Interaction) =>
             .addComponents(select);
 
         await interaction.reply({content:'Выберите пользователя:', ephemeral:true, components: [row]})
+    }
+    else if(interaction.customId === 'vcc-button-chat-block')
+    {
+        const channel: Channel|undefined = interaction.client.channels.cache.get(createdVCC.get(interaction.guildId));
+
+        if(!channel || channel.type != ChannelType.GuildVoice || !interaction.guild)
+            return await interaction.reply({content: 'Чат не найден или Вы в нем не находитесь', ephemeral: true});
+    
+        if(!chatBlocked.get(interaction.channelId))
+        {
+            chatBlocked.set(interaction.channelId, true);
+
+            channel.edit
+            ({
+                permissionOverwrites:
+                [
+                    {
+                        id: interaction.guild.id,
+                        deny: permissionsForUsersPLUS,
+                        allow: []
+                    }
+                ]
+            })
+
+            return await interaction.reply({content: 'Теперь чат заблокирован', ephemeral: true});
+        }
+        else
+        {
+            chatBlocked.set(interaction.channelId, false);
+
+            channel.edit
+            ({
+                permissionOverwrites:
+                [
+                    {
+                        id: interaction.guild.id,
+                        deny: [],
+                        allow: permissionsForUsersPLUS
+                    }
+                ]
+            })
+
+            return await interaction.reply({content: 'Теперь чат разблокирован', ephemeral: true});
+        };
     }
 
 
@@ -337,7 +400,8 @@ const replyOnVCCSelectMenu = async (interaction: Interaction) =>
                     ]
                 });
 
-                usersBlocked.set(userId, true)
+                if(!usersAdmin.get(userId))
+                    usersBlocked.set(userId, true);
 
                 return await interaction.reply({content: `Пользователь ${member.user.globalName} заблокирован`, ephemeral: true});
             }
@@ -354,7 +418,8 @@ const replyOnVCCSelectMenu = async (interaction: Interaction) =>
                     ]
                 });
 
-                usersBlocked.set(userId, false)
+                if(!usersAdmin.get(userId))
+                    usersBlocked.set(userId, false);
 
                 return await interaction.reply({content: `Пользователь ${member.user.globalName} разблокирован`, ephemeral: true});
             };

@@ -36,10 +36,9 @@ export =
     {
       if(typeof(createdVCC.get(vs.channelId)) === typeof(0))
       {
-        console.log(createdVCC.get(vs.channelId));
         createdVCC.set(vs.channelId, vs.channel?.members.size);
       }
-      else if(typeof(createdVCC.get(oldVS.channelId)) === typeof(0) && oldVS.channel?.members.size == 0)
+      else if((oldVS.channel?.members.size == undefined || oldVS.channel.members.size == 0))
       {
         createdVCC.set(oldVS.channelId, 0);
         oldVS.channel?.delete();
