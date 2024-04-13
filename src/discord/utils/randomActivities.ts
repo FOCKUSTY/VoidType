@@ -61,7 +61,7 @@ const setRandomnessActivity = (client: Client, textActivity=false, log=true) =>
 
       if(randomAct.indexOf('${rAnimeTitle}') != -1)
       {
-        const pathToTitle = path.join('../../../VoidDataBase/titles.json');
+        const pathToTitle = path.join('../../../../VoidDataBase/titles.json');
         const file = (fs.readFileSync(pathToTitle, {encoding: 'utf8'}));
 
         let json: { [x: string]: any };
