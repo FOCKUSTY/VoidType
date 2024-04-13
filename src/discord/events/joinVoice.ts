@@ -30,7 +30,7 @@ export =
   async execute(oldVS: VoiceState, vs: VoiceState)
   {
     if(vs.member?.user.bot)
-      return vs.member?.voice.disconnect();
+      return;
 
     if(createdVCC.has(vs.channelId) || createdVCC.has(oldVS.channelId))
     {
@@ -74,7 +74,7 @@ export =
               allow: permissionsForUsers
             },
             {
-              id: vs.member.id,
+              id: vs.member.user.id,
               allow: permissionsForCreator
             }
           ],
@@ -90,7 +90,7 @@ export =
             if(parent)
               channel.setParent(parent);
 
-            await sendVoiceTools(channel);
+            await sendVoiceTools(channel, vs.member.id);
           });
       });
   }
