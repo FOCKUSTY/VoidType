@@ -21,7 +21,7 @@ const guilds: any[] = [];
 
 const rest = new REST().setToken(config.token);
 
-module.exports =
+export =
 {
 	name: Events.ClientReady,
 	once: true,

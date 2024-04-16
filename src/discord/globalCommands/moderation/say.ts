@@ -41,7 +41,7 @@ export =
         const bool: any = int.options.get('embed')?.value;
     
         setChannel(channel);
-        setBool(bool)
+        setBool(bool);
 
         const modal = new ModalBuilder().setCustomId(`sayModal`).setTitle(`Ваше сообщение !`);
 

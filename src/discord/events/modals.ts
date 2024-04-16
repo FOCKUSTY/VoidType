@@ -7,14 +7,21 @@ import
 import { addUserTagToDB } from '../utils/tags';
 import { debug } from "../utils/developConsole";
 import { replyOnVCCModal } from "../utils/sendVoiceTools";
+import { setMTUOJ, updateMTUOJ, deleteMTUOJ } from '../utils/messsageToUserOnJoin'
 
 let channel: any;
 let bool: boolean;
 let versionUpdate: string;
+const userBooleans = new Map();
+const userTypes = new Map();
 
 export async function setChannel(op: any) {
 	channel = await op;
 };
+
+export const setBoolToUser = (userId: string, boolean: boolean) => { userBooleans.set(userId, boolean) }; 
+export const setTypeToUser = (guildId: string, type: string = 'update'||'create'||'delete') => { userTypes.set(guildId, type) };
+
 export function setBool(op: any) { bool = op };
 
 export function setVersionUpdate(version: string) { versionUpdate = `\n# Версия: ${version}` };
@@ -126,6 +133,28 @@ export async function modalSubmit(this: any, int: Interaction)
     		    	ephemeral: true
 				});
     		}
+		}
+		else if(int.customId==='MTUOJmodal')
+		{
+			if(!interaction.guild)
+				return 0;
+
+			const type = userTypes.get(interaction.guild.id);
+
+			if(type === 'delete')
+				return await deleteMTUOJ(interaction.guild.id).then(async data =>
+					await int.reply({content: data.text, ephemeral: true}));
+
+			const text = int.fields.getTextInputValue('text');
+			const boolean = userBooleans.get(int.user.id);
+
+			if(type === 'create')
+				return await setMTUOJ({guildId: interaction.guild.id, isEnabled: boolean, text: text}).then(async data =>
+					await int.reply({content: data.text, ephemeral: true}));
+
+			else
+				return await updateMTUOJ({guildId: interaction.guild.id, isEnabled: boolean, text: text}).then(async data =>
+					await int.reply({content: data.text, ephemeral: true}));
 		}
 
 

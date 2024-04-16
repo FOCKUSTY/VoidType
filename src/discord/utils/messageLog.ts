@@ -1,6 +1,7 @@
 import { EmbedBuilder } from 'discord.js';
 import { skip, debug } from './developConsole';
 import { logChannelId, logGuildId } from '../../../config.json';
+import { getDevelop } from './develop'
 
 const sendMessageLog = async ( m: any, reason: string, m2: any, guildId = logGuildId, channelId = logChannelId ) =>
 {
@@ -90,12 +91,12 @@ const sendMessageLog = async ( m: any, reason: string, m2: any, guildId = logGui
         const embed = new EmbedBuilder()
             .setColor(color)
             .setAuthor({
-                name: `${m.author.username || 'Да1'} (${m.author.id || 'Да2'})`,
-                iconURL: m.author.avatarURL() ? m.author.avatarURL() : m.author.defaultAvatarURL || 'Да3'
+                name: `${m.author.username || 'null'} (${m.author.id || 'null'})`,
+                iconURL: m.author.avatarURL() ? m.author.avatarURL() : m.author.defaultAvatarURL || getDevelop('iconurl')
             })
-            .setTitle('Сообщение:' || 'Да4')
-            .setDescription(description || 'Да5')
-            .setThumbnail(m.guild?.iconURL() || 'Да6')
+            .setTitle('Сообщение:' || 'null')
+            .setDescription(description || 'null')
+            .setThumbnail(m.guild?.iconURL() || getDevelop('iconurl'))
             .setTimestamp()
             .addFields(fields)
     
@@ -103,14 +104,14 @@ const sendMessageLog = async ( m: any, reason: string, m2: any, guildId = logGui
             .setColor(color)
             .setAuthor({
                 name: `${m.author.username} (${m.author.id})`,
-                iconURL: m.author.avatarURL() ? m.author.avatarURL() : m.author.defaultAvatarURL
+                iconURL: m.author.avatarURL() ? m.author.avatarURL() : m.author.defaultAvatarURL || getDevelop('iconurl')
             })
             .setTitle(`${guild?.name}`)
             .setDescription(
                 `**[Сообщение](${m.url})** было ${reason} от ${m.author} (${m.url})\n
                 **На сервере:** ${m.guild}\n**Id сервера: **${m.guildId}\n
                 **В канале:** **[${m.channel.name}](${m.channel.url})** (${m.channel.url})`)
-            .setThumbnail(m.guild?.iconURL())
+            .setThumbnail(m.guild?.iconURL() || getDevelop('iconurl'))
             .setTimestamp()
             .addFields()
 

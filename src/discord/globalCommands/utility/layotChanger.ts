@@ -48,7 +48,7 @@ const words: any =
     ' ': ' '
 }
 
-module.exports =
+export =
 {
     cooldown: 5,
     data: new SlashCommandBuilder()

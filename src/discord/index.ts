@@ -94,7 +94,7 @@ if(eventFiles.length===0) eventFiles = fs.readdirSync(eventsPath).filter(file =>
   console.log('Конец обновления обработчиков событий')
 })();
 
-client.on(Events.InteractionCreate, int => modalSubmit(int));
+client.on(Events.InteractionCreate, (int: any) => { modalSubmit(int) });
 client.on(Events.InteractionCreate, async(interaction: Interaction) => intCreate(Commands, interaction));
 
 client.login(config.token);
