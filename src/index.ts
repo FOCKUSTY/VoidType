@@ -6,7 +6,7 @@ import {
 	Partials,
 } from 'discord.js';
 
-import { modalSubmit } from './discord/events/modals';
+import modalListener from './discord/events/modals';
 import { skip } from './discord/utils/developConsole';
 
 import {
@@ -18,18 +18,20 @@ import {
 
 import { Random } from 'random-js';
 import { Telegraf } from 'telegraf';
-import { intCreate } from './discord/events/interaction-create';
+import interactionListener from './discord/events/interaction-create';
 import { checkKristyStatus } from './discord/utils/activity';
 import { indexDeployCommands } from './discord/utils/deployCommands';
 import { messageCreateLog, messageDeleteLog, messageUpdateLog } from './discord/utils/logging/messageLog';
 import { sendMessageLog } from './discord/utils/messageLog';
 import { deployCommands } from './telegram/deploy-commands-telegram';
 import { messageListener } from './telegram/utility/messageListener';
+import { deployEvents } from './discord/utils/deployEvents';
+import { Colors, setColor } from './discord/utils/colors';
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { setBot } from './utility/bots';
-import { buttonsListener } from './discord/events/buttonsListener';
+import buttonsListener from './discord/events/buttonsListener';
 const r = new Random();
 const actH = [];
 
@@ -81,23 +83,13 @@ deployCommands(tClient, telegramCommandFolders, telegramFoldersPath);
 const eventsPath = path.join(__dirname, 'discord/events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts'));
 
-for (const file of eventFiles)
-{
-	const filePath = path.join(eventsPath, file);
-	const event = require(filePath);
-
-	if (event.once)
-		client.once(event.name, (...args) => event.execute(...args));
-	
-	else
-		client.on(event.name, (...args) => event.execute(...args));
-}
+deployEvents(eventsPath, eventFiles, client);
 
 client.on(Events.InteractionCreate, async interaction =>
 {
-	intCreate(Commands, interaction);
-	modalSubmit(interaction);
-	buttonsListener(interaction)
+	interactionListener.intCreate(Commands, interaction);
+	modalListener.modalSubmit(interaction);
+	buttonsListener.buttonsListener(interaction);
 });
 
 client.on(Events.MessageCreate, (message) => messageCreateLog(message));

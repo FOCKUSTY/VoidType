@@ -220,22 +220,33 @@ function pseudoRandomNumber(min=0, max=100, n=3, m=2, historyArr=historyArray, y
   };
 
   let random = Math.round(Math.random()*1000);
-  if(allRandomNumbers.length != 0) random = allRandomNumbers[allRandomNumbers.length-1];
+  
+  if(allRandomNumbers.length != 0)
+    random = allRandomNumbers[allRandomNumbers.length-1];
   
   if(random === 0)
     random += 1;
 
-  if(min===0) someMin = min + 1;
-  else someMin = min;
+  if(min===0)
+    someMin = min + 1;
+  
+  else
+    someMin = min;
+  
   someMax = max * random;
 
   let seconds = Number(dateCheck(Date.now(), 'mm'));
   let minutes = Number(dateCheck(Date.now(), 'ss'));
   let hours = Number(dateCheck(Date.now(), 'HH'));
 
-  if(seconds === 0) seconds += 1;
-  if(minutes === 0) minutes += 1;
-  if(hours === 0) hours += 1;
+  if(seconds === 0)
+    seconds += 1;
+  
+  if(minutes === 0)
+    minutes += 1;
+
+  if(hours === 0)
+    hours += 1;
 
   const first = someMin * someMax + ((someMax - someMin) * someMax) + random**2
   const second = random * random * (someMax ** 2)
@@ -294,10 +305,13 @@ function pseudoRandomNumber(min=0, max=100, n=3, m=2, historyArr=historyArray, y
     chanceBetween(5, ()=>{ number = max }, ()=>{ number = number }, pseudoRandomNumber( 0, 100, n, m, array, undefined, undefined, false, false, false ) );
   };
   
-  if(history) number = historyRandom(number, min, max, historyArr, n, m, false);
-  if( yourArr && array && history ) number = historyPseudoRandomNumber(min, max, n, m, historyArr, yourArr, array, number);
+  if(history)
+    number = historyRandom(number, min, max, historyArr, n, m, false);
 
-  debug(['Number: ',number], true);
+  if( yourArr && array && history )
+    number = historyPseudoRandomNumber(min, max, n, m, historyArr, yourArr, array, number);
+
+  debug(['Number: ',number], false);
 
   return number;
 }

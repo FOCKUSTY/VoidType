@@ -3,8 +3,8 @@ import { Client, Events, GatewayIntentBits, Collection, Interaction, Guild, Inte
 import fs from 'node:fs';
 import path from 'node:path';
 import { config } from "./config";
-import { intCreate } from './events/interaction-create';
-import { modalSubmit } from "./events/modals";
+import intCreate from './events/interaction-create';
+import modalSubmit from "./events/modals";
 import { skip } from "./utils/developConsole";
 import { setCommand } from "./utils/commandsList";
 
@@ -94,7 +94,7 @@ if(eventFiles.length===0) eventFiles = fs.readdirSync(eventsPath).filter(file =>
   console.log('Конец обновления обработчиков событий')
 })();
 
-client.on(Events.InteractionCreate, (int: any) => { modalSubmit(int) });
-client.on(Events.InteractionCreate, async(interaction: Interaction) => intCreate(Commands, interaction));
+client.on(Events.InteractionCreate, (int: any) => { modalSubmit.modalSubmit(int) });
+client.on(Events.InteractionCreate, async(interaction: Interaction) => intCreate.intCreate(Commands, interaction));
 
 client.login(config.token);

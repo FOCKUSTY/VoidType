@@ -25,10 +25,13 @@ const getAmount = (value='totalusers') =>
 const setUsernames = async(client: any, guildIds?: any[]) =>
 {
     const guilds = await client.guilds.cache;
+
     if(!guildIds)
     {
         guildIds = []
-        for(let guild of guilds) guildIds.push(guild[0]);
+
+        for(let guild of guilds)
+            guildIds.push(guild[0]);
     }
 
     guildCicle: for (let guildId of guildIds)
@@ -53,8 +56,11 @@ const setUsernames = async(client: any, guildIds?: any[]) =>
             
             if(!guildUser?.presence?.status) continue userCicle;
 
-            if(guildUser.user.globalName) userInformations.set(`${guildUser.user.id}`, [`${guildUser.user.globalName}`, [`${guild.id}`, `${guild.name}`]]);
-            else userInformations.set(`${guildUser.user.id}`, [`${guildUser.user.username}`, [`${guild.id}`, `${guild.name}`]]);
+            if(guildUser.user.globalName)
+                userInformations.set(`${guildUser.user.id}`, [`${guildUser.user.globalName}`, [`${guild.id}`, `${guild.name}`]]);
+           
+            else
+                userInformations.set(`${guildUser.user.id}`, [`${guildUser.user.username}`, [`${guild.id}`, `${guild.name}`]]);
         };
     };
     for(let i of userInformations) userInformationsCache.push(i);
@@ -62,8 +68,11 @@ const setUsernames = async(client: any, guildIds?: any[]) =>
 
 const getUsernames = (isCache=false) =>
 {
-    if(isCache) return [...userInformations];
-    else if(!isCache) return [...userInformations];
+    if(isCache)
+        return [...userInformations];
+    
+    else if(!isCache)
+        return [...userInformations];
 };
 
 const clearUserInforamtions = () => userInformations.clear();
@@ -75,7 +84,7 @@ const getRandomUserInformation = (info='username') =>
     
     info = info.toLocaleLowerCase();
     
-    debug([info, randomNumber, key], true);
+    debug([info, randomNumber, key], false);
 
     try
     {
@@ -109,10 +118,8 @@ const getRandomUserInformation = (info='username') =>
     }
     catch (err)
     {
-        console.log(err)
-        console.log(userInformations)
-        console.log(key)   
-    }
+        debug([err, '\n', userInformations, '\n', key], true, true, true);
+    };
 };
 
 const setUser = async(client: any, guildId:string, userId:string, userName: undefined | string = undefined) =>

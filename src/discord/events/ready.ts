@@ -27,7 +27,8 @@ export =
 	once: true,
 	async execute(client: Client)
 	{
-		if(!client.user) return;
+		if(!client.user)
+			return;
 
 		// deleteTable(logMessagesSchema);
 
@@ -50,15 +51,17 @@ export =
 		{			
 			setTimeout(async () =>
 			{
+				if(!client.user)
+					return;
+
 				downloadActivities();
 
 				const randomActivity = getActivities('randomActivity');
 
-				console.log(`Рандомные активности:`.bold + `\n`);
+				console.log(`Рандомные активности:\n`);
+				
 				for ( let el of randomActivity )
-				{
-					console.log(`${el[0]}` + ` - ${`${randomActivity.indexOf(el)}`}`);
-				};
+					console.log(`${el[0]} - ${`${randomActivity.indexOf(el)}`}`);
 
 				const dumplingCount = getAmount('totalUsers');
 				const serversCount = getAmount('totalGuilds');
@@ -82,7 +85,7 @@ export =
 				
 				skip();
 
-				if(client.user) console.log(`Готово! The Void готов к работе, как ${client.user.tag}\n`);
+				console.log(`Готово! The Void готов к работе, как ${client.user.tag}\n`);
 
 				setTimeout(() =>
 				{

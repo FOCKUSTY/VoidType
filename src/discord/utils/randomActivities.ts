@@ -52,7 +52,8 @@ const setRandomnessActivity = (client: Client, textActivity=false, log=true) =>
 {
     try
     {
-      if(!client||!client.user) return;
+      if(!client||!client.user)
+        return;
 
       const i = pseudoRandomNumber(0, randomActivity.length-1, 10, 2, randomActivityHistory, undefined, undefined, true, true, true);
       let randomAct = randomActivity[i][0];
@@ -80,7 +81,8 @@ const setRandomnessActivity = (client: Client, textActivity=false, log=true) =>
       debug([`Рандомная активность: ${i} из "${randomActivity.length}"`], log);
       debug([`Активность изменена на: ${randomAct}, тип: "${numRandomActType}"`], log);
 
-      if(textActivity) return [randomAct, numRandomActType];
+      if(textActivity)
+        return [randomAct, numRandomActType];
 
       client.user.setActivity(`${randomAct}`, randomActType);
     }
@@ -124,7 +126,9 @@ const setGuildsLengthActivity = (client: Client, guilds: any[], textActivity=fal
 {
   try
   {
-    if(!client||!client.user) return;
+    if(!client || !client.user)
+      return;
+
     let text = `Я уже на ${guilds.length}`
     
     const stages =
@@ -136,7 +140,8 @@ const setGuildsLengthActivity = (client: Client, guilds: any[], textActivity=fal
     
     debug([`Активность изменена на: ${text}, тип: ${actType[4]}`], log);
     
-    if(textActivity) return [text, 'Кастомный'];
+    if(textActivity)
+      return [text, 'Кастомный'];
 
     client.user.setActivity(`${text}`, actTypes.cust);
   }
@@ -150,7 +155,8 @@ const setRandomnessNameActivity = (client: Client, textActivity=false, log=true)
 {
   try
   {
-    if(!client||!client.user) return;
+    if(!client || !client.user)
+      return;
 
     let randomNumberName = pseudoRandomNumber(0, randomNames.length-1, 10, 2, randNumName, undefined, undefined, true, true, true);
     
@@ -160,7 +166,7 @@ const setRandomnessNameActivity = (client: Client, textActivity=false, log=true)
     
     let text = texts[randomTextNumber];
   
-    debug([randomNumberName, randomNames.length, randNumName], true);
+    debug([randomNumberName, randomNames.length, randNumName], false);
 
     debug([`Рандомное число: ${randomNumberName} из "${randomNames.length}"`], log);
     debug([`Рандомное число: ${randomTextNumber} из "${texts.length}"`], log);
@@ -210,7 +216,8 @@ const functionRandomActivity = async (client: any, guilds: any[], textActivity=f
     
     if(rNum>=15)
     {
-      if(textActivity) return await setRandomnessActivity(client, textActivity, log);
+      if(textActivity)
+        return await setRandomnessActivity(client, textActivity, log);
       else
       {
         if(rNum>=90)
@@ -218,7 +225,6 @@ const functionRandomActivity = async (client: any, guilds: any[], textActivity=f
           let count = 0;
           const setActivity = async (): Promise<void> =>
           {
-
             clearUserInforamtions();
             await setUsernames(client);
 
@@ -249,28 +255,36 @@ const functionRandomActivity = async (client: any, guilds: any[], textActivity=f
           };
           setActivity();
         }
-        else setRandomnessActivity(client, textActivity, log);
+        else
+          setRandomnessActivity(client, textActivity, log);
       }
     }
     else if (rNum<10)
     {
       if(rNum>=5) 
       {
-        if(textActivity) return await setGuildsLengthActivity(client, guilds, textActivity, log);
-        else setGuildsLengthActivity(client, guilds, textActivity, log);
+        if(textActivity)
+          return await setGuildsLengthActivity(client, guilds, textActivity, log);
+        else
+          setGuildsLengthActivity(client, guilds, textActivity, log);
       }
       else
       {
-        if(textActivity) return await setRandomnessGuildActivity(client, guilds, textActivity, log);
-        else setRandomnessGuildActivity(client, guilds, textActivity, log);
+        if(textActivity)
+          return await setRandomnessGuildActivity(client, guilds, textActivity, log);
+        else
+          setRandomnessGuildActivity(client, guilds, textActivity, log);
       }
     }
     else
     {
-      if(textActivity) return await setRandomnessNameActivity(client, textActivity, log);
-      else setRandomnessNameActivity(client, textActivity, log);
+      if(textActivity)
+        return await setRandomnessNameActivity(client, textActivity, log);
+      else
+      setRandomnessNameActivity(client, textActivity, log);
     }
-    if(log) skip();
+    if(log)
+      skip();
   }
   catch (err)
   {
@@ -287,7 +301,8 @@ const funcGuildTexts = (guildName: any) =>
   guildTexts.length = 0
   guildTexts = copy(guildActivities);
   
-  for(let i in guildTexts) guildTexts[i][0] = guildTexts[i][0].replaceAll('rGuildName', `${guildName}`)
+  for(let i in guildTexts)
+    guildTexts[i][0] = guildTexts[i][0].replaceAll('rGuildName', `${guildName}`)
 };
 
 const nameTexts = ( rName: any, arr: any[], bool=false ) =>
@@ -297,10 +312,15 @@ const nameTexts = ( rName: any, arr: any[], bool=false ) =>
   
   const r = pseudoRandomNumber(0, randomNames.length-1, 10, 10, randNames, undefined, undefined, true, true);
   const rNameTwo = randomNames[r];
-  for (let i in arr) arr[i] = arr[i].replace('${rName}', `${rName}`).replace('${rNameTwo}', `${rNameTwo}`);
+
+  for (let i in arr)
+    arr[i] = arr[i].replace('${rName}', `${rName}`).replace('${rNameTwo}', `${rNameTwo}`);
   
-  if(bool) return arr.length;
-  else return arr;
+  if(bool)
+    return arr.length;
+
+  else
+    return arr;
 };
 
 export
