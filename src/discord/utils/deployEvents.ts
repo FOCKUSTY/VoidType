@@ -11,7 +11,7 @@ const deployEvents = (eventsPath: string, eventFiles: string[], client: Client) 
             const filePath = path.join(eventsPath, file);
             const event = require(filePath);
         
-            debug([`Загружаю прослушиватель: ${event.name}`, '->', file], true, false, false);
+            console.log(`Загружаю прослушиватель: ${event.name}`, '->', file);
 
             if(event.once)
                 client.once(event.name, (...args) => event.execute(...args));

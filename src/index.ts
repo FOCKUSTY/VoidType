@@ -16,6 +16,7 @@ import {
 	token
 } from '../config.json';
 
+import { debug } from './discord/utils/developConsole';
 import { Random } from 'random-js';
 import { Telegraf } from 'telegraf';
 import interactionListener from './discord/events/interaction-create';
@@ -52,6 +53,10 @@ const client = new Client({
 	],
 });
 
+const devDebug = true;
+
+debug(['Начало программы'], devDebug, true, false);
+
 const tClient = new Telegraf(telegramToken);
 
 const Commands = new Collection();
@@ -67,17 +72,17 @@ const telegramFoldersPathText = 'telegram/commands';
 const telegramFoldersPath = path.join(__dirname, telegramFoldersPathText);
 const telegramCommandFolders = fs.readdirSync(telegramFoldersPath);
 
-console.log(`Мои команды:`);
+debug([`Мои команды:`], devDebug, false, false);
 indexDeployCommands(globalcommandFolders, globalfoldersPath, client, Commands);
 
 skip();
 
-console.log('Мои команды гильдии:');
+debug(['Мои команды гильдии:'], devDebug, false, false);
 indexDeployCommands(guildCommandFolders, guildFoldersPath, client, Commands);
 
 skip();
 
-console.log('Мои telegram команды:');
+debug(['Мои telegram команды:'], devDebug, false, false);
 deployCommands(tClient, telegramCommandFolders, telegramFoldersPath);
 
 const eventsPath = path.join(__dirname, 'discord/events');

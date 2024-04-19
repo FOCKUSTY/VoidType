@@ -8,6 +8,7 @@ import { sequelize } from '../utils/tags'
 import { checkNumber } from '../utils/stages'
 import { skip } from '../utils/developConsole'
 import { changeComma } from '../utils/changeComma'
+import { debug } from '../utils/developConsole';
 import { readAllMessageFromIdeaChannel } from '../utils/ideaMethods'
 import { checkKristyNickname } from '../utils/checkNickname'
 import { setActivity } from '../utils/activity'
@@ -16,6 +17,8 @@ import { setBot } from '../../utility/bots'
 	
 import fs from 'fs'
 import path from 'node:path'
+
+const devDebug = true;
 
 const guilds: any[] = [];
 
@@ -58,10 +61,10 @@ export =
 
 				const randomActivity = getActivities('randomActivity');
 
-				console.log(`Рандомные активности:\n`);
+				debug([`Рандомные активности:\n`], devDebug, false, false);
 				
 				for ( let el of randomActivity )
-					console.log(`${el[0]} - ${`${randomActivity.indexOf(el)}`}`);
+					debug([`${el[0]} - ${`${randomActivity.indexOf(el)}`}`], devDebug, false, false);
 
 				const dumplingCount = getAmount('totalUsers');
 				const serversCount = getAmount('totalGuilds');
@@ -79,13 +82,13 @@ export =
 
 				skip();
 				
-				console.log(`Всего собрано ${dumplingCount} ${dumplingCountNumeral} с ${serversCount} ${serversCountNumeral}`);
-				console.log(`Также собрано ${botsCount} ${botsCountNumeral} с ${serversCount} ${serversCountNumeral}`)
-				console.log(`В среднем с каждого сервера ${changeComma(dumplingsCountFromEachServer)} ${dumplingsCountFromEachServerNumeral}, а также ${changeComma(botsCountNumberalFromEachServer)} ${botsCountNumberalFromEachServerNumeral}`);
+				debug([`Всего собрано ${dumplingCount} ${dumplingCountNumeral} с ${serversCount} ${serversCountNumeral}`], devDebug, false, false);
+				debug([`Также собрано ${botsCount} ${botsCountNumeral} с ${serversCount} ${serversCountNumeral}`], devDebug, false, false);
+				debug([`В среднем с каждого сервера ${changeComma(dumplingsCountFromEachServer)} ${dumplingsCountFromEachServerNumeral}, а также ${changeComma(botsCountNumberalFromEachServer)} ${botsCountNumberalFromEachServerNumeral}`], devDebug, false, false);
 				
 				skip();
 
-				console.log(`Готово! The Void готов к работе, как ${client.user.tag}\n`);
+				debug([`Готово! The Void готов к работе, как ${client.user.tag}\n`], true, true, false);
 
 				setTimeout(() =>
 				{

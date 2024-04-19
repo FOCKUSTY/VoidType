@@ -47,13 +47,15 @@ const actType = new Map()
   'actTypes.comp': `Соревнуется`
 }; */
 
+const devDebug = true;
+
 let repliesSync: any;
 
 const setActivity = (client: any, activity = 'Привет!', activityType = 'actTypes.play') =>
 {
   const actType = eval(activityType);
 
-  console.log(`Устанавливаю активность: ${activity}`)
+  debug([`Устанавливаю активность: "${activity}"`], devDebug, false, false);
 
   client.user.setActivity(`${activity}`, actType);
 }
@@ -66,23 +68,26 @@ const checkKristyStatus = async (client: any, kristyActivity: string, textActivi
 
     await eval(`repliesSync = ${json}`);
 
-    debug([repliesSync, json], false)
+    debug([repliesSync, json], false);
 
     for(let reply in repliesSync.TheVoidReplies)
     {
       if(`${kristyActivity}`?.toLowerCase()?.indexOf(`${reply}`) != -1)
       {
-        if(textActivity) return [ repliesSync.TheVoidReplies[reply][0], actType.get(repliesSync.TheVoidReplies[reply][1]) ];
+        if(textActivity)
+          return [ repliesSync.TheVoidReplies[reply][0], actType.get(repliesSync.TheVoidReplies[reply][1]) ];
 
         setTimeout(() => { setActivity(client, repliesSync.TheVoidReplies[reply][0], repliesSync.TheVoidReplies[reply][1]) }, 10000);
         return true;
-      } else continue;
+      }
+      else
+        continue;
     };
     return false;
   }
   catch (err)
   {
-    console.log(err)
+    debug([err], true, false, true);
   }
 }
 
@@ -99,11 +104,13 @@ const presenceListener = (newPresence: { userId: string; activities: any; }, old
 					oldActivity = activity.state;
 					checkKristyStatus(client, `${activity.state}`.toLocaleLowerCase());
 				}
-				else return;
+				else
+          return;
 			}
 		};
 	}
-	else return;
+	else
+    return;
 }
 
 export
