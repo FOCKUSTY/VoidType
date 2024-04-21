@@ -1,6 +1,5 @@
-import { SlashCommandBuilder, EmbedBuilder } from 'discord.js'
-import { developCommand } from '../../utils/developCommand'
-import { getBooleanChatting, setBooleanChatting } from '../../utils/chatting'
+import { SlashCommandBuilder } from 'discord.js'
+import { getBooleanChatting, setBooleanChatting } from 'd@utility/chatting'
 
 export =
 {

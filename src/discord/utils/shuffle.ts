@@ -1,4 +1,3 @@
-
 const shuffle = ( array: any[] ) =>
 {
     let currentIndex = array.length,  randomIndex;

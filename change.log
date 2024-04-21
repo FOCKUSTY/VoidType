@@ -38,6 +38,9 @@
 # 0.1.9-alpha.1
 - Добавлен LICENSE
 - Обновлена debug функция
+# 0.1.10-alpha.1
+- Обновлены импорты
+- tsconfig.json был обновлен
 
 # 🇺🇸 - English
 # 0.0.0-aplha.1
@@ -79,3 +82,6 @@
 # 0.1.9-alpha.1
 - add LICENSE
 - updated debug function
+# 0.1.10-alpha.1
+- Imports was updated
+- tsconfig.json was updated

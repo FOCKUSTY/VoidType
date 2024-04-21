@@ -1,28 +1,17 @@
 import { ActivityType } from 'discord.js';
-import fs, { copyFileSync } from 'node:fs';
 
-import
-    {
-        jsonActivities,
-        jsonBotVersion,
-        jsonDownload,
-        jsonGuildActivities,
-        jsonJokes,
-        jsonKristyActivities,
-        jsonNames,
-        jsonObjectIdeas,
-        jsonRandomNameActivities
-    } from '../../../../VoidDataBase/data.json';
+import { jsonActivities, jsonBotVersion, jsonDownload, jsonGuildActivities, jsonJokes, jsonKristyActivities, jsonNames, jsonObjectIdeas, jsonRandomNameActivities } from 'void@database';
 
-import jsonExceptions from '../../../../VoidDataBase/exceptions.json';
-import { TheVoidReplies } from '../../../../VoidDataBase/replyesActivity.json';
-
-import { version } from '../../../package.json';
+import { debug, skip } from 'dev@console';
 import { OneTime, oneTimeFunction } from './OneTimeFunction';
-import { debug, skip } from './developConsole';
-import { shuffle } from './shuffle';
+import { shuffle } from 'shuffle';
+import { version } from 'package';
 
-import { kristyGuildId, kristyId } from '../../../config.json';
+import config from 'config';
+import fs from 'node:fs';
+
+import { TheVoidReplies } from 'void@replies';
+import jsonExceptions from 'void@exceptions';
 
 
 
@@ -245,8 +234,8 @@ const funcKristyAct = async (client: any, log=true) =>
   
   if(exceptions.get('jsonKristyActivities') || eval(exceptionsReaded['jsonKristyActivities'])) return;
 
-  const guild = await client?.guilds?.fetch(`${kristyGuildId}`);
-  const kristyUser = await guild?.members?.fetch(`${kristyId}`);
+  const guild = await client?.guilds?.fetch(`${config.kristyGuildId}`);
+  const kristyUser = await guild?.members?.fetch(`${config.kristyId}`);
   const kristyStatus = kristyUser?.presence?.status;
   
   if(kristyStatus === undefined || kristyStatus === null || kristyStatus === 'offline')

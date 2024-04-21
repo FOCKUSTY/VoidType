@@ -1,4 +1,4 @@
-import { commands } from '../../deploy-commands-telegram'
+import { commands } from 't@deploy-commands'
 
 export =
 {

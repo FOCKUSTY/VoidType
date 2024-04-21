@@ -1,5 +1,5 @@
-import { pseudoRandomNumber } from './pseudoRandom'
-import { debug } from './developConsole';
+import { pseudoRandomNumber } from 'pseudo-random';
+import { debug } from 'dev@console';
 
 const
     users = new Map(),

@@ -1,17 +1,7 @@
-import
-{
-    SlashCommandBuilder,
-    PermissionsBitField,
-    TextInputBuilder, 
-    ActionRowBuilder,
-    TextInputStyle,
-    ModalBuilder,
-    CommandInteraction,
-    ModalActionRowComponentBuilder
-} from 'discord.js';
+import { SlashCommandBuilder, PermissionsBitField, TextInputBuilder,  ActionRowBuilder, TextInputStyle, ModalBuilder, CommandInteraction, ModalActionRowComponentBuilder } from 'discord.js';
 
-import { setChannel, setBool } from '../../events/modals';
-import { config } from '../../config';
+import modals from 'd@l-modal';
+import { config } from 'd@config';
 
 export =
 {
@@ -30,8 +20,8 @@ export =
         const bool: any = int.options.get('embed')?.value;
         const channel: any = client?.channels.cache.get(channelId);
     
-        setChannel(channel);
-        setBool(bool);
+        modals.setChannel(channel);
+        modals.setBool(bool);
 
         if(!(channel.permissionsFor(interaction.client.user.id).has([PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ViewChannel]))) {
             await int.reply({

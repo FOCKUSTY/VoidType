@@ -1,8 +1,8 @@
 import { functionRandomActivity } from './randomActivities';
 import { OneTime } from './OneTimeFunction';
 import { checkKristyStatus } from '../utils/activity';
-import { clientId, kristyId, channelWithKristyChattingId, authorId } from '../../../config.json';
-import { debug } from '../utils/developConsole';
+import { debug } from 'dev@console';
+import config from 'config';
 
 let count = 0;
 let trueWarnMessage = 'Общение и так началось...';
@@ -100,13 +100,13 @@ const chattingWithKristy = async (m: any) =>
 	chattingWithKristyTimer.clearTimer();	
 	chattingWithKristyTimer.setTimer();
 
-	if(m.channel?.id!=`${channelWithKristyChattingId}`) return;
-	if(m.mentions.users.get(`${clientId}`)===undefined) return;
+	if(m.channel?.id!=`${config.channelWithKristyChattingId}`) return;
+	if(m.mentions.users.get(`${config.clientId}`)===undefined) return;
 	if(!getBooleanChatting()) return;
 	// if(m.author.id!=`${authorId}`) return;
-	if(m.author.id ===`${kristyId}` || m.author.id ===`${authorId}`)
+	if(m.author.id ===`${config.kristyId}` || m.author.id ===`${config.authorId}`)
 	{
-		const kristyUser = await m.guild?.members?.fetch(`${authorId}`);
+		const kristyUser = await m.guild?.members?.fetch(`${config.authorId}`);
 		// const kristyUser = await m.guild?.members?.fetch(`${kristyId}`);
 		const kristyStatus = kristyUser.presence?.status;
 		if(kristyStatus===undefined||kristyStatus===null||kristyStatus==='offline') return;

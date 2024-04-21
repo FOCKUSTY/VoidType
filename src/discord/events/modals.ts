@@ -159,4 +159,5 @@ export =
 	setTypeToUser(guildId: string, type: string = 'update'||'create'||'delete') { userTypes.set(guildId, type) },
 	setBool(op: any) { bool = op },
 	setVersionUpdate(version: string) { versionUpdate = `\n# Версия: ${version}` },
+
 }

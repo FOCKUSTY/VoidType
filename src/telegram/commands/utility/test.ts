@@ -1,6 +1,3 @@
-import { message } from 'telegraf/filters'
-import { messageListener, setMessageId } from '../../utility/messageListener'
-
 export =
 {
     name: 'test',

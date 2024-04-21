@@ -1,5 +1,5 @@
 import { ActivityType, Client } from "discord.js";
-import { debug } from '../utils/developConsole';
+import { debug } from 'dev@console';
   
 import
     {

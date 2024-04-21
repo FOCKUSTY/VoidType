@@ -1,38 +1,29 @@
-import {
-	Client,
-	Collection,
-	Events,
-	GatewayIntentBits,
-	Partials,
-} from 'discord.js';
-
-import modalListener from './discord/events/modals';
-import { skip } from './discord/utils/developConsole';
-
-import {
-	authorId,
-	kristyId,
-	telegramToken,
-	token
-} from '../config.json';
-
-import { debug } from './discord/utils/developConsole';
-import { Random } from 'random-js';
+import { Client, Collection, Events, GatewayIntentBits, Partials, } from 'discord.js';
 import { Telegraf } from 'telegraf';
-import interactionListener from './discord/events/interaction-create';
-import { checkKristyStatus } from './discord/utils/activity';
-import { indexDeployCommands } from './discord/utils/deployCommands';
-import { messageCreateLog, messageDeleteLog, messageUpdateLog } from './discord/utils/logging/messageLog';
-import { sendMessageLog } from './discord/utils/messageLog';
-import { deployCommands } from './telegram/deploy-commands-telegram';
-import { messageListener } from './telegram/utility/messageListener';
-import { deployEvents } from './discord/utils/deployEvents';
-import { Colors, setColor } from './discord/utils/colors';
 
+import { Random } from 'random-js';
+
+import { setBot } from 'utility/bots';
+
+import { messageCreateLog, messageDeleteLog, messageUpdateLog } from 'd@utility/logging/messageLog';
+import { checkKristyStatus } from 'd@utility/activity';
+import { Colors, setColor } from 'd@utility/colors';
+import { deployEvents } from 'd@utility/deployEvents';
+import { indexDeployCommands } from 'd@utility/deployCommands';
+import { sendMessageLog } from 'd@utility/messageLog';
+import { skip, debug } from 'd@utility/developConsole';
+
+import { deployCommands } from 't@deploy-commands';
+import { messageListener } from 't@l-msg';
+
+import interactionListener from 'd@l-interaction';
+import buttonsListener from 'd@l-button';
+import modalListener from 'd@l-modal';
+
+import config from 'config';
 import fs from 'node:fs';
 import path from 'node:path';
-import { setBot } from './utility/bots';
-import buttonsListener from './discord/events/buttonsListener';
+
 const r = new Random();
 const actH = [];
 
@@ -57,7 +48,7 @@ const devDebug = true;
 
 debug(['Начало программы'], devDebug, true, false);
 
-const tClient = new Telegraf(telegramToken);
+const tClient = new Telegraf(config.telegramToken);
 
 const Commands = new Collection();
 const globalfoldersPathText = 'discord/globalCommands';
@@ -105,7 +96,7 @@ let oldActivity: any;
 
 client.on(Events.PresenceUpdate, (oldPresence, newPresence) =>
 {
-	if(newPresence.userId === kristyId || newPresence.userId === authorId)
+	if(newPresence.userId === config.kristyId || newPresence.userId === config.authorId)
 	{
 		for(let activity of newPresence.activities)
 		{
@@ -135,7 +126,7 @@ process.once('SIGTERM', () =>
     tClient.stop('SIGTERM')
 });
 
-client.login(token);
+client.login(config.token);
 
 tClient.on('message', async message => messageListener(message) );
 

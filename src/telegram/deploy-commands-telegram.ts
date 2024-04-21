@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { message } from 'telegraf/filters';
 
 const globalFoldersPath = path.join(__dirname, 'commands');
 const globalCommandFolders = fs.readdirSync(globalFoldersPath);

@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { functionRandomActivity } from '../../utils/randomActivities';
+import { functionRandomActivity } from 'd@utility/randomActivities';
     
 const guilds: any[] = [];
 

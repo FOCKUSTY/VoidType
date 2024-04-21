@@ -1,9 +1,4 @@
-import
-{
-    CommandInteraction, SlashCommandBuilder,
-    EmbedBuilder,
-    time,
-} from "discord.js";
+import { CommandInteraction, SlashCommandBuilder, EmbedBuilder, time, } from "discord.js";
 
 export =
 {

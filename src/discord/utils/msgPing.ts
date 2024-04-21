@@ -1,7 +1,7 @@
 import { EmbedBuilder } from 'discord.js';
 import { getBotReply, readReplyTxt } from './botReply';
 import { dateCheck } from './date';
-import { color } from './develop';
+import { color } from 'dev@';
 
 async function msgPing(m: any)
 {

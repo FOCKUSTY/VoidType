@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { enableTalking } from '../../utils/logging/messageLog';
+import { enableTalking } from 'd@logging/messageLog';
 
 export =
 {

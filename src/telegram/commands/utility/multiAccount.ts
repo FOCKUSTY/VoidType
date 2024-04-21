@@ -1,6 +1,5 @@
-import { message } from 'telegraf/filters'
-import { messageListener, setMessageId } from '../../utility/messageListener'
-import { getBot } from '../../../utility/bots'
+import { setMessageId } from 't@l-msg';
+import { getBot } from 'utility/bots';
 
 export =
 {

@@ -1,5 +1,5 @@
-import { CommandInteraction, SlashCommandBuilder, ChannelType, PermissionsBitField, escapeHeading } from "discord.js";
-import { addNewVoiceCreateChannel, deleteVoiceCreateChannel, updateVoiceCreateChannel } from "../../utils/tags"
+import { SlashCommandBuilder, ChannelType, PermissionsBitField } from "discord.js";
+import { addNewVoiceCreateChannel, deleteVoiceCreateChannel, updateVoiceCreateChannel } from "d@utility/tags"
 
 const permissionsForBot = [ PermissionsBitField.Flags.ManageChannels, PermissionsBitField.Flags.MoveMembers ];
 

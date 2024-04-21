@@ -1,6 +1,6 @@
 import { Client } from 'discord.js';
-import { config } from '../config'
-import { OneTime } from '../utils/OneTimeFunction'
+import { OneTime } from 'd@utility/OneTimeFunction';
+import { config } from 'd@config';
 
 let
     kristyMember: any,

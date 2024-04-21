@@ -22,8 +22,8 @@ import
 
   } from 'discord.js';
 
-import { pseudoRandomNumber } from './pseudoRandom';
-import { getDevelopClient, getDevelop } from './develop';
+import { pseudoRandomNumber } from 'pseudo-random';
+import { getDevelopClient, getDevelop } from 'dev@';
 
 const createdVCC = new Map();
 const usersBlocked = new Map();

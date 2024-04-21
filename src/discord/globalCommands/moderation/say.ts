@@ -11,7 +11,7 @@ import
     ActionRowBuilder
 } from 'discord.js';
 
-import { setChannel, setBool } from '../../events/modals';
+import modals from 'd@l-modal';
 
 export =
 {
@@ -40,8 +40,8 @@ export =
         const channel: any = int.options.get(`channel`)?.value;
         const bool: any = int.options.get('embed')?.value;
     
-        setChannel(channel);
-        setBool(bool);
+        modals.setChannel(channel);
+        modals.setBool(bool);
 
         const modal = new ModalBuilder().setCustomId(`sayModal`).setTitle(`Ваше сообщение !`);
 

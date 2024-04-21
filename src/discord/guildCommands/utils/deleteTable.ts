@@ -1,12 +1,7 @@
-import
-    {
-        SlashCommandBuilder,
-        EmbedBuilder,
-        PermissionFlagsBits
-    } from 'discord.js';
+import { SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
 
-import { sequelize, deleteTable } from '../../utils/tags';
-import { authorId } from '../../../../config.json';
+import { sequelize, deleteTable } from 'd@utility/tags';
+import { authorId } from 'config';
 
 export =
 {

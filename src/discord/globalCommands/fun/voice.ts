@@ -1,17 +1,9 @@
 import { SlashCommandBuilder } from 'discord.js';
-import
-{
-    joinVoiceChannel,
-    getVoiceConnection,
-    AudioPlayerStatus,
-    createAudioResource,
-    createAudioPlayer,
-    NoSubscriberBehavior
-} from '@discordjs/voice';
+import { joinVoiceChannel, getVoiceConnection, AudioPlayerStatus, createAudioResource, createAudioPlayer, NoSubscriberBehavior } from '@discordjs/voice';
     
-import { pseudoRandomNumber } from '../../utils/pseudoRandom';
-import { getDevelop } from '../../utils/develop';
-import { setGMPlaying, getGMPlaying } from '../../utils/music';
+import { pseudoRandomNumber } from 'pseudo-random';
+import { getDevelop } from 'dev@';
+import { setGMPlaying, getGMPlaying } from 'd@utility/music';
 
 import path from 'path';
 import fs from 'node:fs';

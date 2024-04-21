@@ -1,5 +1,5 @@
 import { dateCheck } from './date';
-import { debug, skip } from './developConsole';
+import { debug, skip } from 'dev@console';
 import { Random } from 'random-js';
 const random = new Random();
 

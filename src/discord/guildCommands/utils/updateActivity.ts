@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { updateActivities } from '../../utils/updatejson';
+import { updateActivities } from 'd@utility/updatejson';
 
 export =
 {

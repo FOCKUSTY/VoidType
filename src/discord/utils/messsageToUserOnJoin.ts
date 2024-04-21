@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes, where } from 'sequelize';
-import { debug } from './developConsole';
+import { debug } from 'dev@console';
 import { sequelize } from './tags';
 import { dbTypes } from './classes';
 

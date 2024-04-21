@@ -1,6 +1,5 @@
-import { getBot } from '../../../utility/bots'
-import { sendMessage } from '../../../discord/utils/develop'
-import { messageListener, setMessageId } from '../../utility/messageListener'
+import { setMessageId } from 't@l-msg';
+import { getBot } from 'utility/bots';
 
 export =
 {

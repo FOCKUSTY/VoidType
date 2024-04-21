@@ -1,9 +1,11 @@
-import { Command } from "./Command";
 import { REST, Routes } from 'discord.js';
+
+import { deployCommands, updateCommands } from 'd@utility/deployCommands';
+import { Command } from "d@command";
+import { config } from 'd@config';
+
 import fs from 'node:fs';
 import path from 'node:path';
-import { deployCommands, updateCommands } from './utils/deployCommands'
-import { config } from './config'
 
 const guildId: any = config.guildId;
 

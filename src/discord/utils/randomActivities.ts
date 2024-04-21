@@ -1,10 +1,10 @@
 import { ActivityType, Client } from 'discord.js';
 import { checkNumber } from './stages';
+import { clearUserInforamtions, getRandomUserInformation, setUsernames } from './user';
 import { copy } from './copyArray';
 import { getActivities, funcKristyAct } from './updatejson';
-import { clearUserInforamtions, getRandomUserInformation, setUsernames } from './user';
-import { pseudoRandomNumber } from './pseudoRandom';
-import { skip, debug } from './developConsole';
+import { pseudoRandomNumber } from 'pseudo-random';
+import { skip, debug } from 'dev@console';
 
 const
   actTypes =

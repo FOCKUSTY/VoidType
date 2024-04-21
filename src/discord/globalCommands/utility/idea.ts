@@ -1,17 +1,8 @@
-import
-{
-    SlashCommandBuilder,
-    ActionRowBuilder,
-    TextInputBuilder,
-    TextInputStyle,
-    ModalBuilder,
-    CommandInteraction,
-    ModalActionRowComponentBuilder
-} from 'discord.js';
+import { SlashCommandBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, ModalBuilder, CommandInteraction, ModalActionRowComponentBuilder } from 'discord.js';
 
-import { bannedUsers } from '../../whiteList';
-import { pseudoRandomNumber } from '../../utils/pseudoRandom';
-import { getActivities } from '../../utils/updatejson';
+import { bannedUsers } from 'd@white-list';
+import { pseudoRandomNumber } from 'd@utility/pseudoRandom';
+import { getActivities } from 'd@utility/updatejson';
 
 const objectIdeas = getActivities('objectIdeas');
 const historyRandomObjectIdeas: any[] = [];

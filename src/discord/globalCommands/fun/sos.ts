@@ -1,8 +1,9 @@
-import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
-import { joinVoiceChannel, getVoiceConnection, AudioPlayerStatus, createAudioResource, createAudioPlayer, NoSubscriberBehavior } from '@discordjs/voice';
-import path from 'path';
-import fs from 'node:fs';
+import { joinVoiceChannel, AudioPlayerStatus, createAudioResource, createAudioPlayer, NoSubscriberBehavior } from '@discordjs/voice';
+import { SlashCommandBuilder } from 'discord.js';
 import { Random } from "random-js";
+
+import path from 'path';
+
 const random = new Random();
 
 const player = createAudioPlayer({

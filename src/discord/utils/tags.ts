@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes, where } from 'sequelize';
-import { debug, skip } from './developConsole';
+import { debug } from 'dev@console';
 
 const sequelize = new Sequelize('database', 'user', 'password',
 {

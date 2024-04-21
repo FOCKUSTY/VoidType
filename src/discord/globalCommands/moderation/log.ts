@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, EmbedBuilder, ChannelType } from 'discord.js';
-import { addNewLogGuild, updateGuildLog } from '../../utils/tags';
+import { addNewLogGuild, updateGuildLog } from 'd@utility/tags';
 
 export =
 {

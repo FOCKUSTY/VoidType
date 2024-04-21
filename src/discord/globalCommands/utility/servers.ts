@@ -1,5 +1,7 @@
 import { SlashCommandBuilder, CommandInteraction, EmbedBuilder, time } from 'discord.js';
-let verLevel = [
+
+let verLevel =
+[
 	`Нет`,
 	`Маленький`,
 	`Средний`,

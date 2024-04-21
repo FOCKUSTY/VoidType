@@ -1,12 +1,13 @@
 import { Client, Events, GatewayIntentBits, Collection, Interaction, Guild, InteractionType, EmbedBuilder, TextChannel } from "discord.js";
-// import { Tags } from "./develop";
+
+import { config } from "d@config";
+import { setCommand } from "d@utility/commandsList";
+
+import modalSubmit from "d@l-modal";
+import intCreate from 'd@l-interaction';
+
 import fs from 'node:fs';
 import path from 'node:path';
-import { config } from "./config";
-import intCreate from './events/interaction-create';
-import modalSubmit from "./events/modals";
-import { skip } from "./utils/developConsole";
-import { setCommand } from "./utils/commandsList";
 
 export const client = new Client({
   intents: [

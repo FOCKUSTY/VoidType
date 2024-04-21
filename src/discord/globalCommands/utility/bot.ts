@@ -1,9 +1,11 @@
-import { SlashCommandBuilder, EmbedBuilder } from 'discord.js'
-import { version } from '../../../../package.json'
-import { authorId, guildId, kristyAuthorId } from '../../../../config.json'
-import { getAmount } from '../../utils/user'
-import { color, getDevelop } from '../../utils/develop'
-import { getCommands } from '../../utils/commandsList'
+import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
+
+import { color, getDevelop } from 'dev@';
+import { getAmount } from 'd@utility/user';
+import { getCommands } from 'd@utility/commandsList';
+
+import { authorId, guildId, kristyAuthorId } from 'config';
+import { version } from 'package';
 
 export =
 {

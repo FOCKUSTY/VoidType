@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
-import { getUserTagOutDB } from '../../utils/tags';
-import { getDevelop } from '../../utils/develop';
+import { getUserTagOutDB } from 'd@utility/tags';
+import { getDevelop } from 'dev@';
 
 export =
 {

@@ -1,16 +1,66 @@
 {
-  "compilerOptions": {
-    "target": "ES2020",
-    "module": "CommonJS",
-    "rootDir": "../",
-    "outDir": "./dist",
-    "removeComments": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "skipLibCheck": true
-  },
-  "include": ["./**/*.ts"],
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "CommonJS",
+        "rootDir": "../",
+        "outDir": "./dist",
+        "removeComments": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "strictNullChecks": true,
+        "skipLibCheck": true, 
+        "baseUrl": "./",
+        "paths": {
+            "src/*": ["./src/*"],
+
+            "discord/*": ["./src/discord/*"],
+            "telegram/*": ["./src/telegram/*"],
+            "utility/*": ["./src/utility/*"],
+
+            "t@commands/*": ["./src/telegram/commands/*"],
+            "t@utility/*": ["./src/telegram/utility/*"],
+
+            "t@deploy-commands": ["./src/telegram/deploy-commands-telegram.ts"],
+            "t@index": ["./src/telegram/index.ts"],
+            "t@dev": ["./src/telegram/utility/develop.ts"],
+            "t@l-msg": ["./src/telegram/utility/messageListener.ts"],
+
+            "d@events/*": ["./src/discord/events/*"],
+            "d@g-commands/*": ["./src/discord/globalCommands/*"],
+            "d@l-commands/*": ["./src/discord/guildCommands/*"],
+            "d@utility/*": ["./src/discord/utils/*"],
+            "d@logging/*": ["./src/discord/utils/logging/*"],
+            
+            "d@command": ["./src/discord/Command.ts"],
+            "d@config": ["./src/discord/config.ts"],
+            "d@index": ["./src/discord/index.ts"],
+            "d@slash-commands": ["./src/discord/SlashCommands.ts"],
+            "d@white-list": ["./src/discord/whiteList.ts"],
+            "d@reply": ["./src/discord/botReply.ts"],
+
+            "d@l-button": ["./src/discord/events/buttonsListener.ts"],
+            "d@l-interaction": ["./src/discord/events/interaction-create.ts"],
+            "d@l-voice": ["./src/discord/events/joinVoice.ts"],
+            "d@l-modal": ["./src/discord/events/modals.ts"],
+            "d@l-ready": ["./src/discord/events/ready.ts"],
+            "d@l-member-join": ["./src/discord/events/userJoin.ts"],
+
+            "config": ["./config.json"],
+            "package": ["./package.json"],
+            "shuffle": ["./src/discord/utils/shuffle.ts"],
+            "pseudo-random": ["./src/discord/utils/pseudoRandom.ts"],
+            
+            "dev@console": ["./src/discord/utils/developConsole.ts"],
+            "dev@": ["./src/discord/utils/develop.ts"],
+            
+            "the-void/*": ["../../VoidDataBase/*"],
+
+            "void@database": ["../../VoidDataBase/data.json"],
+            "void@exceptions": ["../../VoidDataBase/exceptions.json"],
+            "void@replies": ["../../VoidDataBase/replyesActivity.json"],
+        }
+    },
+    "include": ["./**/*.ts"]
 }

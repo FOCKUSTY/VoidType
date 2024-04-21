@@ -1,7 +1,8 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { setBotReply, changeReplyTxt } from '../../utils/botReply';
-import { debug } from '../../utils/developConsole';
-import config from '../../../../config.json'
+import { setBotReply, changeReplyTxt } from 'd@utility/botReply';
+import { debug } from 'dev@console';
+
+import config from 'config'
 
 export =
 {

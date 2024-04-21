@@ -1,16 +1,8 @@
-import {
-        SlashCommandBuilder,
-        ChannelType,
-        PermissionsBitField,
-        TextInputStyle,
-        TextInputBuilder,
-        ActionRowBuilder,
-        ModalBuilder
-    } from 'discord.js'
-    
-import { setChannel, setBool, setVersionUpdate } from '../../events/modals'
-import { getActivities } from '../../utils/updatejson'
-import { pseudoRandomNumber } from '../../utils/pseudoRandom'
+import { SlashCommandBuilder, ChannelType, PermissionsBitField, TextInputStyle, TextInputBuilder, ActionRowBuilder, ModalBuilder } from 'discord.js'
+import { getActivities } from 'd@utility/updatejson';
+import { pseudoRandomNumber } from 'd@utility/pseudoRandom';
+
+import modals from 'd@l-modal';
 
 export =
 {
@@ -61,9 +53,9 @@ export =
 
         let ideaDetailPH = objectIdeas[pseudoRandomNumber(0, objectIdeas.length-1, 1, 1, undefined, undefined, undefined, false, true, true)]['ideaDetail']
 
-        setChannel(channel);
-        setBool(bool);
-        setVersionUpdate(versionUpdate);
+        modals.setChannel(channel);
+        modals.setBool(bool);
+        modals.setVersionUpdate(versionUpdate);
 
         if(bool)
         {

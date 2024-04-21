@@ -1,8 +1,9 @@
 import { REST, Routes } from 'discord.js';
+import { config } from 'd@config'
+import { setCommand } from './commandsList';
+
 import fs from 'node:fs';
 import path from 'node:path';
-import { config } from '../config'
-import { setCommand } from './commandsList';
 
 const guildId: any = config.guildId
 

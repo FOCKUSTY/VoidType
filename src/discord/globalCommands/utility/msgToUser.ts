@@ -9,7 +9,7 @@ import
     TextInputStyle
 } from "discord.js";
 
-import { setBoolToUser, setTypeToUser } from '../../events/modals';
+import modals from 'd@l-modal';
 
 export =
 {
@@ -49,8 +49,8 @@ export =
         const boolean: any = interaction.options.get('switch')?.value;
         const subcommand: string = interaction.options._subcommand;
 
-        setBoolToUser(interaction.user.id, boolean);
-        setTypeToUser(interaction.guild.id, subcommand);
+        modals.setBoolToUser(interaction.user.id, boolean);
+        modals.setTypeToUser(interaction.guild.id, subcommand);
 
         const modal = new ModalBuilder().setCustomId('MTUOJmodal').setTitle(`Ваше сообщение !`);
 

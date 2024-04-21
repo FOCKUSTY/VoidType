@@ -1,10 +1,7 @@
-import { message } from "telegraf/filters";
-import { OneTime } from '../../discord/utils/OneTimeFunction';
-import { check_I_HasUserInDiscord, getDiscordUser, sendMessageToUser, check_I_HasChannelInDiscord, color, sendMessage, responsiable } from '../../discord/utils/develop';
-import { addNewAccountToMultiplatform, updateAccountInMultiplatform, deleteAccountInMultiplatform, getMulityAccount } from '../../utility/database';
-import { enterPassword } from '../../utility/hashing'
-import {  } from '../../discord/utils/develop';
+import { addNewAccountToMultiplatform, updateAccountInMultiplatform, deleteAccountInMultiplatform, getMulityAccount } from 'utility/database';
+import { check_I_HasUserInDiscord, getDiscordUser, sendMessageToUser, check_I_HasChannelInDiscord, color, sendMessage, responsiable } from 'd@utility/develop';
 import { EmbedBuilder } from 'discord.js';
+import { enterPassword } from 'utility/hashing'
 
 const
     idMessages     = new Map(),

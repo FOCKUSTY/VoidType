@@ -1,5 +1,5 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
-import { getCommands } from "../../utils/commandsList";
+import { getCommands } from "d@utility/commandsList";
 
 export =
 {

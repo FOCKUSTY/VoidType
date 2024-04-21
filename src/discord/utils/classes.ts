@@ -1,10 +1,4 @@
-class dbTypes
-{
-    static type = 'error' || 'successed';
-
-    static error = 'error';
-    static successed = 'successed';
-};
+type dbTypes = 'error' | 'successed';
 
 export
 {

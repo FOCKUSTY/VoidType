@@ -1,12 +1,5 @@
+import { joinVoiceChannel, AudioPlayerStatus, createAudioResource, createAudioPlayer, NoSubscriberBehavior } from '@discordjs/voice'
 import { SlashCommandBuilder } from 'discord.js'
-
-import {
-        joinVoiceChannel,
-        AudioPlayerStatus,
-        createAudioResource,
-        createAudioPlayer,
-        NoSubscriberBehavior
-    } from '@discordjs/voice'
 
 import path from 'path'
 

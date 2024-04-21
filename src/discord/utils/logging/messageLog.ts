@@ -1,18 +1,9 @@
-import {
-        token,
-        channelWithKristyChattingId,
-        authorId,
-        logGuildId,
-        logChannelId,
-        kristyId,
-        clientId,
-        telegramToken
-    } from '../../../../config.json'
+import config from 'config';
 import { msgPing } from '../msgPing'
 import { chattingWithKristy } from '../chatting'
 import { getLogGuild } from '../tags'
 import { sendMessageLog } from '../messageLog'
-import { checkMessageToRead } from '../develop'
+import { checkMessageToRead } from 'dev@'
 
 let isTalkingEnabled = true;
 
@@ -31,7 +22,7 @@ const messageDeleteLog = (m: any, sendMessageLog: any,) =>
             });
     });
 
-    sendMessageLog(m, "delete", undefined, logGuildId, logChannelId);
+    sendMessageLog(m, "delete", undefined, config.logGuildId, config.logChannelId);
 };
 const messageUpdateLog = (m: any, nm: any, sendMessageLog: any) =>
 {
@@ -48,7 +39,7 @@ const messageUpdateLog = (m: any, nm: any, sendMessageLog: any) =>
 				});
 		});
 
-	sendMessageLog(m, "update", nm, logGuildId, logChannelId);
+	sendMessageLog(m, "update", nm, config.logGuildId, config.logChannelId);
 };
 
 let oldMessageContent: any;
@@ -61,27 +52,26 @@ const messageCreateLog = (message: { channel: { type: number; id: string; send: 
 	}
 	else
 	{
-		sendMessageLog(message, "send", undefined, logGuildId, logChannelId);
+		sendMessageLog(message, "send", undefined, config.logGuildId, config.logChannelId);
 		
-		if(message.mentions.users.get(`${authorId}`)) msgPing(message);
-		if(isTalkingEnabled) if(message.channel.id===`${channelWithKristyChattingId}`) chattingWithKristy(message);
+		if(message.mentions.users.get(`${config.authorId}`))
+            msgPing(message);
+		
+        if(isTalkingEnabled) if(message.channel.id===`${config.channelWithKristyChattingId}`)
+            chattingWithKristy(message);
 
-        if(!message.author.bot)
-        {
+        if(message.author.bot || (oldAuthorId === message.author.id))
+            return;
 
-            if(oldAuthorId != message.author.id)
-            {
-                if(
-                    (`${oldMessageContent}`.toLowerCase() === `${message.content}`.toLowerCase())
-                    &&
-                    (`${oldMessageContent}`.toLowerCase().indexOf('понятно') != -1 && `${message.content}`.toLowerCase().indexOf('понятно') != -1)
-                  ) message.channel.send('Понятно');
+        if(
+            (`${oldMessageContent}`.toLowerCase() === `${message.content}`.toLowerCase())
+            &&
+            (`${oldMessageContent}`.toLowerCase().indexOf('понятно') != -1 && `${message.content}`.toLowerCase().indexOf('понятно') != -1)
+          ) message.channel.send('Понятно');
 
-                  oldMessageContent = message.content;
-                  oldAuthorId = message.author.id;
-            }
-        };
-	};
+          oldMessageContent = message.content;
+          oldAuthorId = message.author.id;
+    }
 }
 
 const enableTalking = (value = true) =>

@@ -1,6 +1,8 @@
 import { SlashCommandBuilder } from 'discord.js';
+
 import { Random } from "random-js";
-import { shuffle } from '../../utils/shuffle';
+import { shuffle } from 'shuffle';
+
 const random = new Random();
 
 export =

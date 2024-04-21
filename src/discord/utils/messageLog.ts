@@ -1,9 +1,9 @@
 import { EmbedBuilder } from 'discord.js';
-import { skip, debug } from './developConsole';
-import { logChannelId, logGuildId } from '../../../config.json';
-import { getDevelop } from './develop'
+import { getDevelop } from 'dev@';
 
-const sendMessageLog = async ( m: any, reason: string, m2: any, guildId = logGuildId, channelId = logChannelId ) =>
+import config from 'config';
+
+const sendMessageLog = async ( m: any, reason: string, m2: any, guildId = config.logGuildId, channelId = config.logChannelId ) =>
 {
     if (m.author.bot) return;
     

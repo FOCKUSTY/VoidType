@@ -1,6 +1,6 @@
-import { Sequelize, DataTypes } from 'sequelize'
-import { debug, skip } from '../discord/utils/developConsole'
+import { debug, skip } from 'd@utility/developConsole'
 import { unHash, enterPassword } from './hashing'
+import { Sequelize, DataTypes } from 'sequelize'
 
 const sequelize = new Sequelize('database', 'user', 'password',
 {
