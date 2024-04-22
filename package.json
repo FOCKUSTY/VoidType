@@ -1,6 +1,6 @@
 {
   "name": "voidbotts",
-  "version": "0.1.10-alpha.1",
+  "version": "0.1.11-alpha.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,8 @@
     "dev": "tsx watch src/index.ts",
     "start": "node dist/SlashCommands.js && node dist/index.js",
     "build": "tsup src/**",
-    "go": "tsup src/** && node dist/SlashCommands.js && node dist/index.js"
+    "go": "tsup src/** && node dist/SlashCommands.js && node dist/index.js",
+    "bukva": "tsx watch src/discord/utils/date.ts"
   },
   "author": "FOCKUSTY",
   "license": "ISC",

@@ -1,9 +1,10 @@
 import { SlashCommandBuilder } from 'discord.js';
-
-import { Random } from "random-js";
-import { shuffle } from 'shuffle';
+import { pseudoRandomNumber } from 'pseudo-random';
+import { Random } from 'random-js';
 
 const random = new Random();
+
+const history: any[] = [];
 
 export =
 {
@@ -19,22 +20,30 @@ export =
         .setDescriptionLocalizations({ru:'Ваш вопрос', "en-US":'Your question'})),
     async execute(interaction: any)
     {
-
         await interaction.reply({ content: `Предсказываю...`, ephemeral: true })
 
-        let texts =
+        let categoryes =
         [
-            'Бесспорно', 'Это было предрешено', 'Никаких сомнений', 'Определённо да', 'Можешь быть уверен в этом',
-            'Думаю да...', 'Наверное...', 'Хорошие перспективыююю', 'Знаки говорят да...', 'Да',
-            'Звезд на небе не видно, попробуй позже', 'Спроси позже', 'Лучше не рассказывать', 'Погода для предсказывание плохая', 'Сконцентрируйся и спроси опять',
-            'Даже не думай', 'Мой ответ нет', 'По моим данным нет', 'Перспективы не очень хорошие',
+            [
+                'Бесспорно', 'Это было предрешено', 'Никаких сомнений', 'Определённо да', 'Можешь быть уверен в этом',
+                'Думаю да...', 'Наверное...', 'Хорошие перспективы', 'Знаки говорят да...', 'Да'
+            ],
+
+            [
+                'Звезд на небе не видно, попробуй позже', 'Спроси позже', 'Лучше не рассказывать',
+                'Погода для предсказывание плохая', 'Сконцентрируйся и спроси опять'
+            ],
+
+            [
+                'Даже не думай', 'Мой ответ нет',
+                'По моим данным нет', 'Перспективы не очень хорошие'
+            ]
         ];
 
-        shuffle(texts);
-
         const
-            rNum = random.integer(0, texts.length-1),
-            text = texts[rNum],
+            rCategory = random.integer(0, categoryes.length-1),
+            rNum = pseudoRandomNumber(0, categoryes[rCategory].length-1),
+            text = categoryes[rCategory][rNum],
             question = interaction.options.get(`question`)?.value;
 
         setTimeout(async () =>

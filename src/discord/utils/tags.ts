@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes, where } from 'sequelize';
+import { Sequelize, DataTypes } from 'sequelize';
 import { debug } from 'dev@console';
 
 const sequelize = new Sequelize('database', 'user', 'password',

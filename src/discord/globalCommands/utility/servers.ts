@@ -3,7 +3,7 @@ import { SlashCommandBuilder, CommandInteraction, EmbedBuilder, time } from 'dis
 let verLevel =
 [
 	`Нет`,
-	`Маленький`,
+	`Низкий`,
 	`Средний`,
 	`Высокий`,
 	`Серьезный`,

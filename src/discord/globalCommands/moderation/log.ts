@@ -53,6 +53,9 @@ export =
     {
         const subcommand = interaction.options._subcommand;
 
+        if(interaction.guild.ownerId != interaction.user.id)
+            return await interaction.reply({content: 'У Вас не хватает прав', ephemeral: true});
+
         if(subcommand === 'change')
         {
             const guild = interaction.guild;

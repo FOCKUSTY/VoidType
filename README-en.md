@@ -1,32 +1,32 @@
 # VoidType
 
-## The Void - Это просто простой бот !
-- The Void Bot нацелен на увеличение опыта автора в JavaScript и TypeScript.
-- К тому же у The Void по тихоньку появляется история и, возможно, мини сюжет.
+## The Void - This is just a simple bot!
+- The Void Bot aims to increase the author's experience in JavaScript and TypeScript.
+- In addition, The Void is slowly developing a story and, possibly, a mini-plot.
 
-### Как разбираться в коде ?
-- В коде разобраться не сложно, много функций разбито по файлам, конечно, комментарий нет, но все названия переменных и функций имеют конкретное значение, иногда встречаются сокращения, но обычно их сопровождают комментарии автора.
+### How to understand the code?
+- It’s not difficult to understand the code, many functions are divided into files, of course, there are no comments, but all the names of variables and functions have a specific meaning, sometimes there are abbreviations, but usually they are accompanied by comments from the author.
 
-### Как создать своего бота ?
-- Для начала нужно создать бота на [discord.dev](https://discord.com/developers/applications) сайте.
+### How to create your own bot?
+- First you need to create a bot on the [discord.dev](https://discord.com/developers/applications) website.
 
 <picture>
     <img alt="Show in discord dev a new app" src="./help/newapp.png">
 </picture>
 
-- После берем id бота.
+- Then we take the bot id.
 
 <picture>
     <img src="./help/app.png">
 </picture>
 
-- После id берем токен, для этого переходим в bot.
+- After id we take a token, for this we go to bot.
 
 <picture>
     <img src="./help/token.png">
 </picture>
 
-- Когда Вы все сделали, можно запускать бота на сервер. Для этого переходим в OAuth2 и выбираем в OAuth2 URL Generator application.commands и копируем
+- When you have done everything, you can launch the bot on the server. To do this, go to OAuth2 and select application.commands in OAuth2 URL Generator and copy
 
 <picture>
     <img src="./help/OAuth2.png">
@@ -36,9 +36,9 @@
     <img src="./help/OAuth2URLGenerator.png">
 </picture>
 
-- В итоге, переходим по ссылке, которую Вы скопировали и бот у нас на сервере.
-- В коде вы можете разобраться сами, напишу кратко:
-- Пишите в командной строке:
+- As a result, we follow the link that you copied and the bot is on our server.
+- You can figure out the code yourself.
+- Write on the command line:
 
 ```
 npm init
@@ -46,7 +46,7 @@ npm i
 npm i discord.js
 ```
 
-- Создайте config.json файл и впишите в него:
+- Create a config.json file and write in it:
 
 ```json
 {
@@ -55,9 +55,9 @@ npm i discord.js
 }
 ```
 
-# Если Вы кодите на JavaScript:
+# If you coding on JavaScript:
 
-- Создайте index.js файл и впишите в него:
+- Create index.js file and write:
 
 ```js
 const { Client, Collection, Events, GatewayIntentBits, Partials } = require('discord.js');
@@ -95,9 +95,9 @@ YOUR-CODE-HERE
 client.login(token);
 ```
 
-# Если Вы кодите на TypeScript:
+# If you coding on TypeScript:
 
-- Создайте index.ts файл и впишите в него:
+- Create index.ts file and write:
 
 ```ts
 import { Client, Collection, Events, GatewayIntentBits, Partials } from 'discord.js';
@@ -135,7 +135,7 @@ YOUR-CODE-HERE
 client.login(token);
 ```
 
-- Создайте tsconfig.json:
+- Create tsconfig.json:
 ```json
 {
     "compilerOptions": {
@@ -157,7 +157,7 @@ client.login(token);
 }
 ```
 
-- Добавьте в package.json:
+- Add to package.json:
 ```json
   "devDependencies": {
     "@types/node": "^20.10.5",
@@ -168,7 +168,7 @@ client.login(token);
   }
 ```
 
-- И впишите в терминал:
+- And write to terminal:
 ```
 npm i 
 ```

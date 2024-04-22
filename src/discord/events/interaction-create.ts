@@ -60,11 +60,11 @@ export =
     `Название команды: ${int.commandName}\n` +
     `${subcommands.join(`\n`)}\n` +
     `Команду использовал: ${int.user} - ${int.user.username} (${int.user.globalName})\n` +
-    `Аккаунт создан с ${dateCheck(int.user.createdAt)||`Не известно`}\n` +
+    `Аккаунт создан с ${int.user?.createdAt ? dateCheck(int.user?.createdAt) : 'Не известно'}\n` +
     `На сервере: ${int?.guild||`Не на сервере`}\n`+
-    `Сервер создан с ${dateCheck(int?.guild?.createdAt)||`Не на сервере`}\n` +
-    `Участник на сервере с ${dateCheck(int?.member?.joinedAt)||`Не на сервере`}\n` +
-    `В канале: ${int?.channel||`Личные сообщения`} ${int?.channel?.name||`с ботом`}\n` +
+    `Сервер создан с ${int?.guild?.createdAt ? dateCheck(int?.guild?.createdAt) : 'Не на сервере'}\n` +
+    `Участник на сервере с ${dateCheck(int?.member?.joinedAt)||'Не на сервере'}\n` +
+    `В канале: ${int?.channel||`Личные сообщения`} ${int?.channel?.name||'с ботом'}\n` +
     `Время использования: <t:${Math.floor(int.createdTimestamp / 1000 - 35)}> (<t:${Math.floor(int.createdTimestamp / 1000 - 35)}:R>)\n` +
     `Время в часах: ${date.toLocaleString()}\n`
     );
