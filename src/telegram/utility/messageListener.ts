@@ -19,7 +19,9 @@ const setMessageId = (channelId: string, messageId: string|null, messageAuthorId
 {
     method = method.toLowerCase();
     const newTypes = [];
-    for(let type of types) newTypes.push([type[0].toLowerCase(), type[1].toLowerCase()]);
+    
+    for(let type of types)
+        newTypes.push([type[0].toLowerCase(), type[1].toLowerCase()]);
 
     idMessages.set(channelId, [messageId, messageAuthorId]);
     methods.set(`${messageAuthorId}//\\\\${channelId}`, [method, replies, newTypes]);
@@ -74,8 +76,11 @@ const messageListener = async (message: any) =>
         method = methods.get(`${from.id}//\\\\${chat.id}`),
         countOfMessages = messageCount.get(`${from.id}//\\\\${chat.id}`);
 
-    if( endWords.get(`${msg.text}`.toLowerCase()) ) setMessageId(chat.id, null, from.id, null, null, 0, null);  
-    if( readMessage.get(`${from.id}//\\\\${chat.id}`) === msg.message_id ) setMessage(chat.id, from.id, msg.text, method[2][countOfMessages[0]]);
+    if(endWords.get(`${msg.text}`.toLowerCase()))
+        setMessageId(chat.id, null, from.id, null, null, 0, null);  
+    
+    if(readMessage.get(`${from.id}//\\\\${chat.id}`) === msg.message_id)
+        setMessage(chat.id, from.id, msg.text, method[2][countOfMessages[0]]);
 
     if(method)
     {
@@ -88,7 +93,8 @@ const messageListener = async (message: any) =>
             discordName = tag?.discordname;
         });
 
-        if(discordIdFromData) data.set('discord id', discordIdFromData);
+        if(discordIdFromData)
+            data.set('discord id', discordIdFromData);
 
         if(countOfMessages[0] === countOfMessages[1])
             await sendMessageToUser(data.get('discord id'), 'Подтвердите Ваши действия в telegram').then(response => message.reply(response['text']) ); 
@@ -140,8 +146,11 @@ const messageListener = async (message: any) =>
         }
     };
 
-    if( !((msgInfo.toString() === msgInfoGetted?.toString()) && (msgInfo.length === msgInfoGetted.length)) ) return;
-    if( !msgInfoGetted ) return;
+    if( !((msgInfo.toString() === msgInfoGetted?.toString()) && (msgInfo.length === msgInfoGetted.length)) )
+        return;
+    
+    if( !msgInfoGetted )
+        return;
 
     if(method[0] === 'one msg')
     {
@@ -149,7 +158,8 @@ const messageListener = async (message: any) =>
     }
     else if(method[0] === 'one+ msg')
     {
-        if( (countOfMessages[0] > countOfMessages[1]) ) return;
+        if(countOfMessages[0] > countOfMessages[1])
+            return;
 
         const reply = method[1][countOfMessages[0]];
         
@@ -157,9 +167,14 @@ const messageListener = async (message: any) =>
         {
             let isNext, isIAlreadyHasDiscordId = false;
 
-            await getMulityAccount('findOne', 'telegramid', `${from.id}`).then(tag => { if(tag) isIAlreadyHasDiscordId = true } );
+            await getMulityAccount('findOne', 'telegramid', `${from.id}`).then(tag =>
+            {
+                if(tag)
+                    isIAlreadyHasDiscordId = true
+            });
             
-            if(isIAlreadyHasDiscordId) isNext = true;
+            if(isIAlreadyHasDiscordId)
+                isNext = true;
 
             if(!isNext)
                 await check_I_HasUserInDiscord(`${msg.text}`).then(isHasDiscordId => isNext = isHasDiscordId );

@@ -70,7 +70,7 @@ const setRandomnessActivity = (client: Client, textActivity=false, log=true) =>
 
         JSON.stringify(file, (key, value) =>
         {
-          json = eval(` ${json} = ${value}`);
+          json = value;
           animeNames = json['animeNames'];
         });
 

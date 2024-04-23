@@ -23,6 +23,8 @@ import modalListener from 'd@l-modal';
 import config from 'config';
 import fs from 'node:fs';
 import path from 'node:path';
+import { setDevelopClient as setDevDiscrodClient } from './discord/utils/develop';
+import { setDevelopClient as setDevTelegramClient } from './telegram/utility/develop';
 
 const r = new Random();
 const actH = [];
@@ -125,6 +127,9 @@ process.once('SIGTERM', () =>
 {
     tClient.stop('SIGTERM')
 });
+
+setDevDiscrodClient(client);
+setDevTelegramClient(tClient);
 
 client.login(config.token);
 

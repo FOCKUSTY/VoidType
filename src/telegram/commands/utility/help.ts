@@ -9,13 +9,15 @@ export =
 
         for(let command of commands)
         {
-            if(!command[1][1]) clientCommands.push(`🎩${command[0]}`);
+            if(!command[1][1])
+                clientCommands.push(`🎩${command[0]}`);
 
             else
             {
                 const options = [];
 
-                for(let option of command[1][1]) options.push(`     -🎩${option}`);
+                for(let option of command[1][1])
+                    options.push(`     -🎩${option}`);
 
                 clientCommands.push(`🎩${command[0]}\n- Опции:\n${options.join(`\n`)}`);
             };

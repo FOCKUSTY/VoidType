@@ -60,6 +60,9 @@
             "void@database": ["../../VoidDataBase/data.json"],
             "void@exceptions": ["../../VoidDataBase/exceptions.json"],
             "void@replies": ["../../VoidDataBase/replyesActivity.json"],
+            
+            "database/*": ["../../VoidDataBase/DataBase/*"],
+            "@database": ["./src/utility/db.ts"]
         }
     },
     "include": ["./**/*.ts"]

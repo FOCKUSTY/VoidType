@@ -1,16 +1,18 @@
-let developClient: any;
+import { Telegraf } from 'telegraf';
 
-const setDevelopClient = async (client: any) =>
+let developClient: Telegraf;
+
+const setDevelopClient = (client: Telegraf): void =>
 {
-    developClient = await client;
+    developClient = client;
 }
 
-const getDevelopClient = async (client: any) =>
+const getDevelopClient = (): Telegraf =>
 {
-    return await developClient;
+    return developClient;
 };
 
-export =
+export
 {
     setDevelopClient,
     getDevelopClient

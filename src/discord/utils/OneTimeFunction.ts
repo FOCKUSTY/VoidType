@@ -2,17 +2,23 @@ const oneTimeFunctionCache = new Map();
 
 const oneTimeFunction = (name: any, boolean=true, isUpdate=false, isGet=false, activity?: any, ...args: any[]) =>
 {
-  if(isGet) return oneTimeFunctionCache.get(name)
+  if(isGet)
+    return oneTimeFunctionCache.get(name)
 
-  else if(isUpdate) oneTimeFunctionCache.set(name, boolean);
+  else if(isUpdate)
+    oneTimeFunctionCache.set(name, boolean);
 
-  else if(oneTimeFunctionCache.get(name)) return;
+  else if(oneTimeFunctionCache.get(name))
+    return;
   
   else
   {
-    if(activity) activity(...args);
-    oneTimeFunctionCache.set(name, boolean);  
-    return(oneTimeFunctionCache.get(name));
+    if(activity)
+      activity(...args);
+    
+    oneTimeFunctionCache.set(name, boolean); 
+
+    return (oneTimeFunctionCache.get(name));
   }
 };
 

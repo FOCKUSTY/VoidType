@@ -41,6 +41,14 @@
 # 0.1.10-alpha.1
 - Обновлены импорты
 - tsconfig.json был обновлен
+# 0.1.11-alpha.1
+- README.md обновлен
+- Добавлен README-en.md
+# 0.1.12-alpha.1
+- Немного видоизменен код
+- Исправлены баги
+- Добавлена команда отправки сообщений в telegram
+- Код для telegram немного обновился
 
 # 🇺🇸 - English
 # 0.0.0-aplha.1
@@ -85,3 +93,11 @@
 # 0.1.10-alpha.1
 - Imports was updated
 - tsconfig.json was updated
+# 0.1.11-alpha.1
+- README.md was updated
+- Added README-en.md
+# 0.1.12-alpha.1
+- The code has been slightly modified
+- Bugs fixed
+- Added command for sending messages to telegram
+- The code for telegram has been slightly updated
