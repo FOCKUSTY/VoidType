@@ -8,10 +8,15 @@ import { addUserTagToDB } from '../utils/tags';
 import { debug } from "../utils/developConsole";
 import { replyOnVCCModal } from "../utils/sendVoiceTools";
 import { setMTUOJ, updateMTUOJ, deleteMTUOJ } from '../utils/messsageToUserOnJoin'
+import { getDevelop } from "../utils/develop";
+import { sendMessage } from "src/telegram/utility/sendMessage";
 
 let channel: any;
 let bool: boolean;
 let versionUpdate: string;
+
+const chatIds = new Map();
+
 const userBooleans = new Map();
 const userTypes = new Map();
 
@@ -21,6 +26,8 @@ export =
 	async modalSubmit(this: any, int: Interaction)
 	{
 	
+		const clientIconUrl = getDevelop('iconurl');
+
 		const interaction = int;
 		const client = int.client
 		const user = int.user.globalName;
@@ -105,7 +112,7 @@ export =
 	
 					const embed = new EmbedBuilder()
 						.setColor(0x161618)
-						.setAuthor({name: `The Void`, iconURL: `https://cdn.discordapp.com/icons/1169284741846016061/63ff0e27c4c5de492894df065ef72266.png`})
+						.setAuthor({name: `The Void`, iconURL: clientIconUrl})
 						.setTitle(`Сообщение:`)
 						.setDescription(`${msg.replaceAll(`\\n`, `\n`)}`)
 						.setTimestamp()
@@ -148,7 +155,37 @@ export =
 					return await updateMTUOJ({guildId: interaction.guild.id, isEnabled: boolean, text: text}).then(async data =>
 						await int.reply({content: data.text, ephemeral: true}));
 			}
+			else if(int.customId==='sendMessageToTelegramModal')
+			{
+				try 
+				{
+					const msg: string = int.fields.getTextInputValue('message');
 	
+					const embed = new EmbedBuilder()
+						.setColor(0x161618)
+						.setAuthor({name: `The Void`, iconURL: clientIconUrl})
+						.setTitle(`Сообщение:`)
+						.setDescription(`${msg.replace(`\\n`, `\n`)}`)
+						.setTimestamp()
+				
+					await sendMessage({chatId:chatIds.get(int.user.id), text: msg}).then(async (data) =>
+					{
+						await int.reply({
+							content: `Сообщение было доставлено на: ${data.data?.chat.id}`,
+							embeds: [embed], ephemeral: true
+						});
+					})
+				}
+				catch (err)
+				{
+				
+					await int.reply({
+						content:
+						`Сообщение не было доставлено на Ваш канал, возможны причины:\nУ меня не достаточно прав отправить сообщение на Ваш канал\n## Ошибка:\n\`\`\`${err}\`\`\``,
+						ephemeral: true
+					});
+				}
+			}
 	
 			else replyOnVCCModal(int);
 		};
@@ -159,5 +196,6 @@ export =
 	setTypeToUser(guildId: string, type: string = 'update'||'create'||'delete') { userTypes.set(guildId, type) },
 	setBool(op: any) { bool = op },
 	setVersionUpdate(version: string) { versionUpdate = `\n# Версия: ${version}` },
+	chatIds
 
 }

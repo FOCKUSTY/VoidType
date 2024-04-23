@@ -1,11 +1,20 @@
-import { CommandInteraction, SlashCommandBuilder } from "discord.js";
+import
+{
+    SlashCommandBuilder,
+    PermissionFlagsBits,
+    ModalActionRowComponentBuilder,
+    CommandInteraction,
+    ChannelType,
+    TextInputBuilder,
+    TextInputStyle,
+    ModalBuilder, 
+    ActionRowBuilder
+} from 'discord.js';
+
 import { sendMessage, status } from "t@utility/sendMessage";
 import { Message } from 'telegraf/typings/core/types/typegram';
 import config from 'config'
-
-interface msg {
-    msg: Message
-};
+import modals from 'src/discord/events/modals';
 
 export =
 {
@@ -17,33 +26,34 @@ export =
 
     .addStringOption(o=>o.setName('chat-id').setDescription('Ваш чат Id')
         .setNameLocalizations({ru:'чат-id',"en-US":'chat-id'})
-        .setDescriptionLocalizations({ru:'Ваш чат Id',"en-US":'Your chat Id'}))
-
-    .addStringOption(o=>o.setName('message').setDescription('Ваш текст')
-        .setNameLocalizations({ru:'сообщение',"en-US":'message'})
-        .setDescriptionLocalizations({ru:'Ваш текст',"en-US":'Your text'})),
+        .setDescriptionLocalizations({ru:'Ваш чат Id',"en-US":'Your chat Id'})),
     
     async execute(interaction: CommandInteraction)
     {
-        const text = interaction.options.get('message')?.value;
         const chatId: any = interaction.options.get('chat-id')?.value || '@BottomlessHat';
-        
+    
         if(interaction.user.id != config.authorId)
             return await interaction.reply({content: 'У Вас не хватает прав на использование данной команды', ephemeral: true})
 
-        if(typeof(text) != 'string')
-            return await interaction.reply({content: 'Произошла какая-то непредвиденная ошибка', ephemeral: true});
+        const modal = new ModalBuilder().setCustomId('sendMessageToTelegramModa').setTitle('Ваше сообщение !');
+        
+        let ideaDetailPH: string = `Хочу, чтобы Валя был администратором на The Void Community!!!!`
 
-        await sendMessage({chatId: chatId, text: text}).then(async (data: status) =>
-        {
-            if(!data.data)
-                return await interaction.reply({content: 'Произошла какая-то непредвиденная ошибка', ephemeral: true});
+        modal.addComponents(
+            new ActionRowBuilder<ModalActionRowComponentBuilder>()
+                .addComponents(
+                    new TextInputBuilder()
+                    .setCustomId('message')
+                    .setLabel("Ваше сообщение")
+                    .setStyle(TextInputStyle.Paragraph)
+                    .setRequired(true)
+                    .setMaxLength(2000)
+                    .setPlaceholder(`${ideaDetailPH}`)
+                )
+        );
 
-            if(data.type === 'error')
-                await interaction.reply({content: `Произошла какая-то ошибка ${data.data}`, ephemeral: true});
+        modals.chatIds.set(interaction.user.id, chatId);
 
-            else
-                await interaction.reply({content: `${data.text} в telegram в ${data.data.chat.id}\nСообщение: ${text}`, ephemeral: true});
-        });
+        return await interaction.showModal(modal);
     }
 };
