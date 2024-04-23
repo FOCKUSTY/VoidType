@@ -34,6 +34,9 @@ let kristyAct = new OneTime(false, 'kristyAct');
 
 
 
+type activityTypes =
+'guildActivities' | 'arrKristyAct' | 'download' | 'randomActivities' | 'jokes' | 'objectIdeas' | 'namesActivities' | 'randomNames' | 'version' | 'randomActivity';
+
 
 
 const THEVOIDSARRAY =
@@ -285,7 +288,7 @@ const updateActivities = (client: any) =>
   shuffle(randomActivity);
 };
 
-const getActivities = (variable: any) =>
+const getActivities = (variable: activityTypes) =>
 {
     switch (variable)
     {

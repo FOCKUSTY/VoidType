@@ -63,7 +63,7 @@ export =
 
 				debug([`Рандомные активности:\n`], devDebug, false, false);
 				
-				for ( let el of randomActivity )
+				for (let el of randomActivity)
 					debug([`${el[0]} - ${`${randomActivity.indexOf(el)}`}`], devDebug, false, false);
 
 				const dumplingCount = getAmount('totalUsers');

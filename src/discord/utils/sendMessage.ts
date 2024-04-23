@@ -1,5 +1,5 @@
-import { Client } from "discord.js";
-import { getDevelopClient } from "./develop";
+import { EmbedBuilder, ActionRowBuilder, Client } from 'discord.js';
+import { getDevelop, getDevelopClient } from "./develop";
 import { status, Error } from 'database/index';
 
 type sendMessageData =
@@ -18,10 +18,30 @@ const sendMessage = async (data: sendMessageData): Promise<status> =>
 
         const channel = data.client?.channels.cache.get(data.channelId);
         
-        if(channel?.isTextBased())
-            channel.send({content: data.text});
+        if(data.text.length >= 2000)
+        {
+            const iconURL = getDevelop('iconurl');
+
+            const embed = new EmbedBuilder()
+                .setAuthor({name: 'The Void', iconURL: iconURL})
+                .setTitle('Change log')
+                .setThumbnail(iconURL)
+                .setDescription(data.text)
+                .setTimestamp()
+                .setFooter({text: 'The Void Community', iconURL: iconURL});
+
+            if(channel?.isTextBased())
+                channel.send({content: 'Небольшой список изменений', embeds: [embed]});
+            else
+                return new Error('Я не могу отправить сообщение на Ваш канал');
+        }
         else
-            return new Error('Я не могу отправить сообщение на Ваш канал');
+        {
+            if(channel?.isTextBased())
+                channel.send({content: data.text});
+            else
+                return new Error('Я не могу отправить сообщение на Ваш канал');
+        }
 
         return {
             text: 'Успешно доставлено сообщение на ' + data.channelId,

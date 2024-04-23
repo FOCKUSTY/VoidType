@@ -8,6 +8,8 @@ import
 
 import { pseudoRandomNumber } from './pseudoRandom';
 
+type getterType = 'developembed'|'iconurl'|'authorname'|'color';
+
 const developFields =
 [
     {
@@ -60,11 +62,8 @@ const setDevelop = async (client: any) =>
     .setFooter({text: `${footerText}`, iconURL: `${iconURL}`});
 };
   
-const getDevelop = (getter = 'developEmbed') =>
+const getDevelop = (getter: getterType) =>
 {
-
-  getter = getter.toLocaleLowerCase()
-
   switch (getter)
   {
     case 'developembed':

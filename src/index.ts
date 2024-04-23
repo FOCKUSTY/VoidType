@@ -79,7 +79,10 @@ debug(['Мои telegram команды:'], devDebug, false, false);
 deployCommands(tClient, telegramCommandFolders, telegramFoldersPath);
 
 const eventsPath = path.join(__dirname, 'discord/events');
-const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts'));
+let eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts'));
+if(eventFiles.length === 0)
+	eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+	
 
 deployEvents(eventsPath, eventFiles, client);
 
