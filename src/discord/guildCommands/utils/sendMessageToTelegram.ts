@@ -35,7 +35,7 @@ export =
         if(interaction.user.id != config.authorId)
             return await interaction.reply({content: 'У Вас не хватает прав на использование данной команды', ephemeral: true})
 
-        const modal = new ModalBuilder().setCustomId('sendMessageToTelegramModa').setTitle('Ваше сообщение !');
+        const modal = new ModalBuilder().setCustomId('sendMessageToTelegramModal').setTitle('Ваше сообщение !');
         
         let ideaDetailPH: string = `Хочу, чтобы Валя был администратором на The Void Community!!!!`
 

@@ -51,6 +51,8 @@
 - Код для telegram немного обновился
 # 0.1.13-alpha.1
 - Обновлена функция отправки сообщений в telegram
+# 0.1.14-alpha.1
+- Исправлены баги
 
 # 🇺🇸 - English
 # 0.0.0-aplha.1
@@ -105,3 +107,5 @@
 - The code for telegram has been slightly updated
 # 0.1.13-alpha.1
 - Updated function send message to telegram
+# 0.1.14-alpha.1
+- Bug fixed
