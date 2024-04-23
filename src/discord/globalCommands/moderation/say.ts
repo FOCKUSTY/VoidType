@@ -12,6 +12,13 @@ import
 } from 'discord.js';
 
 import modals from 'd@l-modal';
+import { pseudoRandomNumber } from 'd@utility/pseudoRandom';
+import { getActivities } from 'src/discord/utils/updatejson';
+
+const objectIdeas = getActivities('objectIdeas');
+const historyRandomObjectIdeas: any[] = [];
+
+let placeholder: string = `Хочу, чтобы Валя был администратором на The Void Community!!!!`;
 
 export =
 {
@@ -45,7 +52,8 @@ export =
 
         const modal = new ModalBuilder().setCustomId(`sayModal`).setTitle(`Ваше сообщение !`);
 
-        let ideaDetailPH: string = `Хочу, чтобы Валя был администратором на The Void Community!!!!`
+        const randomNumber = pseudoRandomNumber(0, objectIdeas.length-1, 2, 2, historyRandomObjectIdeas, undefined, undefined, true, true, true);
+        placeholder = objectIdeas[randomNumber]['ideaDetail'];
 
         if(bool)
         {
@@ -58,11 +66,10 @@ export =
                         .setStyle(TextInputStyle.Paragraph)
                         .setRequired(true)
                         .setMaxLength(4000)
-                        .setPlaceholder(`${ideaDetailPH}`)
+                        .setPlaceholder(`${placeholder}`)
                     )
             );
             await int.showModal(modal)
-
         }
         else
         {
@@ -75,7 +82,7 @@ export =
                         .setStyle(TextInputStyle.Paragraph)
                         .setRequired(true)
                         .setMaxLength(2000)
-                        .setPlaceholder(`${ideaDetailPH}`)
+                        .setPlaceholder(`${placeholder}`)
                     )
             );
             await int.showModal(modal)

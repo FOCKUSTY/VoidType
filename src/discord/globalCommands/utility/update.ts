@@ -34,11 +34,15 @@ export =
         const versionUpdate = int.options.getString('version');
         const bool = int.options.getBoolean('embed');
 
-        let channel = client.channels.cache?.get(    int?.options?.getChannel('channel')?.id   || int?.options?.getString('channelid') || undefined );
+        let channel = client.channels.cache?.get(int?.options?.getChannel('channel')?.id || int?.options?.getString('channelid') || undefined );
         let guild = int.guild;
         
-        if(!channel) return int.reply({content: `Вы должны указать хотя бы одну опцию`, ephemeral: true});
-        if(int.user.id != guild.ownerId) return int.reply({content: `Вы должны быть владельцем сервера`, ephemeral: true});
+        if(!channel)
+            return int.reply({content: `Вы должны указать хотя бы одну опцию`, ephemeral: true});
+        
+        if(int.user.id != guild.ownerId)
+            return int.reply({content: `Вы должны быть владельцем сервера`, ephemeral: true});
+        
         if(!(channel.permissionsFor(int.client.user.id).has([PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ViewChannel])))
         {
             return await int.reply({

@@ -2,6 +2,13 @@ import { SlashCommandBuilder, PermissionsBitField, TextInputBuilder,  ActionRowB
 
 import modals from 'd@l-modal';
 import { config } from 'd@config';
+import { pseudoRandomNumber } from 'd@utility/pseudoRandom';
+import { getActivities } from 'src/discord/utils/updatejson';
+
+const objectIdeas = getActivities('objectIdeas');
+const historyRandomObjectIdeas: any[] = [];
+
+let placeholder: string = `Хочу, чтобы Валя был администратором на The Void Community!!!!`;
 
 export =
 {
@@ -35,8 +42,9 @@ export =
             return await int.reply({ content: `У Вас нет прав на использование этой команды`, ephemeral: true })
             
         const modal = new ModalBuilder().setCustomId(`sayModal`).setTitle(`Ваше сообщение !`);
-        let ideaDetailPH = `Хочу, чтобы Валя был администратором на The Void Community!!!!`
-    
+        const randomNumber = pseudoRandomNumber(0, objectIdeas.length-1, 2, 2, historyRandomObjectIdeas, undefined, undefined, true, true, true);
+        placeholder = objectIdeas[randomNumber]['ideaDetail'];
+
         if(bool)
         {
             modal.addComponents(
@@ -48,7 +56,7 @@ export =
                         .setStyle(TextInputStyle.Paragraph)
                         .setRequired(true)
                         .setMaxLength(4000)
-                        .setPlaceholder(`${ideaDetailPH}`)
+                        .setPlaceholder(`${placeholder}`)
                     )
             );
             await int.showModal(modal)
@@ -64,7 +72,7 @@ export =
                         .setStyle(TextInputStyle.Paragraph)
                         .setRequired(true)
                         .setMaxLength(2000)
-                        .setPlaceholder(`${ideaDetailPH}`)
+                        .setPlaceholder(`${placeholder}`)
                     )
             );
             await int.showModal(modal);

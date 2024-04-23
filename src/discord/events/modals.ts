@@ -1,22 +1,20 @@
-import
-{
-	Interaction, InteractionType, EmbedBuilder, TextChannel,
-	PermissionsBitField
-} from "discord.js";
-
+import { Interaction, InteractionType, EmbedBuilder, TextChannel, PermissionsBitField } from "discord.js";
 import { addUserTagToDB } from '../utils/tags';
 import { debug } from "../utils/developConsole";
 import { replyOnVCCModal } from "../utils/sendVoiceTools";
 import { setMTUOJ, updateMTUOJ, deleteMTUOJ } from '../utils/messsageToUserOnJoin'
 import { getDevelop } from "../utils/develop";
-import { sendMessage } from "src/telegram/utility/sendMessage";
+import { sendMessage as sendMessageToTelegram } from "src/telegram/utility/sendMessage";
+import { sendMessage as sendMessageToDiscord } from "../utils/sendMessage";
+import { Error, status } from "database/index";
+import config from 'config';
 
 let channel: any;
 let bool: boolean;
 let versionUpdate: string;
 
 const chatIds = new Map();
-
+const versions = new Map();
 const userBooleans = new Map();
 const userTypes = new Map();
 
@@ -29,7 +27,7 @@ export =
 		const clientIconUrl = getDevelop('iconurl');
 
 		const interaction = int;
-		const client = int.client
+		const client = int.client;
 		const user = int.user.globalName;
 		const userAvatar = `https://cdn.discordapp.com/avatars/${int.user.id}/${int.user.avatar}.png`;
 		let iconURL;
@@ -168,7 +166,7 @@ export =
 						.setDescription(`${msg.replace(`\\n`, `\n`)}`)
 						.setTimestamp()
 				
-					await sendMessage({chatId:chatIds.get(int.user.id), text: msg}).then(async (data) =>
+					await sendMessageToTelegram({chatId:chatIds.get(int.user.id), text: msg}).then(async (data) =>
 					{
 						await int.reply({
 							content: `Сообщение было доставлено на: ${data.data?.chat.id}`,
@@ -186,7 +184,94 @@ export =
 					});
 				}
 			}
-	
+			else if(int.customId==='writeChangeLogModal')
+			{
+				try 
+				{
+					const ruChanges: string = int.fields.getTextInputValue('ru-changes');
+					const enChanges: string = int.fields.getTextInputValue('en-changes');
+					const version: string = versions.get(int.user.id);
+
+					const discordChangeLog = `# 🇷🇺 - Русский\n# ${version}\n${ruChanges}# 🇺🇸 - English\n# ${version}\n${enChanges}`;
+					const telegramChangeLog = `${version}\n${ruChanges}`;
+					const bottomlessHatChangeLog = `# ${version}\n${ruChanges}`;
+
+					const embed = new EmbedBuilder()
+						.setColor(0x161618)
+						.setAuthor({name: `The Void`, iconURL: clientIconUrl})
+						.setTitle(`Сообщение:`)
+						.setDescription(`${discordChangeLog.replace(`\\n`, `\n`)}`)
+						.setTimestamp();
+				
+					try
+					{
+						type errorType =
+						{
+							isError: boolean;
+							sendMessageToDiscord_BottomlessHatChangeLog?: string
+							sendMessageToDiscord_TheVoidChangeLogChannelId?: string;
+							sendMessageToTelegram_TelegramChangeLog?: string;
+						};
+
+						let isError: errorType = { isError: false };
+						let outputError: string = '';
+
+						await sendMessageToDiscord({channelId: config.bottomlessHatChangeLogChannelId, text: bottomlessHatChangeLog, client: client})
+							.then((data: status) =>
+							{
+								if(data.type === 'error')
+									isError = {
+										isError: true,
+										sendMessageToDiscord_BottomlessHatChangeLog: `Произошла ошибка при выполнении sendMessageToDiscord Bottomless Hat Change Log\n${data.error}\n${data.text}`
+									};
+							})
+						await sendMessageToDiscord({channelId: config.theVoidChangeLogChannelId, text: discordChangeLog, client: client})
+							.then((data: status) =>
+							{
+								if(data.type === 'error')
+									isError = {
+										isError: true,
+										sendMessageToDiscord_TheVoidChangeLogChannelId: `Произошла ошибка при выполнении sendMessageToDiscord The Void Change Log\n${data.error}\n${data.text}`
+									};
+							})
+						await sendMessageToTelegram({chatId:'@BottomlessHat', text: telegramChangeLog})
+							.then((data: status) =>
+							{
+								if(data.type === 'error')
+									isError = {
+										isError: true,
+										sendMessageToTelegram_TelegramChangeLog: `Произошла ошибка при выполнении sendMessageToTelegram Telegram Change Log\n${data.error}\n${data.text}`
+									};
+							});
+
+						if(isError.isError)
+						{
+							for(let key in isError)
+								if(key != 'isError')
+									outputError += `\n${eval(`isError.${key}`)}`;
+
+							await int.reply({content: outputError, ephemeral: true});
+							
+							return new Error(isError);
+						}
+						else
+							return await int.reply({content: 'Все сообщения успешно дошли !', ephemeral: true});
+					}
+					catch (err)
+					{
+						console.log(err);
+						return new Error(err);
+					};
+				}
+				catch (err)
+				{
+					await int.reply({
+						content: `Сообщение не было доставлено на Ваш канал, возможны причины:\nУ меня не достаточно прав отправить сообщение на Ваш канал\n## Ошибка:\n\`\`\`${err}\`\`\``,
+						ephemeral: true
+					});
+				};
+			}
+
 			else replyOnVCCModal(int);
 		};
 	},
@@ -196,6 +281,7 @@ export =
 	setTypeToUser(guildId: string, type: string = 'update'||'create'||'delete') { userTypes.set(guildId, type) },
 	setBool(op: any) { bool = op },
 	setVersionUpdate(version: string) { versionUpdate = `\n# Версия: ${version}` },
-	chatIds
+	chatIds,
+	versions
 
 }

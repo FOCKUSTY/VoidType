@@ -1,20 +1,23 @@
 import
 {
     SlashCommandBuilder,
-    PermissionFlagsBits,
     ModalActionRowComponentBuilder,
     CommandInteraction,
-    ChannelType,
     TextInputBuilder,
     TextInputStyle,
     ModalBuilder, 
     ActionRowBuilder
 } from 'discord.js';
 
-import { sendMessage, status } from "t@utility/sendMessage";
-import { Message } from 'telegraf/typings/core/types/typegram';
-import config from 'config'
+import config from 'config';
 import modals from 'src/discord/events/modals';
+import { pseudoRandomNumber } from 'd@utility/pseudoRandom';
+import { getActivities } from 'src/discord/utils/updatejson';
+
+const objectIdeas = getActivities('objectIdeas');
+const historyRandomObjectIdeas: any[] = [];
+
+let placeholder: string = `Хочу, чтобы Валя был администратором на The Void Community!!!!`;
 
 export =
 {
@@ -37,7 +40,9 @@ export =
 
         const modal = new ModalBuilder().setCustomId('sendMessageToTelegramModal').setTitle('Ваше сообщение !');
         
-        let ideaDetailPH: string = `Хочу, чтобы Валя был администратором на The Void Community!!!!`
+        const randomNumber = pseudoRandomNumber(0, objectIdeas.length-1, 2, 2, historyRandomObjectIdeas, undefined, undefined, true, true, true);
+        placeholder = objectIdeas[randomNumber]['ideaDetail'];
+
 
         modal.addComponents(
             new ActionRowBuilder<ModalActionRowComponentBuilder>()
@@ -48,7 +53,7 @@ export =
                     .setStyle(TextInputStyle.Paragraph)
                     .setRequired(true)
                     .setMaxLength(2000)
-                    .setPlaceholder(`${ideaDetailPH}`)
+                    .setPlaceholder(`${placeholder}`)
                 )
         );
 
