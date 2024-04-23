@@ -6,7 +6,7 @@
   "scripts": {
     "slash": "tsx watch src/discord/SlashCommands.ts",
     "dev": "tsx watch src/index.ts",
-    "start": "node dist/SlashCommands.js && node dist/index.js",
+    "start": "node dist/discord/SlashCommands.js && node dist/index.js",
     "build": "tsup src/**",
     "go": "tsup src/** && node dist/SlashCommands.js && node dist/index.js",
     "telegram": "tsx watch src/telegram/index.ts"
