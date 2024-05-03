@@ -2,20 +2,27 @@ const checkNumber = (num: number, object: any) =>
 {
     const
         txt: string = `${num}`,
-        cO: number = Number(txt[txt.length-1]),
-        cT: number = Number(txt[txt.length-2]);
+        firstChar: number = Number(txt[txt.length-1]),
+        secondChar: number = Number(txt[txt.length-2]);
     
     let stage;
     let text = '';
     
-    for(let el in object)
+    for(let element in object)
     {
-        stage = object[el]
+        stage = object[element];
         
-        if ((num==1) || (cO==1 && cT!=1)) text += `${stage[0]}`
-        else if ((cO==1 && cT==1) || (cO==0) || (cT==1)) text += `${stage[2]}`
-        else if (cO<5) text += `${stage[1]}`
-        else text += `${stage[2]}`;
+        if (num === 1 || (firstChar === 1 && secondChar != 1))
+            text += `${stage[0]}`;
+
+        else if ((firstChar === 1 && secondChar === 1) || firstChar === 0 || secondChar === 1)
+            text += `${stage[2]}`;
+        
+        else if (firstChar<5)
+            text += `${stage[1]}`;
+
+        else
+            text += `${stage[2]}`;
     };
 
     return text;

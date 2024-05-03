@@ -1,5 +1,8 @@
 import { SlashCommandBuilder, ChannelType, PermissionsBitField } from "discord.js";
-import { addNewVoiceCreateChannel, deleteVoiceCreateChannel, updateVoiceCreateChannel } from "d@utility/tags"
+
+import database from '@database';
+import { settedCreatorsVoiceChannelsAttributes as scvcType, statusMongoose as status } from 'databaseTypes'
+const scvc = database.mongooseDatabase.settedCreatorsVoiceChannels;
 
 const permissionsForBot = [ PermissionsBitField.Flags.ManageChannels, PermissionsBitField.Flags.MoveMembers ];
 
@@ -45,21 +48,18 @@ export =
 
         if(subcommand === 'set')
         {
-            const data = await addNewVoiceCreateChannel({guildId: `${interaction.guild?.id}`, channelId: `${channel.id}`});
-    
-            return await interaction.reply({content: `${data.error || data.text}`, ephemeral: true, embeds: []});
+            await scvc.addCreatorVoiceChannel({channelId: channel.id, guildId: interaction.guild.id}).then(async (status: status) =>
+                await interaction.reply({content: `${status.error || status.text}`, ephemeral: true, embeds: []}));
         }
         else if(subcommand === 'update')
         {
-            const data = await updateVoiceCreateChannel({guildId: `${interaction.guild?.id}`, channelId: `${channel.id}`});
-    
-            return await interaction.reply({content: `${data.error || data.text}`, ephemeral: true, embeds: []});
+            await scvc.updateCreatorVoiceChannel(channel.id, interaction.guild.id).then(async (status: status) =>
+                await interaction.reply({content: `${status.error || status.text}`, ephemeral: true, embeds: []}));
         }
         else
         {
-            const data = await deleteVoiceCreateChannel({guildId: `${interaction.guild?.id}`});
-    
-            return await interaction.reply({content: `${data.error || data.text}`, ephemeral: true, embeds: []});
+            await scvc.deleteCreatorVoiceChannel(interaction.guild.id).then(async (status: status) =>
+                await interaction.reply({content: `${status.error || status.text}`, ephemeral: true, embeds: []}));
         };
     }
 };

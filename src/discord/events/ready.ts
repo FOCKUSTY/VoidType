@@ -4,7 +4,6 @@ import { getActivities, downloadActivities } from '../utils/updatejson'
 import { setGMPlaying } from '../utils/music'
 import { setDevelopClient, setDevelop, getDiscordUser } from '../utils/develop'
 import { setUsernames, getAmount } from '../utils/user'
-import { sequelize } from '../utils/tags'
 import { checkNumber } from '../utils/stages'
 import { skip } from '../utils/developConsole'
 import { changeComma } from '../utils/changeComma'
@@ -32,10 +31,6 @@ export =
 	{
 		if(!client.user)
 			return;
-
-		// deleteTable(logMessagesSchema);
-
-		sequelize.sync();
 
 		setDevelop(client);
 		setGMPlaying(client);

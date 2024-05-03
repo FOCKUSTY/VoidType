@@ -1,10 +1,12 @@
 import { pseudoRandomNumber } from './pseudoRandom'
+import { keyToPassword } from 'config';
 
 const getKey = (value: any, map: any) =>
 {
     return [...map].find(([key, val]) => val == value);
 };
 
+const key: string = keyToPassword;
 const letters: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 const numbers: string = '1234567890';
 const symbols: string = '!@#$%^&*()_+-={}[]:;"\'"|,.<>/?~`№';
@@ -125,11 +127,49 @@ const unHash = (hashedPass: any) =>
 
     return unHasiedPassword;
 }
-// const hashedPassword = enterPassword('АБВFOCKUSTY123');
-// const unHasedPassword = unHash(hashedPassword);
+
+const permanentHash = (input = '') =>
+{
+    let first = '';
+    let output = '';
+
+    for (let i = 0; i < input.length; i++)
+        first += input.charCodeAt(i).toString(3);
+
+    for (let i = 0; i < first.length; i++)
+        output += first.charCodeAt(i).toString(2);
+
+    return output;
+};
+
+const hashPassword = (input: string): string =>
+{
+    if(input.length > 20)
+        return 'Пароль должен быть меньше 20 символов';
+
+    let output: string = '';
+    let password: string = '';
+
+    for (let i = 0; i < input.length; i++)
+    {
+        let inp = input.charCodeAt(i);
+        let k = key.charCodeAt(i);
+
+        output += String.fromCharCode(inp ^ k); 
+    };
+
+    for(let i=0; i < output.length; i++)
+    {
+        password += output.charCodeAt(i).toString(16);
+    }
+
+    return password;
+};
 
 export
 {
+    hashPassword,
+    permanentHash,
     enterPassword,
     unHash,
     

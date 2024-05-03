@@ -1,7 +1,10 @@
 import { SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
 
-import { sequelize, deleteTable } from 'd@utility/tags';
 import { authorId } from 'config';
+import database from '@database';
+
+const deleteModel = database.mongooseDatabase.main.deleteModel;
+const getAllModels = database.mongooseDatabase.main.getAllModels;
 
 export =
 {
@@ -56,29 +59,31 @@ export =
             ko:'모든 테이블'
         })),
 
-        async execute(interaction: any)
+    async execute(interaction: any)
+    {
+        if(interaction.user.id != authorId)
+            return await interaction.reply({ content: 'У Вас нет прав использовать данную команду', ephemeral: true });
+        
+        const subcommand = interaction.options.getSubcommand(); 
+        const models = (await getAllModels()).tag;
+
+        if(subcommand==='delete-table')
         {
-            if(interaction.user.id != authorId) return;
-
-            const subcommand = interaction.options.getSubcommand(); 
-            const models = sequelize.models;
-
-            if(subcommand==='delete-table')
-            {
-                const table = interaction.options.getString('table');
-                const model = models[table];
-
-                deleteTable(model);
-
-                await interaction.reply({ content: `Была успешно удалена таблица "${table}"`, ephemeral: true })
-            }
-            else if(subcommand==='all-tables')
-            {
-                const modelsArray = [];
-                
-                for(let model in models) modelsArray.push(`🎩 ${model}`);
-
-                await interaction.reply({ content: `Все таблицы на данный момент:\n${modelsArray.join('\n')}`, ephemeral: true });
-            };
+            const table = interaction.options.getString('table');
+            const model = models[table];
+            
+            deleteModel(model);
+            
+            await interaction.reply({ content: `Была успешно удалена таблица "${table}"`, ephemeral: true })
+        }
+        else if(subcommand==='all-tables')
+        {
+            const modelsArray = [];
+            
+            for(let model in models)
+                modelsArray.push(`🎩 ${model}`);
+            
+            await interaction.reply({ content: `Все таблицы на данный момент:\n${modelsArray.join('\n')}`, ephemeral: true });
+        };
 	},
 };

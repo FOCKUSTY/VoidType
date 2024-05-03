@@ -1,7 +1,10 @@
 import { Events, VoiceState, PermissionsBitField, ChannelType, VoiceChannel } from "discord.js";
-import { getVoiceCreateChannel } from '../utils/tags';
 import { sendVoiceTools } from '../utils/sendVoiceTools';
 
+import database from '@database';
+import { statusMongoose } from 'databaseTypes';
+
+const getCreatorVoiceChannel = database.mongooseDatabase.settedCreatorsVoiceChannels.getCreatorVoiceChannel;
 
 const permissionsForBot = [ PermissionsBitField.Flags.ManageChannels, PermissionsBitField.Flags.MoveMembers ];
 const permissionsForUsers =
@@ -50,17 +53,13 @@ export =
 
     let parent = vs.channel?.parent;
 
-    await getVoiceCreateChannel({guildId: vs.guild.id, findType: 'findOne'}).then(async (data: any) =>
+    await getCreatorVoiceChannel('findOne', vs.guild.id).then(async (data: statusMongoose) =>
       {
-        if(
-            (!data.text || data?.type != 'successed' || !vs.member)
-            ||
-            (data.text?.dataValues && vs.channel?.id != data.text.dataValues.channelid)
-          )
+        if(data.type === 'error' || data.error || !data.tag || !vs.member)
           return;
 
         if(!vs.guild.roles.botRoleFor(vs.client.application.id)?.permissions.has(permissionsForBot))
-          return console.error(`У бота не хватает прав создать канал в ${vs.guild.name} (${vs.guild.id})`);
+          return;
 
         vs.guild.channels.create
         ({

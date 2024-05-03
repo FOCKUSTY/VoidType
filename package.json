@@ -1,6 +1,6 @@
 {
   "name": "voidbotts",
-  "version": "0.1.15-alpha.1",
+  "version": "0.1.16-alpha.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -22,15 +22,13 @@
     "ffmpeg-static": "^5.2.0",
     "libsodium-wrappers": "^0.7.13",
     "random-js": "^2.1.0",
-    "sequelize": "^6.35.0",
-    "sqlite3": "^5.1.6",
-    "telegraf": "^4.16.2"
+    "telegraf": "^4.16.3"
   },
   "devDependencies": {
-    "@types/node": "^20.10.5",
+    "@types/node": "^20.12.8",
     "ts-node": "^10.9.2",
     "tsup": "^7.2.0",
-    "tsx": "^4.1.1",
-    "typescript": "^5.3.3"
+    "tsx": "^4.8.2",
+    "typescript": "^5.4.5"
   }
 }

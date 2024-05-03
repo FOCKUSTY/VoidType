@@ -1,35 +1,33 @@
 import config from 'config';
 import { msgPing } from '../msgPing'
 import { chattingWithKristy } from '../chatting'
-import { getLogGuild } from '../tags'
 import { sendMessageLog } from '../messageLog'
-import { checkMessageToRead } from 'dev@'
+
+import { statusMongoose as status, logAttributes } from 'databaseTypes'
+import database from '@database';
+
+const log = database.mongooseDatabase.log;
 
 let isTalkingEnabled = true;
 
-const messageDeleteLog = (m: any, sendMessageLog: any,) =>
+const messageDeleteLog = async (m: any, sendMessageLog: any) =>
 {
-    getLogGuild('findAll')
-    .then((guildId: any) =>
-    {
-        getLogGuild('findOne', guildId)
-            .then(async (data: any) =>
-            {
-                if(data?.optionupdate && (data.guildid === m.guild.id) )
-                {
-                    await sendMessageLog(m, "update", undefined, `${data.guildid}`, `${data.channellogid}`)
-                }
-            });
-    });
+    const guilds = await log.getLogGuild('findAll')
+    const tags: logAttributes[] = guilds.tag;
+    const logGuilds = tags.filter(data => data.options.messages?.data.delete && data.options.messages?.data.enabled);
+    
+    logGuilds.forEach(async (guildData) =>
+        await sendMessageLog(m, 'delete', undefined, guildData.guildId, guildData.options.messages?.data.channelId));
 
     sendMessageLog(m, "delete", undefined, config.logGuildId, config.logChannelId);
 };
+
 const messageUpdateLog = (m: any, nm: any, sendMessageLog: any) =>
 {
-	getLogGuild('findAll')
+	log.getLogGuild('findAll')
 		.then((guildId: any) =>
 		{
-			getLogGuild('findOne', guildId)
+			log.getLogGuild('findOne', guildId)
 				.then(async (data: any) =>
 				{
 					if(data?.optionupdate && (data.guildid === m.guild.id) )

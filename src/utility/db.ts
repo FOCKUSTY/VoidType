@@ -1,6 +1,3 @@
-import * as db from 'database/index';
+import * as db from 'database/src/index';
 
-export
-{
-    db as database
-};
+export default db.default;

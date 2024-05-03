@@ -3,7 +3,6 @@ import { Telegraf } from 'telegraf';
 import { deployCommands } from 't@deploy-commands';
 import { messageListener } from 't@l-msg';
 import { setBot } from 'utility/bots';
-import { sendMessage } from './utility/sendMessage';
 
 import config from 'config';
 import fs from 'node:fs';
@@ -33,7 +32,6 @@ process.once('exit', () => setBot('The Void Telegram', false) );
 setBot('The Void Telegram', true);
 setDevelopClient(client);
 
-const date = new Date().getTime();
 let nextIdDate = new Date().getTime();
 
 client.hears('Я хочу узнать id канала', async(message): Promise<'error'|0> =>
@@ -42,8 +40,6 @@ client.hears('Я хочу узнать id канала', async(message): Promise
     {
         const now = new Date().getTime();
         const isAuthor: boolean = message.from.id === Number(config.telegramAuthorId)
-
-        console.log(message.chat, message.from)
 
         if(nextIdDate > now && !isAuthor)
             return 'error';

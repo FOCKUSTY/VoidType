@@ -1,6 +1,6 @@
 import { EmbedBuilder, ActionRowBuilder, Client } from 'discord.js';
 import { getDevelop, getDevelopClient } from "./develop";
-import { status, Error } from 'database/index';
+import { status, Error } from 'databaseTypes';
 
 type sendMessageData =
 {

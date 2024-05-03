@@ -3,7 +3,16 @@ import
     EmbedBuilder,
     PermissionsBitField,
     ButtonBuilder, ButtonStyle,
-    ActionRowBuilder
+    ActionRowBuilder, User,
+    APIUser,
+    BaseImageURLOptions,
+    DMChannel,
+    ImageURLOptions,
+    Message,
+    MessageCreateOptions,
+    MessagePayload,
+    UserFlagsBitField,
+    GuildMember
   } from 'discord.js';
 
 import { pseudoRandomNumber } from './pseudoRandom';
@@ -196,9 +205,9 @@ const sendMessageToUser = async (id: string, message: any) =>
   }
 };
 
-const getDiscordUser = async (id: string) =>
+const getDiscordUser = async (id: string): Promise<GuildMember> =>
 {
-  let discordUser: any;
+  let discordUser: any = {};
 
   const guilds: any = [];
 
@@ -208,11 +217,11 @@ const getDiscordUser = async (id: string) =>
   {
     try
     {
-      const member = await guild.members.fetch(`${id}`);
+      const member: GuildMember = await guild.members.fetch(`${id}`);
 
       if(member)
       {
-        discordUser = await member;
+        discordUser = member;
         
         break cicle;
       }
@@ -220,7 +229,7 @@ const getDiscordUser = async (id: string) =>
     catch{}
   }
 
-  return await discordUser;
+  return discordUser;
 }
 
 const sendMessage = async (message: any, channelId: string, options: object) =>

@@ -1,6 +1,9 @@
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
-import { getUserTagOutDB } from 'd@utility/tags';
 import { getDevelop } from 'dev@';
+
+import { ideaType, statusMongoose as status } from 'databaseTypes'
+import database from '@database';
+const idea = database.mongooseDatabase.ideas
 
 export =
 {
@@ -30,54 +33,43 @@ export =
         const
             int = interaction,
             subcommand = interaction.options.getSubcommand(),
-            iconURL = getDevelop('iconURL'),
+            iconURL = getDevelop('iconurl'),
             authorName = getDevelop('authorname');
 
         if(subcommand===`ideaname`)
         {
-            const tagName = interaction.options.getString('name');
+            const tagId = interaction.options.getString('name');
             
-            getUserTagOutDB('findOne', tagName)
-                .then(function(tag: any)
-                {
-                    const embed = new EmbedBuilder()
-                        .setColor(0x161618)
-                        .setAuthor({name: `${authorName}`, iconURL: `${iconURL}`})
-                        .setTitle(`${tag.get('name')}`)
-                        .setThumbnail(`${iconURL}`)
-                        .setDescription(`${tag.get('description')}`)
-                        .setTimestamp()
-                        .setFooter({text: `${int.guild?.name||`Не на сервере`}`, iconURL: `${iconURL}`});
+            await idea.getIdea('findOne', tagId).then(async (status: status) =>
+            {
+                if(!status.tag || typeof(status.tag) === 'string')
+                    return await interaction.reply({content: `Не удалось найти тег: ${tagId}\n${status.error}`, ephemeral: true});
 
-                    if (tag) return interaction.reply({embeds: [embed], ephemeral: true});
-                    else return interaction.reply({content: `Не удалось найти тег: ${tagName}`, ephemeral: true});
-                })
-                .catch(function(err)
-                {
-                    console.log(err);
-                    return interaction.reply({content: `Не удалось найти тег: ${tagName}`, ephemeral: true});
-                });
+                const embed = new EmbedBuilder()
+                    .setColor(0x161618)
+                    .setAuthor({name: `${authorName}`, iconURL: `${iconURL}`})
+                    .setTitle(`${status.tag.get('name')}`)
+                    .setThumbnail(`${iconURL}`)
+                    .setDescription(`${status.tag.get('description')}`)
+                    .setTimestamp()
+                    .setFooter({text: `${int.guild?.name||`Не на сервере`}`, iconURL: `${iconURL}`});
+
+                return await interaction.reply({embeds: [embed], ephemeral: true})});
         }
         else if(subcommand===`ideas`)
         {
-            getUserTagOutDB('findAll')
-                .then(function(tagnames)
-                {
-                    const embed = new EmbedBuilder()
-                        .setColor(0x161618)
-                        .setAuthor({name: int?.guild.name||int.user.username, iconURL: `${int?.guild.iconURL()||int?.user.iconURL()}` })
-                        .setTitle(`Все идеи`)
-                        .setDescription(`${tagnames}`)
-                        .setTimestamp()
-                        .setFooter({text: `${int?.guild.name||int.user.username}`, iconURL: `${int?.guild.iconURL()||int?.user.iconURL()}`});
-                
-                    return interaction.reply({embeds: [embed], ephemeral: true})
-                })
-                .catch(function(err)
-                {
-                    console.log(err);
-                });
-
+            await idea.getIdea('findAll').then(async (status: status) =>
+            {
+                const embed = new EmbedBuilder()
+                .setColor(0x161618)
+                .setAuthor({name: int?.guild.name||int.user.username, iconURL: `${int?.guild.iconURL()||int?.user.iconURL()}` })
+                .setTitle(`Все идеи`)
+                .setDescription(`${status.tag}`)
+                .setTimestamp()
+                .setFooter({text: `${int?.guild.name||int.user.username}`, iconURL: `${int?.guild.iconURL()||int?.user.iconURL()}`});
+        
+                return await interaction.reply({embeds: [embed], ephemeral: true})
+            }).catch((err:any) => { console.error(err) });
         };
 	},
 };

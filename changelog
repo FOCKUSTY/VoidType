@@ -58,6 +58,10 @@
 - Исправлены баги
 - Улучшены некоторые системы
 - обновлен отправщик сообщений в Discord
+# 0.1.16-alpha.1
+- База данных полностью изменена
+- sqlite3 -> mongoDB
+- Исправлены баги
 
 # 🇺🇸 - English
 # 0.0.0-aplha.1
@@ -119,3 +123,7 @@
 - Bug fixed
 - Updated some systems
 - Updated sendMessage function (Discord)
+# 0.1.16-alpha.1
+- Database was changed
+- sqlite3 -> mongoDB
+- Bug fixed

@@ -1,13 +1,16 @@
-import { Interaction, InteractionType, EmbedBuilder, TextChannel, PermissionsBitField } from "discord.js";
-import { addUserTagToDB } from '../utils/tags';
+import { Interaction, InteractionType, EmbedBuilder, PermissionsBitField } from "discord.js";
 import { debug } from "../utils/developConsole";
 import { replyOnVCCModal } from "../utils/sendVoiceTools";
-import { setMTUOJ, updateMTUOJ, deleteMTUOJ } from '../utils/messsageToUserOnJoin'
 import { getDevelop } from "../utils/develop";
 import { sendMessage as sendMessageToTelegram } from "src/telegram/utility/sendMessage";
 import { sendMessage as sendMessageToDiscord } from "../utils/sendMessage";
-import { Error, status } from "database/index";
 import config from 'config';
+
+import { MTUOJAttributes as MTUOJType, ideaType, statusMongoose as status, Error, statusMongoose } from 'databaseTypes';
+import database from '@database';
+
+const MTUOJ = database.mongooseDatabase.MTUOJ;
+const idea = database.mongooseDatabase.ideas;
 
 let channel: any;
 let bool: boolean;
@@ -45,11 +48,10 @@ export =
 	
 			if(int.customId==='ideaModal')
 			{
-	
 				const ideaTitle = int.fields.getTextInputValue(`ideaTitle`);
 				const ideaDetails = int.fields.getTextInputValue(`ideaDetails`);
 		
-					const embed = new EmbedBuilder()
+				const embed = new EmbedBuilder()
 					.setColor(0x161618)
 					.setAuthor({name: `${user}`, iconURL: `${userAvatar}`})
 					.setTitle(`${ideaTitle}`)
@@ -62,19 +64,57 @@ export =
 					)
 					.setTimestamp();
 		
-				(client.channels.cache.get("1171051517910986752") as TextChannel).send({content: ``, embeds: [embed]});
+					const channel = client.channels.cache.get("1171051517910986752");
+
+					if(!channel || !channel.isTextBased())
+						return await int.reply({content: 'Возможно, канал не является текстовым или причина в другом', ephemeral: true});
+
+					channel.send({content: ``, embeds: [embed]}).then(async (message) =>
+					{
+						try
+						{							
+							await message.react('🎩');
+							await message.react('💜');
+							await message.react('❌');
+							
+							await message.startThread({
+								name: `${ideaTitle}`,
+								autoArchiveDuration: 60,
+								reason: `${ideaDetails}`,
+							});
+						}
+						catch (err)
+						{
+							console.error(err)
+						}
+					})
 			
-					int.reply({content: `Ваша идея была доставлена!`, embeds: [embed], ephemeral: true});
+					await int.reply({content: `Ваша идея была доставлена!`, embeds: [embed], ephemeral: true});
 						
 					try
 					{
-						console.log(`Идея была доставлена\nИдея: ${ideaTitle}\nОписание: ${ideaDetails}\nНаписал: ${int.user?.username} (${int.user?.globalName})\nС сервера ${int.guild?.name}`);
-						addUserTagToDB(`${ideaTitle}`, {username: `${int.user.username}`, globalName: `${int.user.globalName}`}, `${ideaDetails}`, {name: `${int.guild?.name}`})
+						const data: ideaType =
+						{
+							description: ideaDetails,
+							ideaName: ideaTitle,
+							globalname: int.user.globalName||int.user.username,
+							username: int.user.username,
+							guildname: int.guild?.name||'Не на сервере'
+						};
+
+						await idea.createIdea(data).then((status: statusMongoose) =>
+						{
+							if(status.type === 'successed')
+								console.log(`Идея была доставлена\nИдея: ${ideaTitle}\nОписание: ${ideaDetails}\nНаписал: ${int.user?.username} (${int.user?.globalName})\nС сервера ${int.guild?.name}`);
+							else
+								console.error(status.error);
+						})
+						
 					}
 					catch (e)
 					{
 						console.log('Идея не была доставлена !')
-						debug([e, true])
+						debug([e], false, false, this)
 					}
 			}
 			else if(int.customId==='sayModal')
@@ -139,19 +179,25 @@ export =
 				const type = userTypes.get(interaction.guild.id);
 	
 				if(type === 'delete')
-					return await deleteMTUOJ(interaction.guild.id).then(async data =>
-						await int.reply({content: data.text, ephemeral: true}));
+					await MTUOJ.deleteMTUOJ(interaction.guild.id).then(async (status: statusMongoose) =>
+						await int.reply({content: status.text, ephemeral: true}));
 	
 				const text = int.fields.getTextInputValue('text');
 				const boolean = userBooleans.get(int.user.id);
 	
+				const data: MTUOJType = {
+					guildId: interaction.guild.id,
+					isEnables: boolean,
+					text: text
+				};
+
 				if(type === 'create')
-					return await setMTUOJ({guildId: interaction.guild.id, isEnabled: boolean, text: text}).then(async data =>
-						await int.reply({content: data.text, ephemeral: true}));
+					return await MTUOJ.setMTUOJ(data).then(async (status: statusMongoose) =>
+						await int.reply({content: status.text, ephemeral: true}));
 	
 				else
-					return await updateMTUOJ({guildId: interaction.guild.id, isEnabled: boolean, text: text}).then(async data =>
-						await int.reply({content: data.text, ephemeral: true}));
+					return await MTUOJ.updateMTUOJ(data).then(async (status: statusMongoose) =>
+						await int.reply({content: status.text, ephemeral: true}));
 			}
 			else if(int.customId==='sendMessageToTelegramModal')
 			{

@@ -1,7 +1,9 @@
-import { addNewAccountToMultiplatform, updateAccountInMultiplatform, deleteAccountInMultiplatform, getMulityAccount } from 'utility/database';
 import { check_I_HasUserInDiscord, getDiscordUser, sendMessageToUser, check_I_HasChannelInDiscord, color, sendMessage, responsiable } from 'd@utility/develop';
-import { EmbedBuilder } from 'discord.js';
-import { enterPassword } from 'utility/hashing'
+import { EmbedBuilder, GuildMember } from 'discord.js';
+import { hashPassword } from 'utility/hashing';
+import { multiplatformType, statusMongoose as status } from 'databaseTypes'
+import database from '@database';
+const multiplatform = database.mongooseDatabase.multiplatform;
 
 const
     idMessages     = new Map(),
@@ -43,7 +45,7 @@ const setMessage = ( chatId: string, authorId: string, message: any, type='па�
     else if (type[0] === 'пароль')
     {
         const password = message;
-        const hashedPassword = enterPassword(password);
+        const hashedPassword = hashPassword(password);
 
         cache.set(`${type[0]}`, `${hashedPassword}`);
     
@@ -87,21 +89,26 @@ const messageListener = async (message: any) =>
         const data = getMessageCache(chat.id, from.id);
         let discordIdFromData: string = '', discordName: string = '';
 
-        await getMulityAccount('findOne', 'telegramid', `${from.id}`).then((tag: any) =>
+        await multiplatform.getMulitiAccount('findOne', 'telegramId', `${from.id}`).then((data: status): void =>
         {
-            discordIdFromData = tag?.discordid;
-            discordName = tag?.discordname;
+            if((!data.tag || typeof data.tag  === 'string') || Array.isArray(data.tag))
+                return;
+            
+            discordIdFromData = data.tag.discordId;
+            discordName = data.tag.discordName;
         });
-
+    
         if(discordIdFromData)
             data.set('discord id', discordIdFromData);
 
         if(countOfMessages[0] === countOfMessages[1])
-            await sendMessageToUser(data.get('discord id'), 'Подтвердите Ваши действия в telegram').then(response => message.reply(response['text']) ); 
+            await sendMessageToUser(data.get('discord id'), 'Подтвердите Ваши действия в telegram')
+                .then(response => message.reply(response['text']) ); 
         
         else if(method[2][countOfMessages[0]][0] === '4-code')
         {
             const discordId = data.get('discord id');
+            
             if(responsiable.get(discordId)[1] != msg.text)
                 return await message.reply('Не правильный одноразовый четырех значный код');
 
@@ -109,19 +116,55 @@ const messageListener = async (message: any) =>
             {
                 const type = data.get('edittype').toLowerCase();
     
-                await getDiscordUser(discordId).then(async (user: any) =>
+                await getDiscordUser(discordId).then(async (member: GuildMember) =>
                 {                    
-                    const dataOne: [string, string, string, string, string] = [from.id, discordId, from.username || `${from.last_name} ${from.first_name}`, user.user.username, data.get('пароль')] as const
-                    const dataTwo: [string, string, string] = [from.id, discordId, data.get('пароль')] as const;
+                    const multiAccountData: multiplatformType =
+                    {
+                        telegramId: from.id,
+                        telegramName: from.username || `${from.last_name} ${from.first_name}`,
+
+                        discordId: discordId,
+                        discordName: member.user.username,
+
+                        password: data.get('пароль')
+                    };
+
+                    const multiAccountDataDelete: [string, string, string] =
+                    [
+                        `${from.id}`,
+                        `${member.user.id}`,
+                        data.get('Пароль')
+                    ] as const;
 
                     const timer = setTimeout(() =>
                     {
                         if(responsiable.get(discordId)[0])
                         {
-                            if (type.indexOf('добавить') != -1) addNewAccountToMultiplatform(...dataOne).then(async response => await message.reply(response) );
-                            else if(type.indexOf('изменить') != -1) updateAccountInMultiplatform(...dataOne).then(async response => await message.reply(response) );
-                            else if(type.indexOf('удалить') != -1)  deleteAccountInMultiplatform(...dataTwo).then(async response => await message.reply(response) );
-                        }
+                            if(type.indexOf('добавить') != -1)
+                                multiplatform.addMultiAccount(multiAccountData).then(async (status: status) =>
+                                {
+                                    if(status.type != 'successed')
+                                        return await message.reply(`${status.text}\nОшибка: ${status.error}`);
+
+                                    await message.reply(status.text);
+                                });
+                            else if(type.indexOf('изменить') != -1)
+                                multiplatform.updateMultiAccount(multiAccountData).then(async (status: status) =>
+                                {
+                                    if(status.type != 'successed')
+                                        return await message.reply(`${status.text}\nОшибка: ${status.error}`);
+
+                                    await message.reply(status.text);
+                                });
+                            else if(type.indexOf('удалить') != -1)
+                                multiplatform.deleteMultiAccount(...multiAccountDataDelete).then(async (status: status) =>
+                                {
+                                    if(status.type != 'successed')
+                                        return await message.reply(`${status.text}\nОшибка: ${status.error}`);
+
+                                    await message.reply(status.text);
+                                });
+                        };
                     }, 2000);
                 });
             }
@@ -130,7 +173,7 @@ const messageListener = async (message: any) =>
                 let iconURL;
 
                 await getDiscordUser(data.get('discord id'))
-                    .then(async (user: any) => iconURL = `https://cdn.discordapp.com/avatars/${user.user.id}/${user.user.avatar}.png` );
+                    .then(async (member: any) => iconURL = `https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png` );
 
                 const embed = new EmbedBuilder()
                     .setAuthor({name:`${discordName}`, iconURL: `${iconURL}`})
@@ -166,13 +209,13 @@ const messageListener = async (message: any) =>
         if(method[2][countOfMessages[0]][0] === 'discord id')
         {
             let isNext, isIAlreadyHasDiscordId = false;
-
-            await getMulityAccount('findOne', 'telegramid', `${from.id}`).then(tag =>
+            
+            await multiplatform.getMulitiAccount('findOne', 'telegramId', `${from.id}`).then((status: status) =>
             {
-                if(tag)
+                if(status.type === 'successed')
                     isIAlreadyHasDiscordId = true
             });
-            
+
             if(isIAlreadyHasDiscordId)
                 isNext = true;
 

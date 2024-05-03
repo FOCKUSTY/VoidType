@@ -65,12 +65,12 @@ const setRandomnessActivity = (client: Client, textActivity=false, log=true) =>
         const pathToTitle = path.join('../../../../VoidDataBase/titles.json');
         const file = (fs.readFileSync(pathToTitle, {encoding: 'utf8'}));
 
-        let json: { [x: string]: any };
+        let json: any;
         let animeNames: any;
 
-        JSON.stringify(file, (key, value) =>
+        JSON.stringify(file, async (key, value) =>
         {
-          json = value;
+          await eval(`json = ${value}`);
           animeNames = json['animeNames'];
         });
 

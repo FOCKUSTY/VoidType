@@ -82,7 +82,6 @@ const eventsPath = path.join(__dirname, 'discord/events');
 let eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts'));
 if(eventFiles.length === 0)
 	eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
-	
 
 deployEvents(eventsPath, eventFiles, client);
 
@@ -91,6 +90,37 @@ client.on(Events.InteractionCreate, async interaction =>
 	interactionListener.intCreate(Commands, interaction);
 	modalListener.modalSubmit(interaction);
 	buttonsListener.buttonsListener(interaction);
+});
+
+let nextIdDate = new Date().getTime();
+
+tClient.hears('Я хочу узнать id канала', async(message): Promise<'error'|0> =>
+{
+    try
+    {
+        const now = new Date().getTime();
+        const isAuthor: boolean = message.from.id === Number(config.telegramAuthorId)
+
+        if(nextIdDate > now && !isAuthor)
+            return 'error';
+        
+        if(!isAuthor)
+            await message.reply(`Ваш Id канала: ${message.chat.id}\nСледующее использование команды через час`);
+        else
+            await message.reply(`Ваш Id канала, сэр: ${message.chat.id}`);
+
+        return 0;
+    }
+    catch (error)
+    {
+        console.log(error);
+        return 'error';
+    }
+    finally
+    {
+        if(message.from.id != Number(config.telegramAuthorId))
+            nextIdDate += 3600000;
+    };
 });
 
 client.on(Events.MessageCreate, (message) => messageCreateLog(message));

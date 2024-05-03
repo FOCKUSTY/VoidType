@@ -62,7 +62,8 @@
             "void@replies": ["../../VoidDataBase/replyesActivity.json"],
             
             "database/*": ["../../VoidDataBase/DataBase/*"],
-            "@database": ["./src/utility/db.ts"]
+            "@database": ["./src/utility/db.ts"],
+            "databaseTypes": ["../../VoidDataBase/DataBase/src/types.ts"]
         }
     },
     "include": ["./**/*.ts"]

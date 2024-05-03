@@ -1,21 +1,27 @@
 import { Events, ActivityType, REST, Client, GuildMember } from 'discord.js';
-import { getMTUOJ } from '../utils/messsageToUserOnJoin'
+import database from '@database';
+import { statusMongoose as status } from 'databaseTypes'
+const MTUOJ = database.mongooseDatabase.MTUOJ;
 
 export =
 {
     name: Events.GuildMemberAdd,
     once: false,
-    async execute(data: GuildMember)
+    async execute(member: GuildMember)
     {
-        await getMTUOJ(data.guild.id).then(async (dbData: any) =>
+        await MTUOJ.getMTUOJ(member.guild.id).then(async (data: status) =>
         {
-            if(dbData.type != 'successed' && !!dbData.text)
+            if(data.type != 'successed' && !!data.text || !data.tag || typeof(data.tag) === 'string')
                 return;
             
             try
             {
-                await data.user.send({content: dbData.text.dataValues.text});
-            }catch{};
+                await member.user.send({content: data.tag.text});
+            }
+            catch
+            {
+                return;
+            };
         });
     }
 };
