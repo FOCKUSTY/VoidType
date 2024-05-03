@@ -238,7 +238,7 @@ export =
 					const enChanges: string = int.fields.getTextInputValue('en-changes');
 					const version: string = versions.get(int.user.id);
 
-					const discordChangeLog = `# 🇷🇺 - Русский\n# ${version}\n${ruChanges}# 🇺🇸 - English\n# ${version}\n${enChanges}`;
+					const discordChangeLog = `# 🇷🇺 - Русский\n# ${version}\n${ruChanges}\n# 🇺🇸 - English\n# ${version}\n${enChanges}`;
 					const telegramChangeLog = `${version}\n${ruChanges}`;
 					const bottomlessHatChangeLog = `# ${version}\n${ruChanges}`;
 
