@@ -1,0 +1,9 @@
+{
+    "clientToken": "YOUR-TOKEN",
+    "clientId": "BOT-ID",
+    
+    "guildId": "MAIN-GUILD-ID",
+    "authorId": "YOUR-ID",
+    
+    "aculaOneId": "This my, you can change this"
+}
