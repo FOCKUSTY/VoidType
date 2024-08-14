@@ -16,6 +16,7 @@
             "src/*": ["./src/*"],
 
             "discord/*": ["./src/discord/*"],
+            "telegram/*": ["./src/telegram/*"],
             "utility/*": ["./src/utility/*"],
             "types/*": ["./src/types/*"],
             "logger/*": ["./src/logger/*"],

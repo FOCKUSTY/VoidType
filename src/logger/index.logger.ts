@@ -27,6 +27,7 @@ const loggers = {
     Events:   new Logger('Events',   [ Colors.brightYellow, Colors.green   ]),
     Commands: new Logger('Commands', [ Colors.brightYellow, Colors.green   ]),
     Loader:   new Logger('Loader',   [ Colors.brightYellow, Colors.red     ]),
+    Fail:     new Logger('Fail',     [ Colors.red,          Colors.red     ])
 };
 
 export default loggers;

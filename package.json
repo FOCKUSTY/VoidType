@@ -1,26 +1,24 @@
 {
   "name": "voidbotts",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.1-alpha.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "slash": "tsx watch src/discord/SlashCommands.ts",
-    "dev": "tsx watch src/index.ts",
-    "start": "node dist/discord/SlashCommands.js && node dist/index.js",
-    "build": "tsup src/**",
-    "go": "tsup src/** && node dist/SlashCommands.js && node dist/index.js",
-    "telegram": "tsx watch src/telegram/index.ts"
+    "slash": "tsx watch src/discord/slash.commands.ts",
+    "dev-telegram": "tsx watch src/telegram.bot.ts",
+    "dev": "set NODE_ENV=all && tsx watch src/start.bot.ts ",
+    "telegram": "set NODE_ENV=telegram && tsx watch src/start.bot.ts ",
+    "discord": "set NODE_ENV=discord && tsx watch src/start.bot.ts ",
+    "start": "pnpm run slash and pnpm run dev",
+    "build": "tsup src/**"
   },
   "author": "FOCKUSTY",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/voice": "^0.16.1",
     "colors": "^1.4.0",
     "date-fns": "^2.30.0",
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.5",
-    "ffmpeg-static": "^5.2.0",
-    "libsodium-wrappers": "^0.7.13",
     "random-js": "^2.1.0",
     "telegraf": "^4.16.3"
   },

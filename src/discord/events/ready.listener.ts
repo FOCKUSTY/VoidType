@@ -1,11 +1,11 @@
 import type { Client as DiscordClient } from "discord.js";
 import { Events } from "discord.js";
 
-import ClientLoader from "loaders/client.loader";
-import { RandomActiviy } from "service/random-activity.service";
+import ClientLoader from "utility/loaders/client.loader";
+import { RandomActiviy } from "utility/service/random-activity.service";
 
-import ActivityLoader from 'loaders/activities.loader';
-import ObjectsLoader from 'loaders/objects.loader';
+import ActivityLoader from 'utility/loaders/activities.loader';
+import ObjectsLoader from 'utility/loaders/objects.loader';
 import loggers from "logger/index.logger";
 
 export = {

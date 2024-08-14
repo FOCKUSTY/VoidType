@@ -1,4 +1,4 @@
-import Formatter, { Colors } from 'service/formatter.service';
+import Formatter, { Colors } from 'utility/service/formatter.service';
 import ICL from 'discord/events/interaction-create.listener';
 import ML from 'discord/events/modal.listener';
 
@@ -47,12 +47,14 @@ Client.on(Events.InteractionCreate, async interaction => {
 	ML.ModalListener(interaction);
 });
 
-Client
-	.login(config.clientToken)
-	.catch((e) => Debug.Error(e));
+const Login = async () =>
+	await Client
+		.login(config.clientToken)
+		.catch((e) => Debug.Error(e));
 
 export {
-	Commands
-}
+	Commands,
+	Login as LoginDiscord
+};
 
 export default Client;

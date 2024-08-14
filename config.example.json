@@ -2,6 +2,8 @@
     "clientToken": "YOUR-TOKEN",
     "clientId": "BOT-ID",
     
+    "telegramToken": "YOUR-TELEGRAM-TOKEN",
+
     "guildId": "MAIN-GUILD-ID",
     "authorId": "YOUR-ID",
     

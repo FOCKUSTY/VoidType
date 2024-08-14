@@ -1,4 +1,4 @@
-import PseudoRandom from 'service/pseudo-random.service';
+import PseudoRandom from 'utility/service/pseudo-random.service';
 import { SlashCommandBuilder } from 'discord.js';
 import { Random as RandomJS } from 'random-js';
 

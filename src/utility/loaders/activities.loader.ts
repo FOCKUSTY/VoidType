@@ -7,6 +7,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 import loggers from 'logger/index.logger';
 import { Colors } from 'utility/service/formatter.service';
+import { Debug } from 'src/develop/debug.develop';
 
 const activitiesPath = path.join('../the-void-database/data');
 const activitiesFolders = fs.readdirSync(activitiesPath).filter(file => !file.endsWith(".json"));
@@ -29,9 +30,6 @@ const Loader = () => {
         const jsonFiles = fs.readdirSync(activityFolderPath).filter(file => file.endsWith(".json"));
         const folders = fs.readdirSync(activityFolderPath).filter(file => !file.endsWith(".json"));
     
-        if(activityFolder === 'reply-activities')
-            continue;
-
         if(jsonFiles.length !== 0)
         {
             for(const fileName of jsonFiles)
@@ -59,32 +57,21 @@ const Loader = () => {
                     {
                         const TypifiedActivities: Activity[] = TypifiedActivityLoader.execute(filePath);
 
-                        LoadedActivities.other.push(...TypifiedActivities);
+                        if(fileName === 'guilds.json')
+                            LoadedActivities.guild.push(...TypifiedActivities);
+                        else if(fileName === 'names.json')
+                            LoadedActivities.name.push(...TypifiedActivities);
+                        else
+                            LoadedActivities.other.push(...TypifiedActivities);
+
                         loggers.Loader.execute(`Загружен ${`${fileName}`}`, Colors.green)
     
-                        continue fileCicle;
-                    }
-                    else if(folder === 'simple')
-                    {
                         continue fileCicle;
                     }
                     else
                     {
-                        const Activities: Activity[] = StandartActivityLoader.execute(filePath);
-
-                        if('kristy/name/guild'.indexOf(fileName.replace('.json', '')) !== -1)
-                        {
-                            LoadedActivities[fileName.replace('.json', '')].push(...Activities);
-
-                            loggers.Loader.execute(`Загружен ${`${fileName}`}`, Colors.green)
-                            continue fileCicle;
-                        };
-
-                        LoadedActivities.other.push(...Activities);
-                        loggers.Loader.execute(`Загружен ${`${fileName}`}`, Colors.green)
-    
                         continue fileCicle;
-                    };
+                    }
                 };
             };
         };
