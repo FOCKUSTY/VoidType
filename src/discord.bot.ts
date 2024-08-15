@@ -8,6 +8,9 @@ import { Debug } from 'develop/debug.develop';
 import { WriteCommands } from 'discord/deploy.commands';
 import { DeployEvents } from 'discord/deploy.events';
 
+import path from 'path';
+import fs from 'fs';
+
 import {
 	Client as DiscordClient,
     Collection,
@@ -15,6 +18,8 @@ import {
     GatewayIntentBits,
     Partials
 } from 'discord.js';
+
+import Discord from 'discord/utility/service/discord.service';
 
 const Client = new DiscordClient({
 	intents:
@@ -39,18 +44,27 @@ Debug.Log([Formatter.Color('Начало программы', Colors.magenta)]);
 const Commands = new Collection();
 const Cooldowns = new Collection();
 
-WriteCommands(Commands, Client);
-DeployEvents(Client);
+const foldersPath = path.join(__dirname, 'discord/commands');
+const commandsFolder = fs.readdirSync(foldersPath);
+
+const eventsPath = path.join(__dirname, 'discord/events');
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js') || file.endsWith('.ts'));
+
+WriteCommands(Commands, Client, foldersPath, commandsFolder);
+DeployEvents(Client, eventsPath, eventFiles);
 
 Client.on(Events.InteractionCreate, async interaction => {
     ICL.InteractionCreate(interaction, Commands, Cooldowns);
 	ML.ModalListener(interaction);
 });
 
-const Login = async () =>
+const Login = async () => {
+	Discord.client = Client;
+
 	await Client
 		.login(config.clientToken)
 		.catch((e) => Debug.Error(e));
+}
 
 export {
 	Commands,

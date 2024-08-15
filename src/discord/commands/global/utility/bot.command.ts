@@ -2,7 +2,7 @@ import { SlashCommandBuilder, EmbedBuilder, CommandInteraction } from 'discord.j
 
 import { config } from 'config';
 import { version } from 'src/../package.json';
-import Commands from 'discord/index.commands';
+import commands from 'discord/index.commads';
 
 export = {
     cooldown: 5,
@@ -50,7 +50,7 @@ export = {
 
                 {
                     name: 'Количество команд:' ,
-                    value: `${Commands.commands.length}`,
+                    value: `${commands.length}`,
                     inline: false
                 },
 

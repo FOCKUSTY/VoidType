@@ -1,7 +1,7 @@
-import dbShemas from 'database/Database/src/schemas/moongoose/index';
-import dbLogic from 'database/Database/src/index';
+import dbShemas from '../../../the-void-database/Database/src/schemas/moongoose/index';
+import dbLogic from '../../../the-void-database/Database/src/index';
 
 export = {
     shemas: dbShemas,
     logic: dbLogic
-}
+};

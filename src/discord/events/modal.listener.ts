@@ -1,6 +1,7 @@
-import { Debug } from "develop/debug.develop";
 import { Interaction, InteractionType } from "discord.js";
 import customIds from "utility/modal/custom-ids.modal";
+
+const ids: any = customIds;
 
 export = {
 	name: 'modal-listener',
@@ -8,12 +9,12 @@ export = {
         if(interaction.type !== InteractionType.ModalSubmit)
             return;
 
-        for(const id in customIds)
+        for(const id in ids)
         {
-            if(interaction.customId != customIds[id].id)
+            if(interaction.customId != ids[id].id)
                 continue;
 
-            await customIds[id].execute(interaction);
+            await ids[id].execute(interaction);
         };
     }
 };

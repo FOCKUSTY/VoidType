@@ -4,10 +4,7 @@ import path from "node:path";
 import fs from "node:fs";
 import loggers from 'logger/index.logger';
 
-const eventsPath = path.join(__dirname, 'events');
-const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js') || file.endsWith('.ts'));
-
-export const DeployEvents = (Client: DiscordClient) => {
+export const DeployEvents = (Client: DiscordClient, eventsPath: string, eventFiles: string[]) => {
     for (const file of eventFiles) {
         const filePath = path.join(eventsPath, file);
         const event = require(filePath);

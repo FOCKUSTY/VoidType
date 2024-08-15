@@ -1,10 +1,10 @@
 import { LoginDiscord } from './discord.bot';
 import { LoginTelegram } from './telegram.bot';
 
-const enviroment = process.env.NODE_ENV || 'discord';
+const bot = process.env.BOT || 'discord';
 
 (async () => {
-    switch (enviroment) {
+    switch (bot) {
         case 'discord':
             LoginDiscord();
             break;

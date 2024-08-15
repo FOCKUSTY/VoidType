@@ -4,6 +4,10 @@ import { config } from 'config';
 import { DeployCommands } from './telegram/deploy.commands';
 import MessageListener from './telegram/events/message.listener';
 import SlashCommandsListener from './telegram/events/slash-commands.listener';
+import Telegram from './telegram/utility/service/telegram.service';
+
+import path from 'path';
+import fs from 'fs';
 
 const Client = new Telegraf(config.telegramToken);
 
@@ -12,12 +16,16 @@ Client.on('message', async (message: Interaction) => {
     SlashCommandsListener(message);
 });
 
-DeployCommands(Client);
+const commandsPath = path.join(__dirname, 'telegram/commands');
+const commandsFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js') || file.endsWith('.ts'));
+
+DeployCommands(Client, commandsPath, commandsFiles);
 
 const Login = async () =>
 {
+    Telegram.client = Client;
     await Client.launch();
- 
+    
     process.once('SIGINT', () =>
         Client.stop('SIGINT'));
      

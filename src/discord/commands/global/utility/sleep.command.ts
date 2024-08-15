@@ -8,8 +8,7 @@ export =
     data: new SlashCommandBuilder()
     .setName("sleep")
     .setDescription("Усыпить бота !"),
-    async execute(interaction: CommandInteraction)
-    {
+    async execute(interaction: CommandInteraction) {
         if(interaction.user.id !== config.authorId)
             return await interaction.reply({ content: 'Ты не мой создатель', ephemeral: true });
 

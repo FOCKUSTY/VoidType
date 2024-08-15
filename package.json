@@ -1,15 +1,17 @@
 {
   "name": "voidbotts",
-  "version": "1.0.1-alpha.1",
+  "version": "1.0.2-alpha.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "slash": "tsx watch src/discord/slash.commands.ts",
-    "dev-telegram": "tsx watch src/telegram.bot.ts",
-    "dev": "set NODE_ENV=all && tsx watch src/start.bot.ts ",
-    "telegram": "set NODE_ENV=telegram && tsx watch src/start.bot.ts ",
-    "discord": "set NODE_ENV=discord && tsx watch src/start.bot.ts ",
-    "start": "pnpm run slash and pnpm run dev",
+    "dev": "set NODE_ENV=dev && set BOT=all && tsx watch src/start.bot.ts",
+    "telegram": "set NODE_ENV=dev && set BOT=telegram && tsx watch src/start.bot.ts",
+    "discord": "set NODE_ENV=dev && set BOT=discord && tsx watch src/start.bot.ts",
+
+    "builded-slash": "node src/discrd/slash.commands.ts",
+    "builded": "set NODE_ENV=prod && set BOT=all && node dist/start.bot.js",
+    "start": "set NODE_ENV=prod && pnpm run build && pnpm run builded",
     "build": "tsup src/**"
   },
   "author": "FOCKUSTY",

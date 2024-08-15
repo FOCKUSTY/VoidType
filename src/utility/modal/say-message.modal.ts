@@ -1,14 +1,18 @@
-import { EmbedBuilder, GuildBasedChannel, ModalSubmitInteraction, PermissionsBitField } from "discord.js";
+import {
+    EmbedBuilder,
+    ModalSubmitInteraction,
+    PermissionsBitField
+} from "discord.js";
+
 import customIds from "./custom-ids.modal";
 
-const booleans: Map<string, boolean> = new Map();
-const channels: Map<string, GuildBasedChannel> = new Map();
-
 const SayMessage = async (interaction: ModalSubmitInteraction) => {
-    const channel: any = channels.get(interaction.user.id);
+    const components = customIds.sayModal.components;
+    const channelId: any = interaction.fields.getTextInputValue(components.sayChannel);
+    const channel: any = interaction.client.channels.cache.get(channelId);
 
     if(!channel || !interaction.guild)
-        return await interaction.reply({ content: 'Ошибка при поиске канала, попробуйте снова' });
+        return await interaction.reply({ content: 'Ошибка при поиске канала, попробуйте снова', ephemeral: true });
 
     if(!(channel.permissionsFor(interaction.client.user.id).has([
         PermissionsBitField.Flags.SendMessages,
@@ -23,26 +27,26 @@ const SayMessage = async (interaction: ModalSubmitInteraction) => {
         });
     };
 
-    const bool: any = booleans.get(interaction.user.id);
-    const components = customIds.sayModal.components;
     const message: any = interaction.fields.getTextInputValue(components.sayMessage);
 	
-	if(bool) {
-		const embed = new EmbedBuilder()
-            .setColor(0x161618)
-            .setAuthor({
-                name: interaction.user.globalName || interaction.user.username,
-                iconURL: interaction.user.avatarURL() || undefined
-            })
-            .setTitle(interaction.guild.name)
-            .setDescription(message.replaceAll('\\n', '\n'))
-            .setTimestamp()
-
-		channel.send({embeds:[embed]});
-	}
-	else
-		channel.send(`${message.replaceAll('\\n', '\n')}`)
 	try  {
+        if(message.length > 2000) {
+            const embed = new EmbedBuilder()
+                .setColor(0x161618)
+                .setAuthor({
+                    name: interaction.user.globalName || interaction.user.username,
+                    iconURL: interaction.user.avatarURL() || undefined
+                })
+                .setTitle(interaction.guild.name)
+                .setDescription(message.replaceAll('\\n', '\n'))
+                .setTimestamp()
+
+            channel.send({ embeds: [embed] });
+        }
+        else {
+            channel.send(`${message.replaceAll('\\n', '\n')}`);
+        };
+
 		const embed = new EmbedBuilder()
 			.setColor(0x161618)
 			.setAuthor({
@@ -70,11 +74,6 @@ const SayMessage = async (interaction: ModalSubmitInteraction) => {
 			ephemeral: true
 		});
 	}
-};
-
-export {
-    channels,
-    booleans
 };
 
 export default SayMessage;

@@ -19,36 +19,25 @@ const history: number[] = [];
 export =
 {
     cooldown: 5,
-    data: new SlashCommandBuilder().setName('say').setDescription('Сообщение с помощью бота!')
-    .setNameLocalizations({ru:'отправить',"en-US":'say'})
-    .setDescriptionLocalizations({ru:'Сообщение с помощью бота',"en-US":'Message using a bot'})
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels & PermissionFlagsBits.ManageMessages),
-    async execute(interaction: CommandInteraction)
-    {
+    data: new SlashCommandBuilder().setName('telegram-say').setDescription('Сообщение с помощью бота!')
+    .setNameLocalizations({ru:'отправить-в-телеграм',"en-US":'telegram-say'})
+    .setDescriptionLocalizations({ru:'Сообщение в телеграм с помощью бота',"en-US":'Message into telegram using a bot'}),
+    async execute(interaction: CommandInteraction) {
         if(!interaction.guild)
             return await interaction.reply({ content: 'Вы находитесь не в гильдии', ephemeral: true });
 
-        const components = customIds.sayModal.components;
+        const components = customIds.sayTelegramModal.components;
         const idea = GetObject('idea');
 
-        const modal = new ModalBuilder().setCustomId(customIds.sayModal.id).setTitle('Ваше сообщение !');
+        const modal = new ModalBuilder().setCustomId(customIds.sayTelegramModal.id).setTitle('Ваше сообщение !');
         const randomNumber = PseudoRandom.Number(0, idea.length-1, history, idea);
         const placeholder = idea[randomNumber].ideaDetail;
-
-        const channels: [string, string][] = [];
-
-        interaction.guild.channels.cache.forEach(channel =>
-            channel.type === ChannelType.GuildText
-                ? channels.push([channel.id, channel.name])
-                : null);
-
-        const randomNumberChannel = PseudoRandom.Number(0, channels.length-1, [], channels);
 
         modal.addComponents(
             new ActionRowBuilder<ModalActionRowComponentBuilder>()
                 .addComponents(
                     new TextInputBuilder()
-                        .setCustomId(components.sayMessage)
+                        .setCustomId(components.sayTelegramMessage)
                         .setLabel('Ваше сообщение')
                         .setStyle(TextInputStyle.Paragraph)
                         .setRequired(true)
@@ -61,12 +50,11 @@ export =
             new ActionRowBuilder<ModalActionRowComponentBuilder>()
                 .addComponents(
                     new TextInputBuilder()
-                        .setCustomId(components.sayChannel)
+                        .setCustomId(components.sayTelegramChannel)
                         .setLabel('Ваш id канала')
                         .setStyle(TextInputStyle.Short)
                         .setRequired(true)
                         .setMaxLength(30)
-                        .setPlaceholder(`Пример: ${channels[randomNumberChannel][0]} (${channels[randomNumberChannel][1].slice(0, 30)})`)
                 )
         );
 

@@ -1,11 +1,12 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
-import Commands from "discord/index.commands";
+
+import commands from "discord/index.commads";
 
 export = {
     data: new SlashCommandBuilder()
         .setName("help")
         .setDescription('Все доступные команды !'),
     async execute(interaction: CommandInteraction) {
-        return await interaction.reply({ content: `Все команды: \n🎩${Commands.commands.join('\n')}`, ephemeral: true });
+        return await interaction.reply({ content: `Все команды: \n🎩${commands.join('\n🎩')}`, ephemeral: true });
     }
 };

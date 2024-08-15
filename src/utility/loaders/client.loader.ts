@@ -1,6 +1,6 @@
 import { Client as DiscordClient } from "discord.js";
 
-import { objects } from "./objects.loader";
+import { objects } from "utility/loaders/objects.loader";
 import { Colors } from "utility/service/formatter.service";
 import loggers from 'logger/index.logger';
 

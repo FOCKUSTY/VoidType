@@ -5,7 +5,6 @@ import ClientLoader from "utility/loaders/client.loader";
 import { RandomActiviy } from "utility/service/random-activity.service";
 
 import ActivityLoader from 'utility/loaders/activities.loader';
-import ObjectsLoader from 'utility/loaders/objects.loader';
 import loggers from "logger/index.logger";
 
 export = {
@@ -18,7 +17,6 @@ export = {
         Client.user.setPresence({ activities: [{ name: 'The Void Community' }], status: 'idle' });
 
         ActivityLoader();
-        ObjectsLoader();
 
         ClientLoader.execute(Client);
         RandomActiviy(Client);

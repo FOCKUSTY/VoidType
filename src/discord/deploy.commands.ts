@@ -3,8 +3,6 @@ import { REST, Routes } from 'discord.js';
 import { Command } from './command.commands';
 import { Debug } from 'develop/debug.develop';
 
-import CommandsList from './index.commands';
-
 import type {
     Client as DiscordClient,
     Collection as CommandsCollection
@@ -15,12 +13,15 @@ import path from 'node:path';
 import loggers from 'logger/index.logger';
 import { Colors } from 'utility/service/formatter.service';
 
-const foldersPath = path.join(__dirname, 'commands');
-const commandsFolder = fs.readdirSync(foldersPath);
-
 let using = 0;
 
-export const WriteCommands = (Commands: CommandsCollection<any, any>, Client: DiscordClient, type?: 'global'|'guild') => {
+export const WriteCommands = (
+    Commands: CommandsCollection<any, any>,
+    Client: DiscordClient,
+    foldersPath: string,
+    commandsFolder: string[],
+    type?: 'global'|'guild'
+) => {
     for(const placeFolder of commandsFolder)
     {
         const commandsPath = path.join(foldersPath, placeFolder);
@@ -70,7 +71,6 @@ export const WriteCommands = (Commands: CommandsCollection<any, any>, Client: Di
                         using = 0;
                     };
 
-                    CommandsList.commands = name;
                     Commands.set(command.data.name, command);
                     
                     Client.application?.commands.set(command.data.name, command);
@@ -89,7 +89,7 @@ export const WriteCommands = (Commands: CommandsCollection<any, any>, Client: Di
     };
 };
 
-export const DeployCommands = (Commands: Command[], type: 'global'|'guild') => {
+export const DeployCommands = (Commands: Command[], type: 'global'|'guild', foldersPath: string, commandsFolder: string[]) => {
     for(const placeFolder of commandsFolder)
     {
         const commandsPath = path.join(foldersPath, placeFolder);
@@ -121,8 +121,7 @@ export const DeployCommands = (Commands: Command[], type: 'global'|'guild') => {
 const rest = new REST().setToken(config.clientToken);
 
 export const UpdateCommands = async (commands: any, type: 'global'|'guild') => {
-    try
-    {
+    try {
         if(type === 'global')
         {
             loggers.Updater.execute('Начало обновления глобальных (/) команд');
@@ -141,14 +140,13 @@ export const UpdateCommands = async (commands: any, type: 'global'|'guild') => {
             await rest.put(
                 Routes.applicationGuildCommands(config.clientId, config.guildId),
                 { body: commands },
-            )
+            );
             
             loggers.Updater.execute('Успешно обновлены (/) команды гильдии', Colors.green);
         };
     }
-    catch (error)
-    {
-        console.error(error);
+    catch (error) {
+        Debug.Error(error);
         return;
     };
 };

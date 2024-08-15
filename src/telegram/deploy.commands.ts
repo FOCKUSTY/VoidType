@@ -6,12 +6,9 @@ import path from "node:path";
 import fs from "node:fs";
 import { Interaction } from "src/types/telegram/interaction.type";
 
-const commandsPath = path.join(__dirname, 'commands');
-const commandsFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js') || file.endsWith('.ts'));
-
 export const commands = new Map<string, { execute: (interaction: Interaction) => any, options: any[] }>();
 
-export const DeployCommands = (Client: Telegraf) => {
+export const DeployCommands = (Client: Telegraf, commandsPath: string, commandsFiles: string[]) => {
     for (const fileName of commandsFiles) {
         const filePath = path.join(commandsPath, fileName);
         const command: {
