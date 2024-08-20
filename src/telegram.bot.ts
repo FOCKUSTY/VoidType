@@ -1,9 +1,13 @@
 import { Interaction } from './types/telegram/interaction.type';
+
 import { Telegraf } from 'telegraf';
+
 import { config } from 'config';
 import { DeployCommands } from './telegram/deploy.commands';
+
 import MessageListener from './telegram/events/message.listener';
 import SlashCommandsListener from './telegram/events/slash-commands.listener';
+
 import Telegram from './telegram/utility/service/telegram.service';
 
 import path from 'path';

@@ -127,3 +127,4 @@ npm i
 </picture>
 
 - Congratulations, we got all the values, now you can insert them into `config.json` !
+- You can read [the launch instructions](../start/instruction-en.md)

@@ -1,147 +1,187 @@
 # 🇷🇺 - Русский
-# 0.0.0-alpha.1
+## 0.0.0-alpha.1
 - Исправлены баги
 - Изменен код
-# 0.1.0-alpha.1
+
+## 0.1.0-alpha.1
 - Исправлены баги
 - Код более читабелен
 - Добавлена новая функция создания голосовых каналов
-# 0.1.1-alpha.1
+
+## 0.1.1-alpha.1
 - Исправлены баги
-# 0.1.2-alpha.1
+
+## 0.1.2-alpha.1
 - Исправлены баги
 - Обновлен прослушиватель кнопок
 - Обновлен прослушиватель голосовых каналов
 - Обновлен прослушиватель модальных взаимодействий
 - Добавлена функция обработки создания голосовых каналов и их дальнейшего использования (ФОГКиДИ)
-# 0.1.3-alpha.1
+
+## 0.1.3-alpha.1
 - Исправлены баги
 - Обновлена функция ФОГКиДИ
-# 0.1.4-alpha.1
+
+## 0.1.4-alpha.1
 - Исправлены баги
 - Обновлена функция ФОГКиДИ
-# 0.1.5-alpha.1
+
+## 0.1.5-alpha.1
 - Исправлен баг в src/discord/utils/randomActivities.ts
-# 0.1.6-alpha.1
+
+## 0.1.6-alpha.1
 - Добавлен новый столбец в базе данных
 - Добавлена логика MTUOJ
-# 0.1.7-alpha.1
+
+## 0.1.7-alpha.1
 - Исправлены баги
 - Добавлен прослушиватель входа пользователя к серверу
 - Добавлена команда msgToUser
 - Немного пределана логика в коде
-# 0.1.8-alpha.1
+
+## 0.1.8-alpha.1
 - Исправлены баги
 - Изменен прослушиватель кнопок
 - Попытка создания покраски консоли
 - Изменен генератор псевдорандомных чисел
-# 0.1.9-alpha.1
+
+## 0.1.9-alpha.1
 - Добавлен LICENSE
 - Обновлена debug функция
-# 0.1.10-alpha.1
+
+## 0.1.10-alpha.1
 - Обновлены импорты
 - tsconfig.json был обновлен
-# 0.1.11-alpha.1
+
+## 0.1.11-alpha.1
 - README.md обновлен
 - Добавлен README-en.md
-# 0.1.12-alpha.1
+
+## 0.1.12-alpha.1
 - Немного видоизменен код
 - Исправлены баги
 - Добавлена команда отправки сообщений в telegram
 - Код для telegram немного обновился
-# 0.1.13-alpha.1
+
+## 0.1.13-alpha.1
 - Обновлена функция отправки сообщений в telegram
-# 0.1.14-alpha.1
+
+## 0.1.14-alpha.1
 - Исправлены баги
 - Добавлена новая система отправить списка изменений
-# 0.1.15-alpha.1
+
+## 0.1.15-alpha.1
 - Исправлены баги
 - Улучшены некоторые системы
 - обновлен отправщик сообщений в Discord
-# 0.1.16-alpha.1
+
+## 0.1.16-alpha.1
 - База данных полностью изменена
 - sqlite3 -> mongoDB
-- Исправлены баги
-# 1.0.0-alpha.1
+- Исправлены баги   
+
+## 1.0.0-alpha.1
 - Рефакторинг кода №1
-# 1.0.1-alpha.1 - telegram update
+
+## 1.0.1-alpha.1 - telegram update
 - Рефакторинг кода №2
 - Добавление телеграм бота
-# 1.0.2-alpha.1
+
+## 1.0.2-alpha.1
 - Рефакторинг кода №3
 - Хот фиксы
 - Улучшение кода для сраного компилятора
 
 # 🇺🇸 - English
-# 0.0.0-aplha.1
+## 0.0.0-aplha.1
 - Bugs fixed
 - Changed code
-# 0.1.0-alpha.1
+
+## 0.1.0-alpha.1
 - Bugs fixed
 - The code is more readable
 - Added a new function for creating voice channels
-# 0.1.1-alpha.1
+
+## 0.1.1-alpha.1
 - Bugs fixed
-# 0.1.2-alpha.1
+
+## 0.1.2-alpha.1
 - Bugs fixed
 - Updated button listener
 - Updated voice channel listener
 - Updated modal interaction listener
 - Added function for processing the creation of voice channels and their further use (FPCoVCaTFU)
-# 0.1.3-alpha.1
+
+## 0.1.3-alpha.1
 - Bugs fixed
 - Updated FPCoVCaTFU function
-# 0.1.4-alpha.1
+
+## 0.1.4-alpha.1
 - Bugs fixed
 - Updated FPCoVCaTFU function
-# 0.1.5-alpha.1
+
+## 0.1.5-alpha.1
 - Fixed a bug in src/discord/utils/randomActivities.ts
-# 0.1.6-alpha.1
+
+## 0.1.6-alpha.1
 - Added a new column in the database
 - Added MTUOJ logic
-# 0.1.7-alpha.1
+
+## 0.1.7-alpha.1
 - Bugs fixed
 - Added a user login listener to the server
 - Added msgToUser command
 - The logic in the code is a little limited
-# 0.1.8-alpha.1
+
+## 0.1.8-alpha.1
 - Bugs fixed
 - Changed button listener
 - Attempt to create a console paint job
 - Changed the pseudo-random number generator
-# 0.1.9-alpha.1
+
+## 0.1.9-alpha.1
 - add LICENSE
 - updated debug function
-# 0.1.10-alpha.1
+
+## 0.1.10-alpha.1
 - Imports was updated
 - tsconfig.json was updated
-# 0.1.11-alpha.1
+
+## 0.1.11-alpha.1
 - README.md was updated
 - Added README-en.md
-# 0.1.12-alpha.1
+
+## 0.1.12-alpha.1
 - The code has been slightly modified
 - Bugs fixed
 - Added command for sending messages to telegram
 - The code for telegram has been slightly updated
-# 0.1.13-alpha.1
+
+## 0.1.13-alpha.1
 - Updated function send message to telegram
-# 0.1.14-alpha.1
+
+## 0.1.14-alpha.1
 - Bug fixed
 - Added new system sending a change log
-# 0.1.15-alpha.1
+
+## 0.1.15-alpha.1
 - Bug fixed
 - Updated some systems
 - Updated sendMessage function (Discord)
-# 0.1.16-alpha.1
+
+## 0.1.16-alpha.1
 - Database was changed
 - sqlite3 -> mongoDB
 - Bug fixed
-# 1.0.0-alpha.1
+
+## 1.0.0-alpha.1
 - Code refactoring №1 
-# 1.0.1-alpha.1 - telegram update
+
+## 1.0.1-alpha.1 - telegram update
 - Code refactoring №2
 - Added telegram bot
-# 1.0.2-alpha.1
+
+## 1.0.2-alpha.1
 - Code refactoring №3
 - Hot fixes
 - Code for compiler fixed

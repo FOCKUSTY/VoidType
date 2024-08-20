@@ -52,7 +52,7 @@
 
 - Then find `config.example.json`
 - You can simply remove `.exapmle` from the name and note your values.
-- If you can't figure it out yourself, you can go to [detailed instructions](./help/readme-files/instruction-en.md).
+- If you can't figure it out yourself, you can go to [detailed instructions](./help/readme-files/install/instruction-en.md).
 
 2. Type in the command line:
 
