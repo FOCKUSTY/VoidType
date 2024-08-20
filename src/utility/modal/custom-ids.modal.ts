@@ -1,5 +1,6 @@
 import SayTelegramMessage from "./say-telegram-message.modal";
 import SayMessage from "./say-message.modal";
+import Update from "./update.modal";
 
 const customIds = {
     sayModal: {
@@ -17,6 +18,15 @@ const customIds = {
             sayTelegramChannel: 'say-telegram-channel'
         },
         execute: SayTelegramMessage
+    },
+    updateModal: {
+        id: 'update-modal',
+        components: {
+            version: 'update-version',
+            ruText: 'update-ru-text',
+            enText: 'update-en-text'
+        },
+        execute: Update
     }
 };
 

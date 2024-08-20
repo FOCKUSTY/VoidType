@@ -4,6 +4,9 @@
     
     "telegramToken": "YOUR-TELEGRAM-TOKEN",
 
+    "changeLogTelegramGroupId": "YOUR-TELEGRAM-GROUP-ID (link)",
+    "changeLogDiscordChannelId": "YOUR-DISCORD-CHANNEL-ID",
+
     "guildId": "MAIN-GUILD-ID",
     "authorId": "YOUR-ID",
     

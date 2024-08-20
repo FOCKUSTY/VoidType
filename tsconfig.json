@@ -13,15 +13,15 @@
         "skipLibCheck": true, 
         "baseUrl": "./",
         "paths": {
+            "config": ["./src/index.config.ts"],
+
             "discord/*": ["./src/discord/*"],
             "telegram/*": ["./src/telegram/*"],
             "utility/*": ["./src/utility/*"],
             "types/*": ["./src/types/*"],
             "logger/*": ["./src/logger/*"],
             "develop/*": ["./src/develop/*"],
-            "database/*": ["./src/database/*"],
-
-            "config": ["./src/index.config.ts"]
+            "database/*": ["./src/database/*"]
         }
     },
     "include": ["./**/*.ts"]

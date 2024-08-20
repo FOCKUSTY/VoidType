@@ -7,7 +7,6 @@ import path from 'node:path';
 import fs from 'node:fs';
 import loggers from 'logger/index.logger';
 import { Colors } from 'utility/service/formatter.service';
-import { Debug } from 'src/develop/debug.develop';
 
 const activitiesPath = path.join('../the-void-database/data');
 const activitiesFolders = fs.readdirSync(activitiesPath).filter(file => !file.endsWith(".json"));

@@ -1,6 +1,6 @@
 {
   "name": "voidbotts",
-  "version": "1.0.2-alpha.1",
+  "version": "1.0.3-alpha.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,6 @@
   "author": "FOCKUSTY",
   "license": "ISC",
   "dependencies": {
-    "colors": "^1.4.0",
     "date-fns": "^2.30.0",
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.5",

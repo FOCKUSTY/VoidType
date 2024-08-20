@@ -1,4 +1,4 @@
-import { Client as DiscordClient } from "discord.js";
+import { Client as DiscordClient, EmbedBuilder } from "discord.js";
 import { Debug } from "develop/debug.develop";
 
 import SendMessage from "./helpers/send-message.helper";
@@ -6,7 +6,7 @@ import SendMessage from "./helpers/send-message.helper";
 class Discord {
     private _client?: DiscordClient;
 
-    public SendMessage = (channelId: string, message: string, Client?: DiscordClient) => {
+    public SendMessage = (channelId: string, message: string|EmbedBuilder[], Client?: DiscordClient) => {
         if(!Client && !this._client)
             return Debug.Error('Client is not defined');
 

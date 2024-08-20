@@ -8,7 +8,7 @@ import GetChatId from "./helpers/get-chat-id.helper";
 class Telegram {
     private _client?: Telegraf;
 
-    public SendMessage = (chatId: number|string, message: string, Client?: Telegraf) => {
+    public SendMessage = (chatId: number|string, message: string|string[], Client?: Telegraf) => {
         if(!Client && !this._client)
             return Debug.Error('Client is not defined');
 
