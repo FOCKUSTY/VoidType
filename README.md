@@ -11,34 +11,51 @@
 - Для начала нужно создать бота на [discord.dev](https://discord.com/developers/applications) сайте.
 
 <picture>
-    <img alt="Show in discord dev a new app" src="./help/newapp.png">
+    <img alt="Show in discord dev a new app" src="./help/pictures/newapp.png">
 </picture>
 
 - После берем id бота.
 
 <picture>
-    <img src="./help/app.png">
+    <img src="./help/pictures/app.png">
 </picture>
 
 - После id берем токен, для этого переходим в bot.
 
 <picture>
-    <img src="./help/token.png">
+    <img src="./help/pictures/token.png">
 </picture>
 
 - Когда Вы все сделали, можно запускать бота на сервер. Для этого переходим в OAuth2 и выбираем в OAuth2 URL Generator application.commands и копируем
 
 <picture>
-    <img src="./help/OAuth2.png">
+    <img src="./help/pictures/OAuth2.png">
 </picture>
 
 <picture>
-    <img src="./help/OAuth2URLGenerator.png">
+    <img src="./help/pictures/OAuth2URLGenerator.png">
 </picture>
 
 - В итоге, переходим по ссылке, которую Вы скопировали и бот у нас на сервере.
 - В коде вы можете разобраться сами, напишу кратко:
-- Пишите в командной строке:
+1. Можете скопировать данный репозиторий командой:
+
+```
+git clone https://github.com/FOCKUSTY/VoidType.git
+```
+
+- И загрузить все библиотеки:
+
+```
+npm i
+```
+
+- Дальше найдите `config.example.json`
+- Можете просто убрать `.exapmle` из название и заметить на Ваши значения.
+- Если Вы не можете разобраться сами, можете перейти в [подробную инструкцию](./help/readme-files/instruction.md).
+
+2. Пишите в командной строке:
+
 
 ```
 npm init
@@ -46,7 +63,7 @@ npm i
 npm i discord.js
 ```
 
-- Создайте config.json файл и впишите в него:
+- Создайте `config.json` файл и впишите в него следующее, заменив `YOUR-TOKEN` и `YOUR-APP-ID` на токен и id бота соответственно:
 
 ```json
 {
@@ -61,7 +78,7 @@ npm i discord.js
 
 ```js
 const { Client, Collection, Events, GatewayIntentBits, Partials } = require('discord.js');
-const { token } = require('./config.json');
+const { token } = require('./config.json'); // или require('../config.json')
 
 /* 
 
@@ -97,11 +114,11 @@ client.login(token);
 
 # Если Вы кодите на TypeScript:
 
-- Создайте index.ts файл и впишите в него:
+- Создайте `index.ts` файл и впишите в него:
 
 ```ts
 import { Client, Collection, Events, GatewayIntentBits, Partials } from 'discord.js';
-import { token } from './config.json';
+import { token } from './config.json'; // или from '../config.json';
 
 /* 
 
@@ -135,14 +152,14 @@ YOUR-CODE-HERE
 client.login(token);
 ```
 
-- Создайте tsconfig.json:
+- Создайте `tsconfig.json`:
 ```json
 {
     "compilerOptions": {
         "target": "ES2020",
         "module": "CommonJS",
-        "rootDir": "../",
-        "outDir": "./dist",
+        "rootDir": "../", // root-папку можно указать и ./
+        "outDir": "./dist", // можно назвать build.
         "removeComments": true,
         "resolveJsonModule": true,
         "esModuleInterop": true,
@@ -151,13 +168,16 @@ client.login(token);
         "strictNullChecks": true,
         "skipLibCheck": true, 
         "baseUrl": "./",
-		"paths": {}
+		"paths": {
+			// "название-пути": [ "ваши-пути", "еще-один-путь" ]
+			// "папка-и-все-файлы-в-ней/*": [ "еще-папка/*", "и-еще/*" ]
+		}
 	},
-    "include": ["./**/*.ts"]
+    "include": ["./**/*.ts"] // Понятие не имею, что это значит.
 }
 ```
 
-- Добавьте в package.json:
+- Добавьте в `package.json`:
 ```json
   "devDependencies": {
     "@types/node": "^20.10.5",
