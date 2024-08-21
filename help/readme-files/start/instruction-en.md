@@ -271,16 +271,16 @@ const bot = process.env.BOT || 'discord';
  - Run the compiler.
 
 - Let's look at the commands used in scripts .
- - `tsx watch` - Run pure `ts` code.
- - `set NODE_ENV` - Set `NODE_ENV` to `.env` (The value is specified via `=VALUE`).
- - `set BOT` - Same as ` NODE_ENV`.
- - `&&` - Logical "AND", helps to run several scripts in one.
- - `tsup` - Run compiler `src/**` - means: "In the `src` folder and in other folders".
+`tsx watch` - Run pure `ts` code.
+`set NODE_ENV` - Set `NODE_ENV` to `.env` (The value is specified via `=VALUE`).
+`set BOT` - Same as ` NODE_ENV`.
+`&&` - Logical "AND", helps to run several scripts in one.
+`tsup` - Run compiler `src/**` - means: "In the `src` folder and in other folders".
 
 - I think , there will be no more questions.
 - You can parse the code in the folder yourself, the hardest part will be understanding:
- - `discord`
- - `telegram`
- - `utility`
+`discord`
+`telegram`
+`utility`
  
 - Good luck, happy hacking!

@@ -1,20 +1,17 @@
-import { Debug } from 'develop/debug.develop';
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 import type { CommandInteraction, Role, Collection, EmbedField } from 'discord.js';
 import Formatter from 'utility/service/formatter.service';
 
-export =
-{
+export = {
     cooldown: 5,
     data: new SlashCommandBuilder()
-	.setName('roles')
-	.setDescription('Все роли на сервере !')
-	.setNameLocalizations({ru:'роли',"en-US":'roles'})
-	.setDescriptionLocalizations({ru:'Все роли на сервере',"en-US":'All roles on guild'}),
-    async execute(interaction: CommandInteraction)
-	{
+		.setName('roles')
+		.setDescription('Все роли на сервере !')
+		.setNameLocalizations({ru:'роли',"en-US":'roles'})
+		.setDescriptionLocalizations({ru:'Все роли на сервере',"en-US":'All roles on guild'}),
+    async execute(interaction: CommandInteraction) {
         if(!interaction.guild)
-            return await interaction.reply({ content: 'Вы находитесь не в гильдии', ephemeral: true })
+            return await interaction.reply({ content: 'Вы находитесь не в гильдии', ephemeral: true });
 
         const guildRoles: Collection<string, Role> = interaction.guild.roles.cache
 			.sort((a, b) => b.position - a.position)
@@ -28,12 +25,12 @@ export =
 
     	await interaction.reply({ content: '# :tophat:\n Считаем роли...', fetchReply: true, ephemeral: true });
 
-		for(let i = 0; i < rolesCount; i+=30)
+		for(let i = 0; i < rolesCount; i += 30)
 		{
 			const index = i / 30;
 			roles.push([]);
 
-			for(let j = i; j < i+30; j++)
+			for(let j = i; j < i + 30; j++)
 			{
 				if(!totalRoles[j]?.id)
 					continue;

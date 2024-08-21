@@ -1,21 +1,16 @@
 import { type CommandInteraction, SlashCommandBuilder } from "discord.js";
-import { Random as RandomJS } from "random-js";
 import PseudoRandom from "utility/service/pseudo-random.service";
 
-const Random = new RandomJS();
-
-export =
-{
+export = {
 	data: new SlashCommandBuilder()
-    .setName("random")
-    .setDescription("Случайный выбор чисел !")
-	.addIntegerOption(option =>
-		option.setName('min').setDescription('Первое число').setRequired(true))
-	.addIntegerOption(option =>
-		option.setName('max').setDescription('Второе число').setRequired(true)),
+        .setName("random")
+        .setDescription("Случайный выбор чисел !")
+        .addIntegerOption(option =>
+            option.setName('min').setDescription('Первое число').setRequired(true))
+        .addIntegerOption(option =>
+            option.setName('max').setDescription('Второе число').setRequired(true)),
 
-    async execute(interaction: CommandInteraction)
-	{
+    async execute(interaction: CommandInteraction) {
         const min: number = Number(interaction.options.get('min')?.value || 0);
         const max: number = Number(interaction.options.get('max')?.value || 0);
 

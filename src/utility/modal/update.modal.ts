@@ -4,9 +4,13 @@ import {
 } from "discord.js";
 
 import customIds from "./custom-ids.modal";
-import Telegram from "telegram/utility/service/telegram.service";
-import Discord from "discord/utility/service/discord.service";
 import { config } from "config";
+
+import TelegramClass from "telegram/utility/service/telegram.service";
+import DiscordClass from "discord/utility/service/discord.service";
+
+const Telegram = new TelegramClass()
+const Discord = new DiscordClass()
 
 const Update = async (interaction: ModalSubmitInteraction) => {
     const components = customIds.updateModal.components;

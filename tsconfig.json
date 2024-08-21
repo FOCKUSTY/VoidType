@@ -13,16 +13,22 @@
         "skipLibCheck": true, 
         "baseUrl": "./",
         "paths": {
-            "config": ["./src/index.config.ts"],
+            "config": ["./src/index.config.ts", "./dist/VoidType/src/index.config.js" ],
 
-            "discord/*": ["./src/discord/*"],
-            "telegram/*": ["./src/telegram/*"],
-            "utility/*": ["./src/utility/*"],
-            "types/*": ["./src/types/*"],
-            "logger/*": ["./src/logger/*"],
-            "develop/*": ["./src/develop/*"],
-            "database/*": ["./src/database/*"]
+            "discord/*": ["./src/discord/*", "./dist/VoidType/src/discord/*" ],
+            "telegram/*": ["./src/telegram/*", "./dist/VoidType/src/telegram/*" ],
+            "utility/*": ["./src/utility/*", "./dist/VoidType/src/utility/*" ],
+            "types/*": ["./src/types/*", "./dist/VoidType/src/types/*" ],
+            "logger/*": ["./src/logger/*", "./dist/VoidType/src/logger/*" ],
+            "develop/*": ["./src/develop/*", "./dist/VoidType/src/develop/*" ],
+            "database/*": ["./src/database/*", "./dist/VoidType/src/database/*" ],
+            
+            "src/*": ["./src/*", "./dist/VoidType/src/*"]
         }
     },
-    "include": ["./**/*.ts"]
+    "include": [ "./**/*.ts" ],
+    "exclude": [ "node_modules", "dist" ],
+    "ts-node": {
+        "require": ["tsconfig-paths/register"]
+    }
 }

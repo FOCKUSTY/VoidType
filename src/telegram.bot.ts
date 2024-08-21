@@ -8,8 +8,6 @@ import { DeployCommands } from './telegram/deploy.commands';
 import MessageListener from './telegram/events/message.listener';
 import SlashCommandsListener from './telegram/events/slash-commands.listener';
 
-import Telegram from './telegram/utility/service/telegram.service';
-
 import path from 'path';
 import fs from 'fs';
 
@@ -20,14 +18,13 @@ Client.on('message', async (message: Interaction) => {
     SlashCommandsListener(message);
 });
 
-const commandsPath = path.join(__dirname, 'telegram/commands');
-const commandsFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js') || file.endsWith('.ts'));
+const Login = async () => {
+    const commandsPath = path.join(__dirname, 'telegram/commands');
+    const commandsFiles = fs.readdirSync(commandsPath)
+        .filter(file => file.endsWith('.js') || file.endsWith('.ts'));
 
-DeployCommands(Client, commandsPath, commandsFiles);
+    DeployCommands(Client, commandsPath, commandsFiles);
 
-const Login = async () =>
-{
-    Telegram.client = Client;
     await Client.launch();
     
     process.once('SIGINT', () =>

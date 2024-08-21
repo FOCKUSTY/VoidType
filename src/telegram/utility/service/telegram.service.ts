@@ -5,38 +5,28 @@ import { Debug } from "src/develop/debug.develop";
 import SendMessage from "./helpers/send-message.helper";
 import GetChatId from "./helpers/get-chat-id.helper";
 
+import Client from "src/telegram.bot";
+
 class Telegram {
-    private _client?: Telegraf;
+    private _client: Telegraf = Client;
 
-    public SendMessage = (chatId: number|string, message: string|string[], Client?: Telegraf) => {
-        if(!Client && !this._client)
+    public SendMessage = (chatId: number|string, message: string|string[]) => {
+        if(!this._client)
             return Debug.Error('Client is not defined');
 
-        if(Client)
-            return SendMessage(Client, chatId, message);
-        
-        if(this._client)
-            return SendMessage(this._client, chatId, message);
+        return SendMessage(this._client, chatId, message);
     };
 
-    public GetChatId = (message: Interaction, Client?: Telegraf) => {
-        if(!Client && !this._client)
+    public GetChatId = (message: Interaction) => {
+        if(!this._client)
             return Debug.Error('Client is not defined');
 
-        if(Client)
-            return GetChatId(Client, message);
-        
-        if(this._client)
-            return GetChatId(this._client, message);
+        return GetChatId(this._client, message);
     };
 
-    set client (Client: Telegraf) {
-        this._client = Client;
-    };
-
-    get client (): Telegraf|undefined {
+    get client (): Telegraf {
         return this._client;
     };
 };
 
-export default new Telegram;
+export default Telegram;

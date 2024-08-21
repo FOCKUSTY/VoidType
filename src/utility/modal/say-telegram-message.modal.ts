@@ -1,7 +1,9 @@
 import { EmbedBuilder, ModalSubmitInteraction } from "discord.js";
 
-import TelegramClient from 'telegram/utility/service/telegram.service';
+import TelegramClass from 'telegram/utility/service/telegram.service';
 import customIds from "./custom-ids.modal";
+
+const TelegramClient = new TelegramClass()
 
 const SayTelegramMessage = async (interaction: ModalSubmitInteraction) => {
     const components = customIds.sayTelegramModal.components;
