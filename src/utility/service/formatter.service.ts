@@ -54,7 +54,6 @@ class Formatter {
         
         let text = '';
         
-            
         if (num === 1 || (firstChar === 1 && secondChar != 1))
             text += `${stage[0]}`;
 

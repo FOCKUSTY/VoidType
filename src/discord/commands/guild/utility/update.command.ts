@@ -1,13 +1,11 @@
 import {
     SlashCommandBuilder,
-    PermissionFlagsBits,
     ModalActionRowComponentBuilder,
     CommandInteraction,
     TextInputBuilder,
     TextInputStyle,
     ModalBuilder, 
     ActionRowBuilder,
-    ChannelType
 } from 'discord.js';
 
 import { config } from 'config';
