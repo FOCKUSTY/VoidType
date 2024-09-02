@@ -6,13 +6,13 @@
   "scripts": {
     "dev:slash": "tsx watch src/discord/slash.commands.ts",
     
-    "dev": "set NODE_ENV=dev && set BOT=all && tsx watch src/start.bot.ts",
-    "dev:telegram": "set NODE_ENV=dev && set BOT=telegram && tsx watch src/start.bot.ts",
-    "dev:discord": "set NODE_ENV=dev && set BOT=discord && tsx watch src/start.bot.ts",
+    "dev": "set NODE_ENV=dev&& set BOT=all&& tsx watch src/start.bot.ts",
+    "dev:telegram": "set NODE_ENV=dev&& set BOT=telegram&& tsx watch src/start.bot.ts",
+    "dev:discord": "set NODE_ENV=dev&& set BOT=discord&& tsx watch src/start.bot.ts",
 
-    "start:slash": "node dist/VoidType/src/discrd/slash.commands.ts",
-    "start:builded": "set NODE_ENV=prod && set BOT=all && node dist/VoidType/src/start.bot.js",
-    "start": "set NODE_ENV=prod && pnpm run build && pnpm run start:builded",
+    "start:slash": "node dist/the-void-bots/VoidType/src/discrd/slash.commands.ts",
+    "start:builded": "set NODE_ENV=prod&& set BOT=all&& node dist/the-void-bots/VoidType/src/start.bot.js",
+    "start": "set NODE_ENV=prod&& pnpm run build && pnpm run start:builded",
     
     "build": "tsc && tsc-alias"
   },

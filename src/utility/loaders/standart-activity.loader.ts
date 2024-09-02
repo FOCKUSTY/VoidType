@@ -8,8 +8,7 @@ class StandartActivityLoader {
 
         const file = Formatter.FromJSONwithPath(path);
         
-        for(const activity of file)
-        {
+        for(const activity of file) {
             for(const key in THEVOIDs_CONSTANTS)
                 if(activity.text.indexOf(`\$\{${key}\}`) !== -1)
                     activity.text = activity.text.replace(`\$\{${key}\}`, THEVOIDs_CONSTANTS[key]);

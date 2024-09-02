@@ -9,17 +9,15 @@ class TypifiedActivityLoader {
         const file = Formatter.FromJSONwithPath(path);
         const activities = [];
 
-        for(const activity of file.activities)
-        {
+        for(const activity of file.activities) {
             let activityText: string = activity;
             
-            for(const key in THEVOIDs_CONSTANTS)
-            {
+            for(const key in THEVOIDs_CONSTANTS) {
                 if(activityText.indexOf(`\$\{${key}\}`) !== -1)
                     activityText = activityText.replace(`\$\{${key}\}`, THEVOIDs_CONSTANTS[key]);
             };
 
-            activities.push({text: activityText, type: file.type});
+            activities.push({ text: activityText, type: file.type });
         };
 
         return activities;

@@ -8,13 +8,13 @@ import fs from 'node:fs';
 import loggers from 'logger/index.logger';
 import { Colors } from 'utility/service/formatter.service';
 
-const activitiesPath = path.join('../the-void-database/data');
+const activitiesPath = path.join('../../the-void-database/data');
 const activitiesFolders = fs.readdirSync(activitiesPath).filter(file => !file.endsWith(".json"));
 
 const StandartActivityLoader = new ClassStandartActivityLoader();
 const TypifiedActivityLoader = new ClassTypifiedActivityLoader();
 
-const LoadedActivities: any = {
+const LoadedActivities: { [key: string]: Activity[] } = {
     guild: [],
     name: [],
     kristy: [],
@@ -26,6 +26,7 @@ const Loader = () => {
 
     for(const activityFolder of activitiesFolders) {
         const activityFolderPath = path.join(activitiesPath, activityFolder);
+        
         const jsonFiles = fs.readdirSync(activityFolderPath).filter(file => file.endsWith(".json"));
         const folders = fs.readdirSync(activityFolderPath).filter(file => !file.endsWith(".json"));
     

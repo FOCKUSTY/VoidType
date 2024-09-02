@@ -1,6 +1,6 @@
 import { version } from '../package.json';
 
-const THEVOIDs_CONSTANTS: any = {
+const THEVOIDs_CONSTANTS: { [key: string]: string } = {
     "THEVOIDSBOT_REVERSE_GENDER": 'девушка',
     "THEVOIDSBOT_NREVERSE": 'The Void',
     "THEVOIDSBOT_REVERSE": 'The Abyssia',

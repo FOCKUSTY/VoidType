@@ -1,5 +1,5 @@
 export enum ActivityTypes {
-    playing = 0,
+    play = 0,
     streaming = 1,
     listen = 2,
     watching = 3,
