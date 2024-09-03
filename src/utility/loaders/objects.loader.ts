@@ -6,7 +6,7 @@ import Formatter, { Colors } from 'utility/service/formatter.service';
 const dataPath = path.join('../../the-void-database/data');
 const files = fs.readdirSync(dataPath).filter(file => file.endsWith('.json'));
 
-const objects: { [key: string]: string[] } = {
+const objects: { [key: string]: any[] } = {
     download: [],
     idea: [],
     names: [],
