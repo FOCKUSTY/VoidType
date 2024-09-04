@@ -7,7 +7,6 @@ import path from 'node:path';
 import fs from 'node:fs';
 import Logger from 'logger/index.logger';
 import { Colors } from 'utility/service/formatter.service';
-import { Debug } from 'develop/debug.develop';
 
 const activitiesPath = path.join('../../the-void-database/data');
 const activitiesFolders = fs
@@ -25,7 +24,7 @@ const LoadedActivities: { [key: string]: Activity[] } = {
 };
 
 class ActivitiesLoader {
-    private readonly Logger = new Logger('Activity').execute;
+    private readonly Logger = new Logger('Loader').execute;
 
     private files?: string[];
     private jsonFiles?: string[];
