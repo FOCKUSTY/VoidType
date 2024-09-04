@@ -6,7 +6,7 @@ import { config } from 'config';
 import { Debug } from 'develop/debug.develop';
 
 import { WriteCommands } from 'discord/deploy.commands';
-import { DeployEvents } from 'discord/deploy.events';
+import DeployEvents from 'discord/deploy.events';
 
 import path from 'path';
 import fs from 'fs';
@@ -56,7 +56,7 @@ const Login = async () => {
 		.filter(file => file.endsWith('.js') || file.endsWith('.ts'));
 
 	WriteCommands(Commands, Client, foldersPath, commandsFolder);
-	DeployEvents(Client, eventsPath, eventFiles);
+	new DeployEvents(eventsPath, eventFiles).execute();
 
 	await Client
 		.login(config.clientToken)

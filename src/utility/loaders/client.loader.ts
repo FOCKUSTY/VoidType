@@ -2,23 +2,35 @@ import { Client as DiscordClient } from "discord.js";
 
 import { objects } from "utility/loaders/objects.loader";
 import { Colors } from "utility/service/formatter.service";
-import loggers from 'logger/index.logger';
+import Logger from 'logger/index.logger';
+
+const guilds: string[] = [];
+const users: string[] = [];
+const names: string[] = [];
 
 class ClientLoaderClass {
+    private readonly Logger = new Logger('Loader').execute;
+
     private _guilds: string[] = [];
     private _users: string[] = [];
     private _names: string[] = [];
+    
+    constructor() {
+        this._guilds = guilds;
+        this._users = users;
+        this._names = names;
+    };
 
-    public execute = async (Client: DiscordClient) => {
+    public readonly execute = async (Client: DiscordClient) => {
         Client.users.cache.forEach(user =>
-            this._users.push(user.globalName || user.username));
-        loggers.Loader.execute('Загрузка пользователей успешна', Colors.green);
+            users.push(user.globalName || user.username));
+        this.Logger('Загрузка пользователей успешна', Colors.green);
         
         Client.guilds.cache.forEach(guild =>
-            this._guilds.push(guild.name));
-        loggers.Loader.execute('Загрузка гильдий успешна', Colors.green);
+            guilds.push(guild.name));
+        this.Logger('Загрузка гильдий успешна', Colors.green);
 
-        this._names = objects.names;
+        names.push(...objects.names);
     };
 
     public get guilds() {
@@ -43,6 +55,4 @@ class ClientLoaderClass {
     };
 };
 
-const ClientLoader = new ClientLoaderClass();
-
-export default ClientLoader;
+export default ClientLoaderClass;

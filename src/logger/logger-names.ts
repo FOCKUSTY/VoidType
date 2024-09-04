@@ -1,7 +1,8 @@
+import type { LoggerName } from "types/activities/loggers.type";
 import { Colors } from "utility/service/formatter.service";
 
 const loggers: {
-    [key: string]: { name: string, colors: [ Colors, Colors ] }
+    [key: LoggerName<string>]: { name: string, colors: [ Colors, Colors ] }
 } = {
     TheVoid:  { name: 'The Void', colors: [ Colors.red,          Colors.magenta ]},
     Updater:  { name: 'Updater',  colors: [ Colors.brightYellow, Colors.yellow  ]},

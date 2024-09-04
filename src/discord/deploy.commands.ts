@@ -2,6 +2,8 @@ import { config } from 'config';
 import { REST, Routes } from 'discord.js';
 import { Command } from './command.commands';
 import { Debug } from 'develop/debug.develop';
+import { Colors } from 'utility/service/formatter.service';
+import Logger from 'logger/index.logger';
 
 import type {
     Client as DiscordClient,
@@ -10,10 +12,11 @@ import type {
 
 import fs from 'node:fs';
 import path from 'node:path';
-import loggers from 'logger/index.logger';
-import { Colors } from 'utility/service/formatter.service';
 
 let using = 0;
+
+const Updater = new Logger('Updater').execute;
+const CommandsLogger = new Logger('Commands').execute;
 
 export const WriteCommands = (
     Commands: CommandsCollection<any, any>,
@@ -33,7 +36,8 @@ export const WriteCommands = (
         for(const folder of commands)
         {
             const modifierPath = path.join(commandsPath, folder);
-            const files = fs.readdirSync(modifierPath)
+            const files = fs
+                .readdirSync(modifierPath)
                 .filter((file: string) => file.endsWith('.ts') || file.endsWith('.js'));
         
             for(const file of files)
@@ -78,7 +82,7 @@ export const WriteCommands = (
                     subcommands.unshift(text);
                     
                     if(subcommands.length != 0)
-                        loggers.Commands.execute(`${subcommands.join(' ')}`);
+                        CommandsLogger(`${subcommands.join(' ')}`);
                 }
                 else
                 {
@@ -124,25 +128,25 @@ export const UpdateCommands = async (commands: any, type: 'global'|'guild') => {
     try {
         if(type === 'global')
         {
-            loggers.Updater.execute('Начало обновления глобальных (/) команд');
+            Updater('Начало обновления глобальных (/) команд');
             
             await rest.put(
                 Routes.applicationCommands(config.clientId),
                 { body: commands },
             )
             
-            loggers.Updater.execute('Успешно обновлены глобальные (/) команды', Colors.green);
+            Updater('Успешно обновлены глобальные (/) команды', Colors.green);
         }
         else
         {
-            loggers.Updater.execute('Начало обновления (/) команд гильдии');
+            Updater('Начало обновления (/) команд гильдии');
 
             await rest.put(
                 Routes.applicationGuildCommands(config.clientId, config.guildId),
                 { body: commands },
             );
             
-            loggers.Updater.execute('Успешно обновлены (/) команды гильдии', Colors.green);
+            Updater('Успешно обновлены (/) команды гильдии', Colors.green);
         };
     }
     catch (error) {

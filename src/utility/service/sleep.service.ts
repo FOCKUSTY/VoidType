@@ -3,7 +3,7 @@ import type { Client as DiscordClient } from "discord.js";
 
 class Sleep {
     public static execute = async (Client: DiscordClient) => {
-        Debug.Log(['Выключения бота...'])
+        Debug.Log(['Выключения бота...']);
 
         await Client.destroy();
         setTimeout(() => { process.exit() }, 1000);

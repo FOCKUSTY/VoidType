@@ -1,6 +1,6 @@
-import Loader, { objects } from "utility/loaders/objects.loader";
+import Loader from "utility/loaders/objects.loader";
 
-Loader();
+const objects = new Loader().execute();
 
 const GetObject = (type: 'name'|'idea'|'download') => {
     switch (type) {

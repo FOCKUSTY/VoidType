@@ -1,4 +1,4 @@
-class Array {
+class SelfArray extends Array {
     public static Shuffle = ( array: any[] ) =>
     {
         let currentIndex = array.length,  randomIndex;
@@ -21,7 +21,7 @@ class Array {
         {
             for (let key in obj)
                 if (Object.prototype.hasOwnProperty.call(obj, key))
-                    clone[key] = Array.Copy(obj[key]);
+                    clone[key] = SelfArray.Copy(obj[key]);
         };
     
         function cloneObj (): object
@@ -35,7 +35,7 @@ class Array {
         {
             return obj.map(function (item: any)
             {
-                return Array.Copy(item);
+                return SelfArray.Copy(item);
             });
         }
     
@@ -43,7 +43,7 @@ class Array {
         {
             let clone = new Map();
             for (let [key, val] of obj)
-                clone.set(key, Array.Copy(val));
+                clone.set(key, SelfArray.Copy(val));
             return clone;
         }
     
@@ -51,7 +51,7 @@ class Array {
         {
             let clone = new Set();
             for (let item of obj)
-                clone.add(Array.Copy(item));
+                clone.add(SelfArray.Copy(item));
             return clone;
         }
     
@@ -86,4 +86,4 @@ class Array {
     }
 };
 
-export default Array
+export default SelfArray;

@@ -2,10 +2,10 @@ import type { Client as DiscordClient } from "discord.js";
 import { Events } from "discord.js";
 
 import ClientLoader from "utility/loaders/client.loader";
-import { RandomActiviy } from "utility/service/random-activity.service";
+import RandomActiviy from "utility/service/random-activity.service";
 
 import ActivityLoader from 'utility/loaders/activities.loader';
-import loggers from "logger/index.logger";
+import Logger from "logger/index.logger";
 
 export = {
 	name: Events.ClientReady,
@@ -14,17 +14,19 @@ export = {
         if(!Client.user)
             return;
 
+        const randomActivity = new RandomActiviy(Client);
+
         Client.user.setPresence({ activities: [{ name: 'The Void Community' }], status: 'idle' });
 
-        ActivityLoader();
+        new ActivityLoader().execute();
+        new ClientLoader().execute(Client);
 
-        ClientLoader.execute(Client);
-        RandomActiviy(Client);
+        randomActivity.execute();
 
         setInterval(() => {
-            RandomActiviy(Client);
+            randomActivity.execute();
         }, 60000);
 
-        loggers.TheVoid.execute('Начинаю работу');
+        new Logger('TheVoid').execute('Начинаю работу');
     }
 };

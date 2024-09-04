@@ -1,20 +1,35 @@
 import type { Client as DiscordClient } from 'discord.js';
+import Discord from './utility/service/discord.service';
+import Logger from 'logger/index.logger';
 
 import path from "node:path";
-import fs from "node:fs";
-import loggers from 'logger/index.logger';
 
-export const DeployEvents = (Client: DiscordClient, eventsPath: string, eventFiles: string[]) => {
-    for (const file of eventFiles) {
-        const filePath = path.join(eventsPath, file);
-        const event = require(filePath);
+class EventsLoader {
+    private readonly Logger = new Logger('Events').execute;
+    private readonly _client: DiscordClient = new Discord().client;
     
-        loggers.Events.execute(`Загрузка прослушивателя ${event.name}`);
+    private readonly _path: string;
+    private readonly _files: string[]
 
-        if(event.once)
-            Client.once(event.name, (...args) => event.execute(...args));
+    constructor(eventsPath: string, eventFiles: string[]) {
+        this._path = eventsPath;
+        this._files = eventFiles;
+    };
+
+    public readonly execute = () => {
+        for (const file of this._files) {
+            const filePath = path.join(this._path, file);
+            const event = require(filePath);
         
-        else if(event.execute)
-            Client.on(event.name, (...args) => event.execute(...args));
+            this.Logger(`Загрузка прослушивателя ${event.name}`);
+    
+            if(event.once)
+                this._client.once(event.name, (...args) => event.execute(...args));
+            
+            else if(event.execute)
+                this._client.on(event.name, (...args) => event.execute(...args));
+        };
     };
 };
+
+export default EventsLoader;

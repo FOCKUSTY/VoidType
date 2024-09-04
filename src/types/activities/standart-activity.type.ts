@@ -1,4 +1,4 @@
 export interface Activity {
     text: string;
-    type: 'custom' | 'listen' | 'playing' | 'watching';
+    type: 'custom' | 'listening' | 'playing' | 'watching';
 };

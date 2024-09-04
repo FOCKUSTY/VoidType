@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import loggers from 'logger/index.logger';
+import Logger from 'logger/index.logger';
 import Formatter, { Colors } from 'utility/service/formatter.service';
 
 const dataPath = path.join('../../the-void-database/data');
@@ -12,14 +12,20 @@ const objects: { [key: string]: any[] } = {
     names: [],
 };
 
-const Loader = () => {
-    loggers.Loader.execute('Загрузка объектов');
+class ObjectsLoader {
+    private readonly Logger = new Logger('Loader').execute;
 
-    for(const fileName of files) {
-        const file = Formatter.FromJSONwithPath(`${dataPath}\\${fileName}`);
-        
-        objects[fileName.replace('.json', '')] = file;
-        loggers.Loader.execute(`Загружен ${`${fileName}`}`, Colors.green);
+    public readonly execute = () => {
+        this.Logger('Загрузка объектов');
+    
+        for(const fileName of files) {
+            const file = Formatter.FromJSONwithPath(`${dataPath}\\${fileName}`);
+            
+            objects[fileName.replace('.json', '')] = file;
+            this.Logger(`Загружен ${`${fileName}`}`, Colors.green);
+        };
+
+        return objects;
     };
 };
 
@@ -27,4 +33,4 @@ export {
     objects
 };
 
-export default Loader;
+export default ObjectsLoader;
