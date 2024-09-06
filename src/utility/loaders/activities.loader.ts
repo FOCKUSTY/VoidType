@@ -81,6 +81,7 @@ class ActivitiesLoader {
         for(const folder of this.folders) {
             this.folderPath = path.join(this.activityFolderPath, folder);
             this.files = fs.readdirSync(this.folderPath);
+            this.folder = folder;
 
             this.FeatureAcitivyLoader();
         };
