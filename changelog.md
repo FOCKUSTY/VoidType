@@ -20,5 +20,5 @@
 | `0.1.16-alpha.1`  | Alpha.1.Patch | База данных полностью изменена, `sqlite3 -> mongoDB`, исправлены баги | Database was changed, `sqlite3 -> mongoDB`, bug fixed |
 | `1.0.0-alpha.1`   | Alpha.1.Major | Рефакторинг кода №1 | Code refactoring №1 |
 | `1.0.1-alpha.1`   | Alpha.1.Patch | Рефакторинг кода №2, добавление телеграм бота | Code refactoring №2, added telegram bot |
-| `1.0.2-alpha.1`   | Alpha.Start | Рефакторинг кода №3, хот фиксы, улучшение кода для сраного компилятора | Code refactoring №3, hot fixes, code for compiler fixed |
+| `1.0.2-alpha.1`   | Alpha.1.Patch | Рефакторинг кода №3, хот фиксы, улучшение кода для сраного компилятора | Code refactoring №3, hot fixes, code for compiler fixed |
 | `1.1.0-alpha.1`   | Alpha.1.Minor | Рефакторинг кода, хот-фиксы, добавление ООП, обновление системы коммитов, обновление `changelog.md` | code refactoring, hot fixes, added OOP, commit system updated, `changelog.md` updated |
