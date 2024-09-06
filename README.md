@@ -1,5 +1,10 @@
 # VoidType
 
+## Дополнительно
+- [Система коммитов](./help/readme-files/docs/commit.system.md)
+- [Инструкция по установке](./help/readme-files/install/instruction.md)
+- [Инструкция по запуску](./help/readme-files/start/instruction.md)
+
 ## The Void - Это просто простой бот !
 - The Void Bot нацелен на увеличение опыта автора в JavaScript и TypeScript.
 - К тому же у The Void по тихоньку появляется история и, возможно, мини сюжет.
