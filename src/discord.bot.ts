@@ -20,8 +20,7 @@ import {
 } from 'discord.js';
 
 const Client = new DiscordClient({
-	intents:
-	[
+	intents: [
 		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessages,
@@ -30,8 +29,7 @@ const Client = new DiscordClient({
 		GatewayIntentBits.GuildVoiceStates,
 		GatewayIntentBits.GuildPresences
 	],
-	partials:
-	[
+	partials: [
 		Partials.Channel
 	],
 });

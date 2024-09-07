@@ -55,8 +55,7 @@ import Discord from 'discord/utility/service/discord.service';
 
 // Установка клиента
 const Client = new DiscordClient({
-	intents:
-	[
+	intents: [
 		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessages,
@@ -65,8 +64,7 @@ const Client = new DiscordClient({
 		GatewayIntentBits.GuildVoiceStates,
 		GatewayIntentBits.GuildPresences
 	],
-	partials:
-	[
+	partials: [
 		Partials.Channel
 	],
 });
@@ -74,22 +72,11 @@ const Client = new DiscordClient({
 Debug.Console.clear();
 Debug.Log([Formatter.Color('Начало программы', Colors.magenta)]);
 
-// Установка команд и кулдаунов
+// Установка коллекций команд и кулданоунов
 const Commands = new Collection();
 const Cooldowns = new Collection();
 
-// Путь для папки и сама папка с командами
-const foldersPath = path.join(__dirname, 'discord/commands');
-const commandsFolder = fs.readdirSync(foldersPath);
-
-// Путь для папки и сама папка с прослушивателями
-const eventsPath = path.join(__dirname, 'discord/events');
-const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js') || file.endsWith('.ts'));
-
-WriteCommands(Commands, Client, foldersPath, commandsFolder);
-DeployEvents(Client, eventsPath, eventFiles);
-
-// Создаем прослушиватель взаимодействий пользователя
+// Прослушиватель взаимодействия
 Client.on(Events.InteractionCreate, async interaction => {
     ICL.InteractionCreate(interaction, Commands, Cooldowns);
 	ML.ModalListener(interaction);
@@ -97,9 +84,20 @@ Client.on(Events.InteractionCreate, async interaction => {
 
 // Логиним нашего бота
 const Login = async () => {
-	// Установка объекта Client в Discord
-	Discord.client = Client;
+    // Путь до команд
+	const foldersPath = path.join(__dirname, 'discord/commands');
+	const commandsFolder = fs.readdirSync(foldersPath);
 
+    // Путь до событий
+	const eventsPath = path.join(__dirname, 'discord/events');
+	const eventFiles = fs.readdirSync(eventsPath)
+		.filter(file => file.endsWith('.js') || file.endsWith('.ts'));
+
+    // Загрузка команд и прослушивателей событий
+	WriteCommands(Commands, Client, foldersPath, commandsFolder);
+	new DeployEvents(eventsPath, eventFiles).execute();
+
+    // Логиним нашего бота
 	await Client
 		.login(config.clientToken)
 		.catch((e) => Debug.Error(e));
@@ -146,14 +144,13 @@ Client.on('message', async (message: Interaction) => {
     SlashCommandsListener(message);
 });
 
-const commandsPath = path.join(__dirname, 'telegram/commands');
-const commandsFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js') || file.endsWith('.ts'));
+const Login = async () => {
+    const commandsPath = path.join(__dirname, 'telegram/commands');
+    const commandsFiles = fs.readdirSync(commandsPath)
+        .filter(file => file.endsWith('.js') || file.endsWith('.ts'));
 
-DeployCommands(Client, commandsPath, commandsFiles);
+    DeployCommands(Client, commandsPath, commandsFiles);
 
-const Login = async () =>
-{
-    Telegram.client = Client;
     await Client.launch();
     
     process.once('SIGINT', () =>
@@ -173,15 +170,26 @@ export default Client;
 ### index.config.ts
 
 ```ts
+import path from 'path';
+
 // Импорт конфига и настроек для бота
 import config from '../config.json';
 import settings from '../settings.json';
 
-// Экспорт
+// Создание рут-папки
+const TheVoidDir = path.resolve('../../');
+
+// Создание объекта
+const pathData = {
+    TheVoidDir
+};
+
+// Эскпорт
 export {
     config,
-    settings
-}
+    settings,
+    pathData
+};
 ```
 
 ### index.constant.ts
@@ -190,7 +198,7 @@ export {
 // Импорт версии с package.json
 import { version } from '../package.json';
 
-const THEVOIDs_CONSTANTS: any = {
+const THEVOIDs_CONSTANTS: { [key: string]: string } = {
     "THEVOIDSBOT_REVERSE_GENDER": 'девушка',
     "THEVOIDSBOT_NREVERSE": 'The Void',
     "THEVOIDSBOT_REVERSE": 'The Abyssia',
