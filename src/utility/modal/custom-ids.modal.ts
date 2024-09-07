@@ -1,6 +1,7 @@
 import SayTelegramMessage from "./say-telegram-message.modal";
 import SayMessage from "./say-message.modal";
 import Update from "./update.modal";
+import IdeaModal from "./idea.modal";
 
 const customIds = {
     sayModal: {
@@ -27,6 +28,14 @@ const customIds = {
             enText: 'update-en-text'
         },
         execute: Update
+    },
+    ideaModal: {
+        id: 'idea-modal',
+        components: {
+            title: 'idea-title',
+            description: 'idea-description'
+        },
+        execute: IdeaModal
     }
 };
 

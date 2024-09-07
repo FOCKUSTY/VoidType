@@ -16,8 +16,7 @@ import customIds from 'utility/modal/custom-ids.modal';
 
 const history: number[] = [];
 
-export =
-{
+export = {
     cooldown: 5,
     data: new SlashCommandBuilder().setName('say').setDescription('Сообщение с помощью бота!')
     .setNameLocalizations({ru:'отправить',"en-US":'say'})

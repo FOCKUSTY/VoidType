@@ -23,3 +23,4 @@
 | `1.0.2-alpha.1`   | Alpha.1.Patch | Рефакторинг кода №3, хот фиксы, улучшение кода для сраного компилятора | Code refactoring №3, hot fixes, code for compiler fixed |
 | `1.1.0-alpha.1`   | Alpha.1.Minor | Рефакторинг кода, хот-фиксы, добавление ООП, обновление системы коммитов, обновление `changelog.md` | code refactoring, hot fixes, added OOP, commit system updated, `changelog.md` updated |
 | `1.1.1-alpha.1`   | Alpha.1.Patch | Добавлен новый функционал в активности, добавлена новая команда принудительного обновления активностей, активности теперь могут иметь префикс |  Added new functionality to activities, added a new command to force update activities, activities can now have a prefix |
+| `1.1.2-alpha.1`   | Alpha.1.Patch | Добавлена новая команда `/idea` |  Added a new command `/idea` |
