@@ -129,7 +129,7 @@ class RandomActiviy {
             const activity = await this.Typified(type);
     
             if(this._setActivity)
-                this._client.user.setActivity({name: activity.text, type: Number(activity.type) });
+                this._client.user.setActivity({name: activity.text, type: Number(ActivityTypes[activity.type]) });
 
             return Log(activity);
         };
@@ -139,7 +139,7 @@ class RandomActiviy {
             const activity = await this.Standart();
             
             if(this._setActivity)
-                this._client.user.setActivity({name: activity.text, type: Number(activity.type)});
+                this._client.user.setActivity({name: activity.text, type: Number(ActivityTypes[activity.type])});
 
             return Log(activity);
         };
