@@ -19,9 +19,7 @@ export = {
 
         await interaction.reply({ content: `Выбираю между: ${min} & ${max}`, ephemeral: true })
 
-        const number = max > min
-            ? PseudoRandom.Number(min, max, [])
-            : PseudoRandom.Number(max, min, []);
+        const number = new PseudoRandom([min, max]).execute();
 
         setTimeout(async () => {
             await interaction.editReply({ content: `Ваше число ${number}` });

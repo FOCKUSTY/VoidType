@@ -29,7 +29,7 @@ export =
         const idea: { idea: string, ideaDetail: string }[] = GetObject('idea');
 
         const modal = new ModalBuilder().setCustomId(customIds.ideaModal.id).setTitle('Ваше сообщение !');
-        const randomNumber = PseudoRandom.Number(0, idea.length-1, history, idea);
+        const randomNumber = new PseudoRandom().Number(0, idea.length-1, history, idea);
         const placeholderTitle = idea[randomNumber].idea;
         const placeholderDescriptioin = idea[randomNumber].ideaDetail;
 

@@ -31,7 +31,7 @@ export = {
         const idea = GetObject('idea');
 
         const modal = new ModalBuilder().setCustomId(customIds.sayModal.id).setTitle('Ваше сообщение !');
-        const randomNumber = PseudoRandom.Number(0, idea.length-1, history, idea);
+        const randomNumber = new PseudoRandom().Number(0, idea.length-1, history, idea);
         const placeholder = idea[randomNumber].ideaDetail;
 
         const channels: [string, string][] = [];
@@ -41,7 +41,7 @@ export = {
                 ? channels.push([channel.id, channel.name])
                 : null);
 
-        const randomNumberChannel = PseudoRandom.Number(0, channels.length-1, [], channels);
+        const randomNumberChannel = new PseudoRandom().Number(0, channels.length-1, [], channels);
 
         modal.addComponents(
             new ActionRowBuilder<ModalActionRowComponentBuilder>()

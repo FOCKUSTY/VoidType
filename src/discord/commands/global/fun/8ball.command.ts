@@ -40,7 +40,7 @@ export = {
         ];
 
         const rCategory = Random.integer(0, categoryes.length-1);
-        const rNum = PseudoRandom.Number(0, categoryes[rCategory].length-1, history, categoryes[rCategory]);
+        const rNum = new PseudoRandom().Number(0, categoryes[rCategory].length-1, history, categoryes[rCategory]);
         const text = categoryes[rCategory][rNum];
 
         const question = interaction.options.get('question')?.value;

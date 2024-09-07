@@ -17,8 +17,10 @@ const historyObject = new Map();
 
 class RandomActiviy {
     private readonly Logger = new Logger('Activity').execute;
+    
     private readonly _client: DiscordClient;
     private readonly _clientLoader = new ClientLoader();
+
     private readonly _preffix: string = '';
     private readonly _setActivity: boolean = true;
 
@@ -35,16 +37,16 @@ class RandomActiviy {
 
             const history = historyObject.get(type) ? historyObject.get(type) : [];
             historyObject.set(type, history);
-    
+
             const activities = Array.Shuffle(loadedActivities[type === 'guild' ? 'guild' : 'name']);
-            
-            const randomActivityNumber = PseudoRandom.Number(0, activities.length-1, history, activities, this._setActivity);
+
+            const randomActivityNumber = new PseudoRandom().Number(0, activities.length-1, history, activities, this._setActivity);
             const randomActivity = activities[randomActivityNumber];
         
             const array = this._clientLoader.Get(type);
         
-            const firstRandomElementNumber = PseudoRandom.Number(0, array.length-1, history, array, this._setActivity);
-            const secondRandomElementNumber = PseudoRandom.Number(0, array.length-1, history, array, this._setActivity);
+            const firstRandomElementNumber = new PseudoRandom().Number(0, array.length-1, history, array, this._setActivity);
+            const secondRandomElementNumber = new PseudoRandom().Number(0, array.length-1, history, array, this._setActivity);
         
             const firstRandomElement = array[firstRandomElementNumber];
             const secondRandomElement = array[secondRandomElementNumber];
@@ -75,7 +77,7 @@ class RandomActiviy {
     
             const activities = Array.Shuffle(loadedActivities['other']);
             
-            const randomActivityNumber = PseudoRandom.Number(0, activities.length-1, history, activities, this._setActivity);
+            const randomActivityNumber = new PseudoRandom().Number(0, activities.length-1, history, activities, this._setActivity);
             const randomActivity: Activity = activities[randomActivityNumber];
     
             return { text: randomActivity.text + this._preffix, type: randomActivity.type };
@@ -92,7 +94,7 @@ class RandomActiviy {
         const history = historyObject.get('number-activity') ? historyObject.get('activities') : [];
         historyObject.set('number-activity', history);
     
-        const randomChance = PseudoRandom.Number(0, 100, history, undefined, this._setActivity);
+        const randomChance = new PseudoRandom().Number(0, 100, history, undefined, this._setActivity);
 
         const Log = (activity: Activity) =>
         {

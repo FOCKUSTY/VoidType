@@ -3,125 +3,172 @@ import { Random as RandomJS } from "random-js";
 import Array from "./array.service";
 
 const Random = new RandomJS();
-const randomNumber = Random.integer(0, 10000)
 
-const PseudoRandomWithArray = (number: number, array: any[]): number =>
-{
-    const shuffled = Array.Shuffle(array);
-
-    return array.indexOf(shuffled[number]);
-};
-
-const PseudoRandomHistory = (number: number, historyArray: number[], min=0, max=100, n=2, m=2): number => {
-    const check = () => {
-        for(let i of historyArray)
-        {
-            const iMin = i-m;
-            const iMax = i+m;
-
-            if( number === i || ( number > iMin && number < iMax ) )
-            {
-                Debug.Log([`Область определение от ${iMin} до ${iMax} число: ${number}`]);
-                number = Random.integer(min, max);
-                Debug.Log([`Новое число: ${number}`]);
-            }
-        };
-    };
-
-    for (let {} of historyArray) check();
-    
-    check();
-
-    historyArray.push( number );
-
-    if(historyArray.length > n)
-    {
-        historyArray.shift();
-        historyArray.shift();
-    };
-
-    return number;
-};
-
-const PseudoRandomNumber = (min=0, max=100, historyArray: number[], yourArray?: any[], logging: boolean=true, n=2, m=2, random=randomNumber) => {
-
-    if(max - 100 < min)
-        return Random.integer(min, max);
-
-    const date = new Date();
-    
-    const time = date.getTime();
-    const year = date.getFullYear();
-    const miliseconds = date.getMilliseconds();
-
-    let pseudoRandom: number = Math.floor((time % (year * miliseconds)) * random);
-    const text: string = `${pseudoRandom}`.replace('.', '');
-
-    const maxLength = `${max}`.length;
-
-    pseudoRandom = Number( text.slice( Math.floor(text.length/2), Math.floor(text.length/2+maxLength) ) );
-
-    const checkMax = () => {
-        if(pseudoRandom > max)
-        {
-            pseudoRandom -= Random.integer(min, Math.floor(max / 2));
-
-            checkMax();
-        };
-    };
-
-    checkMax();
-
-    if(yourArray)
-        pseudoRandom = PseudoRandomWithArray(pseudoRandom, yourArray);
-
-    if(historyArray && historyArray.length != 0)
-        pseudoRandom = PseudoRandomHistory(pseudoRandom, historyArray, min, max, n, m);
-
-    if(logging)
-        Debug.Log([`Генерация нового псевдо случайного числа от ${min} до ${max}: ${pseudoRandom}`]);
-
-    return pseudoRandom;
-};
+const history = new Map<string, number[]>();
 
 class PseudoRandom {
-    private historyArray = [];
+    private readonly _historyArray: number[] = [];
+    private readonly _yourArray: any[] = [];
 
-    private _min: number;
-    private _max: number;
-    private _n: number;
-    private _m: number;
-    private _yourArray: any[]
+    private readonly _min: number = 0;
+    private readonly _max: number = 100;
+
+    private readonly _n: number = 2;
+    private readonly _m: number = 3;
+
+    private readonly _logging: boolean = true;
 
     private _random: number;
 
-    private _logging: boolean = true;
+    constructor(data?: {
+        name: string,
+        
+        historyArray?: number[],
+        yourArray?: any[],
 
-    constructor(min=0, max=100, n=2, m=2, yourArray: any[], logging: boolean = true) {
-        if(min === max)
-            throw Debug.Error('min & max равны');
+        min?: number,
+        max?: number,
+        
+        n?: number,
+        m?: number,
+        
+        logging?: boolean
+    } | [number, number, number[]?, any[]?, boolean?]) {
+        if(Array.isArray(data)) {
+            if(data[0] === data[1]) {
+                data[1] += 1;
 
-        this._min = min;
-        this._max = min === max ? max+1 : max;
-        this._n = n;
-        this._m = m;
+                Debug.Error('Min = Max, be careful, The Void fixed it ;3');
+            }
 
-        this._yourArray = yourArray;
-        this._logging = logging
+            if(data[0] > data[1]) {
+                const max = data[0];
+                const min = data[1];
+
+                data[0] = min;
+                data[1] = max;
+
+                Debug.Error('Min > Max, be careful, The Void fixed it ;3');
+            };
+
+            this._min = data[0];
+            this._max = data[1];
+
+            this._historyArray = data[2] || [];
+            this._yourArray = data[3] || [];
+            
+            this._logging = data[4] || false;
+
+            this._random = Random.integer(data[0], data[1]);
+        }
+        else if(data) {
+            history.set(data.name, data.historyArray || []);
+            
+            this._historyArray = history.get(data.name) || [];
+            this._yourArray = data.yourArray || [];
+    
+            this._min = data.min || 0;
+            this._max = data.max || 100;
+            
+            this._n = data.n || 2;
+            this._m = data.m || 3;
+            
+            this._random = Random.integer(data.min || 0, data.max || 100);
+            this._logging = data.logging || false;
+        };
 
         this._random = Random.integer(this._min, this._max);
     };
 
-    public static Number = PseudoRandomNumber;
-    public Number = PseudoRandomNumber;
+    public readonly Array = (number: number, yourArray: any[]=this._yourArray): number => {
+        const shuffled = Array.Shuffle(yourArray);
+    
+        for(const i in yourArray) {
+            const value = yourArray[i];
 
-    public execute = (): number => {
-        return PseudoRandomNumber(
-            this._min, this._max,
-            this.historyArray, this._yourArray, this._logging,
-            this._n, this._m,
-            this._random
-        );
+            if(JSON.stringify(value) === JSON.stringify(shuffled[number]))
+                return Number(i);
+        }
+        
+        return number;
+    };
+
+    public readonly History = (number: number, historyArray: number[]=this._historyArray): number => {
+        const check = () => {
+            for(const i of historyArray) {
+                const iMin = i - this._m;
+                const iMax = i + this._m;
+    
+                if(number === i || (number > iMin && number < iMax)) {
+                    Debug.Log([`Область определение от ${iMin} до ${iMax} число: ${number}`]);
+                    number = Random.integer(this._min, this._max);
+                    Debug.Log([`Новое число: ${number}`]);
+                };
+            };
+        };
+    
+        for(const _ of historyArray) check();
+        
+        check();
+    
+        historyArray.push(number);
+    
+        if(historyArray.length > this._n) {
+            historyArray.shift();
+            historyArray.shift();
+        };
+
+        return number;
+    };
+
+    public readonly Number = (
+        min: number,
+        max: number,
+        historyArray: number[] = this._historyArray,
+        yourArray: any[] = this._yourArray,
+        logging?: boolean
+    ): number => {
+        if(max - 100 < min)
+            return Random.integer(min, max);
+
+        const time = new Date().getMilliseconds();
+
+        let pseudoRandom: number = (this._random+time) ** 2;
+
+        const text: string = `${pseudoRandom}`.replace('.', '');
+        const maxLength = `${max}`.length;
+
+        pseudoRandom = Number(text.slice(Math.floor(text.length/2), Math.floor(text.length/2+maxLength)));
+
+        const checkMax = () => {
+            if(pseudoRandom > max) {
+                pseudoRandom -= Random.integer(min, Math.floor(max / 2));
+    
+                checkMax();
+            };
+        };
+    
+        checkMax();
+
+        if(yourArray && yourArray.length !== 0)
+            pseudoRandom = this.Array(pseudoRandom, yourArray);
+    
+        if(historyArray && historyArray.length !== 0)
+            pseudoRandom = this.History(pseudoRandom, historyArray);
+    
+        if(historyArray && historyArray.length === 0)
+            historyArray.push(pseudoRandom);
+    
+        if(logging)
+            Debug.Log([`Генерация нового псевдо случайного числа от ${min} до ${max}: ${pseudoRandom}`]);
+
+        this._random = pseudoRandom;
+
+        return pseudoRandom;
+    };
+
+    public readonly execute = (): number => {
+        return this.Number(this._min, this._max, this._historyArray, this._yourArray, this._logging);
     };
 };
 

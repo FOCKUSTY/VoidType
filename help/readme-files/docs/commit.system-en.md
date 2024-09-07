@@ -24,7 +24,7 @@
 | -new   | Adding new functionality           |
 | -other | Other                              |
 | -prod  | Preparation for release            |
-| -link  | Code refactoring                   |
+| -ref   | Code refactoring                   |
 | -save  | Saving changes                     |
 | -sec   | Security                           |
 | -style | Code style update                  |
