@@ -43,7 +43,7 @@ const PseudoRandomHistory = (number: number, historyArray: number[], min=0, max=
     return number;
 };
 
-const PseudoRandomNumber = (min=0, max=100, historyArray: number[], yourArray?: any[], n=2, m=2, random=randomNumber) => {
+const PseudoRandomNumber = (min=0, max=100, historyArray: number[], yourArray?: any[], logging: boolean=true, n=2, m=2, random=randomNumber) => {
 
     if(max - 100 < min)
         return Random.integer(min, max);
@@ -78,7 +78,8 @@ const PseudoRandomNumber = (min=0, max=100, historyArray: number[], yourArray?: 
     if(historyArray && historyArray.length != 0)
         pseudoRandom = PseudoRandomHistory(pseudoRandom, historyArray, min, max, n, m);
 
-    Debug.Log([`Генерация нового псевдо случайного числа от ${min} до ${max}: ${pseudoRandom}`]);
+    if(logging)
+        Debug.Log([`Генерация нового псевдо случайного числа от ${min} до ${max}: ${pseudoRandom}`]);
 
     return pseudoRandom;
 };
@@ -94,7 +95,9 @@ class PseudoRandom {
 
     private _random: number;
 
-    constructor(min=0, max=100, n=2, m=2, yourArray: any[]) {
+    private _logging: boolean = true;
+
+    constructor(min=0, max=100, n=2, m=2, yourArray: any[], logging: boolean = true) {
         if(min === max)
             throw Debug.Error('min & max равны');
 
@@ -104,16 +107,18 @@ class PseudoRandom {
         this._m = m;
 
         this._yourArray = yourArray;
+        this._logging = logging
 
         this._random = Random.integer(this._min, this._max);
     };
 
     public static Number = PseudoRandomNumber;
+    public Number = PseudoRandomNumber;
 
-    public execute = () => {
-        PseudoRandomNumber(
+    public execute = (): number => {
+        return PseudoRandomNumber(
             this._min, this._max,
-            this.historyArray, this._yourArray,
+            this.historyArray, this._yourArray, this._logging,
             this._n, this._m,
             this._random
         );
