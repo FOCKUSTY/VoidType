@@ -87,6 +87,18 @@ class ActivitiesLoader {
         };
     };
 
+    public readonly reload = () => {
+        this.clear();
+        this.execute();
+    };
+
+    public readonly clear = () => {
+        for(const key in LoadedActivities) {
+            this.Logger(`Разгрузка ${key}-активностей`)
+            LoadedActivities[key] = [];
+        };
+    };
+
     public readonly execute = () => {
         this.Logger('Загрузка активностей');
     

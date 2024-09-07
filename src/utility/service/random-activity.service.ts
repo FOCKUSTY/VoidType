@@ -18,10 +18,12 @@ const historyObject = new Map();
 class RandomActiviy {
     private readonly _client: DiscordClient;
     private readonly _clientLoader = new ClientLoader();
+    private readonly _preffix: string = '';
     private readonly Logger = new Logger('Activity').execute;
 
-    constructor(client: DiscordClient) {
+    constructor(client: DiscordClient, preffix: string = '') {
         this._client = client;
+        this._preffix = preffix === '' ? '' : ' | ' + preffix;
     };
 
     private readonly Typified = async (type: 'user'|'guild'|'name'): Promise<Activity|void> => {
@@ -47,8 +49,11 @@ class RandomActiviy {
         
             const text = randomActivity.text
                 .replace('{random}', firstRandomElement)
-                .replace('{randomTwo}', secondRandomElement);
+                .replace('{randomTwo}', secondRandomElement)
+                + this._preffix;
         
+            Debug.Log([text]);
+
             const activityType = ActivityTypes[randomActivity.type];
         
             Debug.Log([`Случайные элементы: ${firstRandomElement} & ${secondRandomElement} из ${array.length}`]);
@@ -75,8 +80,10 @@ class RandomActiviy {
             const randomActivity: Activity = activities[randomActivityNumber];
     
             const activityType = ActivityTypes[randomActivity.type];
-            const acitivityText = randomActivity.text;
+            const acitivityText = randomActivity.text + this._preffix;
     
+            Debug.Log([acitivityText]);
+
             this._client.user.setActivity({ name: acitivityText, type: Number(activityType)});
         
             return { text: randomActivity.text, type: randomActivity.type };
