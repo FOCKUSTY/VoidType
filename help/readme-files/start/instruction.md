@@ -250,41 +250,43 @@ const bot = process.env.BOT || 'discord';
 ### package.json > scripts
 ```json
 "scripts": {
-    "slash": "tsx watch src/discord/slash.commands.ts",
-    "dev": "set NODE_ENV=dev && set BOT=all && tsx watch src/start.bot.ts",
-    "telegram": "set NODE_ENV=dev && set BOT=telegram && tsx watch src/start.bot.ts",
-    "discord": "set NODE_ENV=dev && set BOT=discord && tsx watch src/start.bot.ts",
+    "dev:slash": "tsx watch src/discord/slash.commands.ts",
+    
+    "dev": "set NODE_ENV=dev&& set BOT=all&& tsx watch src/start.bot.ts",
+    "dev:telegram": "set NODE_ENV=dev&& set BOT=telegram&& tsx watch src/start.bot.ts",
+    "dev:discord": "set NODE_ENV=dev&& set BOT=discord&& tsx watch src/start.bot.ts",
 
-    "builded-slash": "node src/discrd/slash.commands.ts",
-    "builded": "set NODE_ENV=prod && set BOT=all && node dist/start.bot.js",
-    "start": "set NODE_ENV=prod && pnpm run build && pnpm run builded",
-    "build": "tsup src/**"
+    "start:slash": "node dist/the-void-bots/VoidType/src/discrd/slash.commands.ts",
+    "start:builded": "set NODE_ENV=prod&& set BOT=all&& node dist/the-void-bots/VoidType/src/start.bot.js",
+    "start": "set NODE_ENV=prod&& pnpm run build && pnpm run start:builded",
+    
+    "build": "tsc && tsc-alias"
 }
 ```
 
-1. `slash`
- - Запуск загрузки slash команд.
+1. `dev:slash`
+- Запуск обновления slash-команд
 2. `dev`
- - Запуск не скомпилированного кода в среде `dev`.
-3. `telegram`
- - Запуск только telegram бота в среде `dev`.
-4. `discord`
- - Запуск только discord бота в среде `dev`.
-5. `builded-slash`
- - Запуск загрузки скомпилированного кода slash команд.
-6. `builded`
- - Запуск скомпилированного кода в среде `prod`.
+- Запуск бота в среде `dev`
+3. `dev:telegram`
+- Запуск телеграм-бота в среде `dev`
+4. `dev:discord`
+- Запуск дискорд-бота в среде `dev`
+5. `start:slash`
+- Запуск обновления slash-команд
+6. `start:builded`
+- Запуск скомпилированного кода
 7. `start`
- - Запуск компилятора и скомпилированного кода в серед `prod`.
+- Запуск компилятора и скомпилированного кода
 8. `build`
- - Запуск компилятора.
+- Запуск компиляции
 
 - Рассмотрим команды, используемые в скриптах.
-`tsx watch` - Запуск чистого `ts` кода.
-`set NODE_ENV` - Установка в `.env` `NODE_ENV` (Значение указывается через `=ЗНАЧЕНИЕ`).
-`set BOT` - Тоже самое, что и `NODE_ENV`.
-`&&` - Логическое "И", помогает запускать несколько скриптов в одном.
-`tsup` - Запуск компилятора `src/**` - значит: "В папке `src`и в других папках".
+1. `tsx watch` - Запуск чистого `ts` кода.
+2. `set NODE_ENV` - Установка в `.env` `NODE_ENV` (Значение указывается через `=ЗНАЧЕНИЕ`).
+3. `set BOT` - Тоже самое, что и `NODE_ENV`.
+4. `&&` - Логическое "И", помогает запускать несколько скриптов в одном.
+5. `tsc` - Запуск компилятора.
 
 - Думаю, вопросов больше не возникнет.
 - Вы можете сами разобрать код в папка, сложнее всего будет понять:
