@@ -27,15 +27,13 @@ export = {
         acitivyLoader.execute();
         new ClientLoader().execute(Client);
 
-        randomActivity.execute();
-        
         setInterval(() => {
             randomActivity.execute();
-        }, 60_000);
+        }, 1000 * 60 * 1);
 
         setInterval(() => {
             acitivyLoader.reload();
-        }, 60_0000);
+        }, 1000 * 60 * 10);
 
         new Logger('TheVoid').execute('Начинаю работу');
     }

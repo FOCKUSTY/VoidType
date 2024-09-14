@@ -1,8 +1,6 @@
-import { Debug } from "src/develop/debug.develop";
 import { THEVOIDs_CONSTANTS } from "src/index.constants";
 import { Activity } from "types/activities/standart-activity.type";
 import Formatter from "utility/service/formatter.service";
-
 
 class TypifiedActivityLoader {
     public execute = (path: string): Activity[] => {

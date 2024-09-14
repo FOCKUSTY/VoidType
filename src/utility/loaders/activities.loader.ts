@@ -1,12 +1,15 @@
 import type { Activity } from 'types/activities/standart-activity.type';
+import { Debug } from 'develop/debug.develop';
 
 import ClassStandartActivityLoader from './standart-activity.loader';
 import ClassTypifiedActivityLoader from './typified-activity.loader';
+import ClassUtilityLoader from './utility.loader';
 
 import path from 'node:path';
 import fs from 'node:fs';
+
 import Logger from 'logger/index.logger';
-import { Colors } from 'utility/service/formatter.service';
+import Formatter, { Colors } from 'utility/service/formatter.service';
 
 const activitiesPath = path.join('../../the-void-database/data');
 const activitiesFolders = fs
@@ -15,12 +18,23 @@ const activitiesFolders = fs
 
 const StandartActivityLoader = new ClassStandartActivityLoader();
 const TypifiedActivityLoader = new ClassTypifiedActivityLoader();
+const UtilityLoader = new ClassUtilityLoader();
 
 const LoadedActivities: { [key: string]: Activity[] } = {
     guild: [],
     name: [],
     kristy: [],
     other: []
+};
+
+const LoadedUtility: {
+    banwords: any[],
+    titles: {[key: string]: any[]},
+    [key: string]: any[] |
+    {[key: string]: any[]}
+} = {
+    banwords: [],
+    titles: {}
 };
 
 class ActivitiesLoader {
@@ -42,16 +56,23 @@ class ActivitiesLoader {
             const filePath = path.join(this.folderPath, fileName);
 
             if(this.folder === 'typified') {
-                const TypifiedActivities: Activity[] = TypifiedActivityLoader.execute(filePath);
-            
-                if(fileName === 'guilds.json')
-                    LoadedActivities.guild.push(...TypifiedActivities);
-                else if(fileName === 'names.json')
-                    LoadedActivities.name.push(...TypifiedActivities);
-                else
-                    LoadedActivities.other.push(...TypifiedActivities);
-            
-                this.Logger(`Загружен ${`${fileName}`}`, Colors.green)
+                try {
+                    const TypifiedActivities: Activity[] = TypifiedActivityLoader.execute(filePath);
+                
+                    if(fileName === 'guilds.json')
+                        LoadedActivities.guild.push(...TypifiedActivities);
+                    else if(fileName === 'names.json')
+                        LoadedActivities.name.push(...TypifiedActivities);
+                    else
+                        LoadedActivities.other.push(...TypifiedActivities);
+
+                    this.Logger('Загружен ' + Formatter.Colored(`${this.folder} / ${fileName}`, [Colors.yellow, Colors.yellow, Colors.green], ''), Colors.green);
+                }
+                catch (err) {
+                    Debug.Error(err);
+                    this.Logger(`Файл ${fileName} не был загружен успешно`, Colors.red);
+                };
+
                 continue fileCicle;
             }
             else {
@@ -60,17 +81,70 @@ class ActivitiesLoader {
         };
     };
 
+    private readonly ActivityLoader = () => {
+        if(!this.jsonFiles || !this.activityFolderPath)
+            return;
+
+        const folder = path.parse(this.activityFolderPath).name;
+
+        for(const fileName of this.jsonFiles) {
+            try {
+                const filePath = path.join(this.activityFolderPath, fileName);
+                const Activities: Activity[] = StandartActivityLoader.execute(filePath);
+                
+                LoadedActivities.other.push(...Activities);
+
+                this.Logger('Загружен ' + Formatter.Colored(`${folder} / ${fileName}`, [Colors.yellow, Colors.yellow, Colors.green], ''), Colors.green);
+            } catch (err) {
+                Debug.Error(err);
+
+                this.Logger(`Файл ${fileName} не был загружен успешно`, Colors.red);
+            };
+        };
+    };
+
+    private readonly UtilityLoader = () => {
+        if(!this.jsonFiles || !this.activityFolderPath)
+            return;
+
+        const folder = path.parse(this.activityFolderPath).name;
+
+        if(folder !== 'utility')
+            return;
+
+        for(const fileName of this.jsonFiles) {
+            try {
+                const filePath = path.join(this.activityFolderPath, fileName);
+                const name = path.parse(filePath).name;
+
+                const data = UtilityLoader.execute(filePath);
+
+                LoadedUtility[name] = data;
+                
+                this.Logger('Загружен ' + Formatter.Colored(`${folder} / ${fileName}`, [Colors.yellow, Colors.yellow, Colors.green], ''), Colors.green);
+            } catch (err) {
+                Debug.Error(err);
+
+                this.Logger(`Файл ${fileName} не был загружен успешно`, Colors.red);
+            };
+        };
+    };
+
     private readonly JSONCicle = () => {
         if(!this.jsonFiles || !this.activityFolderPath)
             return;
 
-        for(const fileName of this.jsonFiles) {
-            const filePath = path.join(this.activityFolderPath, fileName);
-            const Activities: Activity[] = StandartActivityLoader.execute(filePath);
-            
-            LoadedActivities.other.push(...Activities);
+        const folder = path.parse(this.activityFolderPath).name;
 
-            this.Logger(`Загружен ${`${fileName}`}`, Colors.green);
+        switch (folder) {
+            case 'activities':
+                this.ActivityLoader();
+
+            case 'utility':
+                this.UtilityLoader();
+
+            default:
+                break;
         };
     };
 
@@ -122,7 +196,8 @@ class ActivitiesLoader {
 };
 
 export {
-    LoadedActivities as activities
+    LoadedActivities as activities,
+    LoadedUtility as utility
 };
 
 export default ActivitiesLoader;

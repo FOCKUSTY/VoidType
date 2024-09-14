@@ -1,8 +1,12 @@
 import { Client as DiscordClient } from "discord.js";
 
 import { objects } from "utility/loaders/objects.loader";
-import { Colors } from "utility/service/formatter.service";
+import Filter from "utility/service/filter.service";
+import Formatter, { Colors } from "utility/service/formatter.service";
 import Logger from 'logger/index.logger';
+import { Debug } from "develop/debug.develop";
+
+const filter = new Filter(undefined);
 
 const guilds: string[] = [];
 const users: string[] = [];
@@ -21,14 +25,43 @@ class ClientLoaderClass {
         this._names = names;
     };
 
-    public readonly execute = async (Client: DiscordClient) => {
-        Client.users.cache.forEach(user =>
-            users.push(user.globalName || user.username));
-        this.Logger('Загрузка пользователей успешна', Colors.green);
+    private readonly UsersLoader = async(Client: DiscordClient) => {
+        const size = Client.users.cache.filter(u => !u.bot).size;
+
+        this.Logger(`Загрузка ${size} ` + Formatter.RuWords(size, ['пользователя', 'пользователей']), Colors.yellow);
+
+        Client.users.cache.forEach(user => {
+            const name = filter.userFilter(user);
+            
+            if(name) users.push(name);
+        });
+
+        if(size-users.length > 0)
+            this.Logger(`Отсеивание ${size-users.length} ${Formatter.RuWords(size-users.length, ['пользователя', 'пользователей'])}`, Colors.yellow);
+
+        this.Logger(`Загрузка ${users.length} ${Formatter.RuWords(users.length, ['пользователя', 'пользователей'])} успешна`, Colors.green);
+    };
+
+    private readonly GuildsLoader = async(Client: DiscordClient) => {
+        const size = Client.guilds.cache.size;
+
+        this.Logger(`Загрузка ${size} ` + Formatter.RuWords(size, ['гильдии', 'гильдий']), Colors.yellow);
         
-        Client.guilds.cache.forEach(guild =>
-            guilds.push(guild.name));
-        this.Logger('Загрузка гильдий успешна', Colors.green);
+        Client.guilds.cache.forEach(guild => {
+            const name = filter.guildFilter(guild);
+            
+            if(name) guilds.push(name);
+        });
+
+        if(size-guilds.length > 0)
+            this.Logger(`Отсеивание ${size-guilds.length} ${Formatter.RuWords(size-guilds.length, ['гильдии', 'гильдий'])}`, Colors.yellow);
+
+        this.Logger(`Загрузка ${guilds.length} ${Formatter.RuWords(guilds.length, ['гильдии', 'гильдий'])} успешна`, Colors.green);
+    };
+
+    public readonly execute = async (Client: DiscordClient) => {
+        this.UsersLoader(Client);
+        this.GuildsLoader(Client);
 
         names.push(...objects.names);
     };

@@ -6,11 +6,8 @@ import {
 import customIds from "./custom-ids.modal";
 import { config } from "config";
 
-import TelegramClass from "telegram/utility/service/telegram.service";
-import DiscordClass from "discord/utility/service/discord.service";
-
-const Telegram = new TelegramClass()
-const Discord = new DiscordClass()
+import Telegram from "telegram/utility/service/telegram.service";
+import Discord from "discord/utility/service/discord.service";
 
 const Update = async (interaction: ModalSubmitInteraction) => {
     const components = customIds.updateModal.components;
@@ -37,12 +34,12 @@ const Update = async (interaction: ModalSubmitInteraction) => {
                 );
             };
 
-            Discord.SendMessage(config.changeLogDiscordChannelId, embeds);
-            Telegram.SendMessage(config.changeLogTelegramGroupId, [`${version}\n${ru}`, `${version}\n${en}`]);
+            await new Discord().SendMessage(config.changeLogDiscordChannelId, embeds);
+            await new Telegram().SendMessage(config.changeLogTelegramGroupId, `${version}\n${ru}`);
         }
         else {
-            Discord.SendMessage(config.changeLogDiscordChannelId, `# ${version}\n${ru}\n# ${version}\n${en}`);
-            Telegram.SendMessage(config.changeLogTelegramGroupId, `${version}\n${ru}\n${version}\n${en}`);
+            await new Discord().SendMessage(config.changeLogDiscordChannelId, `# ${version}\n${ru}\n# ${version}\n${en}`);
+            await new Telegram().SendMessage(config.changeLogTelegramGroupId, `${version}\n${ru}`);
         };
 
 		return await interaction.reply({
