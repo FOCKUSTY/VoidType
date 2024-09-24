@@ -25,7 +25,7 @@ export = {
                 : 'Запущено в режиме итогов!', type: Number(ActivityTypes.custom)
         }], status: 'idle' });
 
-        // acitivyLoader.execute();
+        acitivyLoader.execute();
         new ClientLoader().execute(Client);
 
         setInterval(() => {
