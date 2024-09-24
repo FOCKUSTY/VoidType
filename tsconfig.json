@@ -22,6 +22,8 @@
             "logger/*": ["./src/logger/*", "./dist/the-void-bots/VoidType/src/logger/*" ],
             "develop/*": ["./src/develop/*", "./dist/the-void-bots/VoidType/src/develop/*" ],
             "database/*": ["./src/database/*", "./dist/the-void-bots/VoidType/src/database/*" ],
+
+            "loaders/*": ["../../the-void-database/loaders/src/*"],
             
             "src/*": ["./src/*", "./dist/the-void-bots/VoidType/src/*"]
         }

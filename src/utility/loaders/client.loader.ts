@@ -1,10 +1,9 @@
 import { Client as DiscordClient } from "discord.js";
 
-import { objects } from "utility/loaders/objects.loader";
+import { objects } from "loaders/data/objects.loader";
 import Filter from "utility/service/filter.service";
 import Formatter, { Colors } from "utility/service/formatter.service";
 import Logger from 'logger/index.logger';
-import { Debug } from "develop/debug.develop";
 
 const filter = new Filter(undefined);
 

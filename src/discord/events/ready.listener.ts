@@ -5,7 +5,8 @@ import { ActivityTypes } from "types/activities/activities.enum";
 import Logger from "logger/index.logger";
 
 import ClientLoader from "utility/loaders/client.loader";
-import ActivityLoader from 'utility/loaders/activities.loader';
+import ActivityLoader from 'loaders/data/activities.loader';
+
 import RandomActiviy from "utility/service/random-activity.service";
 
 export = {
@@ -24,7 +25,7 @@ export = {
                 : 'Запущено в режиме итогов!', type: Number(ActivityTypes.custom)
         }], status: 'idle' });
 
-        acitivyLoader.execute();
+        // acitivyLoader.execute();
         new ClientLoader().execute(Client);
 
         setInterval(() => {
