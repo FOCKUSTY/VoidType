@@ -1,12 +1,12 @@
 import { ActivityType, Client as DiscordClient } from "discord.js";
 
 import { ActivityTypes } from "types/activities/activities.enum";
-import { Activity } from "types/activities/standart-activity.type";
+import { Activity } from "loaders/../../types/activity.types";
 
 import { Debug } from 'develop/debug.develop';
 import Logger from 'logger/index.logger';
 
-import { activities as loadedActivities } from "utility/loaders/activities.loader";
+import { activities as loadedActivities } from "loaders/data/activities.loader";
 import ClientLoader from "utility/loaders/client.loader";
 
 import PseudoRandom from "./pseudo-random.service";

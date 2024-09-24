@@ -1,4 +1,4 @@
-import Loader from "utility/loaders/objects.loader";
+import Loader from "loaders/data/objects.loader";
 
 const objects = new Loader().execute();
 

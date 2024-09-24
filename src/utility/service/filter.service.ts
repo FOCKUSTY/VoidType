@@ -1,6 +1,6 @@
 import type { Guild, User } from "discord.js";
 
-import { utility } from "utility/loaders/activities.loader";
+import { utility } from "loaders/data/activities.loader";
 
 class Filter {
     private _banwords: any[] = [];
