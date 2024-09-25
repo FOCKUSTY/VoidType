@@ -6,7 +6,7 @@ class Filter {
     private _banwords: any[] = [];
     private _last_value: string|null = null;
     
-    constructor(banwords: any[]|undefined) {
+    constructor(banwords?: any[]|undefined) {
         this._banwords = banwords
             ? banwords
             : utility.banwords;

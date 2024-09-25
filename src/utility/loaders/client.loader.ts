@@ -5,7 +5,7 @@ import Filter from "utility/service/filter.service";
 import Formatter, { Colors } from "utility/service/formatter.service";
 import Logger from 'logger/index.logger';
 
-const filter = new Filter(undefined);
+const filter = new Filter();
 
 const guilds: string[] = [];
 const users: string[] = [];

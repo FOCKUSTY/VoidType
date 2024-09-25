@@ -6,6 +6,9 @@ import fs from 'fs';
 const dir = path.join('./');
 const cache = new Map();
 
+const format: any = '*&00.00.0000';
+const regexp = new RegExp(format.replace('*', '[a-zA-Z]?').replace('&', '[!@#$%^&*()-+]?').replaceAll('0', '[0-9]'), 'gi');
+
 class Log {
     private readonly _prefix: string = '';
     private readonly _date = Formatter.Date(new Date(), 'dd.MM.yyyy');
@@ -52,6 +55,28 @@ class Log {
     
     private readonly init = () => {
         this.CreateFolder();
+
+        for(const log of fs.readdirSync(path.join(dir, 'log'))) {
+            const name = path.parse(path.join(dir, 'log', log)).name;
+            const date = name.match(regexp);
+
+            if(!date) continue;
+
+            const currentTime = Formatter.Date(new Date(), 'dd.MM.yyyy').split('.').reverse();
+            const time = date[0].split('.').reverse();
+
+            for(const index in currentTime) {
+                const currentDate = Number(currentTime[index]);
+                const date = Number(time[index]);
+
+                if(currentDate > date) {
+                    try {
+                        fs.unlinkSync(path.join(dir, 'log', log));
+                        continue;
+                    } catch {}
+                };
+            };
+        };
     };
 
     public writeFile(text: string) {
