@@ -10,6 +10,8 @@ names.json
 ideadb.sqlite
 config.json
 hasing.ts
+*.log
+log/
 
 # Logs
 logs

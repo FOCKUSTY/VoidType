@@ -34,9 +34,6 @@ const Client = new DiscordClient({
 	],
 });
 
-Debug.Console.clear();
-Debug.Log([Formatter.Color('Начало программы', Colors.magenta)]);
-
 const Commands = new Collection();
 const Cooldowns = new Collection();
 

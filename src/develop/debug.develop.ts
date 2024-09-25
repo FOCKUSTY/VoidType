@@ -1,17 +1,31 @@
 import { settings } from "config";
 import Formatter, { Colors } from "utility/service/formatter.service";
 
+import LogFile from "logger/file.logger";
+
 export class Debug {
+    private static readonly _log: LogFile = new LogFile(undefined, 'debug');
+    private static readonly _error: LogFile = new LogFile(undefined, 'error');
+    private static readonly _warn: LogFile = new LogFile(undefined, 'warn');
+
     public static readonly Console = console;
 
     private static readonly WarnComponent = (msg: string, type: 'error'|'warning') => {
         console.warn(Colors.yellow + '------------- !Внимание! --------------' + Colors.reset);
 
+        const text = `
+        '------------- !Внимание! --------------'
+        ${msg}
+        '------------- !Внимание! --------------'
+        `
+
         if(type === 'error') {
             console.error(Colors.red + msg + Colors.reset);
+            this._error.writeFile(text);
         }
         else {
             console.warn(Colors.yellow + msg + Colors.reset);
+            this._warn.writeFile(text);
         };
 
         console.warn(Colors.yellow + '------------- !Внимание! --------------' + Colors.reset);
@@ -23,6 +37,10 @@ export class Debug {
     
         if(trace)
             console.trace(Colors.cyan + 'Debugger' + Colors.reset + ':' + Colors.magenta, ...message, Colors.reset);
+
+        for(const msg of message) {
+            this._log.writeFile(msg);
+        };
     };;
     
     public static readonly Trace = () => {

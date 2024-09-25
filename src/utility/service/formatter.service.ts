@@ -103,13 +103,14 @@ class Formatter {
         return file;
     };
 
-    public static Date = (date: string | number | Date, form='dd.MM.yyyy HH:mm:ss'): string|void =>
+    public static Date = (date: string | number | Date, form='dd.MM.yyyy HH:mm:ss'): string =>
     {
         if(!date)
-            return;
+            return 'Error';
     
         let dateForm: any = new Date(date);
         dateForm = format(dateForm, `${form}`);
+        
         return dateForm;
     };
 };

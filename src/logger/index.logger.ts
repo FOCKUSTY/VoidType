@@ -1,12 +1,14 @@
 import Formatter, { Colors } from "utility/service/formatter.service";
 import LoggersNames from './logger-names';
-
 import type { LoggerName } from "types/activities/loggers.type";
+
+import LogFile from './file.logger';
 
 class InitLogger {
     private readonly _name: string;
     private readonly _colors: [Colors, Colors];
-    
+    private readonly _log: LogFile = new LogFile();
+
     constructor(name: string, colors: [Colors, Colors]) {
         this._name = name;
         this._colors = colors;
@@ -24,6 +26,8 @@ class InitLogger {
                 ? color
                 : this._colors[1]
             ));
+
+        this._log.writeFile(text);
 
         return txt;
     };
