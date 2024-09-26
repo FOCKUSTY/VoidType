@@ -7,7 +7,12 @@ const dir = path.join('./');
 const cache = new Map();
 
 const format: any = '*&00.00.0000';
-const regexp = new RegExp(format.replace('*', '[a-zA-Z]?').replace('&', '[!@#$%^&*()-+]?').replaceAll('0', '[0-9]'), 'gi');
+const regexp = new RegExp(
+    format
+        .replace('*', '[a-zA-Z]?')
+        .replace('&', '[!@#$%^&*()-+]?')
+        .replaceAll('0', '[0-9]'), 'gi'
+);
 
 class Log {
     private readonly _prefix: string = '';

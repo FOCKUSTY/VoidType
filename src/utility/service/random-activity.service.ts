@@ -6,7 +6,7 @@ import { Activity } from "loaders/../../types/activity.types";
 import { Debug } from 'develop/debug.develop';
 import Logger from 'logger/index.logger';
 
-import { activities as loadedActivities } from "loaders/data/activities.loader";
+import { activities as loadedActivities, utility } from "loaders/data/activities.loader";
 import ClientLoader from "utility/loaders/client.loader";
 
 import PseudoRandom from "./pseudo-random.service";
@@ -14,6 +14,8 @@ import Formatter from "./formatter.service";
 import Array from "./array.service";
 
 const historyObject = new Map();
+const titleRegExp = new RegExp('[${]+[a-zA-Z]+[}]+', 'gi');
+const formatterRegExp = new RegExp('[a-zA-Z]+', 'gi');
 
 class RandomActiviy {
     private readonly Logger = new Logger('Activity').execute;
@@ -28,6 +30,23 @@ class RandomActiviy {
         this._client = client;
         this._preffix = preffix === '' ? '' : ' | ' + preffix;
         this._setActivity = setActivity;
+    };
+
+    private readonly RegExpFormatter = (activiy: Activity) => {
+        if(titleRegExp.test(activiy.text)) {
+            const v: string = (activiy.text.match(titleRegExp) || [''])[0]
+            const variable = v.match(formatterRegExp);
+
+            if(!variable)
+                return activiy;
+
+            const array = utility.titles[variable[0]];
+            const title = array[new PseudoRandom().Number(0, array.length-1)];
+
+            activiy.text = activiy.text.replace(v, title);
+        };
+
+        return activiy;
     };
 
     private readonly Typified = async (type: 'user'|'guild'|'name'): Promise<Activity> => {
@@ -76,10 +95,10 @@ class RandomActiviy {
             historyObject.set('activities', history);
     
             const activities = Array.Shuffle(loadedActivities['other']);
-            
+
             const randomActivityNumber = new PseudoRandom().Number(0, activities.length-1, history, activities, this._setActivity);
-            const randomActivity: Activity = activities[randomActivityNumber];
-    
+            const randomActivity: Activity = this.RegExpFormatter(activities[randomActivityNumber]);
+
             return { text: randomActivity.text + this._preffix, type: randomActivity.type };
         } catch (err) {
             Debug.Error(err);
