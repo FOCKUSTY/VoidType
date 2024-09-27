@@ -14,10 +14,9 @@ class OneTimeFunction {
     };
 
     public execute = (): any => {
-        if(functions.get(this._name))
+        if(functions.get(this._name)) {
             return;
-        else
-        {
+        } else {
             functions.set(this._name, true);
             
             return this._funcParameters

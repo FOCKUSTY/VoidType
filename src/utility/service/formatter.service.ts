@@ -1,5 +1,6 @@
-import { format } from 'date-fns';
 import fs from 'node:fs';
+import type { Time as TimeType } from 'types/service/date.types';
+import DateFormatter from './date.service'
 
 export enum Colors {
     reset = "\u001B[0m",
@@ -45,7 +46,11 @@ export enum Colors {
     bgBrightYellow = "\u001b[43;1m",
 };
 
-class Formatter {
+class Formatter extends DateFormatter {
+    constructor(date?: Date, time?: TimeType) {
+        super(date, time);
+    };
+    
     public static RuWords = (num: number, stage: [string, string, string]|[string, string]) => {
         const
             txt: string = `${num}`,
@@ -86,8 +91,9 @@ class Formatter {
         return output.join(joiner);
     };
 
-    public static Comma = (number: string) =>
-        `${number}`.replace('.', ',');
+    public static Comma = (number: string) => {
+       return  `${number}`.replace('.', ',');
+    };
 
     public static FromJSON = (json: string): any => {
         let file;
@@ -101,17 +107,6 @@ class Formatter {
         JSON.stringify(json, (_, value) => { eval(`file = ${value}`) } );
 
         return file;
-    };
-
-    public static Date = (date: string | number | Date, form='dd.MM.yyyy HH:mm:ss'): string =>
-    {
-        if(!date)
-            return 'Error';
-    
-        let dateForm: any = new Date(date);
-        dateForm = format(dateForm, `${form}`);
-        
-        return dateForm;
     };
 };
 
