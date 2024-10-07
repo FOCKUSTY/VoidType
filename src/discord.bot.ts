@@ -1,11 +1,10 @@
-import Formatter, { Colors } from 'utility/service/formatter.service';
 import ICL from 'discord/events/interaction-create.listener';
 import ML from 'discord/events/modal.listener';
 
 import { config } from 'config';
 import { Debug } from 'develop/debug.develop';
 
-import { WriteCommands } from 'discord/deploy.commands';
+import Deployer from 'discord/deploy.commands';
 import DeployEvents from 'discord/deploy.events';
 
 import path from 'path';
@@ -50,7 +49,7 @@ const Login = async () => {
 	const eventFiles = fs.readdirSync(eventsPath)
 		.filter(file => file.endsWith('.js') || file.endsWith('.ts'));
 
-	WriteCommands(Commands, Client, foldersPath, commandsFolder);
+	new Deployer(foldersPath, commandsFolder).write(Client, Commands);
 	new DeployEvents(eventsPath, eventFiles).execute();
 
 	await Client

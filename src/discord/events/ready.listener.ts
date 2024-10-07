@@ -2,7 +2,7 @@ import type { Client as DiscordClient } from "discord.js";
 import { Events } from "discord.js";
 
 import { ActivityTypes } from "types/activities/activities.enum";
-import Logger from "logger/index.logger";
+import Logger from "fock-logger";
 
 import ClientLoader from "utility/loaders/client.loader";
 import ActivityLoader from 'loaders/data/activities.loader';

@@ -2,7 +2,6 @@ import { Client as DiscordClient, EmbedBuilder } from "discord.js";
 import { Debug } from "develop/debug.develop";
 
 import SendMessage from "./helpers/send-message.helper";
-
 import Client from "src/discord.bot";
 
 class Discord {

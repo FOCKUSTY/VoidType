@@ -1,12 +1,12 @@
 import { settings } from "config";
-import Formatter, { Colors } from "utility/service/formatter.service";
 
-import LogFile from "logger/file.logger";
+import { Colors } from "f-formatter/colors";
+import LogFile from "fock-logger/file.logger";
 
 export class Debug {
-    private static readonly _log: LogFile = new LogFile(undefined, 'debug');
-    private static readonly _error: LogFile = new LogFile(undefined, 'error');
-    private static readonly _warn: LogFile = new LogFile(undefined, 'warn');
+    private static readonly _log: LogFile = new LogFile('./', undefined, 'debug');
+    private static readonly _error: LogFile = new LogFile('./', undefined, 'error');
+    private static readonly _warn: LogFile = new LogFile('./', undefined, 'warn');
 
     public static readonly Console = console;
 

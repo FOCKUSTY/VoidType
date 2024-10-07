@@ -2,14 +2,18 @@ import { Client as DiscordClient } from "discord.js";
 
 import { objects } from "loaders/data/objects.loader";
 import Filter from "utility/service/filter.service";
-import Formatter, { Colors } from "utility/service/formatter.service";
-import Logger from 'logger/index.logger';
+
+import Logger from 'fock-logger';
+import Formatter from "f-formatter";
+import { Colors } from "f-formatter/colors";
 
 const filter = new Filter();
 
 const guilds: string[] = [];
 const users: string[] = [];
 const names: string[] = [];
+
+const formatter = new Formatter();
 
 class ClientLoaderClass {
     private readonly Logger = new Logger('Loader').execute;
@@ -27,7 +31,7 @@ class ClientLoaderClass {
     private readonly UsersLoader = async(Client: DiscordClient) => {
         const size = Client.users.cache.filter(u => !u.bot).size;
 
-        this.Logger(`Загрузка ${size} ` + Formatter.RuWords(size, ['пользователя', 'пользователей']), Colors.yellow);
+        this.Logger(`Загрузка ${size} ` + formatter.RuWords(size, ['пользователя', 'пользователей']), Colors.yellow);
 
         Client.users.cache.forEach(user => {
             const name = filter.userFilter(user);
@@ -36,15 +40,15 @@ class ClientLoaderClass {
         });
 
         if(size-users.length > 0)
-            this.Logger(`Отсеивание ${size-users.length} ${Formatter.RuWords(size-users.length, ['пользователя', 'пользователей'])}`, Colors.yellow);
+            this.Logger(`Отсеивание ${size-users.length} ${formatter.RuWords(size-users.length, ['пользователя', 'пользователей'])}`, Colors.yellow);
 
-        this.Logger(`Загрузка ${users.length} ${Formatter.RuWords(users.length, ['пользователя', 'пользователей'])} успешна`, Colors.green);
+        this.Logger(`Загрузка ${users.length} ${formatter.RuWords(users.length, ['пользователя', 'пользователей'])} успешна`, Colors.green);
     };
 
     private readonly GuildsLoader = async(Client: DiscordClient) => {
         const size = Client.guilds.cache.size;
 
-        this.Logger(`Загрузка ${size} ` + Formatter.RuWords(size, ['гильдии', 'гильдий']), Colors.yellow);
+        this.Logger(`Загрузка ${size} ` + formatter.RuWords(size, ['гильдии', 'гильдий']), Colors.yellow);
         
         Client.guilds.cache.forEach(guild => {
             const name = filter.guildFilter(guild);
@@ -53,9 +57,9 @@ class ClientLoaderClass {
         });
 
         if(size-guilds.length > 0)
-            this.Logger(`Отсеивание ${size-guilds.length} ${Formatter.RuWords(size-guilds.length, ['гильдии', 'гильдий'])}`, Colors.yellow);
+            this.Logger(`Отсеивание ${size-guilds.length} ${formatter.RuWords(size-guilds.length, ['гильдии', 'гильдий'])}`, Colors.yellow);
 
-        this.Logger(`Загрузка ${guilds.length} ${Formatter.RuWords(guilds.length, ['гильдии', 'гильдий'])} успешна`, Colors.green);
+        this.Logger(`Загрузка ${guilds.length} ${formatter.RuWords(guilds.length, ['гильдии', 'гильдий'])} успешна`, Colors.green);
     };
 
     public readonly execute = async (Client: DiscordClient) => {

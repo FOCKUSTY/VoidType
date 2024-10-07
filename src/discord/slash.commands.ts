@@ -1,4 +1,4 @@
-import { DeployCommands, UpdateCommands } from './deploy.commands';
+import Deployer from './deploy.commands';
 import { Command } from "./command.commands";
 
 import path from 'path';
@@ -10,11 +10,13 @@ const guildCommands: Command[] = [];
 const foldersPath = path.join(__dirname, 'commands');
 const commandsFolder = fs.readdirSync(foldersPath);
 
-DeployCommands(globalCommands, 'global', foldersPath, commandsFolder);
-DeployCommands(guildCommands, 'guild', foldersPath, commandsFolder);
+const deployer = new Deployer(foldersPath, commandsFolder);
 
-UpdateCommands(globalCommands, 'global');
-UpdateCommands(guildCommands, 'guild');
+deployer.execute(globalCommands, 'global');
+deployer.execute(guildCommands, 'guild');
+
+deployer.update(globalCommands, 'global');
+deployer.update(guildCommands, 'guild');
 
 export = {
     global: globalCommands,

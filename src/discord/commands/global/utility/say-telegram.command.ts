@@ -1,13 +1,11 @@
 import {
     SlashCommandBuilder,
-    PermissionFlagsBits,
     ModalActionRowComponentBuilder,
     CommandInteraction,
     TextInputBuilder,
     TextInputStyle,
     ModalBuilder, 
-    ActionRowBuilder,
-    ChannelType
+    ActionRowBuilder
 } from 'discord.js';
 
 import GetObject from 'utility/service/get-object.service';

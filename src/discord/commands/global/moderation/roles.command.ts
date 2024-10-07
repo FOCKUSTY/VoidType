@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 import type { CommandInteraction, Role, Collection, EmbedField } from 'discord.js';
-import Formatter from 'utility/service/formatter.service';
+import Formatter from 'f-formatter';
 
 export = {
     cooldown: 5,
@@ -38,7 +38,7 @@ export = {
 				roles[index].push(`${1 + i}. <@&${totalRoles[j].id}>`);
 			};
 
-			const word = Formatter.RuWords(roles[index].length, ['роль', 'роли', 'ролей']);
+			const word = new Formatter().RuWords(roles[index].length, ['роль', 'роли', 'ролей']);
 
 			if(index % 2 === 0 && index !== 0)
 				fields.push({ inline: false, name: 'ﾠ', value: 'ﾠ' });
@@ -53,7 +53,7 @@ export = {
         const name = interaction.guild.name;
         const icon = `https://cdn.discordapp.com/icons/${interaction.guild.id}/${interaction.guild.icon}.png`;
 
-		const text = `Всего ${rolesCount} ${Formatter.RuWords(rolesCount, ['роль', 'роли', 'ролей'])}`;
+		const text = `Всего ${rolesCount} ${new Formatter().RuWords(rolesCount, ['роль', 'роли', 'ролей'])}`;
 
         const embed = new EmbedBuilder()
 			.setColor(0x161618)

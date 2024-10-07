@@ -1,7 +1,7 @@
 import type { Interaction } from "src/types/telegram/interaction.type";
 import { Telegraf } from "telegraf";
 import Commands from 'telegram/index.commands';
-import Logger from 'logger/index.logger';
+import Logger from 'fock-logger';
 
 import path from "node:path";
 

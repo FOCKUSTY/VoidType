@@ -14,8 +14,8 @@ import fs from 'fs';
 const Client = new Telegraf(config.telegramToken);
 
 Client.on('message', async (message: Interaction) => {
-    MessageListener(message);
     SlashCommandsListener(message);
+    MessageListener(message);
 });
 
 const Login = async () => {

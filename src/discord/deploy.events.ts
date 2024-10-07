@@ -1,6 +1,6 @@
 import type { Client as DiscordClient } from 'discord.js';
 import Discord from './utility/service/discord.service';
-import Logger from 'logger/index.logger';
+import Logger from 'fock-logger';
 
 import path from "node:path";
 
