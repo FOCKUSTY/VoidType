@@ -21,6 +21,7 @@
     "dotenv": "^16.4.5",
     "f-formatter": "^0.2.4",
     "fock-logger": "^0.2.0",
+    "fock-server": "^0.0.2",
     "random-js": "^2.1.0",
     "telegraf": "^4.16.3"
   },

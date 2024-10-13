@@ -4,6 +4,8 @@ import ML from 'discord/events/modal.listener';
 import { config } from 'config';
 import { Debug } from 'develop/debug.develop';
 
+import { Discord } from 'fock-server';
+
 import Deployer from 'discord/deploy.commands';
 import DeployEvents from 'discord/deploy.events';
 
@@ -54,6 +56,7 @@ const Login = async () => {
 
 	await Client
 		.login(config.clientToken)
+		.then(() => new Discord(config.clientToken, Client))
 		.catch((e) => Debug.Error(e));
 }
 

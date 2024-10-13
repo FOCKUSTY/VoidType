@@ -11,6 +11,8 @@ import { Colors } from 'f-formatter/colors';
 import loggers from './loggers.names';
 import Logger from 'fock-logger';
 
+import Server, { Config } from 'fock-server';
+
 Debug.Console.clear();
 Debug.Log([new Formatter().Color('Начало программы', Colors.magenta)]);
 
@@ -35,6 +37,8 @@ for(const name in loggers) {
             break;
             
         default:
+            new Server(3002, new Config().authToken).listen();
+
             LoginDiscord();
             LoginTelegram();
             break;
