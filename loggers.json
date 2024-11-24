@@ -1,11 +1,4 @@
 {
-    "TheVoid": {
-        "name": "TheVoid",
-        "colors": [
-            "\u001b[31m",
-            "\u001b[35m"
-        ]
-    },
     "Loader": {
         "name": "Loader",
         "colors": [
@@ -17,20 +10,6 @@
         "name": "Activity",
         "colors": [
             "\u001b[31;1m",
-            "\u001b[32m"
-        ]
-    },
-    "Fail": {
-        "name": "Fail",
-        "colors": [
-            "\u001b[31m",
-            "\u001b[31m"
-        ]
-    },
-    "Commands": {
-        "name": "Commands",
-        "colors": [
-            "\u001b[33;1m",
             "\u001b[32m"
         ]
     },
@@ -46,6 +25,27 @@
         "colors": [
             "\u001b[33;1m",
             "\u001b[33m"
+        ]
+    },
+    "Commands": {
+        "name": "Commands",
+        "colors": [
+            "\u001b[33;1m",
+            "\u001b[32m"
+        ]
+    },
+    "Fail": {
+        "name": "Fail",
+        "colors": [
+            "\u001b[31m",
+            "\u001b[31m"
+        ]
+    },
+    "TheVoid": {
+        "name": "TheVoid",
+        "colors": [
+            "\u001b[31m",
+            "\u001b[35m"
         ]
     },
     "Success": {

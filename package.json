@@ -8,9 +8,9 @@
     "dev": "set NODE_ENV=dev&& set BOT=all&& tsx watch src/start.bot.ts",
     "dev:telegram": "set NODE_ENV=dev&& set BOT=telegram&& tsx watch src/start.bot.ts",
     "dev:discord": "set NODE_ENV=dev&& set BOT=discord&& tsx watch src/start.bot.ts",
-    "start:slash": "node dist/the-void-bots/VoidType/src/discrd/slash.commands.ts",
+    "start:slash": "node dist/the-void-bots/VoidType/src/discord/slash.commands.js",
     "start:builded": "set NODE_ENV=prod&& set BOT=all&& node dist/the-void-bots/VoidType/src/start.bot.js",
-    "start": "set NODE_ENV=prod&& pnpm run build && pnpm run start:builded",
+    "start": "set NODE_ENV=prod&& pnpm run build && pnpm run start:slash && pnpm run start:builded",
     "build": "tsc && tsc-alias"
   },
   "author": "FOCKUSTY",
@@ -20,8 +20,7 @@
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
     "f-formatter": "^0.2.4",
-    "fock-logger": "^0.2.0",
-    "fock-server": "^0.0.2",
+    "fock-logger": "0.4.2-a",
     "random-js": "^2.1.0",
     "telegraf": "^4.16.3"
   },
