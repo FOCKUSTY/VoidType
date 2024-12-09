@@ -11,27 +11,30 @@
     "start:slash": "node dist/the-void-bots/VoidType/src/discord/slash.commands.js",
     "start:builded": "set NODE_ENV=prod&& set BOT=all&& node dist/the-void-bots/VoidType/src/start.bot.js",
     "start": "set NODE_ENV=prod&& pnpm run build && pnpm run start:slash && pnpm run start:builded",
-    "build": "tsc && tsc-alias"
+    "build": "tsc"
   },
   "author": "FOCKUSTY",
   "license": "MIT",
   "dependencies": {
-    "date-fns": "^2.30.0",
-    "discord.js": "^14.15.3",
-    "dotenv": "^16.4.5",
+    "@thevoidcommunity/the-void-database": "^0.0.2",
     "f-formatter": "^0.2.4",
-    "fock-logger": "0.4.2-a",
+    "fock-logger": "0.4.4",
+    
+    "discord.js": "^14.15.3",
     "random-js": "^2.1.0",
+    "date-fns": "^2.30.0",
     "telegraf": "^4.16.3"
   },
   "devDependencies": {
     "@types/node": "^20.16.1",
-    "nodemon": "^3.1.7",
-    "ts-node": "^10.9.2",
-    "tsc-alias": "^1.8.10",
+
     "tsconfig-paths": "^4.2.0",
-    "tslib": "^2.6.3",
-    "tsx": "^4.19.1",
+    "tsc": "^2.0.4",
+    
+    "ts-node": "^10.9.2",
+    "nodemon": "^3.1.7",
+    
+    "dotenv": "^16.4.5",
     "typescript": "^5.5.4"
   }
 }
