@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@thevoidcommunity/the-void-database':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.4
+        version: 0.0.4
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -118,8 +118,8 @@ packages:
   '@telegraf/types@7.1.0':
     resolution: {integrity: sha512-kGevOIbpMcIlCDeorKGpwZmdH7kHbqlk/Yj6dEpJMKEQw5lk0KVQY0OLXaCswy8GqlIVLd5625OB+rAntP9xVw==}
 
-  '@thevoidcommunity/the-void-database@0.0.2':
-    resolution: {integrity: sha512-xmgKFia2PbPWrA+UFlQWFnNA4fI11J0YSURxXb4z8qKYkVgSre7V3NVAAjLfNHtOjbVpHzChM2oDixDUihnrLw==}
+  '@thevoidcommunity/the-void-database@0.0.4':
+    resolution: {integrity: sha512-wcuvcmKg4g/4Cp9/15W9prFsG7Oy3taZE0wUyVK5C3CCJqMPGerv92bNmJNoUwBj1OHMoJztQyOj/PQdtcZ5cA==}
 
   '@tsconfig/node10@1.0.11':
     resolution: {integrity: sha512-DcRjDCujK/kCk/cUe8Xz8ZSpm8mS3mNNpta+jGCA6USEDfktlNvm1+IuZ9eTcDbNk41BHwpHHeW+N1lKCz4zOw==}
@@ -712,8 +712,9 @@ snapshots:
 
   '@telegraf/types@7.1.0': {}
 
-  '@thevoidcommunity/the-void-database@0.0.2':
+  '@thevoidcommunity/the-void-database@0.0.4':
     dependencies:
+      f-formatter: 0.3.1
       fock-builder: 1.0.2-beta
       fock-logger: 0.4.4
       mongoose: 8.8.4
