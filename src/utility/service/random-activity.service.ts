@@ -1,16 +1,17 @@
 import { ActivityType, Client as DiscordClient } from "discord.js";
-
 import { ActivityTypes } from "types/activities/activities.enum";
-import { Activity } from "loaders/../../types/activity.types";
+
+import { activities as loadedActivities, utility } from "@thevoidcommunity/the-void-database/loaders/data/activities.loader";
+import { Activity } from "@thevoidcommunity/the-void-database/types/activity.types";
 
 import { Debug } from 'develop/debug.develop';
-import Logger from 'fock-logger';
 
-import { activities as loadedActivities, utility } from "loaders/data/activities.loader";
 import ClientLoader from "utility/loaders/client.loader";
 
-import PseudoRandom from "./pseudo-random.service";
 import Formatter from "f-formatter";
+import Logger from 'fock-logger';
+
+import PseudoRandom from "./pseudo-random.service";
 import Array from "./array.service";
 
 const historyObject = new Map();
@@ -29,7 +30,12 @@ class RandomActiviy {
 
     constructor(client: DiscordClient, preffix: string = '', setActivity: boolean = true) {
         this._client = client;
-        this._preffix = preffix === '' ? '' : ' | ' + preffix;
+        
+        this._preffix = preffix === ''
+            ? ''
+            : ' | '
+            + preffix;
+
         this._setActivity = setActivity;
     };
 
@@ -116,8 +122,7 @@ class RandomActiviy {
     
         const randomChance = new PseudoRandom().Number(0, 100, history, undefined, this._setActivity);
 
-        const Log = (activity: Activity) =>
-        {
+        const Log = (activity: Activity) => {
             if(this._setActivity)
                 this.Logger(`Устанавливаю активность: "${activity.text}", тип: ${activity.type}`);
             
@@ -127,8 +132,7 @@ class RandomActiviy {
         if(this._setActivity)
             Debug.Log(['Chance:', randomChance]);
     
-        if(randomChance <= 10)
-        {
+        if(randomChance <= 10) {
             const length = this._clientLoader.guilds.length;
             const word = formatter.RuWords(length, ['сервере', 'серверах', 'серверах']);
     

@@ -1,15 +1,14 @@
+import { Constants } from '@thevoidcommunity/the-void-database';
+
+import Logger from 'fock-logger';
+import Formatter, { Colors } from 'f-formatter';
+
+import { THEVOIDs_CONSTANTS } from "src/index.constants";
 import { Debug } from 'develop/debug.develop';
 import { LoginDiscord } from './discord.bot';
 import { LoginTelegram } from './telegram.bot';
 
-import { THEVOIDs_CONSTANTS } from "src/index.constants";
-import Constants from '@thevoidcommunity/the-void-database/loaders/utils/constants.service';
-
-import Formatter from 'f-formatter';
-import { Colors } from 'f-formatter/colors';
-
 import loggers from './loggers.names';
-import Logger from 'fock-logger';
 
 Debug.Console.clear();
 Debug.Log([new Formatter().Color('Начало программы', Colors.magenta)]);

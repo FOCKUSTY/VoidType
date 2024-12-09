@@ -5,7 +5,7 @@ import { ActivityTypes } from "types/activities/activities.enum";
 import Logger from "fock-logger";
 
 import ClientLoader from "utility/loaders/client.loader";
-import ActivityLoader from 'loaders/data/activities.loader';
+import { ActivitiesLoader } from "@thevoidcommunity/the-void-database";
 
 import RandomActiviy from "utility/service/random-activity.service";
 
@@ -17,7 +17,7 @@ export = {
             return;
 
         const randomActivity = new RandomActiviy(Client, process.env.NODE_ENV === 'dev' ? 'dev' : '');
-        const acitivyLoader = new ActivityLoader();
+        const activiesLoader = new ActivitiesLoader();
 
         Client.user.setPresence({ activities: [{
             name: process.env.NODE_ENV === 'dev'
@@ -25,7 +25,7 @@ export = {
                 : 'Запущено в режиме итогов!', type: Number(ActivityTypes.custom)
         }], status: 'idle' });
 
-        acitivyLoader.execute();
+        activiesLoader.execute();
         new ClientLoader().execute(Client);
 
         setInterval(() => {
@@ -33,7 +33,7 @@ export = {
         }, 1000 * 60 * 1);
 
         setInterval(() => {
-            acitivyLoader.reload();
+            activiesLoader.reload();
         }, 1000 * 60 * 10);
 
         new Logger('TheVoid').execute('Начинаю работу');

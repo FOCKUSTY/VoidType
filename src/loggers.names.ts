@@ -1,4 +1,4 @@
-import { Colors } from "f-formatter/colors";
+import { Colors } from "f-formatter";
 
 const loggers: {
     [key: string]: { name: string, colors: [ Colors, Colors ] }

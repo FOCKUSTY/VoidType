@@ -1,6 +1,6 @@
-import Loader from "loaders/data/objects.loader";
+import { ObjectsLoader } from "@thevoidcommunity/the-void-database";
 
-const objects = new Loader().execute();
+const objects = new ObjectsLoader().execute();
 
 const GetObject = (type: 'name'|'idea'|'download') => {
     switch (type) {

@@ -1,11 +1,10 @@
 import { Client as DiscordClient } from "discord.js";
 
-import { objects } from "loaders/data/objects.loader";
+import { objects } from "@thevoidcommunity/the-void-database/loaders/data/objects.loader";
 import Filter from "utility/service/filter.service";
 
 import Logger from 'fock-logger';
-import Formatter from "f-formatter";
-import { Colors } from "f-formatter/colors";
+import Formatter, { Colors } from "f-formatter";
 
 const filter = new Filter();
 

@@ -1,8 +1,8 @@
 import ICL from 'discord/events/interaction-create.listener';
 import ML from 'discord/events/modal.listener';
 
-import { config } from 'config';
 import { Debug } from 'develop/debug.develop';
+import { config } from 'config';
 
 import Deployer from 'discord/deploy.commands';
 import DeployEvents from 'discord/deploy.events';

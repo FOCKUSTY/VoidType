@@ -18,8 +18,8 @@ importers:
         specifier: ^14.15.3
         version: 14.16.3
       f-formatter:
-        specifier: ^0.2.4
-        version: 0.2.4
+        specifier: ^0.3.1
+        version: 0.3.1
       fock-logger:
         specifier: 0.4.4
         version: 0.4.4
@@ -272,10 +272,6 @@ packages:
   event-target-shim@5.0.1:
     resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
     engines: {node: '>=6'}
-
-  f-formatter@0.2.4:
-    resolution: {integrity: sha512-bC6Rf9xZhyTEEThVbNLx1T0mx6W9ZkXucp4SYmJtXVr2d6dvZTmlH0FwDEfQ+1YiyaFAD11OYKoc5aTHYxaFGg==}
-    engines: {node: '>=7.6.0'}
 
   f-formatter@0.3.1:
     resolution: {integrity: sha512-nLUKhp8c6gIlgJ2Gk9/CWtixQDyG1eNkydaa+DUBrxfhccUF8SYufsNiG4qWVb+OZIRIR0p0XnrCfiBmJ+ESFg==}
@@ -873,10 +869,6 @@ snapshots:
   escalade@3.2.0: {}
 
   event-target-shim@5.0.1: {}
-
-  f-formatter@0.2.4:
-    dependencies:
-      date-fns: 4.1.0
 
   f-formatter@0.3.1:
     dependencies:

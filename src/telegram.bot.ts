@@ -1,12 +1,12 @@
-import { Interaction } from './types/telegram/interaction.type';
-
 import { Telegraf } from 'telegraf';
 
-import { config } from 'config';
-import { DeployCommands } from './telegram/deploy.commands';
+import type { Interaction } from './types/telegram/interaction.type';
 
+import { DeployCommands } from './telegram/deploy.commands';
 import MessageListener from './telegram/events/message.listener';
 import SlashCommandsListener from './telegram/events/slash-commands.listener';
+
+import { config } from 'config';
 
 import path from 'path';
 import fs from 'fs';
