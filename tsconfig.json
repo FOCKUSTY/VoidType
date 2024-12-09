@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "ES2020",
         "module": "CommonJS",
-        "rootDir": "../../",
+        "rootDir": "./",
         "outDir": "./dist",
         "removeComments": true,
         "resolveJsonModule": true,
@@ -10,22 +10,18 @@
         "forceConsistentCasingInFileNames": true,
         "strict": true,
         "strictNullChecks": true,
-        "skipLibCheck": true, 
+        "skipLibCheck": true,
         "baseUrl": "./",
         "paths": {
-            "config": ["./src/index.config.ts", "./dist/the-void-bots/VoidType/src/index.config.js" ],
+            "discord/*": ["./src/discord/*", "./dist/src/discord/*" ],
+            "telegram/*": ["./src/telegram/*", "./dist/src/telegram/*" ],
+            "utility/*": ["./src/utility/*", "./dist/src/utility/*" ],
+            "types/*": ["./src/types/*", "./dist/src/types/*" ],
+            "logger/*": ["./src/logger/*", "./dist/src/logger/*" ],
+            "develop/*": ["./src/develop/*", "./dist/src/develop/*" ],
+            "database/*": ["./src/database/*", "./dist/src/database/*" ],
 
-            "discord/*": ["./src/discord/*", "./dist/the-void-bots/VoidType/src/discord/*" ],
-            "telegram/*": ["./src/telegram/*", "./dist/the-void-bots/VoidType/src/telegram/*" ],
-            "utility/*": ["./src/utility/*", "./dist/the-void-bots/VoidType/src/utility/*" ],
-            "types/*": ["./src/types/*", "./dist/the-void-bots/VoidType/src/types/*" ],
-            "logger/*": ["./src/logger/*", "./dist/the-void-bots/VoidType/src/logger/*" ],
-            "develop/*": ["./src/develop/*", "./dist/the-void-bots/VoidType/src/develop/*" ],
-            "database/*": ["./src/database/*", "./dist/the-void-bots/VoidType/src/database/*" ],
-
-            "loaders/*": ["../../the-void-database/loaders/src/*"],
-            
-            "src/*": ["./src/*", "./dist/the-void-bots/VoidType/src/*"]
+            "src/*": ["./src/*", "./dist/src/*"]
         }
     },
     "include": [ "./**/*.ts" ],

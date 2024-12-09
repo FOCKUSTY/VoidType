@@ -8,7 +8,7 @@ import {
 	TextInputStyle
 } from "discord.js";
 
-import { config } from "config";
+import { config } from "src/index.config";
 
 import GetObject from "utility/service/get-object.service";
 import PseudoRandom from "utility/service/pseudo-random.service";

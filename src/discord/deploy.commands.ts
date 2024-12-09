@@ -1,7 +1,8 @@
-import { config } from "config";
 import { REST, Routes } from "discord.js";
 import { Debug } from "develop/debug.develop";
 import Logger, { Colors } from "fock-logger";
+
+import { config } from "src/index.config";
 
 import type {
 	Client as DiscordClient,

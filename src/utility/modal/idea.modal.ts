@@ -1,6 +1,6 @@
 import { EmbedBuilder, ModalSubmitInteraction, TextChannel } from "discord.js";
 
-import { config } from "config";
+import { config } from "src/index.config";
 
 import customIds from "./custom-ids.modal";
 

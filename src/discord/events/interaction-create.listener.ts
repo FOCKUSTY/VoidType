@@ -1,7 +1,7 @@
 import type { Interaction } from "discord.js";
 import { Collection } from "discord.js";
 
-import { config } from "config";
+import { config } from "src/index.config";
 
 export = {
 	name: "interaction-create",

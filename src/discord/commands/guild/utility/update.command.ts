@@ -8,7 +8,7 @@ import {
 	ActionRowBuilder
 } from "discord.js";
 
-import { config } from "config";
+import { config } from "src/index.config";
 
 import customIds from "utility/modal/custom-ids.modal";
 

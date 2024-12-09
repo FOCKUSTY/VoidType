@@ -1,7 +1,7 @@
 import Sleep from "utility/service/sleep.service";
 import type { CommandInteraction } from "discord.js";
 import { SlashCommandBuilder } from "discord.js";
-import { config } from "config";
+import { config } from "src/index.config";
 
 export = {
 	data: new SlashCommandBuilder().setName("sleep").setDescription("Усыпить бота !"),

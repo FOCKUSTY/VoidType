@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:slash": "tsx watch src/discord/slash.commands.ts",
-    "dev": "set NODE_ENV=dev&& set BOT=all&& tsx watch src/start.bot.ts",
-    "dev:telegram": "set NODE_ENV=dev&& set BOT=telegram&& tsx watch src/start.bot.ts",
-    "dev:discord": "set NODE_ENV=dev&& set BOT=discord&& tsx watch src/start.bot.ts",
-    "start:slash": "node dist/the-void-bots/VoidType/src/discord/slash.commands.js",
-    "start:builded": "set NODE_ENV=prod&& set BOT=all&& node dist/the-void-bots/VoidType/src/start.bot.js",
+    "dev:slash": "nodemon src/discord/slash.commands.ts",
+    "dev": "set NODE_ENV=dev&& set BOT=all&& nodemon src/start.bot.ts",
+    "dev:telegram": "set NODE_ENV=dev&& set BOT=telegram&& nodemon src/start.bot.ts",
+    "dev:discord": "set NODE_ENV=dev&& set BOT=discord&& nodemon src/start.bot.ts",
+    "start:slash": "node -r tsconfig-paths/register dist/src/discord/slash.commands.js",
+    "start:builded": "set NODE_ENV=prod&& set BOT=all&& node -r tsconfig-paths/register dist/src/start.bot.js",
     "start": "set NODE_ENV=prod&& pnpm run build && pnpm run start:slash && pnpm run start:builded",
     "build": "tsc"
   },

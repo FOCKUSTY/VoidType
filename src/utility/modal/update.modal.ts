@@ -1,7 +1,7 @@
 import { EmbedBuilder, ModalSubmitInteraction } from "discord.js";
 
 import customIds from "./custom-ids.modal";
-import { config } from "config";
+import { config } from "src/index.config";
 
 import Telegram from "telegram/utility/service/telegram.service";
 import Discord from "discord/utility/service/discord.service";

@@ -1,4 +1,4 @@
-import { settings } from "config";
+import { settings } from "src/index.config";
 
 import { Colors } from "f-formatter/colors";
 import LogFile from "fock-logger/file.logger";

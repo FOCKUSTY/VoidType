@@ -1,6 +1,7 @@
 import { SlashCommandBuilder, EmbedBuilder, CommandInteraction } from "discord.js";
 
-import { config } from "config";
+import { config } from "src/index.config";
+
 import { version } from "src/../package.json";
 import commands from "discord/index.commads";
 

@@ -4,7 +4,7 @@ import fs from "fs";
 const commands: string[] = [];
 
 const foldersPath = path.join(
-	`${process.env.NODE_ENV === "dev" ? "src" : "dist/the-void-bots/VoidType/src"}/discord/commands`
+	`${process.env.NODE_ENV === "dev" ? "src" : "dist/src"}/discord/commands`
 );
 const commandsFolder = fs.readdirSync(foldersPath);
 
