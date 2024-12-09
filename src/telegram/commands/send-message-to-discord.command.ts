@@ -3,40 +3,37 @@ import { Interaction } from "types/telegram/interaction.type";
 import Discord from "discord/utility/service/discord.service";
 
 export = {
-    name: 'send_message_to_discord',
-    options: [
-        'channelId',
-        'message'
-    ],
-    async execute(interaction: Interaction) {
-        const replyOptions = [
-            {
-                option: 'channelId',
-                error: '',
-                text: 'Введите id канала',
+	name: "send_message_to_discord",
+	options: ["channelId", "message"],
+	async execute(interaction: Interaction) {
+		const replyOptions = [
+			{
+				option: "channelId",
+				error: "",
+				text: "Введите id канала",
 
-                id: interaction.message.message_id + 0,
-            },
-            {
-                option: 'message',
-                error: '',
-                text: 'Введите сообщение',
-                
-                id: interaction.message.message_id + 2,
-            },
-            {
-                option: "end",
-                error: 'Не удалось отправить сообщение в Discord\nОшибка: %ERROR%',
-                text: 'Сообщение было отправлено в Discord\nСообщение: %SUCCESS%',
-                function: new Discord().SendMessageToTelegram,
+				id: interaction.message.message_id + 0
+			},
+			{
+				option: "message",
+				error: "",
+				text: "Введите сообщение",
 
-                addArgs: [interaction.from?.username || interaction.from?.first_name],                
-                id: 0,
-            }
-        ];
+				id: interaction.message.message_id + 2
+			},
+			{
+				option: "end",
+				error: "Не удалось отправить сообщение в Discord\nОшибка: %ERROR%",
+				text: "Сообщение было отправлено в Discord\nСообщение: %SUCCESS%",
+				function: new Discord().SendMessageToTelegram,
 
-        options.set(interaction.from?.id!, replyOptions);
+				addArgs: [interaction.from?.username || interaction.from?.first_name],
+				id: 0
+			}
+		];
 
-        await interaction.reply(replyOptions[0].text);
-    }
+		options.set(interaction.from?.id!, replyOptions);
+
+		await interaction.reply(replyOptions[0].text);
+	}
 };

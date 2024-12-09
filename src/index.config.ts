@@ -1,16 +1,12 @@
-import path from 'path';
+import path from "path";
 
-import config from '../config.json';
-import settings from '../settings.json';
+import config from "../config.json";
+import settings from "../settings.json";
 
-const TheVoidDir = path.resolve('../../');
+const TheVoidDir = path.resolve("../../");
 
 const pathData = {
-    TheVoidDir
+	TheVoidDir
 };
 
-export {
-    config,
-    settings,
-    pathData
-};
+export { config, settings, pathData };

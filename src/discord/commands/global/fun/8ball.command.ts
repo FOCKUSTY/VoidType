@@ -1,53 +1,81 @@
-import PseudoRandom from 'utility/service/pseudo-random.service';
-import { SlashCommandBuilder } from 'discord.js';
-import { Random as RandomJS } from 'random-js';
+import PseudoRandom from "utility/service/pseudo-random.service";
+import { SlashCommandBuilder } from "discord.js";
+import { Random as RandomJS } from "random-js";
 
 const Random = new RandomJS();
 const history: number[] = [];
 
 export = {
-    cooldown: 5,
-    data: new SlashCommandBuilder()
-	.setName('8ball')
-	.setDescription('Предсказание будущего !')
-    .setNameLocalizations({ru:'шар', "en-US":'8ball'})
-	.setDescriptionLocalizations({ru:'Предсказание будущего', "en-US":'Predicting the future'})
-    .addStringOption(option =>
-        option.setName('question').setDescription('Ваш вопрос').setRequired(true)
-        .setNameLocalizations({ru:'вопрос', "en-US":'question'})
-        .setDescriptionLocalizations({ru:'Ваш вопрос', "en-US":'Your question'})),
-        
-    async execute(interaction: any)
-    {
-        await interaction.reply({ content: `Предсказываю...`, ephemeral: true });
+	cooldown: 5,
+	data: new SlashCommandBuilder()
+		.setName("8ball")
+		.setDescription("Предсказание будущего !")
+		.setNameLocalizations({ ru: "шар", "en-US": "8ball" })
+		.setDescriptionLocalizations({
+			ru: "Предсказание будущего",
+			"en-US": "Predicting the future"
+		})
+		.addStringOption((option) =>
+			option
+				.setName("question")
+				.setDescription("Ваш вопрос")
+				.setRequired(true)
+				.setNameLocalizations({ ru: "вопрос", "en-US": "question" })
+				.setDescriptionLocalizations({
+					ru: "Ваш вопрос",
+					"en-US": "Your question"
+				})
+		),
 
-        const categoryes =
-        [
-            [
-                'Бесспорно', 'Это было предрешено', 'Никаких сомнений', 'Определённо да', 'Можешь быть уверен в этом',
-                'Думаю да...', 'Наверное...', 'Хорошие перспективы', 'Знаки говорят да...', 'Да'
-            ],
+	async execute(interaction: any) {
+		await interaction.reply({ content: `Предсказываю...`, ephemeral: true });
 
-            [
-                'Звезд на небе не видно, попробуй позже', 'Спроси позже', 'Лучше не рассказывать',
-                'Погода для предсказывание плохая', 'Сконцентрируйся и спроси опять'
-            ],
+		const categoryes = [
+			[
+				"Бесспорно",
+				"Это было предрешено",
+				"Никаких сомнений",
+				"Определённо да",
+				"Можешь быть уверен в этом",
+				"Думаю да...",
+				"Наверное...",
+				"Хорошие перспективы",
+				"Знаки говорят да...",
+				"Да"
+			],
 
-            [
-                'Даже не думай', 'Мой ответ нет',
-                'По моим данным нет', 'Перспективы не очень хорошие'
-            ]
-        ];
+			[
+				"Звезд на небе не видно, попробуй позже",
+				"Спроси позже",
+				"Лучше не рассказывать",
+				"Погода для предсказывание плохая",
+				"Сконцентрируйся и спроси опять"
+			],
 
-        const rCategory = Random.integer(0, categoryes.length-1);
-        const rNum = new PseudoRandom().Number(0, categoryes[rCategory].length-1, history, categoryes[rCategory]);
-        const text = categoryes[rCategory][rNum];
+			[
+				"Даже не думай",
+				"Мой ответ нет",
+				"По моим данным нет",
+				"Перспективы не очень хорошие"
+			]
+		];
 
-        const question = interaction.options.get('question')?.value;
+		const rCategory = Random.integer(0, categoryes.length - 1);
+		const rNum = new PseudoRandom().Number(
+			0,
+			categoryes[rCategory].length - 1,
+			history,
+			categoryes[rCategory]
+		);
+		const text = categoryes[rCategory][rNum];
 
-        setTimeout(async () =>
-        {            
-            await interaction.editReply({ content: `Ваш вопрос: ${question}\nМой ответ: ${text}`, ephemeral: true});
-        }, 1000);
-	},
+		const question = interaction.options.get("question")?.value;
+
+		setTimeout(async () => {
+			await interaction.editReply({
+				content: `Ваш вопрос: ${question}\nМой ответ: ${text}`,
+				ephemeral: true
+			});
+		}, 1000);
+	}
 };

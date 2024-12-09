@@ -1,41 +1,38 @@
-import { Telegraf } from 'telegraf';
+import { Telegraf } from "telegraf";
 
-import type { Interaction } from './types/telegram/interaction.type';
+import type { Interaction } from "./types/telegram/interaction.type";
 
-import { DeployCommands } from './telegram/deploy.commands';
-import MessageListener from './telegram/events/message.listener';
-import SlashCommandsListener from './telegram/events/slash-commands.listener';
+import { DeployCommands } from "./telegram/deploy.commands";
+import MessageListener from "./telegram/events/message.listener";
+import SlashCommandsListener from "./telegram/events/slash-commands.listener";
 
-import { config } from 'config';
+import { config } from "config";
 
-import path from 'path';
-import fs from 'fs';
+import path from "path";
+import fs from "fs";
 
 const Client = new Telegraf(config.telegramToken);
 
-Client.on('message', async (message: Interaction) => {
-    SlashCommandsListener(message);
-    MessageListener(message);
+Client.on("message", async (message: Interaction) => {
+	SlashCommandsListener(message);
+	MessageListener(message);
 });
 
 const Login = async () => {
-    const commandsPath = path.join(__dirname, 'telegram/commands');
-    const commandsFiles = fs.readdirSync(commandsPath)
-        .filter(file => file.endsWith('.js') || file.endsWith('.ts'));
+	const commandsPath = path.join(__dirname, "telegram/commands");
+	const commandsFiles = fs
+		.readdirSync(commandsPath)
+		.filter((file) => file.endsWith(".js") || file.endsWith(".ts"));
 
-    DeployCommands(Client, commandsPath, commandsFiles);
+	DeployCommands(Client, commandsPath, commandsFiles);
 
-    await Client.launch();
-    
-    process.once('SIGINT', () =>
-        Client.stop('SIGINT'));
-     
-    process.once('SIGTERM', () =>
-        Client.stop('SIGTERM'));
+	await Client.launch();
+
+	process.once("SIGINT", () => Client.stop("SIGINT"));
+
+	process.once("SIGTERM", () => Client.stop("SIGTERM"));
 };
 
-export {
-    Login as LoginTelegram
-};
+export { Login as LoginTelegram };
 
 export default Client;

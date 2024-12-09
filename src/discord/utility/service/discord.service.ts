@@ -5,25 +5,34 @@ import SendMessage from "./helpers/send-message.helper";
 import Client from "src/discord.bot";
 
 class Discord {
-    private readonly _client: DiscordClient = Client;
+	private readonly _client: DiscordClient = Client;
 
-    public readonly SendMessage = async (channelId: string, message: string|EmbedBuilder[]) => {
-        if(!this._client)
-            return Debug.Error('Client is not defined');
+	public readonly SendMessage = async (
+		channelId: string,
+		message: string | EmbedBuilder[]
+	) => {
+		if (!this._client) return Debug.Error("Client is not defined");
 
-        return await SendMessage(this._client, channelId, message);
-    };
+		return await SendMessage(this._client, channelId, message);
+	};
 
-    public readonly SendMessageToTelegram = async (channelId: string, message: string, telegramName: string) => {
-        if(!this._client)
-            return Debug.Error('Client is not defined');
+	public readonly SendMessageToTelegram = async (
+		channelId: string,
+		message: string,
+		telegramName: string
+	) => {
+		if (!this._client) return Debug.Error("Client is not defined");
 
-        return await SendMessage(this._client, channelId, `Отправлено из Telegram от ${telegramName} \n${message}`);
-    };
+		return await SendMessage(
+			this._client,
+			channelId,
+			`Отправлено из Telegram от ${telegramName} \n${message}`
+		);
+	};
 
-    get client(): DiscordClient {
-        return this._client;
-    };
-};
+	get client(): DiscordClient {
+		return this._client;
+	}
+}
 
 export default Discord;

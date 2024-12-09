@@ -8,25 +8,23 @@ import GetChatId from "./helpers/get-chat-id.helper";
 import Client from "src/telegram.bot";
 
 class Telegram {
-    private _client: Telegraf = Client;
+	private _client: Telegraf = Client;
 
-    public SendMessage = (chatId: number|string, message: string|string[]) => {
-        if(!this._client)
-            return Debug.Error('Client is not defined');
+	public SendMessage = (chatId: number | string, message: string | string[]) => {
+		if (!this._client) return Debug.Error("Client is not defined");
 
-        return SendMessage(this._client, chatId, message);
-    };
+		return SendMessage(this._client, chatId, message);
+	};
 
-    public GetChatId = (message: Interaction) => {
-        if(!this._client)
-            return Debug.Error('Client is not defined');
+	public GetChatId = (message: Interaction) => {
+		if (!this._client) return Debug.Error("Client is not defined");
 
-        return GetChatId(this._client, message);
-    };
+		return GetChatId(this._client, message);
+	};
 
-    get client (): Telegraf {
-        return this._client;
-    };
-};
+	get client(): Telegraf {
+		return this._client;
+	}
+}
 
 export default Telegram;
