@@ -1,8 +1,8 @@
 type FullCommand = {
-	name: string,
-	options: string[],
-	executeFunc?: (...args: any) => any
-}
+	name: string;
+	options: string[];
+	executeFunc?: (...args: any) => any;
+};
 
 class Commands {
 	private readonly _commands: string[] = [];

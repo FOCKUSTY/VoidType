@@ -34,11 +34,16 @@ const MessageListener = async (message: Interaction) => {
 
 			if (!option.function || !option.addArgs) return;
 			const res: Response = await option.function(...args, ...option.addArgs);
-			
+
 			options.delete(userId);
 			saved.delete(`${userId}`);
 
-			if (res.type === 1) return await message.reply(option.text.replace("%SUCCESS%", res.text).replace("%MESSAGE%", res.data.text));
+			if (res.type === 1)
+				return await message.reply(
+					option.text
+						.replace("%SUCCESS%", res.text)
+						.replace("%MESSAGE%", res.data.text)
+				);
 			else return await message.reply(option.error.replace("%ERROR%", res.text));
 		}
 	}

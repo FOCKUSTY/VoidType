@@ -4,10 +4,10 @@ import Telegram from "telegram/utility/service/telegram.service";
 import { Option } from "types/telegram/options.type";
 
 export = {
-    name: "send_anonimus_message",
-    options: ["userId", "message"],
-    async execute(interaction: Interaction) {
-        const replyOptions: Option[] = [
+	name: "send_anonimus_message",
+	options: ["userId", "message"],
+	async execute(interaction: Interaction) {
+		const replyOptions: Option[] = [
 			{
 				option: "userId",
 				error: "",
@@ -33,9 +33,9 @@ export = {
 			}
 		];
 
-        options.set(interaction.from?.id!, replyOptions);
+		options.set(interaction.from?.id!, replyOptions);
 
-        await interaction.reply(replyOptions[0].text);
-    },
-    executeFunc: new Telegram().SendAnonMessage
+		await interaction.reply(replyOptions[0].text);
+	},
+	executeFunc: new Telegram().SendAnonMessage
 };

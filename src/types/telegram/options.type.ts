@@ -1,11 +1,11 @@
-import { Response } from "./response.type"
+import { Response } from "./response.type";
 
 export type Option = {
-    option: string,
-    error: string,
-    text: string,
-    id: string|number,
+	option: string;
+	error: string;
+	text: string;
+	id: string | number;
 
-    function?: (...data: any) => Promise<Response>,
-    addArgs?: any[]
-}
+	function?: (...data: any) => Promise<Response>;
+	addArgs?: any[];
+};

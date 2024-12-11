@@ -24,7 +24,7 @@ export const DeployCommands = (
 			name: string;
 			options: string[];
 			execute: (interaction: Interaction) => any;
-			executeFunc?: (...args: any) => any
+			executeFunc?: (...args: any) => any;
 		} = require(filePath);
 
 		CommandsLogger(`Telegram команда ${command.name}`);
