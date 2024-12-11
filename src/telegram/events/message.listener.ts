@@ -1,5 +1,6 @@
-import { Debug } from "develop/debug.develop";
 import { Interaction } from "src/types/telegram/interaction.type";
+import { Option } from "types/telegram/options.type";
+import { Response } from "types/telegram/response.type";
 
 const options = new Map<string | number, any[]>();
 const saved = new Map<string, { key: string; value: string }[]>();
@@ -8,22 +9,13 @@ const MessageListener = async (message: Interaction) => {
 	if ((message.text && message.text.startsWith("/")) || !message.from?.id) return;
 
 	const userId = message.from.id;
-
 	const replyOptions = options.get(userId);
 
 	if (!replyOptions) return;
 
 	for (const i in replyOptions) {
 		const index = Number(i);
-		const option: {
-			id: number | string;
-			option: string;
-			error: string;
-			text: string;
-
-			function: (...args: any) => any;
-			addArgs: any[];
-		} = replyOptions[index];
+		const option: Option = replyOptions[index];
 
 		if (message.message.message_id - 2 === option.id) {
 			const savedOptions = saved.get(`${userId}`) || [];
@@ -37,15 +29,16 @@ const MessageListener = async (message: Interaction) => {
 		if (message.message.message_id === option.id) {
 			return await message.reply(option.text);
 		} else if (index === replyOptions.length - 1) {
-			options.delete(userId);
-
 			const savedOptions = saved.get(`${userId}`) || [];
 			const args = savedOptions.map((element) => element.value);
 
-			const res = await option.function(...args, ...option.addArgs);
+			if (!option.function || !option.addArgs) return;
+			const res: Response = await option.function(...args, ...option.addArgs);
+			
+			options.delete(userId);
+			saved.delete(`${userId}`);
 
-			if (res.type === 1)
-				return await message.reply(option.text.replace("%SUCCESS%", res.text));
+			if (res.type === 1) return await message.reply(option.text.replace("%SUCCESS%", res.text).replace("%MESSAGE%", res.data.text));
 			else return await message.reply(option.error.replace("%ERROR%", res.text));
 		}
 	}

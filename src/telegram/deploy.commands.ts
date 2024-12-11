@@ -21,9 +21,10 @@ export const DeployCommands = (
 	for (const fileName of commandsFiles) {
 		const filePath = path.join(commandsPath, fileName);
 		const command: {
-			name: string | undefined;
-			options: any;
+			name: string;
+			options: string[];
 			execute: (interaction: Interaction) => any;
+			executeFunc?: (...args: any) => any
 		} = require(filePath);
 
 		CommandsLogger(`Telegram команда ${command.name}`);
@@ -35,6 +36,11 @@ export const DeployCommands = (
 			});
 
 			Commands.commands = command.name;
+			Commands.setCommand({
+				name: command.name,
+				options: command.options || [],
+				executeFunc: command.executeFunc
+			});
 			Client.command(command.name, async (message: Interaction) =>
 				command.execute(message)
 			);

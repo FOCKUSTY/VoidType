@@ -35,5 +35,6 @@ export = {
 		options.set(interaction.from?.id!, replyOptions);
 
 		await interaction.reply(replyOptions[0].text);
-	}
+	},
+	executeFunc: new Discord().SendMessageToTelegram
 };

@@ -4,8 +4,22 @@ import Commands from "telegram/index.commands";
 export = {
 	name: "start",
 	async execute(interaction: Interaction) {
-		await interaction.reply(
-			`Привет, вот мои команды:\n${Commands.commands.join("\n")}\nЧтобы узнать больше, можете воспользоваться /help`
-		);
+		const reply = `Привет, вот мои команды:\n${Commands.commands.join("\n")}\nЧтобы узнать больше, можете воспользоваться /help`;
+		
+		if (!interaction.text?.includes(" "))
+			return await interaction.reply(reply);
+
+		const options = interaction.text.split(" ");
+
+		if (!Commands.commands.includes(options[0]))
+			return await interaction.reply(reply);
+			
+		const command = Commands.fullCommands.filter(a => a.name === options[0])[0];
+		
+		if (!command.executeFunc)
+			return await interaction.reply(reply);
+
+		const funcOptions = options.filter(o => o !== options[0]);
+		command.executeFunc(...funcOptions);
 	}
 };

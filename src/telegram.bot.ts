@@ -29,7 +29,6 @@ const Login = async () => {
 	await Client.launch();
 
 	process.once("SIGINT", () => Client.stop("SIGINT"));
-
 	process.once("SIGTERM", () => Client.stop("SIGTERM"));
 };
 
