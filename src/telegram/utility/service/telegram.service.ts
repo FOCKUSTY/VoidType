@@ -31,15 +31,20 @@ class Telegram {
 				type: 0
 			};
 
-		let text: string =
-			"Спасибо, что пользуетесь The Void, вам прислали анонимное сообщение!\r\n\r\n";
+		const link = "https://t.me/TheVoid_VBOT?start=send_anonimus_message-" + chatId
+		const intro = "Спасибо, что пользуетесь The Void !\n\n";
+		const conc = "\n\nВы можете получаться анонимные сообщение по ссылке:\n" + link;
+
+		let text: string = "";
 
 		if (Array.isArray(message)) for (const msg of message) text += `\n${msg}`;
 		else text = message;
-
+		
 		try {
+			await Client.telegram.sendMessage(`${chatId}`, intro + text + conc);
+
 			return {
-				data: await Client.telegram.sendMessage(`${chatId}`, text),
+				data: { text },
 				text: "Сообщение успешно отправлено",
 				type: 1
 			};

@@ -24,8 +24,8 @@ export = {
 			},
 			{
 				option: "end",
-				error: "Сообщение не было доставлено\nОшибка: %ERROR%",
-				text: "%SUCCESS%\nСообщение: %MESSAGE%",
+				error: "Сообщение не было доставлено\nОшибка:\n%ERROR%",
+				text: "%SUCCESS%\nСообщение:\n%MESSAGE%",
 				function: new Telegram().SendAnonMessage,
 
 				addArgs: [interaction.from?.id!],
@@ -48,8 +48,8 @@ export = {
 			},
 			{
 				option: "end",
-				error: "Сообщение не было доставлено\nОшибка: %ERROR%",
-				text: "%SUCCESS%\nСообщение: %MESSAGE%",
+				error: "Сообщение не было доставлено\nОшибка:\n%ERROR%",
+				text: "%SUCCESS%\nСообщение:\n%MESSAGE%",
 				function: new Telegram().SendAnonMessage,
 
 				firstArgs: [userId],
