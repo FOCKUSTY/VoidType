@@ -48,7 +48,7 @@ export = {
 			},
 			{
 				option: "end",
-				error: "Сообщение не было доставлено\nОшибка:\n%ERROR%",
+				error: "Сообщение не было доставлено\n\nОшибка:\n%ERROR%",
 				text: "%SUCCESS%\nСообщение:\n%MESSAGE%",
 				function: new Telegram().SendAnonMessage,
 

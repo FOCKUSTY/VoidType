@@ -41,7 +41,7 @@ class Telegram {
 		else text = message;
 		
 		try {
-			Client.telegram.sendMessage(`${chatId}`, intro + text + conc);
+			Client.telegram.sendMessage(`${chatId}`, intro + `\`${text}\`` + conc);
 
 			return {
 				data: { text },

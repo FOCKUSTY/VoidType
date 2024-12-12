@@ -23,8 +23,8 @@ export = {
 			},
 			{
 				option: "end",
-				error: "Не удалось отправить сообщение в Discord\nОшибка: %ERROR%",
-				text: "Сообщение было отправлено в Discord\nСообщение: %SUCCESS%",
+				error: "Не удалось отправить сообщение в Discord\n\nОшибка:\n%ERROR%",
+				text: "Сообщение было отправлено в Discord\n\nСообщение:\n%SUCCESS%",
 				function: new Discord().SendMessageToTelegram,
 
 				addArgs: [interaction.from?.username || interaction.from?.first_name],
