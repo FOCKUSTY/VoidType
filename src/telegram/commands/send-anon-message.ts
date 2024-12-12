@@ -37,7 +37,7 @@ export = {
 
 		await interaction.reply(replyOptions[0].text);
 	},
-	async executeFunc(interaction: Interaction, userId: number|string) {
+	async executeFunc(interaction: Interaction, userId: number | string) {
 		const replyOptions: Option[] = [
 			{
 				option: "message",
@@ -60,6 +60,8 @@ export = {
 
 		options.set(interaction.from?.id!, replyOptions);
 
-		await interaction.reply("Спасибо, что пользуетесь The Void!\n" + replyOptions[0].text);
+		await interaction.reply(
+			"Спасибо, что пользуетесь The Void!\n" + replyOptions[0].text
+		);
 	}
 };

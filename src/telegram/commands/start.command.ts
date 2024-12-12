@@ -10,7 +10,7 @@ export = {
 
 		const first = interaction.text.split("-");
 		const commandName = first[0].split(" ")[1];
-		const options: string[] = [commandName, ...first.filter(o => o !== first[0])];
+		const options: string[] = [commandName, ...first.filter((o) => o !== first[0])];
 
 		if (!Commands.commands.includes(options[0]))
 			return await interaction.reply(reply);

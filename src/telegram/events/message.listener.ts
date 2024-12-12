@@ -37,7 +37,11 @@ const MessageListener = async (message: Interaction) => {
 			console.log(args);
 			console.log(option);
 
-			const res: Response = await option.function(...option.firstArgs || [], ...args, ...option.addArgs || []);
+			const res: Response = await option.function(
+				...(option.firstArgs || []),
+				...args,
+				...(option.addArgs || [])
+			);
 
 			console.log(res);
 

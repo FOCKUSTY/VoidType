@@ -36,7 +36,7 @@ export = {
 
 		await interaction.reply(replyOptions[0].text);
 	},
-	async executeFunc(interaction: Interaction, userId: number|string) {
+	async executeFunc(interaction: Interaction, userId: number | string) {
 		const replyOptions = [
 			{
 				option: "message",
@@ -51,7 +51,10 @@ export = {
 				text: "Сообщение было отправлено в Discord\nСообщение: %SUCCESS%",
 				function: new Discord().SendMessageToTelegram,
 
-				addArgs: [userId, interaction.from?.username || interaction.from?.first_name],
+				addArgs: [
+					userId,
+					interaction.from?.username || interaction.from?.first_name
+				],
 				id: 0
 			}
 		];
