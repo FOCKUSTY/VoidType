@@ -8,11 +8,11 @@
         "\u001b[0m"
     ],
     "loggers": {
-        "TheVoid": {
-            "name": "TheVoid",
+        "Fail": {
+            "name": "Fail",
             "colors": [
                 "\u001b[31m",
-                "\u001b[35m"
+                "\u001b[31m"
             ]
         },
         "Loader": {
@@ -22,17 +22,17 @@
                 "\u001b[31m"
             ]
         },
-        "Activity": {
-            "name": "Activity",
-            "colors": [
-                "\u001b[31;1m",
-                "\u001b[32m"
-            ]
-        },
         "Events": {
             "name": "Events",
             "colors": [
                 "\u001b[33;1m",
+                "\u001b[32m"
+            ]
+        },
+        "Activity": {
+            "name": "Activity",
+            "colors": [
+                "\u001b[31;1m",
                 "\u001b[32m"
             ]
         },
@@ -50,11 +50,11 @@
                 "\u001b[32m"
             ]
         },
-        "Fail": {
-            "name": "Fail",
+        "TheVoid": {
+            "name": "TheVoid",
             "colors": [
                 "\u001b[31m",
-                "\u001b[31m"
+                "\u001b[35m"
             ]
         },
         "Success": {
