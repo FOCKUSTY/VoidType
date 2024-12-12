@@ -26,3 +26,4 @@
 | `1.1.2-alpha.1`   | Alpha.1.Patch | Добавлена новая команда `/idea` |  Added a new command `/idea` |
 | `1.1.3-alpha.1`   | Alpha.1.Patch | Рефакторинг кода, обновлены: `random-activity` & `pseudo-random` | Code refactoring, updated: `random-activity` & `pseudo-random` |
 | `1.1.4-alpha.1`   | Alpha.1.Patch | Добавлена новая команда `/user` | Added a new command `/user` |
+| `1.2.0-alpha.1`   | Alpha.1.Minor | Добалены новые команды `/send_anonimus_message` & `/start_anonimus` | Added a new commands `/send_anonimus_message` & `/start_anonimus` |
