@@ -37,5 +37,29 @@ export = {
 
 		await interaction.reply(replyOptions[0].text);
 	},
-	executeFunc: new Telegram().SendAnonMessage
+	async executeFunc(interaction: Interaction, userId: number|string) {
+		const replyOptions: Option[] = [
+			{
+				option: "message",
+				error: "",
+				text: "Введите сообщение",
+
+				id: interaction.message.message_id
+			},
+			{
+				option: "end",
+				error: "Сообщение не было доставлено\nОшибка: %ERROR%",
+				text: "%SUCCESS%\nСообщение: %MESSAGE%",
+				function: new Telegram().SendAnonMessage,
+
+				firstArgs: [userId],
+				addArgs: [interaction.from?.id!],
+				id: 0
+			}
+		];
+
+		options.set(interaction.from?.id!, replyOptions);
+
+		await interaction.reply("Спасибо, что пользуетесь The Void!\n" + replyOptions[0].text);
+	}
 };

@@ -8,4 +8,5 @@ export type Option = {
 
 	function?: (...data: any) => Promise<Response>;
 	addArgs?: any[];
+	firstArgs?: any[]
 };

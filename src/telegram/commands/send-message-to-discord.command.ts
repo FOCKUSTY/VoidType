@@ -36,5 +36,27 @@ export = {
 
 		await interaction.reply(replyOptions[0].text);
 	},
-	executeFunc: new Discord().SendMessageToTelegram
+	async executeFunc(interaction: Interaction, userId: number|string) {
+		const replyOptions = [
+			{
+				option: "message",
+				error: "",
+				text: "Введите сообщение",
+
+				id: interaction.message.message_id
+			},
+			{
+				option: "end",
+				error: "Не удалось отправить сообщение в Discord\nОшибка: %ERROR%",
+				text: "Сообщение было отправлено в Discord\nСообщение: %SUCCESS%",
+				function: new Discord().SendMessageToTelegram,
+
+				addArgs: [userId, interaction.from?.username || interaction.from?.first_name],
+				id: 0
+			}
+		];
+
+		options.set(interaction.from?.id!, replyOptions);
+		await interaction.reply(replyOptions[0].text);
+	}
 };

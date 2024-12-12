@@ -4,6 +4,6 @@ import Telegram from "telegram/utility/service/telegram.service";
 export = {
 	name: "get_chat_id",
 	async execute(interaction: Interaction) {
-		return new Telegram().GetChatId(interaction);
+		return await interaction.reply((await new Telegram().GetChatId(interaction)).data);
 	}
 };

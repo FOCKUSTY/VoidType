@@ -39,7 +39,7 @@ class Telegram {
 
 		try {
 			return {
-				data: await Client.telegram.sendMessage(chatId, text),
+				data: await Client.telegram.sendMessage(`${chatId}`, text),
 				text: "Сообщение успешно отправлено",
 				type: 1
 			};
@@ -71,18 +71,10 @@ class Telegram {
 		};
 	};
 
-	public GetChatId = (message: Interaction): Response => {
-		if (!this._client) {
-			return {
-				data: Debug.Error("Client is not defined"),
-				text: "Client is not defined",
-				type: 0
-			};
-		}
-
+	public GetChatId = async (message: Interaction): Promise<Response> => {
 		return {
-			data: GetChatId(this._client, message),
-			text: "id успешно взят",
+			data: await GetChatId(message),
+			text: "Сообщение успешно отправлено",
 			type: 1
 		};
 	};

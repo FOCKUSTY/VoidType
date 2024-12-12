@@ -6,9 +6,11 @@ export = {
 	async execute(interaction: Interaction) {
 		const reply = `Привет, вот мои команды:\n${Commands.commands.join("\n")}\nЧтобы узнать больше, можете воспользоваться /help`;
 
-		if (!interaction.text?.includes(" ")) return await interaction.reply(reply);
+		if (!interaction.text?.includes("-")) return await interaction.reply(reply);
 
-		const options = interaction.text.split(" ");
+		const first = interaction.text.split("-");
+		const commandName = first[0].split(" ")[1];
+		const options: string[] = [commandName, ...first.filter(o => o !== first[0])];
 
 		if (!Commands.commands.includes(options[0]))
 			return await interaction.reply(reply);
@@ -18,6 +20,7 @@ export = {
 		if (!command.executeFunc) return await interaction.reply(reply);
 
 		const funcOptions = options.filter((o) => o !== options[0]);
-		command.executeFunc(...funcOptions);
+
+		command.executeFunc(interaction, ...funcOptions);
 	}
 };

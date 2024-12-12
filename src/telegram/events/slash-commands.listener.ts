@@ -5,7 +5,9 @@ import { commands } from "telegram/deploy.commands";
 const SlashCommandsListener = async (message: Interaction) => {
 	if (!(message.text && message.text.startsWith("/"))) return;
 
-	const commandName = message.text.slice(1, message.text.length);
+	const commandName = message.text.includes(" ")
+		? message.text.slice(1, message.text.indexOf(" "))
+		: message.text.slice(1, message.text.length);
 	const command = commands.get(commandName);
 
 	if (!command) return;
