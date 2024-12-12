@@ -14,9 +14,10 @@ import ClientLoader from "utility/loaders/client.loader";
 import Formatter from "f-formatter";
 import Logger from "fock-logger";
 
-import PseudoRandom from "./pseudo-random.service";
+import { Random } from "random-js";
 import Array from "./array.service";
 
+const { integer: randomInt } = new Random();
 const historyObject = new Map();
 const titleRegExp = new RegExp("[${]+[a-zA-Z]+[}]+", "gi");
 const formatterRegExp = new RegExp("[a-zA-Z]+", "gi");
@@ -51,7 +52,7 @@ class RandomActiviy {
 			if (!variable) return activiy;
 
 			const array = utility.titles[variable[0]];
-			const title = array[new PseudoRandom().Number(0, array.length - 1)];
+			const title = array[randomInt(0, array.length-1)];
 
 			activiy.text = activiy.text.replace(v, title);
 		}
@@ -72,31 +73,13 @@ class RandomActiviy {
 				loadedActivities[type === "guild" ? "guild" : "name"]
 			);
 
-			const randomActivityNumber = new PseudoRandom().Number(
-				0,
-				activities.length - 1,
-				history,
-				activities,
-				this._setActivity
-			);
+			const randomActivityNumber = randomInt(0, activities.length - 1);
 			const randomActivity = activities[randomActivityNumber];
 
 			const array = this._clientLoader.Get(type);
 
-			const firstRandomElementNumber = new PseudoRandom().Number(
-				0,
-				array.length - 1,
-				history,
-				array,
-				this._setActivity
-			);
-			const secondRandomElementNumber = new PseudoRandom().Number(
-				0,
-				array.length - 1,
-				history,
-				array,
-				this._setActivity
-			);
+			const firstRandomElementNumber = randomInt(0, array.length - 1);
+			const secondRandomElementNumber = randomInt(0, array.length - 1);
 
 			const firstRandomElement = array[firstRandomElementNumber];
 			const secondRandomElement = array[secondRandomElementNumber];
@@ -130,13 +113,7 @@ class RandomActiviy {
 
 			const activities = Array.Shuffle(loadedActivities["other"]);
 
-			const randomActivityNumber = new PseudoRandom().Number(
-				0,
-				activities.length - 1,
-				history,
-				activities,
-				this._setActivity
-			);
+			const randomActivityNumber = randomInt(0, activities.length - 1);
 			const randomActivity: Activity = this.RegExpFormatter(
 				activities[randomActivityNumber]
 			);
@@ -159,13 +136,7 @@ class RandomActiviy {
 			: [];
 		historyObject.set("number-activity", history);
 
-		const randomChance = new PseudoRandom().Number(
-			0,
-			100,
-			history,
-			undefined,
-			this._setActivity
-		);
+		const randomChance = randomInt(0, 100);
 
 		const Log = (activity: Activity) => {
 			if (this._setActivity)
