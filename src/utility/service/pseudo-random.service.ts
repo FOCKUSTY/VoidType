@@ -18,8 +18,6 @@ class PseudoRandom {
 
 	private readonly _logging: boolean = true;
 
-	private _random: number;
-
 	constructor(
 		data?:
 			| {
@@ -62,8 +60,6 @@ class PseudoRandom {
 			this._yourArray = data[3] || [];
 
 			this._logging = data[4] || false;
-
-			this._random = Random.integer(data[0], data[1]);
 		} else if (data) {
 			history.set(data.name, data.historyArray || []);
 
@@ -76,11 +72,8 @@ class PseudoRandom {
 			this._n = data.n || 2;
 			this._m = data.m || 3;
 
-			this._random = Random.integer(data.min || 0, data.max || 100);
 			this._logging = data.logging || false;
 		}
-
-		this._random = Random.integer(this._min, this._max);
 	}
 
 	public readonly Array = (
@@ -141,19 +134,7 @@ class PseudoRandom {
 	): number => {
 		if (max - 100 < min) return Random.integer(min, max);
 
-		const time = new Date().getMilliseconds();
-
-		let pseudoRandom: number = (this._random + time) ** 2;
-
-		const text: string = `${pseudoRandom}`.replace(".", "");
-		const maxLength = `${max}`.length;
-
-		pseudoRandom = Number(
-			text.slice(
-				Math.floor(text.length / 2),
-				Math.floor(text.length / 2 + maxLength)
-			)
-		);
+		let pseudoRandom: number = Random.integer(min, max);
 
 		const checkMax = () => {
 			if (pseudoRandom > max) {
@@ -177,8 +158,6 @@ class PseudoRandom {
 			Debug.Log([
 				`Генерация нового псевдо случайного числа от ${min} до ${max}: ${pseudoRandom}`
 			]);
-
-		this._random = pseudoRandom;
 
 		return pseudoRandom;
 	};
