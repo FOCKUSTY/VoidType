@@ -1,20 +1,20 @@
 import { ActivityType, Client as DiscordClient } from "discord.js";
+import { Random } from "random-js";
+
 import { ActivityTypes } from "types/activities/activities.enum";
-
-import {
-	activities as loadedActivities,
-	utility
-} from "@thevoidcommunity/the-void-database/loaders/data/activities.loader";
-import { Activity } from "@thevoidcommunity/the-void-database/types/activity.types";
-
-import { Debug } from "develop/debug.develop";
-
-import ClientLoader from "utility/loaders/client.loader";
 
 import Formatter from "f-formatter";
 import Logger from "fock-logger";
 
-import { Random } from "random-js";
+import {
+	activities as loadedActivities,
+	utility
+} from "@thevoid/loaders/data/activities.loader";
+import { Activity } from "@thevoid/types/activity.types";
+
+import { Debug } from "develop/debug.develop";
+
+import ClientLoader from "utility/loaders/client.loader";
 import Array from "./array.service";
 
 const { integer: randomInt } = new Random();

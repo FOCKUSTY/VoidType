@@ -5,7 +5,7 @@ import { ActivityTypes } from "types/activities/activities.enum";
 import Logger from "fock-logger";
 
 import ClientLoader from "utility/loaders/client.loader";
-import { ActivitiesLoader } from "@thevoidcommunity/the-void-database";
+import { ActivitiesLoader } from "@thevoid";
 
 import RandomActiviy from "utility/service/random-activity.service";
 

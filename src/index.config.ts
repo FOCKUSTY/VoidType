@@ -1,7 +1,7 @@
-import path from "path";
-
 import config from "../config.json";
 import settings from "../settings.json";
+
+import path from "path";
 
 const TheVoidDir = path.resolve("../../");
 

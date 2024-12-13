@@ -13,15 +13,17 @@
         "skipLibCheck": true,
         "baseUrl": "./",
         "paths": {
-            "discord/*": ["./src/discord/*", "./dist/src/discord/*" ],
-            "telegram/*": ["./src/telegram/*", "./dist/src/telegram/*" ],
-            "utility/*": ["./src/utility/*", "./dist/src/utility/*" ],
-            "types/*": ["./src/types/*", "./dist/src/types/*" ],
-            "logger/*": ["./src/logger/*", "./dist/src/logger/*" ],
-            "develop/*": ["./src/develop/*", "./dist/src/develop/*" ],
-            "database/*": ["./src/database/*", "./dist/src/database/*" ],
+            "src/*": [ "./src/*", "./dist/src/*" ],
 
-            "src/*": ["./src/*", "./dist/src/*"]
+            "discord/*": [ "./src/discord/*", "./dist/src/discord/*" ],
+            "telegram/*": [ "./src/telegram/*", "./dist/src/telegram/*" ],
+            "utility/*": [ "./src/utility/*", "./dist/src/utility/*" ],
+            "types/*": [ "./src/types/*", "./dist/src/types/*" ],
+            "logger/*": [ "./src/logger/*", "./dist/src/logger/*" ],
+            "develop/*": [ "./src/develop/*", "./dist/src/develop/*" ],
+
+            "@thevoid":  [ "./node_modules/@thevoidcommunity/the-void-database/index" ],
+            "@thevoid/*": [ "./node_modules/@thevoidcommunity/the-void-database/*" ]
         }
     },
     "include": [ "./**/*.ts" ],

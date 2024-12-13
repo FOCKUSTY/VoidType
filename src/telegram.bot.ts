@@ -2,11 +2,12 @@ import { Telegraf } from "telegraf";
 
 import type { Interaction } from "./types/telegram/interaction.type";
 
+import { config } from "src/index.config";
 import { DeployCommands } from "./telegram/deploy.commands";
+
 import MessageListener from "./telegram/events/message.listener";
 import SlashCommandsListener from "./telegram/events/slash-commands.listener";
 
-import { config } from "src/index.config";
 
 import path from "path";
 import fs from "fs";

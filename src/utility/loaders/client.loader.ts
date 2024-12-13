@@ -1,6 +1,6 @@
 import { Client as DiscordClient } from "discord.js";
 
-import { objects } from "@thevoidcommunity/the-void-database/loaders/data/objects.loader";
+import { objects } from "@thevoid/loaders/data/objects.loader";
 import Filter from "utility/service/filter.service";
 
 import Logger from "fock-logger";

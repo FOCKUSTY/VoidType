@@ -1,21 +1,18 @@
-import { Constants } from "@thevoidcommunity/the-void-database";
+import "src/index.constants";
 
 import Logger from "fock-logger";
 import Formatter, { Colors } from "f-formatter";
 
-import { THEVOIDs_CONSTANTS } from "src/index.constants";
+import loggers from "./loggers.names";
 import { Debug } from "develop/debug.develop";
+
 import { LoginDiscord } from "./discord.bot";
 import { LoginTelegram } from "./telegram.bot";
-
-import loggers from "./loggers.names";
 
 Debug.Console.clear();
 Debug.Log([new Formatter().Color("Начало программы", Colors.magenta)]);
 
 const bot = process.env.BOT || "discord";
-
-new Constants(THEVOIDs_CONSTANTS).execute();
 
 for (const name in loggers) {
 	const logger = loggers[name];

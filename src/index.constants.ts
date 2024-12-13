@@ -1,3 +1,4 @@
+import { Constants } from "@thevoid";
 import { version } from "../package.json";
 
 const THEVOIDs_CONSTANTS: { [key: string]: string } = {
@@ -12,5 +13,7 @@ const THEVOIDs_CONSTANTS: { [key: string]: string } = {
 	"typend_B": "ым",
 	"version": version
 };
+
+new Constants(THEVOIDs_CONSTANTS).execute();
 
 export { THEVOIDs_CONSTANTS };

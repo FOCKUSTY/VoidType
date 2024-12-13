@@ -1,4 +1,4 @@
-import { ObjectsLoader } from "@thevoidcommunity/the-void-database";
+import { ObjectsLoader } from "@thevoid";
 
 const objects = new ObjectsLoader().execute();
 
