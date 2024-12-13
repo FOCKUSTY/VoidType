@@ -5,7 +5,6 @@ import { Option } from "types/telegram/options.type";
 import { Response } from "types/telegram/response.type";
 import Telegram from "telegram/utility/service/telegram.service";
 
-
 const options = new Map<string | number, any[]>();
 const saved = new Map<string, { key: string; value: string }[]>();
 const anonMessages = new Map<string, string>();
@@ -19,13 +18,17 @@ const MessageListener = async (message: Interaction) => {
 
 	if (anonUser && message.text) {
 		anonMessages.delete(replyId);
-		
+
 		const intro = "Спасибо, что пользуетесь The Void !";
 		const main = `Вам пришёл ответ от ${message.from.username || message.from.first_name}!`;
 		const text = Format.code(`${intro}\n\n${main}\n\n${message.text}`);
-		
+
 		if (text.entities)
-			text.entities[0] = { offset: intro.length+main.length+4, length: message.text.length, type: "code" };
+			text.entities[0] = {
+				offset: intro.length + main.length + 4,
+				length: message.text.length,
+				type: "code"
+			};
 
 		const data = await new Telegram().Send(anonUser, text);
 
@@ -65,7 +68,7 @@ const MessageListener = async (message: Interaction) => {
 
 			const id = res.data?.data?.message_id;
 			const from = res.data?.userId;
-			
+
 			if (option.command === "send_anonimus_message" && id && from)
 				anonMessages.set(id, from);
 

@@ -21,7 +21,7 @@ class Telegram {
 				text: "Client is not defined",
 				type: 0
 			};
-		};
+		}
 
 		try {
 			return {
@@ -31,14 +31,13 @@ class Telegram {
 			};
 		} catch (error) {
 			Debug.Error(error);
-			
+
 			return {
 				data: error,
 				text: "Не удалось отправить сообщение",
 				type: 0
-			}			
+			};
 		}
-
 	};
 
 	public SendAnonMessage = async (
@@ -75,7 +74,11 @@ class Telegram {
 			const txt = Format.code(`${intro}\n\n${text}\n\n${main}\n${conc}`);
 
 			if (txt.entities)
-				txt.entities[0] = { offset: intro.length+2, length: text.length, type: "code" };
+				txt.entities[0] = {
+					offset: intro.length + 2,
+					length: text.length,
+					type: "code"
+				};
 
 			const data = await Client.telegram.sendMessage(`${chatId}`, txt);
 
