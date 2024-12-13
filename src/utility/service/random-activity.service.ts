@@ -17,7 +17,7 @@ import { Debug } from "develop/debug.develop";
 import ClientLoader from "utility/loaders/client.loader";
 import Array from "./array.service";
 
-const { integer: randomInt } = new Random();
+const random = new Random();
 const historyObject = new Map();
 const titleRegExp = new RegExp("[${]+[a-zA-Z]+[}]+", "gi");
 const formatterRegExp = new RegExp("[a-zA-Z]+", "gi");
@@ -52,7 +52,7 @@ class RandomActiviy {
 			if (!variable) return activiy;
 
 			const array = utility.titles[variable[0]];
-			const title = array[randomInt(0, array.length - 1)];
+			const title = array[random.integer(0, array.length - 1)];
 
 			activiy.text = activiy.text.replace(v, title);
 		}
@@ -73,13 +73,13 @@ class RandomActiviy {
 				loadedActivities[type === "guild" ? "guild" : "name"]
 			);
 
-			const randomActivityNumber = randomInt(0, activities.length - 1);
+			const randomActivityNumber = random.integer(0, activities.length - 1);
 			const randomActivity = activities[randomActivityNumber];
 
 			const array = this._clientLoader.Get(type);
 
-			const firstRandomElementNumber = randomInt(0, array.length - 1);
-			const secondRandomElementNumber = randomInt(0, array.length - 1);
+			const firstRandomElementNumber = random.integer(0, array.length - 1);
+			const secondRandomElementNumber = random.integer(0, array.length - 1);
 
 			const firstRandomElement = array[firstRandomElementNumber];
 			const secondRandomElement = array[secondRandomElementNumber];
@@ -113,7 +113,7 @@ class RandomActiviy {
 
 			const activities = Array.Shuffle(loadedActivities["other"]);
 
-			const randomActivityNumber = randomInt(0, activities.length - 1);
+			const randomActivityNumber = random.integer(0, activities.length - 1);
 			const randomActivity: Activity = this.RegExpFormatter(
 				activities[randomActivityNumber]
 			);
@@ -136,7 +136,7 @@ class RandomActiviy {
 			: [];
 		historyObject.set("number-activity", history);
 
-		const randomChance = randomInt(0, 100);
+		const randomChance = random.integer(0, 100);
 
 		const Log = (activity: Activity) => {
 			if (this._setActivity)
