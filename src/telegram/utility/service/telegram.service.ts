@@ -25,12 +25,12 @@ class Telegram {
 			};
 		}
 
-/* 		if (chatId == userId)
+		if (chatId == userId)
 			return {
 				data: { type: 1 },
 				text: "Вы не можете отправить сообщение самому себе",
 				type: 0
-			}; */
+			};
 
 		const link = `https://t.me/TheVoid_VBOT?start=send_anonimus_message-${chatId}`;
 		const intro = "Спасибо, что пользуетесь The Void !";
