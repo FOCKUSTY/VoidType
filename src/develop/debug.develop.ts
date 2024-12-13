@@ -16,9 +16,7 @@ class Debug {
 	private static readonly WarnComponent = (msg: any, type: "error" | "warning") => {
 		console.warn(formatter.Color(warn, Colors.yellow));
 
-		const text = "\n" + warn
-			+ msg.stack ? msg.stack : msg
-			+ "\n" + warn;
+		const text = "\n" + warn + msg.stack ? msg.stack : msg + "\n" + warn;
 
 		if (type === "error") {
 			console.error(formatter.Color(warn, Colors.red));
@@ -75,6 +73,4 @@ class Debug {
 	};
 }
 
-export {
-	Debug
-};
+export { Debug };

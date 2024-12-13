@@ -8,7 +8,6 @@ import { DeployCommands } from "./telegram/deploy.commands";
 import MessageListener from "./telegram/events/message.listener";
 import SlashCommandsListener from "./telegram/events/slash-commands.listener";
 
-
 import path from "path";
 import fs from "fs";
 

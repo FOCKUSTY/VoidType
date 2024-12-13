@@ -52,7 +52,7 @@ class RandomActiviy {
 			if (!variable) return activiy;
 
 			const array = utility.titles[variable[0]];
-			const title = array[randomInt(0, array.length-1)];
+			const title = array[randomInt(0, array.length - 1)];
 
 			activiy.text = activiy.text.replace(v, title);
 		}
