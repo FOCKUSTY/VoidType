@@ -1,5 +1,5 @@
 import { Interaction } from "src/types/telegram/interaction.type";
-import { Telegraf } from "telegraf";
+import { Telegraf, Format } from "telegraf";
 import { Debug } from "src/develop/debug.develop";
 
 import SendMessage from "./helpers/send-message.helper";
@@ -7,6 +7,7 @@ import GetChatId from "./helpers/get-chat-id.helper";
 
 import Client from "src/telegram.bot";
 import { Response } from "types/telegram/response.type";
+import { FmtString } from "telegraf/typings/format";
 
 class Telegram {
 	private _client: Telegraf = Client;
@@ -24,16 +25,16 @@ class Telegram {
 			};
 		}
 
-		if (chatId == userId)
+/* 		if (chatId == userId)
 			return {
 				data: { type: 1 },
 				text: "Вы не можете отправить сообщение самому себе",
 				type: 0
-			};
+			}; */
 
-		const link = "https://t.me/TheVoid_VBOT?start=send_anonimus_message-" + chatId;
-		const intro = "Спасибо, что пользуетесь The Void !\n\n";
-		const conc = "\n\nВы можете получаться анонимные сообщение по ссылке:\n" + link;
+		const link = `https://t.me/TheVoid_VBOT?start=send_anonimus_message-${chatId}`;
+		const intro = "Спасибо, что пользуетесь The Void !";
+		const conc = `Вы можете получаться анонимные сообщение по ссылке:\n${link}`;
 
 		let text: string = "";
 
@@ -41,7 +42,12 @@ class Telegram {
 		else text = message;
 
 		try {
-			Client.telegram.sendMessage(`${chatId}`, intro + `\`${text}\`` + conc);
+			const data = Format.code(`${intro}\n\n${text}\n\n${conc}`);
+
+			if (data.entities)
+				data.entities[0] = { offset: intro.length+2, length: text.length, type: "code" };
+
+			Client.telegram.sendMessage(`${chatId}`, data);
 
 			return {
 				data: { text },
