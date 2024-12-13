@@ -7,10 +7,39 @@ import GetChatId from "./helpers/get-chat-id.helper";
 
 import Client from "src/telegram.bot";
 import { Response } from "types/telegram/response.type";
-import { FmtString } from "telegraf/typings/format";
 
 class Telegram {
 	private _client: Telegraf = Client;
+
+	public Send = async (
+		chatId: number | string,
+		message: string | Format.FmtString
+	): Promise<Response> => {
+		if (!this._client) {
+			return {
+				data: Debug.Error("Client is not defined"),
+				text: "Client is not defined",
+				type: 0
+			};
+		};
+
+		try {
+			return {
+				data: await Client.telegram.sendMessage(chatId, message),
+				text: "Сообщение было отправлено",
+				type: 1
+			};
+		} catch (error) {
+			Debug.Error(error);
+			
+			return {
+				data: error,
+				text: "Не удалось отправить сообщение",
+				type: 0
+			}			
+		}
+
+	};
 
 	public SendAnonMessage = async (
 		chatId: number | string,
@@ -34,7 +63,8 @@ class Telegram {
 
 		const link = `https://t.me/TheVoid_VBOT?start=send_anonimus_message-${chatId}`;
 		const intro = "Спасибо, что пользуетесь The Void !";
-		const conc = `Вы можете получаться анонимные сообщение по ссылке:\n${link}`;
+		const main = "Вы можете ответить, но только один раз !";
+		const conc = `Вы можете получать анонимные сообщение по ссылке:\n${link}`;
 
 		let text: string = "";
 
@@ -42,15 +72,15 @@ class Telegram {
 		else text = message;
 
 		try {
-			const data = Format.code(`${intro}\n\n${text}\n\n${conc}`);
+			const txt = Format.code(`${intro}\n\n${text}\n\n${main}\n${conc}`);
 
-			if (data.entities)
-				data.entities[0] = { offset: intro.length+2, length: text.length, type: "code" };
+			if (txt.entities)
+				txt.entities[0] = { offset: intro.length+2, length: text.length, type: "code" };
 
-			Client.telegram.sendMessage(`${chatId}`, data);
+			const data = await Client.telegram.sendMessage(`${chatId}`, txt);
 
 			return {
-				data: { text },
+				data: { text, data, userId },
 				text: "Сообщение успешно отправлено",
 				type: 1
 			};

@@ -1,13 +1,15 @@
 import { options } from "telegram/events/message.listener";
 import { Interaction } from "types/telegram/interaction.type";
 import Discord from "discord/utility/service/discord.service";
+import { Option } from "src/types/telegram/options.type";
 
 export = {
 	name: "send_message_to_discord",
 	options: ["channelId", "message"],
 	async execute(interaction: Interaction) {
-		const replyOptions = [
+		const replyOptions: Option[] = [
 			{
+				command: "send_message_to_discord",
 				option: "channelId",
 				error: "",
 				text: "Введите id канала",
@@ -15,6 +17,7 @@ export = {
 				id: interaction.message.message_id + 0
 			},
 			{
+				command: "send_message_to_discord",
 				option: "message",
 				error: "",
 				text: "Введите сообщение",
@@ -22,6 +25,7 @@ export = {
 				id: interaction.message.message_id + 2
 			},
 			{
+				command: "send_message_to_discord",
 				option: "end",
 				error: "Не удалось отправить сообщение в Discord\n\nОшибка:\n%ERROR%",
 				text: "Сообщение было отправлено в Discord\n\nСообщение:\n%SUCCESS%",
@@ -37,8 +41,9 @@ export = {
 		await interaction.reply(replyOptions[0].text);
 	},
 	async executeFunc(interaction: Interaction, userId: number | string) {
-		const replyOptions = [
+		const replyOptions: Option[] = [
 			{
+				command: "send_message_to_discord",
 				option: "message",
 				error: "",
 				text: "Введите сообщение",
@@ -46,6 +51,7 @@ export = {
 				id: interaction.message.message_id
 			},
 			{
+				command: "send_message_to_discord",
 				option: "end",
 				error: "Не удалось отправить сообщение в Discord\nОшибка: %ERROR%",
 				text: "Сообщение было отправлено в Discord\nСообщение: %SUCCESS%",

@@ -1,6 +1,7 @@
 import { Response } from "./response.type";
 
 export type Option = {
+	command: string;
 	option: string;
 	error: string;
 	text: string;
