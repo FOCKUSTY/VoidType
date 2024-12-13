@@ -15,31 +15,28 @@
 - Разберем код:
 ```ts
 // Импорт методов и объектов
-// Formatter - Объект-помощник для форматировки сообщений
-// Colors - Объект-помощник для вывода цветных сообщений
 // ICL - Объект-прослушиватель для использования пользователями slash команд
 // ML - Объект-послушиватель для использования пользовательми модальников
-import Formatter, { Colors } from 'utility/service/formatter.service';
-import ICL from 'discord/events/interaction-create.listener';
-import ML from 'discord/events/modal.listener';
+import ICL from "discord/events/interaction-create.listener";
+import ML from "discord/events/modal.listener";
 
 // Импорт дополнительного материала
 // config - Наш config.json
 // Debug - Объект-помощник для отладки
-import { config } from 'config';
-import { Debug } from 'develop/debug.develop';
+import { Debug } from "develop/debug.develop";
+import { config } from "./index.config";
 
 // Импорт функций для установки команд бота
-// WriteCommands - Выводит отформатиранный команды в консоль
-// DeployEvents - Загружает команды в бота (В Discord)
-import { WriteCommands } from 'discord/deploy.commands';
-import { DeployEvents } from 'discord/deploy.events';
+// Deployer - Объект-помощник для работы с деплоем команд (и не только)
+// DeployEvents - Загрузчик событий
+import Deployer from "discord/deploy.commands";
+import DeployEvents from "discord/deploy.events";
 
 // Импорт модулей из node.js для просмотра файлов и папок
 // path - помогает найти путь до файлов/папок
 // fs - читает файлы/папки
-import path from 'path';
-import fs from 'fs';
+import path from "path";
+import fs from "fs";
 
 // Испорт главный модулей
 import {
@@ -49,9 +46,6 @@ import {
     GatewayIntentBits,
     Partials
 } from 'discord.js';
-
-// Импорт самописного объекта Discord для облегчения работы
-import Discord from 'discord/utility/service/discord.service';
 
 // Установка клиента
 const Client = new DiscordClient({
@@ -64,13 +58,8 @@ const Client = new DiscordClient({
 		GatewayIntentBits.GuildVoiceStates,
 		GatewayIntentBits.GuildPresences
 	],
-	partials: [
-		Partials.Channel
-	],
+	partials: [Partials.Channel]
 });
-
-Debug.Console.clear();
-Debug.Log([Formatter.Color('Начало программы', Colors.magenta)]);
 
 // Установка коллекций команд и кулданоунов
 const Commands = new Collection();
@@ -84,30 +73,26 @@ Client.on(Events.InteractionCreate, async interaction => {
 
 // Логиним нашего бота
 const Login = async () => {
-    // Путь до команд
-	const foldersPath = path.join(__dirname, 'discord/commands');
+    // Чтение папки с командами
+	const foldersPath = path.join(__dirname, "discord/commands");
 	const commandsFolder = fs.readdirSync(foldersPath);
 
-    // Путь до событий
-	const eventsPath = path.join(__dirname, 'discord/events');
-	const eventFiles = fs.readdirSync(eventsPath)
-		.filter(file => file.endsWith('.js') || file.endsWith('.ts'));
+    // Чтение папки с событиями
+	const eventsPath = path.join(__dirname, "discord/events");
+	const eventFiles = fs
+		.readdirSync(eventsPath)
+		.filter((file) => file.endsWith(".js") || file.endsWith(".ts"));
 
-    // Загрузка команд и прослушивателей событий
-	WriteCommands(Commands, Client, foldersPath, commandsFolder);
+    // Установка загрузчиков
+	new Deployer(foldersPath, commandsFolder).write(Client, Commands);
 	new DeployEvents(eventsPath, eventFiles).execute();
 
-    // Логиним нашего бота
-	await Client
-		.login(config.clientToken)
-		.catch((e) => Debug.Error(e));
-}
+    // Вход
+	await Client.login(config.clientToken).catch((e) => Debug.Error(e));
+};
 
 // Экспорт
-export {
-	Commands,
-	Login as LoginDiscord
-};
+export { Commands, Login as LoginDiscord };
 
 export default Client;
 ```
@@ -115,11 +100,11 @@ export default Client;
 ### telegram.bot.ts
 
 ```ts
-// Импортируем самописный тип взаимодействия
-import { Interaction } from './types/telegram/interaction.type';
-
 // Импортируем главный модуль
 import { Telegraf } from 'telegraf';
+
+// Импортируем самописный тип взаимодействия
+import type { Interaction } from './types/telegram/interaction.type';
 
 // Импорт дополнительного материала
 // config - Наш config.json
@@ -130,9 +115,6 @@ import { DeployCommands } from './telegram/deploy.commands';
 // Импорт функций-прослушивателей
 import MessageListener from './telegram/events/message.listener';
 import SlashCommandsListener from './telegram/events/slash-commands.listener';
-
-// Импорт самописного объекта
-import Telegram from './telegram/utility/service/telegram.service';
 
 import path from 'path';
 import fs from 'fs';
@@ -145,24 +127,20 @@ Client.on('message', async (message: Interaction) => {
 });
 
 const Login = async () => {
-    const commandsPath = path.join(__dirname, 'telegram/commands');
-    const commandsFiles = fs.readdirSync(commandsPath)
-        .filter(file => file.endsWith('.js') || file.endsWith('.ts'));
+	const commandsPath = path.join(__dirname, "telegram/commands");
+	const commandsFiles = fs
+		.readdirSync(commandsPath)
+		.filter((file) => file.endsWith(".js") || file.endsWith(".ts"));
 
-    DeployCommands(Client, commandsPath, commandsFiles);
+	DeployCommands(Client, commandsPath, commandsFiles);
 
-    await Client.launch();
-    
-    process.once('SIGINT', () =>
-        Client.stop('SIGINT'));
-     
-    process.once('SIGTERM', () =>
-        Client.stop('SIGTERM'));
+	await Client.launch();
+
+	process.once("SIGINT", () => Client.stop("SIGINT"));
+	process.once("SIGTERM", () => Client.stop("SIGTERM"));
 };
 
-export {
-    Login as LoginTelegram
-};
+export { Login as LoginTelegram };
 
 export default Client;
 ```
@@ -170,62 +148,66 @@ export default Client;
 ### index.config.ts
 
 ```ts
-import path from 'path';
-
 // Импорт конфига и настроек для бота
 import config from '../config.json';
 import settings from '../settings.json';
 
-// Создание рут-папки
-const TheVoidDir = path.resolve('../../');
-
-// Создание объекта
-const pathData = {
-    TheVoidDir
-};
-
 // Эскпорт
-export {
-    config,
-    settings,
-    pathData
-};
+export { config,settings };
 ```
 
 ### index.constant.ts
 
 ```ts
-// Импорт версии с package.json
-import { version } from '../package.json';
+// Импорт инциализатора
+import { Constants } from "@thevoid";
+import { version } from "../package.json";
 
 const THEVOIDs_CONSTANTS: { [key: string]: string } = {
-    "THEVOIDSBOT_REVERSE_GENDER": 'девушка',
-    "THEVOIDSBOT_NREVERSE": 'The Void',
-    "THEVOIDSBOT_REVERSE": 'The Abyssia',
-    "THEVOIDSBOT_LOVE": 'Kristy',
-    "THEVOIDSBOT_REVERSE_LOVE": 'The Void',
-    "THEVOID_LOVE": 'Kristy',
-    "THEVOID": 'Меня',
-    "typend_A": '',
-    "typend_B": 'ым',
-    "version": version
+	"THEVOIDSBOT_REVERSE_GENDER": "девушка",
+	"THEVOIDSBOT_NREVERSE": "The Void",
+	"THEVOIDSBOT_REVERSE": "The Abyssia",
+	"THEVOIDSBOT_LOVE": "Kristy",
+	"THEVOIDSBOT_REVERSE_LOVE": "The Void",
+	"THEVOID_LOVE": "Kristy",
+	"THEVOID": "Меня",
+	"typend_A": "",
+	"typend_B": "ым",
+	"version": version
 };
 
+// Инициализация
+new Constants(THEVOIDs_CONSTANTS).execute();
 
-// Экспорт объекта
-export {
-    THEVOIDs_CONSTANTS
-};
+export { THEVOIDs_CONSTANTS };
+
 ```
 
 ### start.bot.ts
 ```ts
-// Импорт функций из файлов
+// Инициализация констант
+import "src/index.constants";
+
+import Logger from "fock-logger";
+import Formatter, { Colors } from "f-formatter";
+
+import loggers from "./loggers.names";
+import { Debug } from "develop/debug.develop";
+
 import { LoginDiscord } from './discord.bot';
 import { LoginTelegram } from './telegram.bot';
 
+Debug.Console.clear();
+Debug.Log([new Formatter().Color("Начало программы", Colors.magenta)]);
+
 // Объявления среды запуска BOT (Может быть 'discrod'|'telegram'|'all')
 const bot = process.env.BOT || 'discord';
+
+for (const name in loggers) {
+	const logger = loggers[name];
+
+	new Logger(name, logger.colors).execute(`Hello, I'm ${name}!`);
+}
 
 // анонимная асинхронная функция
 (async () => {
@@ -250,17 +232,14 @@ const bot = process.env.BOT || 'discord';
 ### package.json > scripts
 ```json
 "scripts": {
-    "dev:slash": "tsx watch src/discord/slash.commands.ts",
-    
-    "dev": "set NODE_ENV=dev&& set BOT=all&& tsx watch src/start.bot.ts",
-    "dev:telegram": "set NODE_ENV=dev&& set BOT=telegram&& tsx watch src/start.bot.ts",
-    "dev:discord": "set NODE_ENV=dev&& set BOT=discord&& tsx watch src/start.bot.ts",
-
-    "start:slash": "node dist/the-void-bots/VoidType/src/discrd/slash.commands.ts",
-    "start:builded": "set NODE_ENV=prod&& set BOT=all&& node dist/the-void-bots/VoidType/src/start.bot.js",
-    "start": "set NODE_ENV=prod&& pnpm run build && pnpm run start:builded",
-    
-    "build": "tsc && tsc-alias"
+    "dev:slash": "nodemon src/discord/slash.commands.ts",
+    "dev": "set NODE_ENV=dev&& set BOT=all&& nodemon src/start.bot.ts",
+    "dev:telegram": "set NODE_ENV=dev&& set BOT=telegram&& nodemon src/start.bot.ts",
+    "dev:discord": "set NODE_ENV=dev&& set BOT=discord&& nodemon src/start.bot.ts",
+    "start:slash": "node -r tsconfig-paths/register dist/src/discord/slash.commands.js",
+    "start:builded": "set NODE_ENV=prod&& set BOT=all&& node -r tsconfig-paths/register dist/src/start.bot.js",
+    "start": "set NODE_ENV=prod&& pnpm run build && pnpm run start:slash && pnpm run start:builded",
+    "build": "tsc"
 }
 ```
 
@@ -282,11 +261,12 @@ const bot = process.env.BOT || 'discord';
 - Запуск компиляции
 
 - Рассмотрим команды, используемые в скриптах.
-1. `tsx watch` - Запуск чистого `ts` кода.
+1. `nodemon` - Запуск чистого `ts` кода.
 2. `set NODE_ENV` - Установка в `.env` `NODE_ENV` (Значение указывается через `=ЗНАЧЕНИЕ`).
 3. `set BOT` - Тоже самое, что и `NODE_ENV`.
 4. `&&` - Логическое "И", помогает запускать несколько скриптов в одном.
 5. `tsc` - Запуск компилятора.
+6. `-r tsconfig-paths/register` - Что-то с путями, крутая штука
 
 - Думаю, вопросов больше не возникнет.
 - Вы можете сами разобрать код в папка, сложнее всего будет понять:

@@ -92,8 +92,7 @@ YOUR-IMPORT-HERE
 */
 
 const client = new Client({
-	intents:
-	[
+	intents: [
 		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessages,
@@ -102,8 +101,7 @@ const client = new Client({
 		GatewayIntentBits.GuildVoiceStates,
 		GatewayIntentBits.GuildPresences
 	],
-	partials:
-	[
+	partials: [
 		Partials.Channel
 	],
 });
@@ -132,8 +130,7 @@ YOUR-IMPORT-HERE
 */
 
 const client: Client = new Client({
-	intents:
-	[
+	intents: [
 		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessages,
@@ -142,8 +139,7 @@ const client: Client = new Client({
 		GatewayIntentBits.GuildVoiceStates,
 		GatewayIntentBits.GuildPresences
 	],
-	partials:
-	[
+	partials: [
 		Partials.Channel
 	],
 });
@@ -163,7 +159,7 @@ client.login(token);
     "compilerOptions": {
         "target": "ES2020",
         "module": "CommonJS",
-        "rootDir": "../", // root-папку можно указать и ./
+        "rootDir": "./",
         "outDir": "./dist", // можно назвать build.
         "removeComments": true,
         "resolveJsonModule": true,
@@ -175,22 +171,24 @@ client.login(token);
         "baseUrl": "./",
 		"paths": {
 			// "название-пути": [ "ваши-пути", "еще-один-путь" ]
-			// "папка-и-все-файлы-в-ней/*": [ "еще-папка/*", "и-еще/*" ]
+			// "папка-и-все-файлы-в-ней/*": [ "еще-папка/*", "и-еще/*", "а-это-файл.да" ]
 		}
 	},
-    "include": ["./**/*.ts"] // Понятие не имею, что это значит.
+    "include": ["./**/*.ts"], // БЕРЕМ ВСЁ, ЧТО НАХОДИТСЯ В ПРОЕКТА УХАХХАХАХАХ.
+	"exclude": [ "node_modules", "dist" ] // И не забываем про...
 }
 ```
 
 - Добавьте в `package.json`:
 ```json
-  "devDependencies": {
-    "@types/node": "^20.10.5",
+"devDependencies": {
+    "@types/node": "^20.16.1",
+    "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
-    "tsup": "^7.2.0",
-    "tsx": "^4.1.1",
-    "typescript": "^5.3.3"
-  }
+    "tsc": "^2.0.4",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.5.4"
+}
 ```
 
 - И впишите в терминал:

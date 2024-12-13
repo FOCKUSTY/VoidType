@@ -91,8 +91,7 @@ YOUR-IMPORT-HERE
 */
 
 const client = new Client({
-	intents:
-	[
+	intents: [
 		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessages,
@@ -101,8 +100,7 @@ const client = new Client({
 		GatewayIntentBits.GuildVoiceStates,
 		GatewayIntentBits.GuildPresences
 	],
-	partials:
-	[
+	partials: [
 		Partials.Channel
 	],
 });
@@ -131,8 +129,7 @@ YOUR-IMPORT-HERE
 */
 
 const client: Client = new Client({
-	intents:
-	[
+	intents: [
 		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessages,
@@ -141,8 +138,7 @@ const client: Client = new Client({
 		GatewayIntentBits.GuildVoiceStates,
 		GatewayIntentBits.GuildPresences
 	],
-	partials:
-	[
+	partials: [
 		Partials.Channel
 	],
 });
@@ -162,7 +158,7 @@ client.login(token);
 	"compilerOptions": {
 		"target": "ES2020",
 		"module": "CommonJS",
-		"rootDir": "../", // root folder can be specified and ./
+		"rootDir": "./",
 		"outDir": "./dist", // can be named build.
 		"removeComments": true,
 		"resolveJsonModule": true,
@@ -174,10 +170,11 @@ client.login(token);
 		"baseUrl": "./",
 		"paths": {
 			// "path-name": [ "your-paths", "another-path" ]
-			// "folder-and-all-the-files-in-it/*": [ "another-folder/*", "another/*" ]
+			// "folder-and-all-the-files-in-it/*": [ "another-folder/*", "another/*", "and-this-file.yea" ]
 		}
 	},
-	"include": ["./**/*.ts"] // No idea what that means.
+	"include": ["./**/*.ts"], // ALL FILES IN A PROJECT. HAHAHAHAHAHAHHA.
+	"exclude": [ "node_modules", "dist" ] // And don't forget...
 }
 ```
 
@@ -185,11 +182,12 @@ client.login(token);
 
 ```json
 "devDependencies": {
-	"@types/node": "^20.10.5",
-	"ts-node": "^10.9.2",
-	"tsup": "^7.2.0",
-	"tsx": "^4.1.1",
-	"typescript": "^5.3.3"
+    "@types/node": "^20.16.1",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "tsc": "^2.0.4",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.5.4"
 }
 ```
 
