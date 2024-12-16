@@ -16,11 +16,16 @@ class Llama {
 			const id = new Date().getTime().toString(16);
 			promts.set(promt, id);
 
-			Debug.Log(["Ввод запроса: " + Colors.bgCyan + id + Colors.magenta + ":", promt]);
+			Debug.Log([
+				"Ввод запроса: " + Colors.bgCyan + id + Colors.magenta + ":",
+				promt
+			]);
 
 			const data = ollama.chat(promt);
 
-			data.then((r) => Debug.Log(["Ответ на запрос: " + id + ":\n", r.message.content]));
+			data.then((r) =>
+				Debug.Log(["Ответ на запрос: " + id + ":\n", r.message.content])
+			);
 
 			return {
 				data: data,
