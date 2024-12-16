@@ -129,14 +129,14 @@
   resolved "https://registry.npmjs.org/@telegraf/types/-/types-7.1.0.tgz"
   integrity sha512-kGevOIbpMcIlCDeorKGpwZmdH7kHbqlk/Yj6dEpJMKEQw5lk0KVQY0OLXaCswy8GqlIVLd5625OB+rAntP9xVw==
 
-"@thevoidcommunity/the-void-database@0.2.2-a":
-  version "0.2.2-a"
-  resolved "https://registry.yarnpkg.com/@thevoidcommunity/the-void-database/-/the-void-database-0.2.2-a.tgz#f0dc3fb963912cb10bd8d5ceeecfc85e3a280592"
-  integrity sha512-/aTP/T6jBsYnOGmBwoxrGuoc2S2K36e3ZBuOmKdklbdPqTtLOT2M8OGXbxvRlEvr3p7Vg+vQYJW7yerCaWn0AA==
+"@thevoidcommunity/the-void-database@0.2.3-a":
+  version "0.2.3-a"
+  resolved "https://registry.yarnpkg.com/@thevoidcommunity/the-void-database/-/the-void-database-0.2.3-a.tgz#89ce097b04c5fadfd7e7726ca282156745a049fd"
+  integrity sha512-ShGKsxUxIeLX7PtWPSbRbamRCU5mDDkJdgxnG83U7WR9xQXLq0uExJEdUgtccNX9gMPymHGXeNqOrBkxZIIDsw==
   dependencies:
     f-formatter "^0.3.1"
     fock-builder "^1.0.2-beta"
-    fock-logger "^2.0.4"
+    fock-logger "^2.0.5"
     mongoose "^8.3.2"
     node "^22.12.0"
     ollama "^0.5.11"
@@ -442,10 +442,10 @@ fock-builder@^1.0.2-beta:
     node "^22.9.0"
     yargs "^17.7.2"
 
-fock-logger@2.0.4, fock-logger@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/fock-logger/-/fock-logger-2.0.4.tgz#8cf3bfd4a14067b8ad5dac32aaa6a8f40944a789"
-  integrity sha512-EX4S1VQYm497kLA8fnS+zQlFw8UEWEXslPYQeQBozM7QYB0tbNXTUNdG3sR2Mpxw+OByoVTte7DegsCBWeqSDA==
+fock-logger@2.0.5, fock-logger@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/fock-logger/-/fock-logger-2.0.5.tgz#c163c2c640737b5da8669ec75168a6b96c9cc771"
+  integrity sha512-I5/VRchMo9ZiVIUWh4uvc9bruaCMlzLcr39VUy2rvj4uKEcna8Nuq8Jx958XnhsKiWxqtiVvtvxR5U7TttcCgg==
   dependencies:
     f-formatter "^0.3.0-a"
     fock-builder "^0.2.1"

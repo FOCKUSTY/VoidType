@@ -5,7 +5,6 @@ const warn = "------------- !Внимание! --------------";
 
 class Debug {
 	private static readonly _log: Logger<"Debugger"> = new Logger("Debugger", {
-		colors: [Colors.cyan, Colors.magenta],
 		write: false,
 		prefix: "debug",
 		level: "info",
@@ -13,7 +12,6 @@ class Debug {
 	});
 
 	private static readonly _error: Logger<"Errorer"> = new Logger("Errorer", {
-		colors: [Colors.red, Colors.red],
 		write: false,
 		prefix: "error",
 		level: "err",
@@ -21,7 +19,6 @@ class Debug {
 	});
 
 	private static readonly _warn: Logger<"Warner"> = new Logger("Warner", {
-		colors: [Colors.yellow, Colors.magenta],
 		write: false,
 		prefix: "warn",
 		level: "warn",
@@ -33,11 +30,10 @@ class Debug {
 	private static readonly WarnComponent = (msg: Error, type: "error" | "warn") => {
 		this._warn.execute(warn);
 
-		const logger: "_error" | "_warn" = ("_" + type) as any;
 		const text = "\n" + warn + msg.stack || msg.message + "\n" + warn;
 
-		this[logger].execute(text);
-		this[logger].write(text);
+		this[type === "error" ? "_error" : "_warn"].execute(text);
+		this[type === "error" ? "_error" : "_warn"].write(text);
 
 		this._warn.execute(warn);
 	};

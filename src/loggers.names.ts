@@ -9,7 +9,10 @@ const loggers: {
 	Activity: { name: "Activity", colors: [Colors.brightRed, Colors.green] },
 	Events: { name: "Events", colors: [Colors.brightYellow, Colors.green] },
 	Loader: { name: "Loader", colors: [Colors.brightYellow, Colors.red] },
-	Fail: { name: "Fail", colors: [Colors.red, Colors.red] }
+	Fail: { name: "Fail", colors: [Colors.red, Colors.red] },
+	Debugger: { name: "Debugger", colors: [Colors.cyan, Colors.magenta] },
+	Errorer: { name: "Errorer", colors: [Colors.red, Colors.red] },
+	Warner: { name: "Warner", colors: [Colors.yellow, Colors.magenta] }
 };
 
 export default loggers;
