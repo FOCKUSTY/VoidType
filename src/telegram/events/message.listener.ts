@@ -1,22 +1,32 @@
 import { Format } from "telegraf";
 
-import { Interaction } from "src/types/telegram/interaction.type";
-import { Option, SendData } from "types/telegram/options.type";
-import { Response } from "src/types/all/response.type";
+import type { Interaction } from "types/telegram/interaction.type";
+import type { Option, SendData } from "types/telegram/options.type";
+import type { Response } from "types/all/response.type";
+
 import Telegram from "telegram/utility/service/telegram.service";
+
+import { Debug } from "develop/debug.develop";
 
 const options = new Map<string | number, any[]>();
 const saved = new Map<string, { key: string; value: string }[]>();
 const anonMessages = new Map<string, string>();
 
 const send = async (data: SendData) => {
-	if (data.response.type === 1)
-		data.message.reply(
-			data.option.text
-				.replace("%SUCCESS%", data.response.text)
-				.replace("%MESSAGE%", data.response.data.text)
-		);
-	else data.message.reply(data.option.error.replace("%ERROR%", data.response.text));
+	if (data.response.type === 1) {
+		const text = data.option.text
+			.replace("%SUCCESS%", data.response.text)
+			.replace("%MESSAGE%", data.response.data.text);
+
+		Debug.Log(["Telegram Ответ\n" + text + "\n", "На" + data.option.command]);
+
+		data.message.reply(text);
+	} else {
+		const text = data.option.error.replace("%ERROR%", data.response.text);
+		
+		Debug.Warn(text + "\nTelegram Команда: " + data.option.command);
+		data.message.reply(text);
+	};
 };
 
 const MessageListener = async (message: Interaction) => {
@@ -40,9 +50,11 @@ const MessageListener = async (message: Interaction) => {
 				type: "code"
 			};
 
-		const data = await new Telegram().Send(anonUser, text);
+		const data = new Telegram().Send(anonUser, text);
 
-		return await message.reply(`${intro}\n\nВаше сообщение:\n${data.data.text}`);
+		return data.then(d =>
+			message.reply(`${intro}\n\nВаше сообщение:\n${d.data.text}`)
+		);
 	}
 
 	const replyOptions = options.get(userId);
@@ -63,7 +75,7 @@ const MessageListener = async (message: Interaction) => {
 		}
 
 		if (message.message.message_id === option.id) {
-			return await message.reply(option.text);
+			return message.reply(option.text);
 		} else if (index === replyOptions.length - 1) {
 			const savedOptions = saved.get(`${userId}`) || [];
 			const args = savedOptions.map((element) => element.value);
