@@ -110,10 +110,9 @@ class Deployer {
 					body: commands
 				});
 
-				this._updater.execute(
-					"Успешно обновлены глобальные (/) команды",
-					{ color: Colors.green }
-				);
+				this._updater.execute("Успешно обновлены глобальные (/) команды", {
+					color: Colors.green
+				});
 			} else {
 				this._updater.execute("Начало обновления (/) команд гильдии");
 
@@ -122,10 +121,9 @@ class Deployer {
 					{ body: commands }
 				);
 
-				this._updater.execute(
-					"Успешно обновлены (/) команды гильдии",
-					{ color: Colors.green }
-				);
+				this._updater.execute("Успешно обновлены (/) команды гильдии", {
+					color: Colors.green
+				});
 			}
 		} catch (err) {
 			return Debug.Error(err);

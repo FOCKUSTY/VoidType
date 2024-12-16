@@ -18,11 +18,11 @@ export = {
 				await ids[id].execute(interaction);
 			} catch (error) {
 				Debug.Error(error);
-				
+
 				interaction.reply({
 					content: "Произошла какая-то ошибка",
 					ephemeral: true
-				});				
+				});
 			}
 		}
 	}

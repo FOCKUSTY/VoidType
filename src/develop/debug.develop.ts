@@ -5,23 +5,23 @@ const warn = "------------- !Внимание! --------------";
 
 class Debug {
 	private static readonly _log: Logger<"Debugger"> = new Logger("Debugger", {
-		colors: [ Colors.cyan, Colors.magenta ],
+		colors: [Colors.cyan, Colors.magenta],
 		write: false,
 		prefix: "debug",
 		level: "info",
 		dir: "./"
 	});
-	
+
 	private static readonly _error: Logger<"Errorer"> = new Logger("Errorer", {
-		colors: [ Colors.red, Colors.red ],
+		colors: [Colors.red, Colors.red],
 		write: false,
 		prefix: "error",
 		level: "err",
 		dir: "./"
 	});
-	
+
 	private static readonly _warn: Logger<"Warner"> = new Logger("Warner", {
-		colors: [ Colors.yellow, Colors.magenta ],
+		colors: [Colors.yellow, Colors.magenta],
 		write: false,
 		prefix: "warn",
 		level: "warn",
@@ -47,16 +47,17 @@ class Debug {
 		enabled?: boolean,
 		trace?: boolean
 	): void => {
-		if ((enabled || settings.developMode) && !trace)
-			this._log.execute(message)
+		if ((enabled || settings.developMode) && !trace) this._log.execute(message);
 
 		if (trace) {
-			const text = message.map(msg => JSON.stringify(msg, undefined, 4)).join("\n");
+			const text = message
+				.map((msg) => JSON.stringify(msg, undefined, 4))
+				.join("\n");
 			const error = new Error(text);
 
 			this._log.execute(error.stack || error.message);
 			this._log.write(error.stack || error.message);
-		};
+		}
 	};
 
 	public static readonly Trace = () => {

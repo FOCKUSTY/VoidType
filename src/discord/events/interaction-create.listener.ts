@@ -15,7 +15,10 @@ export = {
 
 		const command = commands.get(interaction.commandName);
 
-		Debug.Log(["Запуск команды " + interaction.commandName, "\nПользователь " + interaction.user.username]);
+		Debug.Log([
+			"Запуск команды " + interaction.commandName,
+			"\nПользователь " + interaction.user.username
+		]);
 
 		if (!command) {
 			return Debug.Warn(`Не найдено команды ${interaction.commandName}`);

@@ -34,9 +34,9 @@ export = {
 				execute: (data: ExecuteData) => {
 					const id = data.response.data?.data?.message_id;
 					const from = data.response.data?.userId;
-	
+
 					if (!id || !from) return;
-	
+
 					anonMessages.set(id, from);
 
 					data.send(data);
@@ -70,9 +70,9 @@ export = {
 				execute: (data: ExecuteData) => {
 					const id = data.response.data?.data?.message_id;
 					const from = data.response.data?.userId;
-	
+
 					if (!id || !from) return;
-	
+
 					anonMessages.set(id, from);
 
 					data.send(data);

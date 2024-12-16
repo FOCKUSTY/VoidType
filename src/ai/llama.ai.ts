@@ -9,38 +9,37 @@ const ollama = new Ollama();
 const promts = new Map<string, string>();
 
 class Llama {
-    public constructor() {};
+	public constructor() {}
 
-    public chat(promt: string, text: string = "Модель: llama3.2"): Response {
-        try {
-            const id = new Date().getTime().toString(16);
-            promts.set(promt, id);
+	public chat(promt: string, text: string = "Модель: llama3.2"): Response {
+		try {
+			const id = new Date().getTime().toString(16);
+			promts.set(promt, id);
 
-            Debug.Log(["Ввод запроса\n", Colors.bgCyan + id + Colors.magenta]);
+			Debug.Log(["Ввод запроса\n", Colors.bgCyan + id + Colors.magenta]);
 
-            const data = ollama.chat(promt);
+			const data = ollama.chat(promt);
 
-            data.then(r =>
-                Debug.Log(["Ответ на запрос: " + id, r.message.content]));
+			data.then((r) => Debug.Log(["Ответ на запрос: " + id, r.message.content]));
 
-            return {
-                data: data,
-                text: text + "\nВаш уникальный id: " + id,
-                type: 1,
-                dataContent: {
-                    text: ".message.content"
-                }
-            };
-        } catch (error) {
-            Debug.Error(error);
+			return {
+				data: data,
+				text: text + "\nВаш уникальный id: " + id,
+				type: 1,
+				dataContent: {
+					text: ".message.content"
+				}
+			};
+		} catch (error) {
+			Debug.Error(error);
 
-            return {
-                data: error,
-                text: "Произошла ошибка",
-                type: 0
-            };
-        };
-    };
-};
+			return {
+				data: error,
+				text: "Произошла ошибка",
+				type: 0
+			};
+		}
+	}
+}
 
 export default Llama;

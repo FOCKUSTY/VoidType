@@ -2,9 +2,9 @@ import { Interaction } from "./interaction.type";
 import { Response } from "../all/response.type";
 
 export type SendData = {
-	message: Interaction,
-	option: Option,
-	response: Response,
+	message: Interaction;
+	option: Option;
+	response: Response;
 };
 
 export type ExecuteData = { send: (data: SendData) => Promise<void> } & SendData;

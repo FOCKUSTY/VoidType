@@ -23,10 +23,10 @@ const send = async (data: SendData) => {
 		data.message.reply(text);
 	} else {
 		const text = data.option.error.replace("%ERROR%", data.response.text);
-		
+
 		Debug.Warn(text + "\nTelegram Команда: " + data.option.command);
 		data.message.reply(text);
-	};
+	}
 };
 
 const MessageListener = async (message: Interaction) => {
@@ -52,7 +52,7 @@ const MessageListener = async (message: Interaction) => {
 
 		const data = new Telegram().Send(anonUser, text);
 
-		return data.then(d =>
+		return data.then((d) =>
 			message.reply(`${intro}\n\nВаше сообщение:\n${d.data.text}`)
 		);
 	}
@@ -91,8 +91,9 @@ const MessageListener = async (message: Interaction) => {
 			options.delete(userId);
 			saved.delete(`${userId}`);
 
-			if (option.execute) return option.execute({message, option, response, send});
-			else return send({message, option, response});
+			if (option.execute)
+				return option.execute({ message, option, response, send });
+			else return send({ message, option, response });
 		}
 	}
 };

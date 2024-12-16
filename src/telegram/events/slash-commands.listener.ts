@@ -4,8 +4,11 @@ import { commands } from "telegram/deploy.commands";
 
 const SlashCommandsListener = async (message: Interaction) => {
 	if (!(message.text && message.text.startsWith("/"))) return;
-	
-	Debug.Log(["Запуск Telegram команды", message.from?.username||message.from?.first_name]);
+
+	Debug.Log([
+		"Запуск Telegram команды",
+		message.from?.username || message.from?.first_name
+	]);
 
 	const commandName = message.text.includes(" ")
 		? message.text.slice(1, message.text.indexOf(" "))
@@ -15,7 +18,8 @@ const SlashCommandsListener = async (message: Interaction) => {
 
 	const command = commands.get(commandName);
 
-	if (!command) return Debug.Warn(["Telegram Команда", `"${commandName}"`, "не была найдена"]);
+	if (!command)
+		return Debug.Warn(["Telegram Команда", `"${commandName}"`, "не была найдена"]);
 
 	try {
 		command.execute(message);
