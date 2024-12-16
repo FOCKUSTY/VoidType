@@ -3,6 +3,7 @@ import Ollama from "@thevoid/ollama";
 import type { Response } from "types/all/response.type";
 
 import { Debug } from "develop/debug.develop";
+import { Colors } from "f-formatter";
 
 const ollama = new Ollama();
 const promts = new Map<string, string>();
@@ -15,7 +16,7 @@ class Llama {
             const id = new Date().getTime().toString(16);
             promts.set(promt, id);
 
-            Debug.Log(["Ввод запроса\n", id]);
+            Debug.Log(["Ввод запроса\n", Colors.bgCyan + id + Colors.magenta]);
 
             const data = ollama.chat(promt);
 
@@ -24,7 +25,7 @@ class Llama {
 
             return {
                 data: data,
-                text: text + "\n\nВаш уникальный id: " + id,
+                text: text + "\nВаш уникальный id: " + id,
                 type: 1,
                 dataContent: {
                     text: ".message.content"
