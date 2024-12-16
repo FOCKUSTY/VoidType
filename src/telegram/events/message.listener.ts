@@ -18,7 +18,7 @@ const send = async (data: SendData) => {
 			.replace("%SUCCESS%", data.response.text)
 			.replace("%MESSAGE%", data.response.data.text);
 
-		Debug.Log(["Telegram Ответ\n" + text + "\n", "На" + data.option.command]);
+		Debug.Log(["Telegram Ответ\n" + text]);
 
 		data.message.reply(text);
 	} else {

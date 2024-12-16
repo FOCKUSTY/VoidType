@@ -16,15 +16,15 @@ class Llama {
 			const id = new Date().getTime().toString(16);
 			promts.set(promt, id);
 
-			Debug.Log(["Ввод запроса\n", Colors.bgCyan + id + Colors.magenta]);
+			Debug.Log(["Ввод запроса: " + Colors.bgCyan + id + Colors.magenta + ":", promt]);
 
 			const data = ollama.chat(promt);
 
-			data.then((r) => Debug.Log(["Ответ на запрос: " + id, r.message.content]));
+			data.then((r) => Debug.Log(["Ответ на запрос: " + id + ":\n", r.message.content]));
 
 			return {
 				data: data,
-				text: text + "\nВаш уникальный id: " + id,
+				text: text + "Ваш уникальный id: " + id + "\n",
 				type: 1,
 				dataContent: {
 					text: ".message.content"
