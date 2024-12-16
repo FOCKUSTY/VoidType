@@ -1,7 +1,9 @@
-import { options } from "telegram/events/message.listener";
 import { Interaction } from "types/telegram/interaction.type";
+import { ExecuteData, Option, SendData } from "types/telegram/options.type";
+
+import { options } from "telegram/events/message.listener";
+
 import Discord from "discord/utility/service/discord.service";
-import { Option } from "src/types/telegram/options.type";
 
 export = {
 	name: "send_message_to_discord",

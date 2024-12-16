@@ -1,6 +1,6 @@
 import { Interaction } from "types/telegram/interaction.type";
-import { options } from "telegram/events/message.listener";
-import { Option } from "types/telegram/options.type";
+import { anonMessages, options } from "telegram/events/message.listener";
+import { ExecuteData, Option } from "types/telegram/options.type";
 
 import Telegram from "telegram/utility/service/telegram.service";
 
@@ -31,6 +31,16 @@ export = {
 				error: "Сообщение не было доставлено\nОшибка:\n%ERROR%",
 				text: "%SUCCESS%\nСообщение:\n%MESSAGE%",
 				function: new Telegram().SendAnonMessage,
+				execute: (data: ExecuteData) => {
+					const id = data.response.data?.data?.message_id;
+					const from = data.response.data?.userId;
+	
+					if (!id || !from) return;
+	
+					anonMessages.set(id, from);
+
+					data.send(data);
+				},
 
 				addArgs: [interaction.from?.id!],
 				id: 0
@@ -57,6 +67,16 @@ export = {
 				error: "Сообщение не было доставлено\n\nОшибка:\n%ERROR%",
 				text: "%SUCCESS%\nСообщение:\n%MESSAGE%",
 				function: new Telegram().SendAnonMessage,
+				execute: (data: ExecuteData) => {
+					const id = data.response.data?.data?.message_id;
+					const from = data.response.data?.userId;
+	
+					if (!id || !from) return;
+	
+					anonMessages.set(id, from);
+
+					data.send(data);
+				},
 
 				firstArgs: [userId],
 				addArgs: [interaction.from?.id!],

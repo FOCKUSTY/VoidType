@@ -1,10 +1,11 @@
 import type { Interaction } from "types/telegram/interaction.type";
-import type { Response } from "types/telegram/response.type";
-import type { Option } from "types/telegram/options.type";
+import type { Response } from "src/types/all/response.type";
+import type { ExecuteData, Option } from "types/telegram/options.type";
 
 import { options } from "telegram/events/message.listener";
 
-import { ollama } from "@thevoid/ollama";
+import { ChatResponse } from "@thevoid/ollama";
+import Llama from "ai/llama.ai";
 
 export = {
 	name: "ai",
@@ -25,27 +26,20 @@ export = {
 				error: "Произошли проблемы...\nОшибка:\n%ERROR%",
 				text: "%SUCCESS%\nОтвет:\n%MESSAGE%",
 				function: async (promt: string): Promise<Response> => {
-					const data = ollama.chat({
-						model: "llama3.2",
-						messages: [
-							{
-								role: "user",
-								content: promt
-							}
-						],
-						options: {
-							num_gpu: 2
-						}
-					});
+					return new Llama().chat(promt, "Спасибо, что пользуетесь The Void, модель: llama3.2\n");
+				},
+				execute: (data: ExecuteData) => {
+					data.message.reply("Запрос принят! Ждите ответа!");
 
-					return {
-						data,
-						text: "Спасибо, что пользуетесь The Void\nМодель: llama3.2\n",
-						type: 1,
-						dataContent: {
-							text: ".message.content"
-						}
-					};
+					data.response.data.then((d: ChatResponse) => {
+						data.send({
+							...data,
+							response: {
+								...data.response,
+								data: { text: d.message.content }
+							}
+						});
+					});
 				},
 
 				id: 0

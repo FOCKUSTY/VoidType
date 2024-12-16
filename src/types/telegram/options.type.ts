@@ -1,4 +1,13 @@
-import { Response } from "./response.type";
+import { Interaction } from "./interaction.type";
+import { Response } from "../all/response.type";
+
+export type SendData = {
+	message: Interaction,
+	option: Option,
+	response: Response,
+};
+
+export type ExecuteData = { send: (data: SendData) => Promise<void> } & SendData;
 
 export type Option = {
 	command: string;
@@ -7,6 +16,7 @@ export type Option = {
 	text: string;
 	id: string | number;
 
+	execute?: (data: ExecuteData) => any;
 	function?: (...data: any) => Promise<Response>;
 	addArgs?: any[];
 	firstArgs?: any[];

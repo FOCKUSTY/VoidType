@@ -3,7 +3,7 @@ import { Debug } from "develop/debug.develop";
 
 import SendMessage from "./helpers/send-message.helper";
 import Client from "src/discord.bot";
-import { Response } from "src/types/telegram/response.type";
+import { Response } from "src/types/all/response.type";
 
 class Discord {
 	private readonly _client: DiscordClient = Client;

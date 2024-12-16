@@ -13,8 +13,6 @@
         "skipLibCheck": true,
         "baseUrl": "./",
         "paths": {
-            "src/*": [ "./src/*", "./dist/src/*" ],
-
             "discord/*": [ "./src/discord/*", "./dist/src/discord/*" ],
             "telegram/*": [ "./src/telegram/*", "./dist/src/telegram/*" ],
             "utility/*": [ "./src/utility/*", "./dist/src/utility/*" ],
@@ -22,6 +20,8 @@
             "logger/*": [ "./src/logger/*", "./dist/src/logger/*" ],
             "develop/*": [ "./src/develop/*", "./dist/src/develop/*" ],
             "ai/*": [ "./src/ai/*", "./dist/src/ai/*" ],
+            
+            "src/*": [ "./src/*", "./dist/src/*" ],
 
             "@thevoid":  [ "./node_modules/@thevoidcommunity/the-void-database/index" ],
             "@thevoid/*": [ "./node_modules/@thevoidcommunity/the-void-database/*" ]

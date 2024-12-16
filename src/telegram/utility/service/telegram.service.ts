@@ -6,7 +6,7 @@ import SendMessage from "./helpers/send-message.helper";
 import GetChatId from "./helpers/get-chat-id.helper";
 
 import Client from "src/telegram.bot";
-import { Response } from "types/telegram/response.type";
+import { Response } from "src/types/all/response.type";
 
 class Telegram {
 	private _client: Telegraf = Client;
