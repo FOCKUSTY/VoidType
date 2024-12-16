@@ -77,22 +77,24 @@ const MessageListener = async (message: Interaction) => {
 					await message.reply(
 						option.text
 							.replace("%SUCCESS%", res.text)
-							.replace("%MESSAGE%", eval("data" + res?.dataContent?.text || "text"))
-					)
+							.replace(
+								"%MESSAGE%",
+								eval("data" + res?.dataContent?.text || "text")
+							)
+					);
 				});
 
 				return;
-			};
-			
+			}
+
 			if (option.command === "send_anonimus_message") {
 				const id = res.data?.data?.message_id;
 				const from = res.data?.userId;
 
-				if (!id || !from)
-					return;
+				if (!id || !from) return;
 
 				anonMessages.set(id, from);
-			};
+			}
 
 			if (res.type === 1)
 				return await message.reply(

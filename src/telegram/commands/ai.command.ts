@@ -7,10 +7,11 @@ import { options } from "telegram/events/message.listener";
 import { ollama } from "@thevoid/ollama";
 
 export = {
-    name: "ai",
-    options: ["promt"],
-    async execute(interaction: Interaction) {
-		const replyOptions: Option[] = [{
+	name: "ai",
+	options: ["promt"],
+	async execute(interaction: Interaction) {
+		const replyOptions: Option[] = [
+			{
 				command: "ai",
 				option: "promt",
 				error: "",
@@ -26,10 +27,12 @@ export = {
 				function: async (promt: string): Promise<Response> => {
 					const data = ollama.chat({
 						model: "llama3.2",
-						messages: [{
-							role: "user",
-							content: promt
-						}],
+						messages: [
+							{
+								role: "user",
+								content: promt
+							}
+						],
 						options: {
 							num_gpu: 2
 						}
@@ -52,5 +55,5 @@ export = {
 		options.set(interaction.from?.id!, replyOptions);
 
 		await interaction.reply(replyOptions[0].text);
-    }
+	}
 };

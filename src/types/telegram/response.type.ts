@@ -4,6 +4,6 @@ export type Response = {
 
 	data: any;
 	dataContent?: {
-		text: string
-	}
+		text: string;
+	};
 };
