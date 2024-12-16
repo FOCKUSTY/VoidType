@@ -8,7 +8,7 @@ const SayMessage = async (interaction: ModalSubmitInteraction) => {
 	const channel: any = interaction.client.channels.cache.get(channelId);
 
 	if (!channel || !interaction.guild)
-		return await interaction.reply({
+		return interaction.reply({
 			content: "Ошибка при поиске канала, попробуйте снова",
 			ephemeral: true
 		});
@@ -21,7 +21,7 @@ const SayMessage = async (interaction: ModalSubmitInteraction) => {
 				PermissionsBitField.Flags.ViewChannel
 			])
 	) {
-		return await interaction.reply({
+		return interaction.reply({
 			content:
 				"Сообщение не было доставлено на Ваш канал, возможны причины:\n\
             1. Ваш канал не является текстовым каналом\n\
@@ -59,13 +59,13 @@ const SayMessage = async (interaction: ModalSubmitInteraction) => {
 			.setDescription(message.replaceAll("\\n", "\n"))
 			.setTimestamp();
 
-		return await interaction.reply({
+		return interaction.reply({
 			content: `Сообщение было доставлено на: ${channel}`,
 			embeds: [embed],
 			ephemeral: true
 		});
 	} catch (err) {
-		return await interaction.reply({
+		return interaction.reply({
 			content: `Сообщение не было доставлено на Ваш канал, возможны причины:\n\
             Ваш канал не является текстовым каналом\n\
             У меня не достаточно прав отправить сообщение на Ваш канал\n\

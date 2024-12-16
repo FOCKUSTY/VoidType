@@ -40,28 +40,28 @@ const Update = async (interaction: ModalSubmitInteraction) => {
 				);
 			}
 
-			await new Discord().SendMessage(config.changeLogDiscordChannelId, embeds);
-			await new Telegram().SendMessage(
+			new Discord().SendMessage(config.changeLogDiscordChannelId, embeds);
+			new Telegram().SendMessage(
 				config.changeLogTelegramGroupId,
 				`${version}\n${ru}`
 			);
 		} else {
-			await new Discord().SendMessage(
+			new Discord().SendMessage(
 				config.changeLogDiscordChannelId,
 				`# ${version}\n${ru}\n# ${version}\n${en}`
 			);
-			await new Telegram().SendMessage(
+			new Telegram().SendMessage(
 				config.changeLogTelegramGroupId,
 				`${version}\n${ru}`
 			);
 		}
 
-		return await interaction.reply({
+		return interaction.reply({
 			content: `Сообщение было доставлены в Telegram и Discord`,
 			ephemeral: true
 		});
 	} catch (err) {
-		return await interaction.reply({
+		return interaction.reply({
 			content: `Сообщение не было доставлено на Ваш канал, возможны причины:\n\
             Ваш канал не является текстовым каналом\n\
             У меня не достаточно прав отправить сообщение на Ваш канал\n\

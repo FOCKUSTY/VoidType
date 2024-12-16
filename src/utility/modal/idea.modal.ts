@@ -38,22 +38,22 @@ const IdeaModal = async (interaction: ModalSubmitInteraction) => {
 		.setFooter({ text: "The Void Community", iconURL: config.guildIconURL })
 		.setTimestamp();
 
-	await channel.sendTyping();
+	channel.sendTyping();
 
 	setTimeout(async () => {
 		const message = await channel.send({ embeds: [embed] });
 
-		await message.react("🎩");
-		await message.react("❌");
-		await message.react("💜");
+		message.react("🎩");
+		message.react("❌");
+		message.react("💜");
 
-		await message.startThread({
+		message.startThread({
 			name: title,
 			reason: description
 		});
 	}, 3000);
 
-	return await interaction.reply({
+	return interaction.reply({
 		content: "Ваша идея была доставлена",
 		ephemeral: true,
 		embeds: [embed]

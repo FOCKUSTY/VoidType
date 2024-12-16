@@ -33,7 +33,7 @@ class ClientLoaderClass {
 		this.Logger(
 			`Загрузка ${size} ` +
 				formatter.RuWords(size, ["пользователя", "пользователей"]),
-			Colors.yellow
+			{ color: Colors.yellow }
 		);
 
 		Client.users.cache.forEach((user) => {
@@ -45,12 +45,12 @@ class ClientLoaderClass {
 		if (size - users.length > 0)
 			this.Logger(
 				`Отсеивание ${size - users.length} ${formatter.RuWords(size - users.length, ["пользователя", "пользователей"])}`,
-				Colors.yellow
+				{ color: Colors.yellow }
 			);
 
 		this.Logger(
 			`Загрузка ${users.length} ${formatter.RuWords(users.length, ["пользователя", "пользователей"])} успешна`,
-			Colors.green
+			{ color: Colors.green }
 		);
 	};
 
@@ -59,7 +59,7 @@ class ClientLoaderClass {
 
 		this.Logger(
 			`Загрузка ${size} ` + formatter.RuWords(size, ["гильдии", "гильдий"]),
-			Colors.yellow
+			{ color: Colors.yellow }
 		);
 
 		Client.guilds.cache.forEach((guild) => {
@@ -71,12 +71,12 @@ class ClientLoaderClass {
 		if (size - guilds.length > 0)
 			this.Logger(
 				`Отсеивание ${size - guilds.length} ${formatter.RuWords(size - guilds.length, ["гильдии", "гильдий"])}`,
-				Colors.yellow
+				{ color: Colors.yellow }
 			);
 
 		this.Logger(
 			`Загрузка ${guilds.length} ${formatter.RuWords(guilds.length, ["гильдии", "гильдий"])} успешна`,
-			Colors.green
+			{ color: Colors.green }
 		);
 	};
 

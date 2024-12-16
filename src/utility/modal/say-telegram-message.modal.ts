@@ -26,7 +26,7 @@ const SayTelegramMessage = async (interaction: ModalSubmitInteraction) => {
 			.setDescription(message.replaceAll("\\n", "\n"))
 			.setTimestamp();
 
-		await TelegramClient.SendMessage(
+		TelegramClient.SendMessage(
 			channelId,
 			`Сообщение с Discord от ${
 				interaction.user.globalName
@@ -35,13 +35,13 @@ const SayTelegramMessage = async (interaction: ModalSubmitInteraction) => {
 			}:\n${message}`
 		);
 
-		return await interaction.reply({
+		return interaction.reply({
 			content: `Сообщение было доставлено на: ${channelId}`,
 			embeds: [embed],
 			ephemeral: true
 		});
 	} catch (err) {
-		return await interaction.reply({
+		return interaction.reply({
 			content: `Сообщение не было доставлено на Ваш канал \`\`\`${err}\`\`\``,
 			ephemeral: true
 		});

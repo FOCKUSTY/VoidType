@@ -57,6 +57,27 @@
                 "\u001b[31m"
             ]
         },
+        "Warner": {
+            "name": "Warner",
+            "colors": [
+                "\u001b[33m",
+                "\u001b[35m"
+            ]
+        },
+        "Errorer": {
+            "name": "Errorer",
+            "colors": [
+                "\u001b[31m",
+                "\u001b[31m"
+            ]
+        },
+        "Debugger": {
+            "name": "Debugger",
+            "colors": [
+                "\u001b[36m",
+                "\u001b[35m"
+            ]
+        },
         "Success": {
             "name": "Success",
             "colors": [

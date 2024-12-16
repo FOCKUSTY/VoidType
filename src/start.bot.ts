@@ -17,7 +17,7 @@ const bot = process.env.BOT || "discord";
 for (const name in loggers) {
 	const logger = loggers[name];
 
-	new Logger(name, logger.colors).execute(`Hello, I'm ${name}!`);
+	new Logger(name, { colors: logger.colors }).execute(`Hello, I'm ${name}!`);
 }
 
 (async () => {
