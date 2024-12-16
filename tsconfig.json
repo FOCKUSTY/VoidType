@@ -21,6 +21,7 @@
             "types/*": [ "./src/types/*", "./dist/src/types/*" ],
             "logger/*": [ "./src/logger/*", "./dist/src/logger/*" ],
             "develop/*": [ "./src/develop/*", "./dist/src/develop/*" ],
+            "ai/*": [ "./src/ai/*", "./dist/src/ai/*" ],
 
             "@thevoid":  [ "./node_modules/@thevoidcommunity/the-void-database/index" ],
             "@thevoid/*": [ "./node_modules/@thevoidcommunity/the-void-database/*" ]

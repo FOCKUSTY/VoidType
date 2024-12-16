@@ -66,20 +66,39 @@ const MessageListener = async (message: Interaction) => {
 				...(option.addArgs || [])
 			);
 
-			const id = res.data?.data?.message_id;
-			const from = res.data?.userId;
-
-			if (option.command === "send_anonimus_message" && id && from)
-				anonMessages.set(id, from);
-
 			options.delete(userId);
 			saved.delete(`${userId}`);
+
+			if (res.data.then) {
+				if (res.type === 0)
+					return await message.reply(option.error.replace("%ERROR%", res.text));
+
+				res.data.then(async (data: any) => {
+					await message.reply(
+						option.text
+							.replace("%SUCCESS%", res.text)
+							.replace("%MESSAGE%", eval("data" + res?.dataContent?.text || "text"))
+					)
+				});
+
+				return;
+			};
+			
+			if (option.command === "send_anonimus_message") {
+				const id = res.data?.data?.message_id;
+				const from = res.data?.userId;
+
+				if (!id || !from)
+					return;
+
+				anonMessages.set(id, from);
+			};
 
 			if (res.type === 1)
 				return await message.reply(
 					option.text
 						.replace("%SUCCESS%", res.text)
-						.replace("%MESSAGE%", res.data.text)
+						.replace("%MESSAGE%", await res.data.text)
 				);
 			else return await message.reply(option.error.replace("%ERROR%", res.text));
 		}

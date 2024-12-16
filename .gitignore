@@ -12,6 +12,7 @@ config.json
 hasing.ts
 *.log
 log/
+.yarn
 
 # Logs
 logs

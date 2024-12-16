@@ -3,4 +3,7 @@ export type Response = {
 	type: 0 | 1;
 
 	data: any;
+	dataContent?: {
+		text: string
+	}
 };
