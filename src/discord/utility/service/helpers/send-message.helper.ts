@@ -17,14 +17,14 @@ const SendMessage = async (
 	)
 		return { type: 0, text: "Я не могу отправить сообщение на Ваш канал" };
 
-	await channel.sendTyping();
+	channel.sendTyping();
 
 	try {
 		if (Array.isArray(message)) {
-			await channel.send({ embeds: message });
+			channel.send({ embeds: message });
 			return { type: 1, text: "embed-сообщение" };
 		} else {
-			await channel.send({ content: message });
+			channel.send({ content: message });
 			return { type: 1, text: message };
 		}
 	} catch (err) {

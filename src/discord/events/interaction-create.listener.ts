@@ -2,6 +2,7 @@ import type { Interaction } from "discord.js";
 import { Collection } from "discord.js";
 
 import { config } from "src/index.config";
+import { Debug } from "develop/debug.develop";
 
 export = {
 	name: "interaction-create",
@@ -14,9 +15,10 @@ export = {
 
 		const command = commands.get(interaction.commandName);
 
+		Debug.Log(["Запуск команды " + interaction.commandName, "\nПользователь " + interaction.user.username]);
+
 		if (!command) {
-			console.error(`No command matching ${interaction.commandName} was found.`);
-			return;
+			return Debug.Warn(`Не найдено команды ${interaction.commandName}`);
 		}
 
 		if (!cooldowns.has(command.data.name))
@@ -48,20 +50,22 @@ export = {
 		}
 
 		try {
+			Debug.Log(["Запуск команды " + interaction.commandName]);
 			await command.execute(interaction);
 		} catch (err) {
-			console.error(err);
+			Debug.Error(err);
 
-			if (interaction.replied || interaction.deferred)
+			if (interaction.replied || interaction.deferred) {
 				await interaction.followUp({
 					content: "There was an error while executing this command!",
 					ephemeral: true
 				});
-			else
+			} else {
 				await interaction.reply({
 					content: "There was an error while executing this command!",
 					ephemeral: true
 				});
+			}
 		}
 	}
 };
