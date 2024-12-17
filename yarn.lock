@@ -129,10 +129,10 @@
   resolved "https://registry.npmjs.org/@telegraf/types/-/types-7.1.0.tgz"
   integrity sha512-kGevOIbpMcIlCDeorKGpwZmdH7kHbqlk/Yj6dEpJMKEQw5lk0KVQY0OLXaCswy8GqlIVLd5625OB+rAntP9xVw==
 
-"@thevoidcommunity/the-void-database@0.2.3-a":
-  version "0.2.3-a"
-  resolved "https://registry.yarnpkg.com/@thevoidcommunity/the-void-database/-/the-void-database-0.2.3-a.tgz#89ce097b04c5fadfd7e7726ca282156745a049fd"
-  integrity sha512-ShGKsxUxIeLX7PtWPSbRbamRCU5mDDkJdgxnG83U7WR9xQXLq0uExJEdUgtccNX9gMPymHGXeNqOrBkxZIIDsw==
+"@thevoidcommunity/the-void-database@0.3.1-alpha.1":
+  version "0.3.1-alpha.1"
+  resolved "https://registry.yarnpkg.com/@thevoidcommunity/the-void-database/-/the-void-database-0.3.1-alpha.1.tgz#de7577aa4f4b5cd3ef7e532827ec548089dfb1d5"
+  integrity sha512-njJSXys5SsJ+TO6GS4epwr3rqUJze4PvqVfF9lDwfgfSRjYuXzHRRgZOxI34sp3Tc54wrYfDFyufiouPpc8jZA==
   dependencies:
     f-formatter "^0.3.1"
     fock-builder "^1.0.2-beta"
