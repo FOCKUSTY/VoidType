@@ -1,25 +1,26 @@
 import { settings } from "src/index.config";
 import Logger, { Colors } from "fock-logger";
+import { error } from "console";
 
 const warn = "------------- !Внимание! --------------";
 
 class Debug {
 	private static readonly _log: Logger<"Debugger"> = new Logger("Debugger", {
-		write: false,
+		write: true,
 		prefix: "debug",
 		level: "info",
 		dir: "./"
 	});
 
 	private static readonly _error: Logger<"Errorer"> = new Logger("Errorer", {
-		write: false,
+		write: true,
 		prefix: "error",
 		level: "err",
 		dir: "./"
 	});
 
 	private static readonly _warn: Logger<"Warner"> = new Logger("Warner", {
-		write: false,
+		write: true,
 		prefix: "warn",
 		level: "warn",
 		dir: "./"
@@ -27,15 +28,18 @@ class Debug {
 
 	public static readonly Console = console;
 
-	private static readonly WarnComponent = (msg: Error, type: "error" | "warn") => {
-		this._warn.execute(warn);
+	private static readonly WarnComponent = (msg: any, type: "error" | "warn") => {
+		const error = Array.isArray(msg)
+			? msg.join(" ")
+			: msg;
 
-		const text = "\n" + warn + msg.stack || msg.message + "\n" + warn;
+		const text = "\n" + warn + "\n" + (error?.stack || error?.message || error) + "\n" + warn;
 
-		this[type === "error" ? "_error" : "_warn"].execute(text);
-		this[type === "error" ? "_error" : "_warn"].write(text);
-
-		this._warn.execute(warn);
+		if (type === "error") {
+			this._error.execute(text);
+		} else {
+			this._warn.execute(text);
+		};
 	};
 
 	public static readonly Log = (
