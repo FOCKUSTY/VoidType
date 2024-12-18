@@ -29,17 +29,16 @@ class Debug {
 	public static readonly Console = console;
 
 	private static readonly WarnComponent = (msg: any, type: "error" | "warn") => {
-		const error = Array.isArray(msg)
-			? msg.join(" ")
-			: msg;
+		const error = Array.isArray(msg) ? msg.join(" ") : msg;
 
-		const text = "\n" + warn + "\n" + (error?.stack || error?.message || error) + "\n" + warn;
+		const text =
+			"\n" + warn + "\n" + (error?.stack || error?.message || error) + "\n" + warn;
 
 		if (type === "error") {
 			this._error.execute(text);
 		} else {
 			this._warn.execute(text);
-		};
+		}
 	};
 
 	public static readonly Log = (

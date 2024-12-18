@@ -12,14 +12,19 @@ const promts = new Map<string, string>();
 class Llama {
 	public constructor() {}
 
-	public chat(promt: string, text: string = "", model: ModelVersion = "TheVoid"): Response {
+	public chat(
+		promt: string,
+		text: string = "",
+		model: ModelVersion = "TheVoid"
+	): Response {
 		try {
 			const id = new Date().getTime().toString(16);
 			promts.set(promt, id);
 
 			Debug.Log([
 				"Ввод запроса: " + Colors.bgCyan + id + Colors.magenta + ":",
-				promt, "Модель: " + model
+				promt,
+				"Модель: " + model
 			]);
 
 			const data = ollama.chat({
@@ -36,7 +41,7 @@ class Llama {
 					text: "Произошла ошибка.",
 					type: 0
 				};
-			};
+			}
 
 			data.ollama.then((r) =>
 				Debug.Log(["Ответ на запрос: " + id + ":", r.message.content])
