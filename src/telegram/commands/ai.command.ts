@@ -25,10 +25,9 @@ export = {
 				option: "end",
 				error: "Произошли проблемы...\nОшибка:\n%ERROR%",
 				text: "%SUCCESS%\nОтвет:\n%MESSAGE%",
-				function: async (promt: string): Promise<Response> => {
+				function: async (promt: string): Promise<Response<ChatResponse>> => {
 					return new Llama().chat(
-						promt,
-						"Спасибо, что пользуетесь The Void, модель: llama3.2\n"
+						promt, "Спасибо, что пользуетесь The Void"
 					);
 				},
 				execute: (data: ExecuteData) => {

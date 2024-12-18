@@ -1,8 +1,8 @@
-export type Response = {
+export type Response<T = any> = {
 	text: string;
 	type: 0 | 1;
 
-	data: any;
+	data: T;
 	dataContent?: {
 		text: string;
 	};
