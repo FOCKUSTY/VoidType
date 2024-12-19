@@ -16,7 +16,7 @@
   "author": "FOCKUSTY",
   "license": "MIT",
   "dependencies": {
-    "@thevoidcommunity/the-void-database": "0.3.3-alpha.1",
+    "@thevoidcommunity/the-void-database": "0.3.4-alpha.1",
     "date-fns": "^2.30.0",
     "discord.js": "^14.15.3",
     "f-formatter": "^0.3.1",
