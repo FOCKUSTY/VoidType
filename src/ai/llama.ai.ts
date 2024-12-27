@@ -6,7 +6,6 @@ import type { Response } from "types/all/response.type";
 import { Debug } from "develop/debug.develop";
 import { Colors } from "f-formatter";
 
-const ollama = new Ollama();
 const promts = new Map<string, string>();
 
 class Llama {
@@ -27,7 +26,7 @@ class Llama {
 				"Модель: " + model
 			]);
 
-			const data = ollama.chat({
+			const data = new Ollama({model}).chat({
 				model: model,
 				stream: false,
 				messages: [{ role: "user", content: promt }]
