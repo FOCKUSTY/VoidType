@@ -21,6 +21,7 @@
     "discord.js": "^14.15.3",
     "f-formatter": "^0.3.1",
     "fock-logger": "2.0.5",
+    "fock-updater": "^1.2.0-beta",
     "random-js": "^2.1.0",
     "telegraf": "^4.16.3"
   },
