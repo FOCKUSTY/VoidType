@@ -11,7 +11,7 @@ import customIds from "./custom-ids.modal";
 const SayMessage = async (interaction: ModalSubmitInteraction) => {
 	const components = customIds.sayModal.components;
 	const channelId: string = interaction.fields.getTextInputValue(components.sayChannel);
-	const channel: Channel|undefined = interaction.client.channels.cache.get(channelId);
+	const channel: Channel | undefined = interaction.client.channels.cache.get(channelId);
 
 	if (!channel || !interaction.guild)
 		return await interaction.reply({
@@ -30,21 +30,23 @@ const SayMessage = async (interaction: ModalSubmitInteraction) => {
 		return await interaction.reply({
 			content: "Ваш канал не является текстовым",
 			ephemeral: true
-		})
+		});
 	}
 
 	const permissions = channel.permissionsFor(interaction.client.user.id);
 
-	if (!permissions || permissions.has([
+	if (
+		!permissions ||
+		permissions.has([
 			PermissionsBitField.Flags.SendMessages,
 			PermissionsBitField.Flags.ViewChannel
 		])
 	) {
 		return await interaction.reply({
 			content:
-				"Сообщение не было доставлено на Ваш канал, возможны причины:\n"
-                + "1. Ваш канал не является текстовым каналом\n"
-                + "2. У меня не достаточно прав отправить сообщение на Ваш канал",
+				"Сообщение не было доставлено на Ваш канал, возможны причины:\n" +
+				"1. Ваш канал не является текстовым каналом\n" +
+				"2. У меня не достаточно прав отправить сообщение на Ваш канал",
 			ephemeral: true
 		});
 	}
@@ -86,11 +88,11 @@ const SayMessage = async (interaction: ModalSubmitInteraction) => {
 	} catch (err) {
 		return await interaction.reply({
 			content:
-				"Сообщение не было доставлено на Ваш канал, возможны причины:\n"
-            	+ "Ваш канал не является текстовым каналом\n"
-            	+ "У меня не достаточно прав отправить сообщение на Ваш канал"
-				+ "\n ## Ошибка:\n"
-				+ `\`\`\`${err}\`\`\``,
+				"Сообщение не было доставлено на Ваш канал, возможны причины:\n" +
+				"Ваш канал не является текстовым каналом\n" +
+				"У меня не достаточно прав отправить сообщение на Ваш канал" +
+				"\n ## Ошибка:\n" +
+				`\`\`\`${err}\`\`\``,
 			ephemeral: true
 		});
 	}

@@ -93,7 +93,12 @@ const MessageListener = async (message: Interaction) => {
 			saved.delete(`${userId}`);
 
 			if (option.execute)
-				return option.execute<any, {text: string}>({ message, option, response, send });
+				return option.execute<any, { text: string }>({
+					message,
+					option,
+					response,
+					send
+				});
 			else return send({ message, option, response });
 		}
 	}

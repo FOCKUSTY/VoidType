@@ -13,10 +13,10 @@ import { Response } from "src/types/all/response.type";
 class Telegram {
 	private _client: Telegraf = Client;
 
-	public Send = async(
+	public Send = async (
 		chatId: number | string,
 		message: string | Format.FmtString
-	): Promise<Response<string|Message.TextMessage>> => {
+	): Promise<Response<string | Message.TextMessage>> => {
 		if (!this._client) {
 			return {
 				data: Debug.Error("Client is not defined"),
@@ -46,7 +46,13 @@ class Telegram {
 		chatId: number | string,
 		message: string | string[],
 		userId: number | string
-	): Promise<Response<string | { type: 1 } | { text: string, data: Message.TextMessage, userId: string|number }>> => {
+	): Promise<
+		Response<
+			| string
+			| { type: 1 }
+			| { text: string; data: Message.TextMessage; userId: string | number }
+		>
+	> => {
 		if (!this._client) {
 			return {
 				data: Debug.Error("Client is not defined"),
@@ -117,7 +123,9 @@ class Telegram {
 		};
 	};
 
-	public GetChatId = async (message: Interaction): Promise<Response<string|number>> => {
+	public GetChatId = async (
+		message: Interaction
+	): Promise<Response<string | number>> => {
 		return {
 			data: await GetChatId(message),
 			text: "Сообщение успешно отправлено",

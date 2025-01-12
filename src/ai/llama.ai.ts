@@ -26,7 +26,7 @@ class Llama {
 				"Модель: " + model
 			]);
 
-			const data = new Ollama({model}).chat({
+			const data = new Ollama({ model }).chat({
 				model: model,
 				stream: false,
 				messages: [{ role: "user", content: promt }]

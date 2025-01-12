@@ -21,12 +21,19 @@ class Filter {
 		return value;
 	};
 
-	public readonly execute = (value: string, type: "user"|"guild" = "user"): string | null => {
+	public readonly execute = (
+		value: string,
+		type: "user" | "guild" = "user"
+	): string | null => {
 		if (this._banwords.length === 0) this._banwords = utility.banwords;
 
 		if (this._banwords.includes(value)) {
 			this._last_value = null;
-		} else if (value.match(/[\W]/gi) && !value.match(/[а-я0-9]/gi) && type === "user") {
+		} else if (
+			value.match(/[\W]/gi) &&
+			!value.match(/[а-я0-9]/gi) &&
+			type === "user"
+		) {
 			this._last_value = null;
 		} else {
 			this._last_value = this.BadwordsHandler(value);

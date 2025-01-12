@@ -28,12 +28,21 @@ class Debug {
 
 	public static readonly Console = console;
 
-	private static readonly WarnComponent = <T extends string | Error = string>(msg: T|T[], type: "error" | "warn") => {
+	private static readonly WarnComponent = <T extends string | Error = string>(
+		msg: T | T[],
+		type: "error" | "warn"
+	) => {
 		const error: Error | string = Array.isArray(msg) ? msg.join(" ") : msg;
 
-		const text = typeof error === "string"
-			? "\n" + warn + "\n" + error + "\n" + warn
-			: "\n" + warn + "\n" + (error?.stack || error?.message || error) + "\n" + warn;
+		const text =
+			typeof error === "string"
+				? "\n" + warn + "\n" + error + "\n" + warn
+				: "\n" +
+					warn +
+					"\n" +
+					(error?.stack || error?.message || error) +
+					"\n" +
+					warn;
 
 		if (type === "error") {
 			this._error.execute(text);

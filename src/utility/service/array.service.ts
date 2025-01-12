@@ -73,7 +73,7 @@ class SelfArray extends Array {
 		}
 
 		return obj;
-	};
+	}
 }
 
 export default SelfArray;

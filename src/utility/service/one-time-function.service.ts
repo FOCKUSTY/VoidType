@@ -20,7 +20,7 @@ class OneTimeFunction<T, K> {
 			functions.set(this._name, true);
 
 			return this._function(this._function_arguments);
-		};
+		}
 	}
 }
 
