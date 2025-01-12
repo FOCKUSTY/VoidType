@@ -28,17 +28,20 @@ class Debug {
 
 	public static readonly Console = console;
 
-	private static readonly WarnComponent = (msg: any, type: "error" | "warn") => {
-		const error = Array.isArray(msg) ? msg.join(" ") : msg;
+	private static readonly WarnComponent = <T extends string | Error = string>(msg: T|T[], type: "error" | "warn") => {
+		const error: Error | string = Array.isArray(msg) ? msg.join(" ") : msg;
 
-		const text =
-			"\n" + warn + "\n" + (error?.stack || error?.message || error) + "\n" + warn;
+		const text = typeof error === "string"
+			? "\n" + warn + "\n" + error + "\n" + warn
+			: "\n" + warn + "\n" + (error?.stack || error?.message || error) + "\n" + warn;
 
 		if (type === "error") {
 			this._error.execute(text);
 		} else {
 			this._warn.execute(text);
 		}
+
+		return text;
 	};
 
 	public static readonly Log = (
@@ -63,16 +66,22 @@ class Debug {
 		console.trace();
 	};
 
-	public static readonly Error = (error?: any) => {
-		if (!error) return;
+	public static readonly Error = <T = string>(error?: T) => {
+		if (!error) return "no error there";
 
-		this.WarnComponent(error, "error");
+		if (!(error instanceof Error) && typeof error !== "string")
+			return "your error is not error or string";
+
+		return this.WarnComponent(JSON.stringify(error, undefined, 4), "error");
 	};
 
-	public static readonly Warn = (msg?: any) => {
-		if (!msg) return;
+	public static readonly Warn = <T = string>(msg?: T) => {
+		if (!msg) return "no msg therr";
 
-		this.WarnComponent(msg, "warn");
+		if (!(msg instanceof Error) && typeof msg !== "string")
+			return "your msg is not error or string";
+
+		return this.WarnComponent(msg, "warn");
 	};
 }
 

@@ -1,36 +1,55 @@
-import { EmbedBuilder, ModalSubmitInteraction, PermissionsBitField } from "discord.js";
+import {
+	Channel,
+	ChannelType,
+	EmbedBuilder,
+	ModalSubmitInteraction,
+	PermissionsBitField
+} from "discord.js";
 
 import customIds from "./custom-ids.modal";
 
 const SayMessage = async (interaction: ModalSubmitInteraction) => {
 	const components = customIds.sayModal.components;
-	const channelId: any = interaction.fields.getTextInputValue(components.sayChannel);
-	const channel: any = interaction.client.channels.cache.get(channelId);
+	const channelId: string = interaction.fields.getTextInputValue(components.sayChannel);
+	const channel: Channel|undefined = interaction.client.channels.cache.get(channelId);
 
 	if (!channel || !interaction.guild)
-		return interaction.reply({
+		return await interaction.reply({
 			content: "Ошибка при поиске канала, попробуйте снова",
 			ephemeral: true
 		});
 
-	if (
-		!channel
-			.permissionsFor(interaction.client.user.id)
-			.has([
-				PermissionsBitField.Flags.SendMessages,
-				PermissionsBitField.Flags.ViewChannel
-			])
-	) {
-		return interaction.reply({
-			content:
-				"Сообщение не было доставлено на Ваш канал, возможны причины:\n\
-            1. Ваш канал не является текстовым каналом\n\
-            1. У меня не достаточно прав отправить сообщение на Ваш канал",
+	if (!interaction.client.user) {
+		return await interaction.reply({
+			content: "Проблемы на нашей стороне...",
 			ephemeral: true
 		});
 	}
 
-	const message: any = interaction.fields.getTextInputValue(components.sayMessage);
+	if (channel.type !== ChannelType.GuildText) {
+		return await interaction.reply({
+			content: "Ваш канал не является текстовым",
+			ephemeral: true
+		})
+	}
+
+	const permissions = channel.permissionsFor(interaction.client.user.id);
+
+	if (!permissions || permissions.has([
+			PermissionsBitField.Flags.SendMessages,
+			PermissionsBitField.Flags.ViewChannel
+		])
+	) {
+		return await interaction.reply({
+			content:
+				"Сообщение не было доставлено на Ваш канал, возможны причины:\n"
+                + "1. Ваш канал не является текстовым каналом\n"
+                + "2. У меня не достаточно прав отправить сообщение на Ваш канал",
+			ephemeral: true
+		});
+	}
+
+	const message: string = interaction.fields.getTextInputValue(components.sayMessage);
 
 	try {
 		if (message.length > 2000) {
@@ -41,12 +60,12 @@ const SayMessage = async (interaction: ModalSubmitInteraction) => {
 					iconURL: interaction.user.avatarURL() || undefined
 				})
 				.setTitle(interaction.guild.name)
-				.setDescription(message.replaceAll("\\n", "\n"))
+				.setDescription(message.replace(/\\\\n/g, "\n"))
 				.setTimestamp();
 
-			channel.send({ embeds: [embed] });
+			await channel.send({ embeds: [embed] });
 		} else {
-			channel.send(`${message.replaceAll("\\n", "\n")}`);
+			await channel.send(`${message.replace(/\\\\n/g, "\n")}`);
 		}
 
 		const embed = new EmbedBuilder()
@@ -56,21 +75,22 @@ const SayMessage = async (interaction: ModalSubmitInteraction) => {
 				iconURL: interaction.client.user.avatarURL() || undefined
 			})
 			.setTitle("Сообщение:")
-			.setDescription(message.replaceAll("\\n", "\n"))
+			.setDescription(message.replace(/\\\\n/g, "\n"))
 			.setTimestamp();
 
-		return interaction.reply({
+		return await interaction.reply({
 			content: `Сообщение было доставлено на: ${channel}`,
 			embeds: [embed],
 			ephemeral: true
 		});
 	} catch (err) {
-		return interaction.reply({
-			content: `Сообщение не было доставлено на Ваш канал, возможны причины:\n\
-            Ваш канал не является текстовым каналом\n\
-            У меня не достаточно прав отправить сообщение на Ваш канал\n\
-            ## Ошибка:\n\
-            \`\`\`${err}\`\`\``,
+		return await interaction.reply({
+			content:
+				"Сообщение не было доставлено на Ваш канал, возможны причины:\n"
+            	+ "Ваш канал не является текстовым каналом\n"
+            	+ "У меня не достаточно прав отправить сообщение на Ваш канал"
+				+ "\n ## Ошибка:\n"
+				+ `\`\`\`${err}\`\`\``,
 			ephemeral: true
 		});
 	}

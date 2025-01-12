@@ -1,14 +1,14 @@
-type FullCommand = {
+type FullCommand<T, K> = {
 	name: string;
 	options: string[];
-	executeFunc?: (...args: any) => any;
+	executeFunc?: (...args: T[]) => K;
 };
 
-class Commands {
+class Commands<T, K> {
 	private readonly _commands: string[] = [];
-	private readonly _full_commands: FullCommand[] = [];
+	private readonly _full_commands: FullCommand<T, K>[] = [];
 
-	public setCommand(command: FullCommand) {
+	public setCommand(command: FullCommand<T, K>) {
 		this._full_commands.push(command);
 	}
 
@@ -16,7 +16,7 @@ class Commands {
 		this._commands.push(name);
 	}
 
-	public get fullCommands(): FullCommand[] {
+	public get fullCommands(): FullCommand<T, K>[] {
 		return this._full_commands;
 	}
 

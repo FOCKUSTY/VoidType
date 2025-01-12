@@ -3,16 +3,16 @@ import type { Guild, User } from "discord.js";
 import { utility } from "@thevoid/loaders/data/activities.loader";
 
 class Filter {
-	private _banwords: any[] = [];
+	private _banwords: string[] = [];
 	private _last_value: string | null = null;
 
-	constructor(banwords?: any[] | undefined) {
-		this._banwords = banwords ? banwords : utility.banwords;
+	public constructor(banwords: string[] = utility.banwords) {
+		this._banwords = banwords;
 	}
 
 	private readonly BadwordsHandler = (value: string): string | null => {
 		for (const banword of this._banwords) {
-			const word = new RegExp(banword.replaceAll("*", "\\W"));
+			const word = new RegExp(banword.replace(/\*/gi, "\\W"));
 
 			if (value.match(word)) return null;
 			else continue;

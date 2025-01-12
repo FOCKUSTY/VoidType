@@ -65,7 +65,7 @@ class Deployer {
 				const options = command.data.options;
 				const name = command.data.name;
 
-				let subcommands = [];
+				const subcommands = [];
 				let spaces = "";
 				let text = `Команда ${command.data.name}`;
 
@@ -76,7 +76,7 @@ class Deployer {
 
 					subcommands.push(`${spaces} Опции:`);
 
-					for (let key in command.data.options) {
+					for (const key in command.data.options) {
 						using += 1;
 						subcommands.push(`${options[key].name}`);
 

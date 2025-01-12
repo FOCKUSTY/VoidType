@@ -2,17 +2,16 @@ import { Format } from "telegraf";
 
 import type { Interaction } from "types/telegram/interaction.type";
 import type { Option, SendData } from "types/telegram/options.type";
-import type { Response } from "types/all/response.type";
 
 import Telegram from "telegram/utility/service/telegram.service";
 
 import { Debug } from "develop/debug.develop";
 
-const options = new Map<string | number, any[]>();
+const options = new Map<string | number, Option<any>[]>();
 const saved = new Map<string, { key: string; value: string }[]>();
 const anonMessages = new Map<string, string>();
 
-const send = async (data: SendData) => {
+const send = async <T>(data: SendData<T, { text: string }>) => {
 	if (data.response.type === 1) {
 		const text = data.option.text
 			.replace("%SUCCESS%", data.response.text)
@@ -53,7 +52,9 @@ const MessageListener = async (message: Interaction) => {
 		const data = new Telegram().Send(anonUser, text);
 
 		return data.then((d) =>
-			message.reply(`${intro}\n\nВаше сообщение:\n${d.data.text}`)
+			typeof d.data !== "string"
+				? message.reply(`${intro}\n\nВаше сообщение:\n${d.data.text}`)
+				: undefined
 		);
 	}
 
@@ -63,7 +64,7 @@ const MessageListener = async (message: Interaction) => {
 
 	for (const i in replyOptions) {
 		const index = Number(i);
-		const option: Option = replyOptions[index];
+		const option: Option<any> = replyOptions[index];
 
 		if (message.message.message_id - 2 === option.id) {
 			const savedOptions = saved.get(`${userId}`) || [];
@@ -82,7 +83,7 @@ const MessageListener = async (message: Interaction) => {
 
 			if (!option.function) return;
 
-			const response: Response = await option.function(
+			const response = await option.function(
 				...(option.firstArgs || []),
 				...args,
 				...(option.addArgs || [])
@@ -92,7 +93,7 @@ const MessageListener = async (message: Interaction) => {
 			saved.delete(`${userId}`);
 
 			if (option.execute)
-				return option.execute({ message, option, response, send });
+				return option.execute<any, {text: string}>({ message, option, response, send });
 			else return send({ message, option, response });
 		}
 	}

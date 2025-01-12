@@ -12,6 +12,7 @@
     "start:builded": "set NODE_ENV=prod&& set BOT=all&& node -r tsconfig-paths/register dist/src/start.bot.js",
     "start": "set NODE_ENV=prod&& yarn run update && yarn run build && yarn run start:slash && yarn run start:builded",
     "update": "fockupdater update",
+    "eslint": "pnpm dlx eslint --no-warn-ignored src/**",
     "build": "tsc"
   },
   "author": "FOCKUSTY",
@@ -27,12 +28,16 @@
     "telegraf": "^4.16.3"
   },
   "devDependencies": {
+    "@eslint/js": "^9.18.0",
     "@types/node": "^20.16.1",
     "dotenv": "^16.4.5",
+    "eslint": "^9.18.0",
+    "globals": "^15.14.0",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
     "tsc": "^2.0.4",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.19.1"
   }
 }

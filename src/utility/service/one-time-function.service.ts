@@ -1,29 +1,27 @@
 const functions = new Map();
 
-class OneTimeFunction {
-	public _func: (...[]) => any;
-	public _name: string;
-	public _funcParameters?: any[];
+class OneTimeFunction<T, K> {
+	public readonly _function: (data: K[]) => T;
+	public readonly _name: string;
+	public readonly _function_arguments: K[];
 
-	constructor(name: string, func: () => any, funcParameters?: any[]) {
+	public constructor(name: string, func: () => T, funcParameters: K[] = []) {
 		functions.set(name, false);
 
-		this._func = func;
 		this._name = name;
-		this._funcParameters = funcParameters;
+		this._function = func;
+		this._function_arguments = funcParameters;
 	}
 
-	public execute = (): any => {
+	public execute(): T | void {
 		if (functions.get(this._name)) {
 			return;
 		} else {
 			functions.set(this._name, true);
 
-			return this._funcParameters
-				? this._func(...this._funcParameters)
-				: this._func();
-		}
-	};
+			return this._function(this._function_arguments);
+		};
+	}
 }
 
 export default OneTimeFunction;

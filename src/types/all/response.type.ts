@@ -1,4 +1,4 @@
-export type Response<T = any> = {
+export type Response<T = undefined> = {
 	text: string;
 	type: 0 | 1;
 

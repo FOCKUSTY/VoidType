@@ -9,9 +9,9 @@ import Discord from "discord/utility/service/discord.service";
 const Update = async (interaction: ModalSubmitInteraction) => {
 	const components = customIds.updateModal.components;
 
-	const version: any = interaction.fields.getTextInputValue(components.version);
-	const ru: any = interaction.fields.getTextInputValue(components.ruText);
-	const en: any = interaction.fields.getTextInputValue(components.enText);
+	const version: string = interaction.fields.getTextInputValue(components.version);
+	const ru: string = interaction.fields.getTextInputValue(components.ruText);
+	const en: string = interaction.fields.getTextInputValue(components.enText);
 
 	try {
 		if (
@@ -35,7 +35,7 @@ const Update = async (interaction: ModalSubmitInteraction) => {
 								interaction.user.globalName ||
 								interaction.user.username
 						)
-						.setDescription(`# ${version}\n${text.replaceAll("\\n", "\n")}`)
+						.setDescription(`# ${version}\n${text.replace(/\\\\n/g, "\n")}`)
 						.setTimestamp()
 				);
 			}

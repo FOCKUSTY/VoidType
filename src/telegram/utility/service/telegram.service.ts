@@ -2,6 +2,8 @@ import { Interaction } from "src/types/telegram/interaction.type";
 import { Telegraf, Format } from "telegraf";
 import { Debug } from "src/develop/debug.develop";
 
+import { Message } from "telegraf/typings/core/types/typegram";
+
 import SendMessage from "./helpers/send-message.helper";
 import GetChatId from "./helpers/get-chat-id.helper";
 
@@ -11,10 +13,10 @@ import { Response } from "src/types/all/response.type";
 class Telegram {
 	private _client: Telegraf = Client;
 
-	public Send = async (
+	public Send = async(
 		chatId: number | string,
 		message: string | Format.FmtString
-	): Promise<Response> => {
+	): Promise<Response<string|Message.TextMessage>> => {
 		if (!this._client) {
 			return {
 				data: Debug.Error("Client is not defined"),
@@ -33,7 +35,7 @@ class Telegram {
 			Debug.Error(error);
 
 			return {
-				data: error,
+				data: error as string,
 				text: "Не удалось отправить сообщение",
 				type: 0
 			};
@@ -44,7 +46,7 @@ class Telegram {
 		chatId: number | string,
 		message: string | string[],
 		userId: number | string
-	): Promise<Response> => {
+	): Promise<Response<string | { type: 1 } | { text: string, data: Message.TextMessage, userId: string|number }>> => {
 		if (!this._client) {
 			return {
 				data: Debug.Error("Client is not defined"),
@@ -89,7 +91,7 @@ class Telegram {
 			};
 		} catch (error) {
 			return {
-				data: error,
+				data: error as string,
 				text: "Сообщение не было доставлено",
 				type: 0
 			};
@@ -99,7 +101,7 @@ class Telegram {
 	public SendMessage = async (
 		chatId: number | string,
 		message: string | string[]
-	): Promise<Response> => {
+	): Promise<Response<string | Message.TextMessage>> => {
 		if (!this._client) {
 			return {
 				data: Debug.Error("Client is not defined"),
@@ -115,7 +117,7 @@ class Telegram {
 		};
 	};
 
-	public GetChatId = async (message: Interaction): Promise<Response> => {
+	public GetChatId = async (message: Interaction): Promise<Response<string|number>> => {
 		return {
 			data: await GetChatId(message),
 			text: "Сообщение успешно отправлено",

@@ -8,10 +8,10 @@ const TelegramClient = new TelegramClass();
 const SayTelegramMessage = async (interaction: ModalSubmitInteraction) => {
 	const components = customIds.sayTelegramModal.components;
 
-	const channelId: any = interaction.fields.getTextInputValue(
+	const channelId: string = interaction.fields.getTextInputValue(
 		components.sayTelegramChannel
 	);
-	const message: any = interaction.fields.getTextInputValue(
+	const message: string = interaction.fields.getTextInputValue(
 		components.sayTelegramMessage
 	);
 
@@ -23,7 +23,7 @@ const SayTelegramMessage = async (interaction: ModalSubmitInteraction) => {
 				iconURL: interaction.client.user.avatarURL() || undefined
 			})
 			.setTitle("Сообщение:")
-			.setDescription(message.replaceAll("\\n", "\n"))
+			.setDescription(message.replace(/\\\\n/g, "\n"))
 			.setTimestamp();
 
 		TelegramClient.SendMessage(
