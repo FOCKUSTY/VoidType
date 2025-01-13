@@ -21,7 +21,7 @@ class Discord {
 		channelId: string,
 		message: string,
 		telegramName: string
-	): Promise<Response<string|{type: number, text: string}>> => {
+	): Promise<Response<string | { type: number; text: string }>> => {
 		if (!this._client)
 			return {
 				data: Debug.Error("Client is not defined"),

@@ -5,14 +5,13 @@ import { options } from "telegram/events/message.listener";
 
 import Discord from "discord/utility/service/discord.service";
 
-type DefaultOption = Option<string|{type: number, text: string}, string[], string[]>;
+type DefaultOption = Option<string | { type: number; text: string }, string[], string[]>;
 
 export = {
 	name: "send_message_to_discord",
 	options: ["channelId", "message"],
 	async execute(interaction: Interaction) {
-		if (!interaction.from)
-			return;
+		if (!interaction.from) return;
 
 		const replyOptions: DefaultOption[] = [
 			{
@@ -48,8 +47,7 @@ export = {
 		await interaction.reply(replyOptions[0].text);
 	},
 	async executeFunc(interaction: Interaction, userId: number | string) {
-		if (!interaction.from)
-			return;
+		if (!interaction.from) return;
 
 		const replyOptions: DefaultOption[] = [
 			{

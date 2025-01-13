@@ -13,11 +13,14 @@ const options = new Map<string | number, DefaultOption[]>();
 const saved = new Map<string, { key: string; value: string }[]>();
 const anonMessages = new Map<string, string>();
 
-const send = async <T, R extends { [key: string]: any } = {}>(data: SendData<T, string | { text: string } & R>) => {
+const send = async <T, R extends { [key: string]: any } = {}>(
+	data: SendData<T, string | ({ text: string } & R)>
+) => {
 	if (data.response.type === 1) {
-		const res = typeof data.response.data === "string"
-			? data.response.data
-			: data.response.data.text;
+		const res =
+			typeof data.response.data === "string"
+				? data.response.data
+				: data.response.data.text;
 
 		const text = data.option.text
 			.replace("%SUCCESS%", data.response.text)
@@ -105,7 +108,12 @@ const MessageListener = async (message: Interaction) => {
 					response,
 					send
 				});
-			else return send<any, {text: string, type: number}>({ message, option, response });
+			else
+				return send<any, { text: string; type: number }>({
+					message,
+					option,
+					response
+				});
 		}
 	}
 };

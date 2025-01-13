@@ -11,7 +11,11 @@ export type ExecuteData<OptionT, ResponseT> = {
 	send: (data: SendData<OptionT, ResponseT>) => Promise<void>;
 } & SendData<OptionT, ResponseT>;
 
-export type Option<GResT, FirstArgsT extends any[] = any[], AddArgsT extends any[] = []> = {
+export type Option<
+	GResT,
+	FirstArgsT extends any[] = any[],
+	AddArgsT extends any[] = []
+> = {
 	command: string;
 	option: string;
 	error: string;

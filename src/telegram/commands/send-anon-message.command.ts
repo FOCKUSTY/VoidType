@@ -5,23 +5,33 @@ import { ExecuteData, Option } from "types/telegram/options.type";
 import Telegram from "telegram/utility/service/telegram.service";
 import { Message } from "telegraf/typings/core/types/typegram";
 
-type DefaultOption = Option<string | undefined | {
-    text: string;
-    data: Message.TextMessage;
-    userId: string | number;
-}, [ string ], string[]>;
-type DefaultExecuteData = ExecuteData<any, string | undefined | {
-    text: string;
-    data: Message.TextMessage;
-    userId: string | number;
-}>;
+type DefaultOption = Option<
+	| string
+	| undefined
+	| {
+			text: string;
+			data: Message.TextMessage;
+			userId: string | number;
+	  },
+	[string],
+	string[]
+>;
+type DefaultExecuteData = ExecuteData<
+	any,
+	| string
+	| undefined
+	| {
+			text: string;
+			data: Message.TextMessage;
+			userId: string | number;
+	  }
+>;
 
 export = {
 	name: "send_anonimus_message",
 	options: ["userId", "message"],
 	async execute(interaction: Interaction) {
-		if (!interaction.from)
-			return;
+		if (!interaction.from) return;
 
 		const replyOptions: DefaultOption[] = [
 			{
@@ -47,8 +57,7 @@ export = {
 				text: "%SUCCESS%\nСообщение:\n%MESSAGE%",
 				function: new Telegram().SendAnonMessage,
 				execute: (data: DefaultExecuteData) => {
-					if (typeof data.response.data === "string")
-						return;
+					if (typeof data.response.data === "string") return;
 
 					const id = data.response.data?.data?.message_id;
 					const from = data.response.data?.userId;
@@ -70,8 +79,7 @@ export = {
 		await interaction.reply(replyOptions[0].text);
 	},
 	async executeFunc(interaction: Interaction, userId: number | string) {
-		if (!interaction.from)
-			return;
+		if (!interaction.from) return;
 
 		const replyOptions: DefaultOption[] = [
 			{
@@ -89,9 +97,8 @@ export = {
 				text: "%SUCCESS%\nСообщение:\n%MESSAGE%",
 				function: new Telegram().SendAnonMessage,
 				execute: (data: DefaultExecuteData) => {
-					if (typeof data.response.data === "string")
-						return;
-					
+					if (typeof data.response.data === "string") return;
+
 					const id = data.response.data?.data?.message_id;
 					const from = data.response.data?.userId;
 
