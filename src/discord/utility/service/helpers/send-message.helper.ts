@@ -29,7 +29,7 @@ const SendMessage = async (
 		}
 	} catch (err) {
 		Debug.Error(err);
-		return { type: 0, text: err };
+		return { type: 0, text: `${err}` };
 	}
 };
 

@@ -7,15 +7,21 @@ import Telegram from "telegram/utility/service/telegram.service";
 
 import { Debug } from "develop/debug.develop";
 
-const options = new Map<string | number, Option<any>[]>();
+type DefaultOption = Option<any, any, any>;
+
+const options = new Map<string | number, DefaultOption[]>();
 const saved = new Map<string, { key: string; value: string }[]>();
 const anonMessages = new Map<string, string>();
 
-const send = async <T>(data: SendData<T, { text: string }>) => {
+const send = async <T, R extends { [key: string]: any } = {}>(data: SendData<T, string | { text: string } & R>) => {
 	if (data.response.type === 1) {
+		const res = typeof data.response.data === "string"
+			? data.response.data
+			: data.response.data.text;
+
 		const text = data.option.text
 			.replace("%SUCCESS%", data.response.text)
-			.replace("%MESSAGE%", data.response.data.text);
+			.replace("%MESSAGE%", res);
 
 		Debug.Log(["Telegram Ответ\n" + text]);
 
@@ -64,7 +70,7 @@ const MessageListener = async (message: Interaction) => {
 
 	for (const i in replyOptions) {
 		const index = Number(i);
-		const option: Option<any> = replyOptions[index];
+		const option: DefaultOption = replyOptions[index];
 
 		if (message.message.message_id - 2 === option.id) {
 			const savedOptions = saved.get(`${userId}`) || [];
@@ -93,13 +99,13 @@ const MessageListener = async (message: Interaction) => {
 			saved.delete(`${userId}`);
 
 			if (option.execute)
-				return option.execute<any, { text: string }>({
+				return option.execute({
 					message,
 					option,
 					response,
 					send
 				});
-			else return send({ message, option, response });
+			else return send<any, {text: string, type: number}>({ message, option, response });
 		}
 	}
 };

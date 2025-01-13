@@ -1,15 +1,20 @@
 import { Interaction } from "types/telegram/interaction.type";
-import { ExecuteData, Option, SendData } from "types/telegram/options.type";
+import { Option } from "types/telegram/options.type";
 
 import { options } from "telegram/events/message.listener";
 
 import Discord from "discord/utility/service/discord.service";
 
+type DefaultOption = Option<string|{type: number, text: string}, string[], string[]>;
+
 export = {
 	name: "send_message_to_discord",
 	options: ["channelId", "message"],
 	async execute(interaction: Interaction) {
-		const replyOptions: Option[] = [
+		if (!interaction.from)
+			return;
+
+		const replyOptions: DefaultOption[] = [
 			{
 				command: "send_message_to_discord",
 				option: "channelId",
@@ -33,17 +38,20 @@ export = {
 				text: "Сообщение было отправлено в Discord\n\nСообщение:\n%SUCCESS%",
 				function: new Discord().SendMessageToTelegram,
 
-				addArgs: [interaction.from?.username || interaction.from?.first_name],
+				addArgs: [interaction.from.username || interaction.from.first_name],
 				id: 0
 			}
 		];
 
-		options.set(interaction.from?.id!, replyOptions);
+		options.set(interaction.from.id, replyOptions);
 
 		await interaction.reply(replyOptions[0].text);
 	},
 	async executeFunc(interaction: Interaction, userId: number | string) {
-		const replyOptions: Option[] = [
+		if (!interaction.from)
+			return;
+
+		const replyOptions: DefaultOption[] = [
 			{
 				command: "send_message_to_discord",
 				option: "message",
@@ -60,14 +68,14 @@ export = {
 				function: new Discord().SendMessageToTelegram,
 
 				addArgs: [
-					userId,
-					interaction.from?.username || interaction.from?.first_name
+					`${userId}`,
+					interaction.from.username || interaction.from.first_name
 				],
 				id: 0
 			}
 		];
 
-		options.set(interaction.from?.id!, replyOptions);
+		options.set(interaction.from.id, replyOptions);
 		await interaction.reply(replyOptions[0].text);
 	}
 };

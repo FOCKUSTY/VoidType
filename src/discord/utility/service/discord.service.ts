@@ -21,7 +21,7 @@ class Discord {
 		channelId: string,
 		message: string,
 		telegramName: string
-	): Promise<Response> => {
+	): Promise<Response<string|{type: number, text: string}>> => {
 		if (!this._client)
 			return {
 				data: Debug.Error("Client is not defined"),
@@ -43,7 +43,7 @@ class Discord {
 			Debug.Error(error);
 
 			return {
-				data: error,
+				data: `${error}`,
 				text: "Сообщение не было отправлено",
 				type: 0
 			};

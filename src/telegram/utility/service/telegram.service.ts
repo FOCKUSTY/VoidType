@@ -43,13 +43,13 @@ class Telegram {
 	};
 
 	public SendAnonMessage = async (
-		chatId: number | string,
+		chatId: string,
 		message: string | string[],
-		userId: number | string
+		userId: string
 	): Promise<
 		Response<
 			| string
-			| { type: 1 }
+			| undefined
 			| { text: string; data: Message.TextMessage; userId: string | number }
 		>
 	> => {
@@ -61,9 +61,9 @@ class Telegram {
 			};
 		}
 
-		if (chatId == userId)
+		if (chatId === userId)
 			return {
-				data: { type: 1 },
+				data: undefined,
 				text: "Вы не можете отправить сообщение самому себе",
 				type: 0
 			};

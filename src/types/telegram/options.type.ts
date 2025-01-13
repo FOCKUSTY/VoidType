@@ -1,25 +1,25 @@
 import { Interaction } from "./interaction.type";
 import { Response } from "../all/response.type";
 
-export type SendData<T, K> = {
+export type SendData<OptionT, ResponseT> = {
 	message: Interaction;
-	option: Option<T>;
-	response: Response<K>;
+	option: Option<OptionT>;
+	response: Response<ResponseT>;
 };
 
-export type ExecuteData<T, K> = {
-	send: (data: SendData<T, K>) => Promise<void>;
-} & SendData<T, K>;
+export type ExecuteData<OptionT, ResponseT> = {
+	send: (data: SendData<OptionT, ResponseT>) => Promise<void>;
+} & SendData<OptionT, ResponseT>;
 
-export type Option<T, K = never> = {
+export type Option<GResT, FirstArgsT extends any[] = any[], AddArgsT extends any[] = []> = {
 	command: string;
 	option: string;
 	error: string;
 	text: string;
 	id: string | number;
 
-	execute?: <Type = void, Res = object>(data: ExecuteData<T, Res>) => Type;
-	function?: <K>(...data: K[]) => Promise<Response<T>>;
-	addArgs?: K[];
-	firstArgs?: K[];
+	execute?: (data: ExecuteData<any, GResT>) => void;
+	function?: (...data: [...FirstArgsT, ...AddArgsT]) => Promise<Response<GResT>>;
+	addArgs?: AddArgsT;
+	firstArgs?: FirstArgsT;
 };

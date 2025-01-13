@@ -10,7 +10,7 @@ const FailLogger = new Logger("Fail").execute;
 
 export const commands = new Map<
 	string,
-	{ execute: (interaction: Interaction) => any; options: any[] }
+	{ execute: <T = void>(interaction: Interaction) => T; options: string[] }
 >();
 
 export const DeployCommands = (
@@ -23,8 +23,8 @@ export const DeployCommands = (
 		const command: {
 			name: string;
 			options: string[];
-			execute: (interaction: Interaction) => any;
-			executeFunc?: (...args: any) => any;
+			execute: <T = void>(interaction: Interaction) => T;
+			executeFunc?: <T, K = void>(...args: T[]) => K;
 		} = require(filePath);
 
 		CommandsLogger(`Telegram команда ${command.name}`);
