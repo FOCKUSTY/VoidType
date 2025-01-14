@@ -21,7 +21,7 @@ export = {
 			});
 		} catch (err) {
 			return await interaction.reply({
-				content: "Произошла какая-то ошибка",
+				content: "Произошла какая-то ошибка" + `${err}`,
 				ephemeral: true
 			});
 		}

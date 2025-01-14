@@ -17,7 +17,7 @@ type DefaultOption = Option<
 	string[]
 >;
 type DefaultExecuteData = ExecuteData<
-	any,
+	DefaultOption,
 	| string
 	| undefined
 	| {

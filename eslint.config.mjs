@@ -16,6 +16,8 @@ export default [
     ignores: [
       "**/service/array.service.ts",
       "**/events/message.listener.ts",
+      "**/events/interaction-create.listener.ts",
+      "**/discord/deploy.commands.ts",
       "**/types/telegram/*.{type,types}.ts"
     ]
   }

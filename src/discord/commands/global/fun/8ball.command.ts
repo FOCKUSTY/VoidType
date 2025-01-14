@@ -1,9 +1,5 @@
-import PseudoRandom from "utility/service/pseudo-random.service";
-import { SlashCommandBuilder } from "discord.js";
-import { Random as RandomJS } from "random-js";
-
-const Random = new RandomJS();
-const history: number[] = [];
+import { CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { Random } from "random-js";
 
 export = {
 	cooldown: 5,
@@ -27,7 +23,7 @@ export = {
 				})
 		),
 
-	async execute(interaction: any) {
+	async execute(interaction: CommandInteraction) {
 		await interaction.reply({ content: `Предсказываю...`, ephemeral: true });
 
 		const categoryes = [
@@ -60,21 +56,15 @@ export = {
 			]
 		];
 
-		const rCategory = Random.integer(0, categoryes.length - 1);
-		const rNum = new PseudoRandom().Number(
-			0,
-			categoryes[rCategory].length - 1,
-			history,
-			categoryes[rCategory]
-		);
+		const rCategory = new Random().integer(0, categoryes.length - 1);
+		const rNum = new Random().integer(0, categoryes[rCategory].length-1);
 		const text = categoryes[rCategory][rNum];
 
 		const question = interaction.options.get("question")?.value;
 
 		setTimeout(async () => {
 			await interaction.editReply({
-				content: `Ваш вопрос: ${question}\nМой ответ: ${text}`,
-				ephemeral: true
+				content: `Ваш вопрос: ${question}\nМой ответ: ${text}`
 			});
 		}, 1000);
 	}

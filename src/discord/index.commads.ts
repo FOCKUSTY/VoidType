@@ -1,3 +1,4 @@
+import Command from "types/commands/command.type";
 import path from "path";
 import fs from "fs";
 
@@ -20,7 +21,7 @@ for (const placeFolder of commandsFolder) {
 
 		for (const file of files) {
 			const filePath = path.join(modifierPath, file);
-			const command: any = require(
+			const command: Command = require(
 				path.toNamespacedPath(filePath).replace("\\\\?\\", "")
 			);
 

@@ -1,5 +1,7 @@
 import { ModelVersion } from "@thevoid/ollama/types/ollama.types";
-import Ollama from "@thevoid/ollama";
+
+import Ollama, { OllamaResponse } from "@thevoid/ollama";
+import { ChatResponse } from "@thevoid/ollama";
 
 import type { Response } from "types/all/response.type";
 
@@ -15,7 +17,7 @@ class Llama {
 		promt: string,
 		text: string = "",
 		model: ModelVersion = "TheVoid"
-	): Response {
+	): Response<OllamaResponse<Promise<ChatResponse>>> {
 		try {
 			const id = new Date().getTime().toString(16);
 			promts.set(promt, id);
@@ -47,7 +49,7 @@ class Llama {
 			);
 
 			return {
-				data: data.ollama,
+				data: data,
 				text: `${text}\nМодель: ${model}\nВаш id: ${id}\n`,
 				type: 1,
 				dataContent: {
@@ -58,7 +60,11 @@ class Llama {
 			Debug.Error(error);
 
 			return {
-				data: error,
+				data: {
+					model: "TheVoid",
+					text: `${error}`,
+					type: 0
+				},
 				text: "Произошла ошибка",
 				type: 0
 			};

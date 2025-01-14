@@ -36,7 +36,7 @@ export = {
 		});
 
 		const user = interaction.options.get("member")
-			? (interaction.options.get("member") as any as User)
+			? (interaction.options.get("member") as unknown as User)
 			: interaction.user;
 
 		const username = user.globalName || user.username;
@@ -74,8 +74,8 @@ export = {
 		const roles: string[] = [];
 
 		new Map(
-			[...(member as any).roles.cache.entries()].sort((a, b) => b[0] - a[0])
-		).forEach((role) => roles.push(role as any));
+			[...member.roles.cache.entries()].sort((a, b) => b[1].position - a[1].position)
+		).forEach((role) => roles.push(role.name));
 
 		const embed = new EmbedBuilder()
 			.setColor(0x161618)
@@ -87,8 +87,13 @@ export = {
 			.addFields(
 				{
 					name: `Команда запущена:`,
-					value: `${interaction.user} (${interaction.user.username})\n\n**Участник ${member?.user.username} присоединился:**\n${time((member.joinedAt as any) || 0)}\nЭто:\n${time((member.joinedAt as any) || 0, `R`)}
-                \n**Пользователь в Discord: **\n${time(user.createdAt)}\nЭто:\n${time(user.createdAt, `R`)}`,
+					value:
+						`${interaction.user} (${interaction.user.username})` +
+						"**Участник" + member.user.username + "присоединился:**"
+						+ `${time(member.joinedAt?.getTime() || 0)}\nЭто:\n${time(member.joinedAt?.getTime() || 0, `R`)}`
+						+ "\n"
+						+ "**Пользователь в Discord: **\n"
+						+ `${time(user.createdAt)}\nЭто:\n${time(user.createdAt, `R`)}`,
 					inline: true
 				},
 				{

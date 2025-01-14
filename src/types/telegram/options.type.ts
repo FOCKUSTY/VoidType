@@ -7,14 +7,15 @@ export type SendData<OptionT, ResponseT> = {
 	response: Response<ResponseT>;
 };
 
-export type ExecuteData<OptionT, ResponseT> = {
-	send: (data: SendData<OptionT, ResponseT>) => Promise<void>;
+export type ExecuteData<OptionT, ResponseT, ArgResponseT=ResponseT> = {
+	send: (data: SendData<OptionT, ArgResponseT>) => Promise<void>;
 } & SendData<OptionT, ResponseT>;
 
 export type Option<
 	GResT,
 	FirstArgsT extends any[] = any[],
-	AddArgsT extends any[] = []
+	AddArgsT extends any[] = [],
+	ArgResponseT = GResT
 > = {
 	command: string;
 	option: string;
@@ -22,8 +23,8 @@ export type Option<
 	text: string;
 	id: string | number;
 
-	execute?: (data: ExecuteData<any, GResT>) => void;
-	function?: (...data: [...FirstArgsT, ...AddArgsT]) => Promise<Response<GResT>>;
+	execute?: (data: ExecuteData<any, GResT, ArgResponseT>) => void;
+	function?: (...data: [...FirstArgsT, ...AddArgsT]) => Promise<GResT>;
 	addArgs?: AddArgsT;
 	firstArgs?: FirstArgsT;
 };

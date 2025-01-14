@@ -1,6 +1,5 @@
 import { settings } from "src/index.config";
-import Logger, { Colors } from "fock-logger";
-import { error } from "console";
+import Logger from "fock-logger";
 
 const warn = "------------- !Внимание! --------------";
 
@@ -54,7 +53,7 @@ class Debug {
 	};
 
 	public static readonly Log = (
-		message: any[],
+		message: Error[] | string[],
 		enabled?: boolean,
 		trace?: boolean
 	): void => {

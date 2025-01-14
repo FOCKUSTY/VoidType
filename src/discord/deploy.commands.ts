@@ -11,6 +11,7 @@ import type {
 
 import fs from "node:fs";
 import path from "node:path";
+import Command from "types/commands/command.type";
 
 let using = 0;
 

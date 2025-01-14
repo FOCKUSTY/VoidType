@@ -1,8 +1,14 @@
 import { Debug } from "develop/debug.develop";
-import { Interaction, InteractionType } from "discord.js";
+import { Interaction, InteractionResponse, InteractionType, ModalSubmitInteraction } from "discord.js";
 import customIds from "utility/modal/custom-ids.modal";
 
-const ids: any = customIds;
+const ids: {
+	[key: string]: {
+		id: string,
+		components: { [key: string]: string },
+		execute: (interaction: ModalSubmitInteraction) => Promise<void|InteractionResponse<boolean>>
+	}
+} = customIds;
 
 export = {
 	name: "modal-listener",
@@ -19,7 +25,7 @@ export = {
 			} catch (error) {
 				Debug.Error(error);
 
-				interaction.reply({
+				await interaction.reply({
 					content: "Произошла какая-то ошибка",
 					ephemeral: true
 				});
