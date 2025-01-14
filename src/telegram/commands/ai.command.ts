@@ -8,19 +8,11 @@ import { ModelVersion } from "@thevoid/ollama/types/ollama.types";
 import { ChatResponse, OllamaResponse } from "@thevoid/ollama";
 import Llama from "ai/llama.ai";
 
-type FunctionDataType = Response<OllamaResponse<Promise<ChatResponse>> | "Error">
+type FunctionDataType = Response<OllamaResponse<Promise<ChatResponse>> | "Error">;
 
-type DefaultOption = Option<
-	FunctionDataType,
-	string[], string[],
-	{ text: string }
->;
+type DefaultOption = Option<FunctionDataType, string[], string[], { text: string }>;
 
-type DefaultExectuteData = ExecuteData<
-	DefaultOption,
-	FunctionDataType,
-	{ text: string }
->;
+type DefaultExectuteData = ExecuteData<DefaultOption, FunctionDataType, { text: string }>;
 
 export = {
 	name: "ai",
@@ -32,8 +24,7 @@ export = {
 			? (command[1] as ModelVersion)
 			: "TheVoid";
 
-		if (!interaction.from)
-			return;
+		if (!interaction.from) return;
 
 		const replyOptions: DefaultOption[] = [
 			{
@@ -56,8 +47,7 @@ export = {
 						model
 					);
 
-					if (data.type === 0)
-						return { data: "Error", text: "Error", type: 0 };
+					if (data.type === 0) return { data: "Error", text: "Error", type: 0 };
 
 					return {
 						data: data.data,
@@ -66,8 +56,7 @@ export = {
 					};
 				},
 				execute: (data: DefaultExectuteData) => {
-					if (typeof data.response.data.data === "string")
-						return;
+					if (typeof data.response.data.data === "string") return;
 
 					if (data.response.type === 0 || !data.response.data.data.ollama)
 						return;

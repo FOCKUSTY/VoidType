@@ -57,7 +57,7 @@ export = {
 		];
 
 		const rCategory = new Random().integer(0, categoryes.length - 1);
-		const rNum = new Random().integer(0, categoryes[rCategory].length-1);
+		const rNum = new Random().integer(0, categoryes[rCategory].length - 1);
 		const text = categoryes[rCategory][rNum];
 
 		const question = interaction.options.get("question")?.value;

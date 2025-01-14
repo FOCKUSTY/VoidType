@@ -1,13 +1,20 @@
 import { Debug } from "develop/debug.develop";
-import { Interaction, InteractionResponse, InteractionType, ModalSubmitInteraction } from "discord.js";
+import {
+	Interaction,
+	InteractionResponse,
+	InteractionType,
+	ModalSubmitInteraction
+} from "discord.js";
 import customIds from "utility/modal/custom-ids.modal";
 
 const ids: {
 	[key: string]: {
-		id: string,
-		components: { [key: string]: string },
-		execute: (interaction: ModalSubmitInteraction) => Promise<void|InteractionResponse<boolean>>
-	}
+		id: string;
+		components: { [key: string]: string };
+		execute: (
+			interaction: ModalSubmitInteraction
+		) => Promise<void | InteractionResponse<boolean>>;
+	};
 } = customIds;
 
 export = {

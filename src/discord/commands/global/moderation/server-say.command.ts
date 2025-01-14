@@ -32,8 +32,8 @@ export = {
 		const modal = new ModalBuilder()
 			.setCustomId(customIds.sayModal.id)
 			.setTitle("Ваше сообщение !");
-		
-		const randomNumber = new Random().integer(0, idea.length-1);
+
+		const randomNumber = new Random().integer(0, idea.length - 1);
 		const placeholder = idea[randomNumber].ideaDetail;
 
 		modal.addComponents(

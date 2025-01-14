@@ -7,7 +7,7 @@ export type SendData<OptionT, ResponseT> = {
 	response: Response<ResponseT>;
 };
 
-export type ExecuteData<OptionT, ResponseT, ArgResponseT=ResponseT> = {
+export type ExecuteData<OptionT, ResponseT, ArgResponseT = ResponseT> = {
 	send: (data: SendData<OptionT, ArgResponseT>) => Promise<void>;
 } & SendData<OptionT, ResponseT>;
 
