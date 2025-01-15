@@ -53,7 +53,7 @@ class Debug {
 	};
 
 	public static readonly Log = (
-		message: Error[] | string[],
+		message: unknown[],
 		enabled?: boolean,
 		trace?: boolean
 	): void => {

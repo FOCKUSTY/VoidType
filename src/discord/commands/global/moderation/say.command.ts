@@ -11,10 +11,9 @@ import {
 } from "discord.js";
 
 import GetObject from "utility/service/get-object.service";
-import PseudoRandom from "utility/service/pseudo-random.service";
 import customIds from "utility/modal/custom-ids.modal";
 
-const history: number[] = [];
+import { Random } from "random-js";
 
 export = {
 	cooldown: 5,
@@ -42,7 +41,7 @@ export = {
 		const modal = new ModalBuilder()
 			.setCustomId(customIds.sayModal.id)
 			.setTitle("Ваше сообщение !");
-		const randomNumber = new PseudoRandom().Number(0, idea.length - 1, history, idea);
+		const randomNumber = new Random().integer(0, idea.length - 1);
 		const placeholder = idea[randomNumber].ideaDetail;
 
 		const channels: [string, string][] = [];
@@ -53,12 +52,7 @@ export = {
 				: null
 		);
 
-		const randomNumberChannel = new PseudoRandom().Number(
-			0,
-			channels.length - 1,
-			[],
-			channels
-		);
+		const randomNumberChannel = new Random().integer(0, channels.length - 1);
 
 		modal.addComponents(
 			new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(

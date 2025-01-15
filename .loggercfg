@@ -8,11 +8,25 @@
         "\u001b[0m"
     ],
     "loggers": {
-        "Fail": {
-            "name": "Fail",
+        "Events": {
+            "name": "Events",
             "colors": [
-                "\u001b[31m",
+                "\u001b[33;1m",
+                "\u001b[32m"
+            ]
+        },
+        "Loader": {
+            "name": "Loader",
+            "colors": [
+                "\u001b[33;1m",
                 "\u001b[31m"
+            ]
+        },
+        "Updater": {
+            "name": "Updater",
+            "colors": [
+                "\u001b[33;1m",
+                "\u001b[33m"
             ]
         },
         "Commands": {
@@ -43,17 +57,10 @@
                 "\u001b[35m"
             ]
         },
-        "TheVoid": {
-            "name": "TheVoid",
+        "Fail": {
+            "name": "Fail",
             "colors": [
                 "\u001b[31m",
-                "\u001b[35m"
-            ]
-        },
-        "Loader": {
-            "name": "Loader",
-            "colors": [
-                "\u001b[33;1m",
                 "\u001b[31m"
             ]
         },
@@ -64,18 +71,11 @@
                 "\u001b[32m"
             ]
         },
-        "Events": {
-            "name": "Events",
+        "TheVoid": {
+            "name": "TheVoid",
             "colors": [
-                "\u001b[33;1m",
-                "\u001b[32m"
-            ]
-        },
-        "Updater": {
-            "name": "Updater",
-            "colors": [
-                "\u001b[33;1m",
-                "\u001b[33m"
+                "\u001b[31m",
+                "\u001b[35m"
             ]
         },
         "Success": {

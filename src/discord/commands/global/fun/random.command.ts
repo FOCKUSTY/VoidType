@@ -1,5 +1,5 @@
-import { type CommandInteraction, SlashCommandBuilder } from "discord.js";
-import PseudoRandom from "utility/service/pseudo-random.service";
+import { CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { Random } from "random-js";
 
 export = {
 	data: new SlashCommandBuilder()
@@ -27,7 +27,7 @@ export = {
 			ephemeral: true
 		});
 
-		const number = new PseudoRandom([min, max]).execute();
+		const number = new Random().integer(min, max);
 
 		setTimeout(async () => {
 			await interaction.editReply({ content: `Ваше число ${number}` });

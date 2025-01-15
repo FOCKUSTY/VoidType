@@ -5,9 +5,11 @@ import { commands } from "telegram/deploy.commands";
 const SlashCommandsListener = async (message: Interaction) => {
 	if (!(message.text && message.text.startsWith("/"))) return;
 
+	if (!message.from) return;
+
 	Debug.Log([
 		"Запуск Telegram команды",
-		message.from?.username || message.from?.first_name
+		message.from.username || message.from.first_name
 	]);
 
 	const commandName = message.text.includes(" ")
