@@ -1,4 +1,6 @@
-import { ObjectsLoader } from "@thevoid";
+import { loaders } from "@thevoid";
+
+const { ObjectsLoader } = loaders
 
 const objects = new ObjectsLoader().execute();
 

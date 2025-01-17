@@ -1,5 +1,7 @@
-import { Constants } from "@thevoid";
+import { loaders } from "@thevoid";
 import { version } from "../package.json";
+
+const { Constants } = loaders;
 
 const THEVOIDs_CONSTANTS: { [key: string]: string } = {
 	"THEVOIDSBOT_REVERSE_GENDER": "девушка",

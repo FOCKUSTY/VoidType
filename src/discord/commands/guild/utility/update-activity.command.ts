@@ -1,5 +1,7 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
-import { ActivitiesLoader } from "@thevoid";
+import { loaders } from "@thevoid";
+
+const { ActivitiesLoader } = loaders;
 
 export = {
 	cooldown: 5,
