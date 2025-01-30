@@ -24,7 +24,7 @@ export type Option<
 	id: string | number;
 
 	execute?: (data: ExecuteData<any, GResT, ArgResponseT>) => void;
-	function?: (...data: [...FirstArgsT, ...AddArgsT]) => Promise<GResT>;
+	function?: (...data: [...FirstArgsT, ...AddArgsT]) => Promise<Response<GResT>>;
 	addArgs?: AddArgsT;
 	firstArgs?: FirstArgsT;
 };

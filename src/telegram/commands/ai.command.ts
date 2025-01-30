@@ -8,7 +8,7 @@ import { ModelVersion } from "@thevoid/ollama/types/ollama.types";
 import { ChatResponse, OllamaResponse } from "@thevoid/ollama";
 import Llama from "ai/llama.ai";
 
-type FunctionDataType = Response<OllamaResponse<Promise<ChatResponse>> | "Error">;
+type FunctionDataType = OllamaResponse<Promise<ChatResponse>> | "Error";
 
 type DefaultOption = Option<FunctionDataType, string[], string[], { text: string }>;
 
@@ -40,7 +40,7 @@ export = {
 				option: "end",
 				error: "Произошли проблемы...\nОшибка:\n%ERROR%",
 				text: "%SUCCESS%\nОтвет:\n%MESSAGE%",
-				function: async (promt: string): Promise<FunctionDataType> => {
+				function: async (promt: string): Promise<Response<FunctionDataType>> => {
 					const data = new Llama().chat(
 						promt,
 						"Спасибо, что пользуетесь The Void",
@@ -56,14 +56,14 @@ export = {
 					};
 				},
 				execute: (data: DefaultExectuteData) => {
-					if (typeof data.response.data.data === "string") return;
+					if (typeof data.response.data === "string") return;
 
-					if (data.response.type === 0 || !data.response.data.data.ollama)
+					if (data.response.type === 0 || !data.response.data.ollama)
 						return;
 
 					data.message.reply("Запрос принят! Ждите ответа!");
 
-					data.response.data.data.ollama.then((d: ChatResponse) => {
+					data.response.data.ollama.then((d: ChatResponse) => {
 						data.send({
 							...data,
 							response: {

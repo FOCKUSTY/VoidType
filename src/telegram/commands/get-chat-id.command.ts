@@ -5,7 +5,7 @@ export = {
 	name: "get_chat_id",
 	async execute(interaction: Interaction) {
 		return await interaction.reply(
-			(await new Telegram().GetChatId(interaction)).data
+			`${(await new Telegram().GetChatId(interaction)).data}`
 		);
 	}
 };
