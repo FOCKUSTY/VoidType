@@ -15,10 +15,12 @@ class CustomIds {
 	}
 
 	public static getIds() {
-		const ids: {[key: string]: {
-			id: string,
-			components: { [key: string]: string }
-		}} = {};
+		const ids: {
+			[key: string]: {
+				id: string;
+				components: { [key: string]: string };
+			};
+		} = {};
 
 		for (const key in this.ids) {
 			const modal = this.ids[key];
@@ -27,7 +29,7 @@ class CustomIds {
 				id: modal.prototype.id,
 				components: modal.prototype.components
 			};
-		};
+		}
 
 		return ids;
 	}
@@ -41,7 +43,7 @@ class CustomIds {
 		};
 	}
 
-	get ids(): {[key: string]: DiscordModal} {
+	get ids(): { [key: string]: DiscordModal } {
 		return {
 			sayModal: new SayMessage(),
 			sayTelegramModal: new SayTelegramMessage(this._telegram_service),

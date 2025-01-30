@@ -17,7 +17,6 @@ import CustomIds from "@voidy/services/dist/modal/custom-ids.modal";
 const customIds = CustomIds.getIds();
 const objects = new ObjectsLoader().execute();
 
-
 export = {
 	cooldown: 5,
 	data: new SlashCommandBuilder()

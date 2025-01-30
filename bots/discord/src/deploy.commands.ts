@@ -109,9 +109,12 @@ class Deployer {
 			if (type === "global") {
 				this._updater.execute("Начало обновления глобальных (/) команд");
 
-				await this._rest.put(Routes.applicationCommands(process.env.CLIENT_ID||""), {
-					body: commands
-				});
+				await this._rest.put(
+					Routes.applicationCommands(process.env.CLIENT_ID || ""),
+					{
+						body: commands
+					}
+				);
 
 				this._updater.execute("Успешно обновлены глобальные (/) команды", {
 					color: Colors.green
@@ -120,7 +123,10 @@ class Deployer {
 				this._updater.execute("Начало обновления (/) команд гильдии");
 
 				await this._rest.put(
-					Routes.applicationGuildCommands(process.env.CLIENT_ID||"", process.env.GUILD_ID||""),
+					Routes.applicationGuildCommands(
+						process.env.CLIENT_ID || "",
+						process.env.GUILD_ID || ""
+					),
 					{ body: commands }
 				);
 

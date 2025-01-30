@@ -1,16 +1,13 @@
 import { Debug } from "@voidy/develop/dist/debug.develop";
-import {
-	Interaction,
-	InteractionType,
-} from "discord.js";
+import { Interaction, InteractionType } from "discord.js";
 import CustomIds from "@voidy/services/dist/modal/custom-ids.modal";
 
 class Listener {
 	private readonly ids: CustomIds;
-	
+
 	public readonly name = "modal-listener";
 
-	public constructor(services: { telegram: any, discord: any }) {
+	public constructor(services: { telegram: any; discord: any }) {
 		this.ids = new CustomIds(services.telegram, services.discord);
 	}
 

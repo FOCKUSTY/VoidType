@@ -60,7 +60,8 @@ class Debug {
 		enabled?: boolean,
 		trace?: boolean
 	): void => {
-		if ((enabled || (process.env.DEVELOP_MODE === "true")) && !trace) this._log.execute(message);
+		if ((enabled || process.env.DEVELOP_MODE === "true") && !trace)
+			this._log.execute(message);
 
 		if (trace) {
 			const text = message

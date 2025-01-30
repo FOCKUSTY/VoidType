@@ -8,6 +8,6 @@ export default class Command extends TelegramCommand {
 			async execute(interaction: Interaction) {
 				await interaction.reply("Команда не доработана");
 			}
-		})
+		});
 	}
-};
+}

@@ -18,10 +18,10 @@ class Modal extends DiscordModal {
 	}
 
 	public get id(): string {
-		return "update-modal"
+		return "update-modal";
 	}
 
-	public get components(): { [key: string]: string; } {
+	public get components(): { [key: string]: string } {
 		return {
 			version: "update-version",
 			ruText: "update-ru-text",
@@ -35,7 +35,7 @@ class Modal extends DiscordModal {
 		const version: string = interaction.fields.getTextInputValue(components.version);
 		const ru: string = interaction.fields.getTextInputValue(components.ruText);
 		const en: string = interaction.fields.getTextInputValue(components.enText);
-	
+
 		try {
 			if (
 				ru.length > 2000 ||
@@ -43,14 +43,15 @@ class Modal extends DiscordModal {
 				`${version} ${ru} ${version} ${en}`.length >= 2000
 			) {
 				const embeds: EmbedBuilder[] = [];
-	
+
 				for (const text of [ru, en]) {
 					embeds.push(
 						new EmbedBuilder()
 							.setColor(0x161618)
 							.setAuthor({
 								name:
-									interaction.user.globalName || interaction.user.username,
+									interaction.user.globalName ||
+									interaction.user.username,
 								iconURL: interaction.user.avatarURL() || undefined
 							})
 							.setTitle(
@@ -58,12 +59,17 @@ class Modal extends DiscordModal {
 									interaction.user.globalName ||
 									interaction.user.username
 							)
-							.setDescription(`# ${version}\n${text.replace(/\\\\n/g, "\n")}`)
+							.setDescription(
+								`# ${version}\n${text.replace(/\\\\n/g, "\n")}`
+							)
 							.setTimestamp()
 					);
 				}
-	
-				this._discord.SendMessage(process.env.CHANGELOG_DISCORD_CHANNLE_ID, embeds);
+
+				this._discord.SendMessage(
+					process.env.CHANGELOG_DISCORD_CHANNLE_ID,
+					embeds
+				);
 				this._telegram.SendMessage(
 					process.env.CHANGELOG_TELEGRAM_CHANNEL_ID,
 					`${version}\n${ru}`
@@ -78,7 +84,7 @@ class Modal extends DiscordModal {
 					`${version}\n${ru}`
 				);
 			}
-	
+
 			return interaction.reply({
 				content: `Сообщение было доставлены в Telegram и Discord`,
 				ephemeral: true
@@ -94,6 +100,6 @@ class Modal extends DiscordModal {
 			});
 		}
 	}
-};
+}
 
 export default Modal;

@@ -24,16 +24,16 @@ export default class Command extends TelegramCommand {
 				const model = models.includes(command[1])
 					? (command[1] as ModelVersion)
 					: "TheVoid";
-		
+
 				if (!interaction.from) return;
-		
+
 				const replyOptions: DefaultOption[] = [
 					{
 						command: "ai",
 						option: "promt",
 						error: "",
 						text: "Введите Ваш запрос:",
-		
+
 						id: interaction.message.message_id
 					},
 					{
@@ -41,15 +41,18 @@ export default class Command extends TelegramCommand {
 						option: "end",
 						error: "Произошли проблемы...\nОшибка:\n%ERROR%",
 						text: "%SUCCESS%\nОтвет:\n%MESSAGE%",
-						function: async (promt: string): Promise<Response<FunctionDataType>> => {
+						function: async (
+							promt: string
+						): Promise<Response<FunctionDataType>> => {
 							const data = services.llama.chat(
 								promt,
 								"Спасибо, что пользуетесь The Void",
 								model
 							);
-		
-							if (data.type === 0) return { data: "Error", text: "Error", type: 0 };
-		
+
+							if (data.type === 0)
+								return { data: "Error", text: "Error", type: 0 };
+
 							return {
 								data: data.data,
 								text: "Ok",
@@ -58,12 +61,12 @@ export default class Command extends TelegramCommand {
 						},
 						execute: (data: DefaultExectuteData) => {
 							if (typeof data.response.data === "string") return;
-		
+
 							if (data.response.type === 0 || !data.response.data.ollama)
 								return;
-		
+
 							data.message.reply("Запрос принят! Ждите ответа!");
-		
+
 							data.response.data.ollama.then((d: ChatResponse) => {
 								data.send({
 									...data,
@@ -74,15 +77,15 @@ export default class Command extends TelegramCommand {
 								});
 							});
 						},
-		
+
 						id: 0
 					}
 				];
-		
+
 				options.set(`${interaction.from.id}`, replyOptions);
-		
+
 				await interaction.reply(replyOptions[0].text);
 			}
 		});
 	}
-};
+}

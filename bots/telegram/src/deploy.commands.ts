@@ -15,7 +15,7 @@ export const commands = new Map<
 	{ execute: (interaction: Interaction) => Promise<void>; options: string[] }
 >();
 
-export type Props = { discord: any, telegram: any, llama: any };
+export type Props = { discord: any; telegram: any; llama: any };
 type Command = new (services: Props) => TelegramCommand;
 
 export default class Deployer {
@@ -25,23 +25,21 @@ export default class Deployer {
 		this._services = services;
 	}
 
-	public execute(
-		Client: Telegraf,
-		commandsPath: string,
-		commandsFiles: string[]
-	) {
+	public execute(Client: Telegraf, commandsPath: string, commandsFiles: string[]) {
 		for (const fileName of commandsFiles) {
 			const filePath = path.join(commandsPath, fileName);
-			const command: TelegramCommand = new (require(filePath) as Command)(this._services);
-	
+			const command: TelegramCommand = new (require(filePath) as Command)(
+				this._services
+			);
+
 			CommandsLogger(`Telegram команда ${command.name}`);
-	
+
 			if (command.execute && command.name) {
 				commands.set(command.name, {
 					execute: command.execute,
 					options: command.options || undefined
 				});
-	
+
 				Commands.commands = command.name;
 				Commands.setCommand({
 					name: command.name,

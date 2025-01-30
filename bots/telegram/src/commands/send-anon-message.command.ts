@@ -34,14 +34,14 @@ export default class Command extends TelegramCommand {
 			options: ["userId", "message"],
 			async execute(interaction: Interaction) {
 				if (!interaction.from) return;
-		
+
 				const replyOptions: DefaultOption[] = [
 					{
 						command: "send_anonimus_message",
 						option: "userId",
 						error: "",
 						text: "Введите id того, кому нужно доставить!",
-		
+
 						id: interaction.message.message_id + 0
 					},
 					{
@@ -49,7 +49,7 @@ export default class Command extends TelegramCommand {
 						option: "message",
 						error: "",
 						text: "Введите сообщение",
-		
+
 						id: interaction.message.message_id + 2
 					},
 					{
@@ -60,36 +60,36 @@ export default class Command extends TelegramCommand {
 						function: services.telegram.SendAnonMessage,
 						execute: (data: DefaultExecuteData) => {
 							if (typeof data.response.data === "string") return;
-		
+
 							const id = data.response.data?.data?.message_id;
 							const from = data.response.data?.userId;
-		
+
 							if (!id || !from) return;
-		
+
 							anonMessages.set(`${id}`, `${from}`);
-		
+
 							data.send(data);
 						},
-		
+
 						addArgs: [`${interaction.from.id}`],
 						id: 0
 					}
 				];
-		
+
 				options.set(interaction.from.id, replyOptions);
-		
+
 				await interaction.reply(replyOptions[0].text);
 			},
 			async executeFunc(interaction: Interaction, userId: number | string) {
 				if (!interaction.from) return;
-		
+
 				const replyOptions: DefaultOption[] = [
 					{
 						command: "send_anonimus_message",
 						option: "message",
 						error: "",
 						text: "Введите сообщение",
-		
+
 						id: interaction.message.message_id
 					},
 					{
@@ -100,29 +100,29 @@ export default class Command extends TelegramCommand {
 						function: services.telegram.SendAnonMessage,
 						execute: (data: DefaultExecuteData) => {
 							if (typeof data.response.data === "string") return;
-		
+
 							const id = data.response.data?.data?.message_id;
 							const from = data.response.data?.userId;
-		
+
 							if (!id || !from) return;
-		
+
 							anonMessages.set(`${id}`, `${from}`);
-		
+
 							data.send(data);
 						},
-		
+
 						firstArgs: [`${userId}`],
 						addArgs: [`${interaction.from.id}`],
 						id: 0
 					}
 				];
-		
+
 				options.set(`${interaction.from.id}`, replyOptions);
-		
+
 				await interaction.reply(
 					"Спасибо, что пользуетесь The Void!\n" + replyOptions[0].text
 				);
 			}
-		})
+		});
 	}
 }

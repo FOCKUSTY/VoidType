@@ -12,7 +12,7 @@ class Modal extends DiscordModal {
 	public get id() {
 		return "say-modal";
 	}
-	
+
 	public get components() {
 		return {
 			sayMessage: "say-message",
@@ -22,32 +22,35 @@ class Modal extends DiscordModal {
 
 	public async execute(interaction: ModalSubmitInteraction) {
 		const { components } = this;
-		
-		const channelId: string = interaction.fields.getTextInputValue(components.sayChannel);
-		const channel: Channel | undefined = interaction.client.channels.cache.get(channelId);
-	
+
+		const channelId: string = interaction.fields.getTextInputValue(
+			components.sayChannel
+		);
+		const channel: Channel | undefined =
+			interaction.client.channels.cache.get(channelId);
+
 		if (!channel || !interaction.guild)
 			return await interaction.reply({
 				content: "Ошибка при поиске канала, попробуйте снова",
 				ephemeral: true
 			});
-	
+
 		if (!interaction.client.user) {
 			return await interaction.reply({
 				content: "Проблемы на нашей стороне...",
 				ephemeral: true
 			});
 		}
-	
+
 		if (channel.type !== ChannelType.GuildText) {
 			return await interaction.reply({
 				content: "Ваш канал не является текстовым",
 				ephemeral: true
 			});
 		}
-	
+
 		const permissions = channel.permissionsFor(interaction.client.user.id);
-	
+
 		if (
 			!permissions ||
 			permissions.has([
@@ -63,9 +66,11 @@ class Modal extends DiscordModal {
 				ephemeral: true
 			});
 		}
-	
-		const message: string = interaction.fields.getTextInputValue(components.sayMessage);
-	
+
+		const message: string = interaction.fields.getTextInputValue(
+			components.sayMessage
+		);
+
 		try {
 			if (message.length > 2000) {
 				const embed = new EmbedBuilder()
@@ -77,12 +82,12 @@ class Modal extends DiscordModal {
 					.setTitle(interaction.guild.name)
 					.setDescription(message.replace(/\\\\n/g, "\n"))
 					.setTimestamp();
-	
+
 				await channel.send({ embeds: [embed] });
 			} else {
 				await channel.send(`${message.replace(/\\\\n/g, "\n")}`);
 			}
-	
+
 			const embed = new EmbedBuilder()
 				.setColor(0x161618)
 				.setAuthor({
@@ -92,7 +97,7 @@ class Modal extends DiscordModal {
 				.setTitle("Сообщение:")
 				.setDescription(message.replace(/\\\\n/g, "\n"))
 				.setTimestamp();
-	
+
 			return await interaction.reply({
 				content: `Сообщение было доставлено на: ${channel}`,
 				embeds: [embed],

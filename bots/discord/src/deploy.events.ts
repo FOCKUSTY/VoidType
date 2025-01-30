@@ -10,9 +10,13 @@ class EventsLoader {
 
 	private readonly _path: string;
 	private readonly _files: string[];
-	private readonly _services: { telegram: any, discord: any };
+	private readonly _services: { telegram: any; discord: any };
 
-	public constructor(eventsPath: string, eventFiles: string[], services: {telegram: any, discord: any}) {
+	public constructor(
+		eventsPath: string,
+		eventFiles: string[],
+		services: { telegram: any; discord: any }
+	) {
 		this._path = eventsPath;
 		this._files = eventFiles;
 		this._services = services;

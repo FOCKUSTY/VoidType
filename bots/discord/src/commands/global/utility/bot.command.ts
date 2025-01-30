@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 
-config()
+config();
 
 import { SlashCommandBuilder, EmbedBuilder, CommandInteraction } from "discord.js";
 

@@ -10,6 +10,6 @@ export default class Command extends TelegramCommand {
 					`${(await services.telegram.GetChatId(interaction)).data}`
 				);
 			}
-		})
+		});
 	}
-};
+}

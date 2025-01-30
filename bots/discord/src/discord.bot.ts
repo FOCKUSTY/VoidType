@@ -33,7 +33,7 @@ const Client = new DiscordClient({
 const Commands = new Collection();
 const Cooldowns = new Collection();
 
-const Login = async (clientToken: string, services: {telegram: any, discord: any}) => {
+const Login = async (clientToken: string, services: { telegram: any; discord: any }) => {
 	const foldersPath = path.join(__dirname, "discord/commands");
 	const commandsFolder = fs.readdirSync(foldersPath);
 
