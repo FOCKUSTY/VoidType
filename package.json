@@ -10,7 +10,7 @@
     "dev:discord": "set NODE_ENV=dev&& set BOT=discord&& nodemon src/start.bot.ts",
     "start:slash": "node -r tsconfig-paths/register dist/src/discord/slash.commands.js",
     "start:builded": "set NODE_ENV=prod&& set BOT=all&& node -r tsconfig-paths/register dist/src/start.bot.js",
-    "start": "set NODE_ENV=prod&& yarn run update && yarn run build && yarn run start:slash && yarn run start:builded",
+    "start": "set NODE_ENV=prod&& set BOT=all&& yarn run update && yarn run build && yarn run start:slash && yarn run start:builded",
     "update": "fockupdater update",
     "lint": "eslint eslint.config.mjs --no-warn-ignored src/**/*.{js,mjs,cjs,ts} --fix",
     "build": "tsc"
@@ -18,7 +18,7 @@
   "author": "FOCKUSTY",
   "license": "MIT",
   "dependencies": {
-    "@thevoidcommunity/the-void-database": "1.0.0-alpha.1",
+    "@thevoidcommunity/the-void-database": "1.0.2-alpha.1",
     "date-fns": "^2.30.0",
     "discord.js": "^14.15.3",
     "f-formatter": "^0.3.1",
