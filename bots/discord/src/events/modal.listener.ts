@@ -8,7 +8,7 @@ class Listener {
 	public readonly name = "modal-listener";
 
 	public constructor(services: { telegram: any; discord: any }) {
-		this.ids = new CustomIds(services.telegram, services.discord);
+		this.ids = new CustomIds(services);
 	}
 
 	public async execute(interaction: Interaction) {

@@ -7,7 +7,7 @@ export abstract class Service {
 	public abstract SendMessage(
 		channelId: string,
 		message: string | EmbedBuilder[]
-	): Promise<Response<string | TelegramMessage.TextMessage>>;
+	): Promise<string | { type: number, text: string }>;
 
 	public abstract SendMessageToTelegram(
 		channelId: string,
