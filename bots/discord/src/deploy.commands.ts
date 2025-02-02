@@ -16,9 +16,7 @@ import path from "node:path";
 
 let using = 0;
 
-const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod"
-	? ".ts"
-	: ".js";
+const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod" ? ".ts" : ".js";
 
 class Deployer {
 	private readonly _folders_path: string;
@@ -47,9 +45,7 @@ class Deployer {
 				const modifierPath = path.join(commandsPath, folder);
 				const files = fs
 					.readdirSync(modifierPath)
-					.filter(
-						(file: string) => file.endsWith(fileType)
-					);
+					.filter((file: string) => file.endsWith(fileType));
 
 				for (const file of files) {
 					func(file, modifierPath, folder, commandsPath);

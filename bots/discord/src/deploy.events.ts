@@ -13,11 +13,7 @@ class EventsLoader {
 	private readonly _files: string[];
 	private readonly _services: Services;
 
-	public constructor(
-		eventsPath: string,
-		eventFiles: string[],
-		services: Services
-	) {
+	public constructor(eventsPath: string, eventFiles: string[], services: Services) {
 		this._path = eventsPath;
 		this._files = eventFiles;
 		this._services = services;
@@ -26,7 +22,7 @@ class EventsLoader {
 	public readonly execute = () => {
 		for (const file of this._files) {
 			const filePath = path.join(this._path, file);
-			
+
 			const event = new (require(filePath).default)(this._services);
 
 			this.Logger(`Загрузка прослушивателя ${event.name}`);

@@ -34,9 +34,7 @@ const Client = new DiscordClient({
 const Commands = new Collection();
 const Cooldowns = new Collection();
 
-const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod"
-	? ".ts"
-	: ".js";
+const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod" ? ".ts" : ".js";
 
 const Login = async (clientToken: string, services: Services) => {
 	const foldersPath = path.join(__dirname, "commands");

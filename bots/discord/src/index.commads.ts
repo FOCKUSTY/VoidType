@@ -7,9 +7,7 @@ const commands: string[] = [];
 const foldersPath = path.join(__dirname, "commands");
 const commandsFolder = fs.readdirSync(foldersPath);
 
-const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod"
-	? ".ts"
-	: ".js";
+const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod" ? ".ts" : ".js";
 
 for (const placeFolder of commandsFolder) {
 	const commandsPath = path.join(foldersPath, placeFolder);

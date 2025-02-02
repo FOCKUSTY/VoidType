@@ -21,9 +21,7 @@ Client.on("message", async (message: Interaction) => {
 	MessageListener(message);
 });
 
-const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod"
-	? ".ts"
-	: ".js";
+const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod" ? ".ts" : ".js";
 
 const Login = async (services: Props) => {
 	const commandsPath = path.join(__dirname, "commands");
