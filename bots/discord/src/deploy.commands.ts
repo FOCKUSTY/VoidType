@@ -2,7 +2,6 @@ import { config } from "dotenv";
 
 config();
 
-import Command from "@voidy/types/dist/commands/discord-command.type";
 import { Debug } from "@voidy/develop/dist/debug.develop";
 import { REST, Routes } from "discord.js";
 import Logger, { Colors } from "fock-logger";
@@ -16,6 +15,10 @@ import fs from "node:fs";
 import path from "node:path";
 
 let using = 0;
+
+const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod"
+	? ".ts"
+	: ".js";
 
 class Deployer {
 	private readonly _folders_path: string;
@@ -45,7 +48,7 @@ class Deployer {
 				const files = fs
 					.readdirSync(modifierPath)
 					.filter(
-						(file: string) => file.endsWith(".ts") || file.endsWith(".js")
+						(file: string) => file.endsWith(fileType)
 					);
 
 				for (const file of files) {

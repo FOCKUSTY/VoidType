@@ -3,6 +3,7 @@ import Discord from "./utility/service/discord.service";
 import Logger from "fock-logger";
 
 import path from "node:path";
+import { Services } from "@voidy/types/dist/all/services.type";
 
 class EventsLoader {
 	private readonly Logger = new Logger("Events").execute;
@@ -10,12 +11,12 @@ class EventsLoader {
 
 	private readonly _path: string;
 	private readonly _files: string[];
-	private readonly _services: { telegram: any; discord: any };
+	private readonly _services: Services;
 
 	public constructor(
 		eventsPath: string,
 		eventFiles: string[],
-		services: { telegram: any; discord: any }
+		services: Services
 	) {
 		this._path = eventsPath;
 		this._files = eventFiles;
@@ -25,7 +26,8 @@ class EventsLoader {
 	public readonly execute = () => {
 		for (const file of this._files) {
 			const filePath = path.join(this._path, file);
-			const event = new (require(filePath))(this._services);
+			
+			const event = new (require(filePath).default)(this._services);
 
 			this.Logger(`Загрузка прослушивателя ${event.name}`);
 

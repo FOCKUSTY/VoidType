@@ -29,7 +29,7 @@ export default class Deployer {
 	public execute(Client: Telegraf, commandsPath: string, commandsFiles: string[]) {
 		for (const fileName of commandsFiles) {
 			const filePath = path.join(commandsPath, fileName);
-			const command: TelegramCommand = new (require(filePath) as Command)(
+			const command: TelegramCommand = new (require(filePath).default as Command)(
 				this._services
 			);
 

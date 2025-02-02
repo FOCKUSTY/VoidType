@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "slash": "node ./dist/src/slash.commands.js",
+    "slash:dev": "nodemon ./src/slash.commands.ts",
     "build": "tsc && tsc-alias"
   },
   "keywords": [],

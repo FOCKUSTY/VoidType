@@ -16,7 +16,7 @@ import TelegramService from "@voidy/telegram/dist/utility/service/telegram.servi
 Debug.Console.clear();
 Debug.Log([new Formatter().Color("Начало программы", Colors.magenta)]);
 
-const bot = process.env.BOT || "discord";
+const bot = process.env.BOT || "all";
 
 for (const name in loggers) {
 	const logger = loggers[name];

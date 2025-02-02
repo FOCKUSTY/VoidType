@@ -4,10 +4,12 @@ import fs from "fs";
 
 const commands: string[] = [];
 
-const foldersPath = path.join(
-	`${process.env.NODE_ENV === "dev" ? "src" : "dist/src"}/discord/commands`
-);
+const foldersPath = path.join(__dirname, "commands");
 const commandsFolder = fs.readdirSync(foldersPath);
+
+const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod"
+	? ".ts"
+	: ".js";
 
 for (const placeFolder of commandsFolder) {
 	const commandsPath = path.join(foldersPath, placeFolder);
@@ -17,7 +19,7 @@ for (const placeFolder of commandsFolder) {
 		const modifierPath = path.join(commandsPath, folder);
 		const files = fs
 			.readdirSync(modifierPath)
-			.filter((file: string) => file.endsWith(".ts") || file.endsWith(".js"));
+			.filter((file: string) => file.endsWith(fileType));
 
 		for (const file of files) {
 			const filePath = path.join(modifierPath, file);

@@ -4,6 +4,7 @@ import ML from "./events/modal.listener";
 import Deployer from "./deploy.commands";
 import DeployEvents from "./deploy.events";
 
+import { Services } from "@voidy/types/dist/all/services.type";
 import { Debug } from "@voidy/develop/dist/debug.develop";
 
 import path from "path";
@@ -33,14 +34,18 @@ const Client = new DiscordClient({
 const Commands = new Collection();
 const Cooldowns = new Collection();
 
-const Login = async (clientToken: string, services: { telegram: any; discord: any }) => {
-	const foldersPath = path.join(__dirname, "discord/commands");
+const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod"
+	? ".ts"
+	: ".js";
+
+const Login = async (clientToken: string, services: Services) => {
+	const foldersPath = path.join(__dirname, "commands");
 	const commandsFolder = fs.readdirSync(foldersPath);
 
-	const eventsPath = path.join(__dirname, "discord/events");
+	const eventsPath = path.join(__dirname, "events");
 	const eventFiles = fs
 		.readdirSync(eventsPath)
-		.filter((file) => file.endsWith(".js") || file.endsWith(".ts"));
+		.filter((file) => file.endsWith(fileType));
 
 	const modalListener = new ML(services);
 	const interactionListener = new ICL();
