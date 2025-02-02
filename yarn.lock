@@ -638,6 +638,7 @@ __metadata:
   resolution: "@voidy/services@workspace:utility/services"
   dependencies:
     "@types/node": "npm:^20.16.1"
+    "@voidy/types": "workspace:^"
     discord.js: "npm:^14.15.3"
     dotenv: "npm:^16.4.5"
     f-formatter: "npm:^0.3.1"

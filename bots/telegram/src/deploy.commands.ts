@@ -1,5 +1,6 @@
 import type { Interaction } from "@voidy/types/dist/telegram/interaction.type";
 import TelegramCommand from "@voidy/types/dist/commands/telegram-command.type";
+import { Services } from "@voidy/types/dist/all/services.type";
 
 import { Telegraf } from "telegraf";
 import Commands from "./index.commands";
@@ -15,7 +16,7 @@ export const commands = new Map<
 	{ execute: (interaction: Interaction) => Promise<void>; options: string[] }
 >();
 
-export type Props = { discord: any; telegram: any; llama: any };
+export type Props = Services & { llama: any };
 type Command = new (services: Props) => TelegramCommand;
 
 export default class Deployer {

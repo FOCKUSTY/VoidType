@@ -2,6 +2,7 @@ import type { Interaction } from "@voidy/types/dist/telegram/interaction.type";
 import { Response } from "@voidy/types/dist/all/response.type";
 import { Debug } from "@voidy/develop/dist/debug.develop";
 
+import { Service } from "@voidy/types/dist/telegram/service.type";
 import { Telegraf, Format } from "telegraf";
 
 import { Message } from "telegraf/typings/core/types/typegram";
@@ -11,8 +12,8 @@ import GetChatId from "./helpers/get-chat-id.helper";
 
 import Client from "../../telegram.bot";
 
-class Telegram {
-	private _client: Telegraf = Client;
+class Telegram extends Service {
+	private readonly _client: Telegraf = Client;
 
 	public Send = async (
 		chatId: number | string,

@@ -4,7 +4,7 @@ import { ExecuteData, Option } from "@voidy/types/dist/telegram/options.type";
 
 import { Message } from "telegraf/typings/core/types/typegram";
 import { anonMessages, options } from "../events/message.listener";
-import { M } from "ollama/dist/shared/ollama.6319775f";
+import { Services } from "@voidy/types/dist/all/services.type";
 
 type DefaultOption = Option<
 	| string
@@ -16,7 +16,7 @@ type DefaultOption = Option<
 	  },
 	[string],
 	[string],
-	[]
+	[string]
 >;
 type DefaultExecuteData = ExecuteData<
 	DefaultOption,
@@ -30,7 +30,7 @@ type DefaultExecuteData = ExecuteData<
 >;
 
 export default class Command extends TelegramCommand {
-	public constructor(services: { telegram: any }) {
+	public constructor(services: Services) {
 		super({
 			name: "send_anonimus_message",
 			options: ["userId", "message"],

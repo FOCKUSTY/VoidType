@@ -3,17 +3,18 @@ import { Option } from "@voidy/types/dist/telegram/options.type";
 
 import { options } from "../events/message.listener";
 
+import { Services } from "@voidy/types/dist/all/services.type";
 import TelegramCommand from "@voidy/types/dist/commands/telegram-command.type";
 
 type DefaultOption = Option<
 	string | { type: number; text: string },
-	[],
+	[string],
 	[string],
 	[string]
 >;
 
 export default class Command extends TelegramCommand {
-	public constructor(services: { discord: any }) {
+	public constructor(services: Services) {
 		super({
 			name: "send_message_to_discord",
 			options: ["channelId", "message"],

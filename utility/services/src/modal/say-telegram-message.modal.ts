@@ -1,13 +1,14 @@
 import { EmbedBuilder, ModalSubmitInteraction } from "discord.js";
+import { Services } from "@voidy/types/dist/all/services.type";
 import DiscordModal from "./abstract.modal";
 
 class Modal extends DiscordModal {
-	private readonly _telegram_serivce: any;
+	private readonly _services: Services;
 
-	public constructor(telegramService: any) {
+	public constructor(services: Services) {
 		super();
 
-		this._telegram_serivce = telegramService;
+		this._services = services;
 	}
 
 	public get id() {
@@ -42,7 +43,7 @@ class Modal extends DiscordModal {
 				.setDescription(message.replace(/\\\\n/g, "\n"))
 				.setTimestamp();
 
-			this._telegram_serivce.SendMessage(
+			this._services.telegram.SendMessage(
 				channelId,
 				`Сообщение с Discord от ${
 					interaction.user.globalName

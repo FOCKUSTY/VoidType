@@ -5,13 +5,13 @@ import SayMessage from "./say-message.modal";
 import Update from "./update.modal";
 import IdeaModal from "./idea.modal";
 
-class CustomIds {
-	private readonly _discord_service: any;
-	private readonly _telegram_service: any;
+import { Services } from "@voidy/types/dist/all/services.type"
 
-	public constructor(telegramService: any, discordService: any) {
-		this._telegram_service = telegramService;
-		this._discord_service = discordService;
+class CustomIds {
+	private readonly _services: Services;
+
+	public constructor(services: Services) {
+		this._services = services;
 	}
 
 	public static getIds() {
@@ -46,8 +46,8 @@ class CustomIds {
 	get ids(): { [key: string]: DiscordModal } {
 		return {
 			sayModal: new SayMessage(),
-			sayTelegramModal: new SayTelegramMessage(this._telegram_service),
-			updateModal: new Update(this._telegram_service, this._discord_service),
+			sayTelegramModal: new SayTelegramMessage(this._services),
+			updateModal: new Update(this._services),
 			ideaModal: new IdeaModal()
 		};
 	}

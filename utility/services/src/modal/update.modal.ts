@@ -4,17 +4,16 @@ config();
 
 import { EmbedBuilder, ModalSubmitInteraction } from "discord.js";
 
+import { Services } from "@voidy/types/dist/all/services.type";
 import DiscordModal from "./abstract.modal";
 
 class Modal extends DiscordModal {
-	private readonly _telegram: any;
-	private readonly _discord: any;
+	private readonly _services: Services;
 
-	public constructor(telegram: any, discord: any) {
+	public constructor(services: Services) {
 		super();
 
-		this._telegram = telegram;
-		this._discord = discord;
+		this._services = services;
 	}
 
 	public get id(): string {
@@ -30,8 +29,9 @@ class Modal extends DiscordModal {
 	}
 
 	public async execute(interaction: ModalSubmitInteraction) {
+		const { discord, telegram } = this._services;
 		const { components } = this;
-
+		
 		const version: string = interaction.fields.getTextInputValue(components.version);
 		const ru: string = interaction.fields.getTextInputValue(components.ruText);
 		const en: string = interaction.fields.getTextInputValue(components.enText);
@@ -66,20 +66,20 @@ class Modal extends DiscordModal {
 					);
 				}
 
-				this._discord.SendMessage(
+				discord.SendMessage(
 					process.env.CHANGELOG_DISCORD_CHANNLE_ID,
 					embeds
 				);
-				this._telegram.SendMessage(
+				telegram.SendMessage(
 					process.env.CHANGELOG_TELEGRAM_CHANNEL_ID,
 					`${version}\n${ru}`
 				);
 			} else {
-				this._discord.SendMessage(
+				discord.SendMessage(
 					process.env.CHANGELOG_DISCORD_CHANNLE_ID,
 					`# ${version}\n${ru}\n# ${version}\n${en}`
 				);
-				this._telegram.SendMessage(
+				telegram.SendMessage(
 					process.env.CHANGELOG_TELEGRAM_CHANNEL_ID,
 					`${version}\n${ru}`
 				);
