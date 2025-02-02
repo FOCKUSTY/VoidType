@@ -12,7 +12,7 @@ class Discord extends Service {
 	public readonly SendMessage = async (
 		channelId: string,
 		message: string | EmbedBuilder[]
-	): Promise<string | { type: number, text: string }> => {
+	): Promise<string | { type: number; text: string }> => {
 		if (!this._client) return Debug.Error("Client is not defined");
 
 		return await SendMessage(this._client, channelId, message);

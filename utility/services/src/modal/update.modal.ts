@@ -31,7 +31,7 @@ class Modal extends DiscordModal {
 	public async execute(interaction: ModalSubmitInteraction) {
 		const { discord, telegram } = this._services;
 		const { components } = this;
-		
+
 		const version: string = interaction.fields.getTextInputValue(components.version);
 		const ru: string = interaction.fields.getTextInputValue(components.ruText);
 		const en: string = interaction.fields.getTextInputValue(components.enText);
@@ -66,10 +66,7 @@ class Modal extends DiscordModal {
 					);
 				}
 
-				discord.SendMessage(
-					process.env.CHANGELOG_DISCORD_CHANNLE_ID,
-					embeds
-				);
+				discord.SendMessage(process.env.CHANGELOG_DISCORD_CHANNLE_ID, embeds);
 				telegram.SendMessage(
 					process.env.CHANGELOG_TELEGRAM_CHANNEL_ID,
 					`${version}\n${ru}`
