@@ -1,9 +1,9 @@
 # VoidType
 
 ## Дополнительно
-- [Система коммитов](./help/readme-files/docs/commit.system.md)
-- [Инструкция по установке](./help/readme-files/install/instruction.md)
-- [Инструкция по запуску](./help/readme-files/start/instruction.md)
+- [Система коммитов](./docs/help/readme-files/docs/commit.system.md)
+- [Инструкция по установке](./docs/help/readme-files/install/instruction.md)
+- [Инструкция по запуску](./docs/help/readme-files/start/instruction.md)
 
 ## The Void - Это просто простой бот !
 - The Void Bot нацелен на увеличение опыта автора в JavaScript и TypeScript.
@@ -16,29 +16,29 @@
 - Для начала нужно создать бота на [discord.dev](https://discord.com/developers/applications) сайте.
 
 <picture>
-    <img alt="Show in discord dev a new app" src="./help/pictures/newapp.png">
+    <img alt="Show in discord dev a new app" src="./docs/help/pictures/newapp.png">
 </picture>
 
 - После берем id бота.
 
 <picture>
-    <img src="./help/pictures/app.png">
+    <img src="./docs/help/pictures/app.png">
 </picture>
 
 - После id берем токен, для этого переходим в bot.
 
 <picture>
-    <img src="./help/pictures/token.png">
+    <img src="./docs/help/pictures/token.png">
 </picture>
 
 - Когда Вы все сделали, можно запускать бота на сервер. Для этого переходим в OAuth2 и выбираем в OAuth2 URL Generator application.commands и копируем
 
 <picture>
-    <img src="./help/pictures/OAuth2.png">
+    <img src="./docs/help/pictures/OAuth2.png">
 </picture>
 
 <picture>
-    <img src="./help/pictures/OAuth2URLGenerator.png">
+    <img src="./docs/help/pictures/OAuth2URLGenerator.png">
 </picture>
 
 - В итоге, переходим по ссылке, которую Вы скопировали и бот у нас на сервере.
@@ -57,7 +57,7 @@ npm i
 
 - Дальше найдите `config.example.json`
 - Можете просто убрать `.exapmle` из название и заметить на Ваши значения.
-- Если Вы не можете разобраться сами, можете перейти в [подробную инструкцию](./help/readme-files/install/instruction.md).
+- Если Вы не можете разобраться сами, можете перейти в [подробную инструкцию](./docs/help/readme-files/install/instruction.md).
 
 2. Пишите в командной строке:
 

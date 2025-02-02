@@ -1,9 +1,9 @@
 # VoidType
 
 ## Дополнительно
-- [Commit system](./help/readme-files/docs/commit.system-en.md)
-- [Install instruction](./help/readme-files/install/instruction-en.md)
-- [Start instruction](./help/readme-files/start/instruction-en.md)
+- [Commit system](./docs/help/readme-files/docs/commit.system-en.md)
+- [Install instruction](./docs/help/readme-files/install/instruction-en.md)
+- [Start instruction](./docs/help/readme-files/start/instruction-en.md)
 
 ## The Void - This is just a simple bot!
 - The Void Bot is aimed at increasing the author's experience in JavaScript and TypeScript.
@@ -16,29 +16,29 @@
 - First, you need to create a bot on the [discord.dev](https://discord.com/developers/applications) website.
 
 <picture>
-	<img alt="Show in discord dev a new app" src="./help/pictures/newapp.png">
+	<img alt="Show in discord dev a new app" src="./docs/help/pictures/newapp.png">
 </picture>
 
 - Then we take the bot ID.
 
 <picture>
-	<img src="./help/pictures/app.png">
+	<img src="./docs/help/pictures/app.png">
 </picture>
 
 - After id, take the token, for this, go to bot.
 
 <picture>
-	<img src="./help/pictures/token.png">
+	<img src="./docs/help/pictures/token.png">
 </picture>
 
 - When you have done everything, you can launch the bot on the server. To do this, go to OAuth2 and select in OAuth2 URL Generator application.commands and copy
 
 <picture>
-	<img src="./help/pictures/OAuth2.png">
+	<img src="./docs/help/pictures/OAuth2.png">
 </picture>
 
 <picture>
-	<img src="./help/pictures/OAuth2URLGenerator.png">
+	<img src="./docs/help/pictures/OAuth2URLGenerator.png">
 </picture>
 
 - Finally, follow the link that you copied and the bot is on our server.
@@ -57,7 +57,7 @@
 
 - Then find `config.example.json`
 - You can simply remove `.exapmle` from the name and note your values.
-- If you can't figure it out yourself, you can go to [detailed instructions](./help/readme-files/install/instruction-en.md).
+- If you can't figure it out yourself, you can go to [detailed instructions](./docs/help/readme-files/install/instruction-en.md).
 
 2. Type in the command line:
 

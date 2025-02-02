@@ -14,20 +14,20 @@
 
 | Suffix  | Description                        |
 | ------- | ---------------------------------- |
-| --alpha | Alpha version                      |
-| --beta  | Beta                               |
-| --rel   | Release                            |
-| --build | Assembly                           |
-| --docs  | Documentation Update               |
-| --fix   | Bug fixes                          |
-| --hot   | Hot update                         |
-| --new   | Adding new functionality           |
-| --other | Other                              |
-| --prod  | Preparation for release            |
-| --ref   | Code refactoring                   |
-| --save  | Saving changes                     |
-| --sec   | Security                           |
-| --style | Code style update                  |
-| --test  | Testing, adding test               |
-| --ver   | Version update                     |
-| --log   | Updated logging                    |
+| -alpha  | Alpha version                      |
+| -beta   | Beta                               |
+| -rel    | Release                            |
+| -build  | Assembly                           |
+| -docs   | Documentation Update               |
+| -fix    | Bug fixes                          |
+| -hot    | Hot update                         |
+| -new    | Adding new functionality           |
+| -other  | Other                              |
+| -prod   | Preparation for release            |
+| -ref    | Code refactoring                   |
+| -save   | Saving changes                     |
+| -sec    | Security                           |
+| -style  | Code style update                  |
+| -test   | Testing, adding test               |
+| -ver    | Version update                     |
+| -log    | Updated logging                    |
