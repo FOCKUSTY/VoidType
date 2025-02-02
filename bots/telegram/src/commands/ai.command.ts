@@ -10,7 +10,7 @@ import { ChatResponse, OllamaResponse } from "@thevoidcommunity/the-void-databas
 import TelegramCommand from "@voidy/types/dist/commands/telegram-command.type";
 
 type FunctionDataType = OllamaResponse<Promise<ChatResponse>> | "Error";
-type DefaultOption = Option<FunctionDataType, string[], string[], { text: string }>;
+type DefaultOption = Option<FunctionDataType, [], [], [string], { text: string }>;
 type DefaultExectuteData = ExecuteData<DefaultOption, FunctionDataType, { text: string }>;
 
 export default class Command extends TelegramCommand {

@@ -5,7 +5,7 @@ import { options } from "../events/message.listener";
 
 import TelegramCommand from "@voidy/types/dist/commands/telegram-command.type";
 
-type DefaultOption = Option<string | { type: number; text: string }, string[], string[]>;
+type DefaultOption = Option<string | { type: number; text: string }, [], [string], [string]>;
 
 export default class Command extends TelegramCommand {
 	public constructor(services: { discord: any }) {
@@ -39,7 +39,7 @@ export default class Command extends TelegramCommand {
 						text: "Сообщение было отправлено в Discord\n\nСообщение:\n%SUCCESS%",
 						function: services.discord.SendMessageToTelegram,
 
-						addArgs: [
+						lastArgs: [
 							interaction.from.username || interaction.from.first_name
 						],
 						id: 0
@@ -69,8 +69,8 @@ export default class Command extends TelegramCommand {
 						text: "Сообщение было отправлено в Discord\nСообщение: %SUCCESS%",
 						function: services.discord.SendMessageToTelegram,
 
-						addArgs: [
-							`${userId}`,
+						addArgs: [`${userId}`],
+						lastArgs: [
 							interaction.from.username || interaction.from.first_name
 						],
 						id: 0

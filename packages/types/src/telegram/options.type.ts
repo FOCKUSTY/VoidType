@@ -1,30 +1,36 @@
 import { Interaction } from "./interaction.type";
-import { Response } from "../all/response.type";
+import { Response as ResponseType } from "../all/response.type";
 
-export type SendData<OptionT, ResponseT> = {
+export type SendData<Option, Response> = {
 	message: Interaction;
-	option: Option<OptionT>;
-	response: Response<ResponseT>;
+	option: OptionType<Option>;
+	response: ResponseType<Response>;
 };
 
-export type ExecuteData<OptionT, ResponseT, ArgResponseT = ResponseT> = {
-	send: (data: SendData<OptionT, ArgResponseT>) => Promise<void>;
-} & SendData<OptionT, ResponseT>;
+export type ExecuteData<Option, Response, ArgumentResponse = Response> = {
+	send: (data: SendData<Option, ArgumentResponse>) => Promise<void>;
+} & SendData<Option, Response>;
 
-export type Option<
-	GResT,
-	FirstArgsT extends any[] = any[],
-	AddArgsT extends any[] = [],
-	ArgResponseT = GResT
+type OptionType<
+	Response,
+	FirstArgs extends unknown[] = unknown[],
+	LastArgs extends unknown[] = unknown[],
+	AddArgs extends unknown[] = unknown[],
+	ArgumentResponse = Response
 > = {
 	command: string;
 	option: string;
 	error: string;
 	text: string;
-	id: string | number;
+	id: string|number;
 
-	execute?: (data: ExecuteData<any, GResT, ArgResponseT>) => void;
-	function?: (...data: [...FirstArgsT, ...AddArgsT]) => Promise<Response<GResT>>;
-	addArgs?: AddArgsT;
-	firstArgs?: FirstArgsT;
+	execute?: (data: ExecuteData<any, Response, ArgumentResponse>) => void;
+	function?: (...data: [...FirstArgs, ...AddArgs, ...LastArgs]) => Promise<ResponseType<Response>>;
+	firstArgs?: FirstArgs;
+	lastArgs?: LastArgs;
+	addArgs?: AddArgs
 };
+
+export {
+	OptionType as Option
+}

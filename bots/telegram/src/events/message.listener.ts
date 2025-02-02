@@ -94,8 +94,8 @@ const MessageListener = async (message: Interaction) => {
 
 			const response = await option.function(
 				...(option.firstArgs || []),
-				...args,
-				...(option.addArgs || [])
+				...[...args, ...(option.addArgs || [])],
+				...(option.lastArgs || [])
 			);
 
 			options.delete(userId);

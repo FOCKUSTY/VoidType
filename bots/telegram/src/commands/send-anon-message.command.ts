@@ -4,6 +4,7 @@ import { ExecuteData, Option } from "@voidy/types/dist/telegram/options.type";
 
 import { Message } from "telegraf/typings/core/types/typegram";
 import { anonMessages, options } from "../events/message.listener";
+import { M } from "ollama/dist/shared/ollama.6319775f";
 
 type DefaultOption = Option<
 	| string
@@ -14,7 +15,8 @@ type DefaultOption = Option<
 			userId: string | number;
 	  },
 	[string],
-	string[]
+	[string],
+	[]
 >;
 type DefaultExecuteData = ExecuteData<
 	DefaultOption,
@@ -71,7 +73,7 @@ export default class Command extends TelegramCommand {
 							data.send(data);
 						},
 
-						addArgs: [`${interaction.from.id}`],
+						lastArgs: [`${interaction.from.id}`],
 						id: 0
 					}
 				];
@@ -112,7 +114,7 @@ export default class Command extends TelegramCommand {
 						},
 
 						firstArgs: [`${userId}`],
-						addArgs: [`${interaction.from.id}`],
+						lastArgs: [`${interaction.from.id}`],
 						id: 0
 					}
 				];
