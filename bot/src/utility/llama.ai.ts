@@ -1,6 +1,9 @@
 import { ModelVersion } from "@thevoidcommunity/the-void-database/ollama/types/ollama.types";
 
-import Ollama, { OllamaResponse, ChatResponse } from "@thevoidcommunity/the-void-database/ollama";
+import Ollama, {
+	OllamaResponse,
+	ChatResponse
+} from "@thevoidcommunity/the-void-database/ollama";
 import type { Response } from "@voidy/types/dist/all/response.type";
 
 import { Debug } from "@voidy/develop/dist/debug.develop";

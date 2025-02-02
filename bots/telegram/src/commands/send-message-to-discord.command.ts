@@ -5,7 +5,12 @@ import { options } from "../events/message.listener";
 
 import TelegramCommand from "@voidy/types/dist/commands/telegram-command.type";
 
-type DefaultOption = Option<string | { type: number; text: string }, [], [string], [string]>;
+type DefaultOption = Option<
+	string | { type: number; text: string },
+	[],
+	[string],
+	[string]
+>;
 
 export default class Command extends TelegramCommand {
 	public constructor(services: { discord: any }) {

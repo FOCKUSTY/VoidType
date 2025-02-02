@@ -22,15 +22,15 @@ type OptionType<
 	option: string;
 	error: string;
 	text: string;
-	id: string|number;
+	id: string | number;
 
 	execute?: (data: ExecuteData<any, Response, ArgumentResponse>) => void;
-	function?: (...data: [...FirstArgs, ...AddArgs, ...LastArgs]) => Promise<ResponseType<Response>>;
+	function?: (
+		...data: [...FirstArgs, ...AddArgs, ...LastArgs]
+	) => Promise<ResponseType<Response>>;
 	firstArgs?: FirstArgs;
 	lastArgs?: LastArgs;
-	addArgs?: AddArgs
+	addArgs?: AddArgs;
 };
 
-export {
-	OptionType as Option
-}
+export { OptionType as Option };
