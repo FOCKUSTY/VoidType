@@ -44,7 +44,8 @@ export default class Deployer {
 				Commands.setCommand({
 					name: command.name,
 					options: command.options || [],
-					executeFunc: command.executeFunc
+					executeFunc: command.executeFunc,
+					execute: command.execute,
 				});
 				Client.command(command.name, async (message: Interaction) =>
 					command.execute(message)

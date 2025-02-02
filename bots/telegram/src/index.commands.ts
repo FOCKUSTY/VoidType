@@ -1,14 +1,10 @@
-type FullCommand<T, K> = {
-	name: string;
-	options: string[];
-	executeFunc?: (...args: T[]) => K;
-};
+import { Props as Command } from "@voidy/types/dist/commands/telegram-command.type";
 
-class Commands<T, K> {
+class Commands<T = unknown, K = unknown> {
 	private readonly _commands: string[] = [];
-	private readonly _full_commands: FullCommand<T, K>[] = [];
+	private readonly _full_commands: Command<T, K>[] = [];
 
-	public setCommand(command: FullCommand<T, K>) {
+	public setCommand(command: Command<T, K>) {
 		this._full_commands.push(command);
 	}
 
@@ -16,7 +12,7 @@ class Commands<T, K> {
 		this._commands.push(name);
 	}
 
-	public get fullCommands(): FullCommand<T, K>[] {
+	public get fullCommands(): Command<T, K>[] {
 		return this._full_commands;
 	}
 
