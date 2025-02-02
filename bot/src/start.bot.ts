@@ -31,8 +31,6 @@ for (const name in loggers) {
 		llama: new Llama()
 	};
 
-	return;
-
 	switch (bot) {
 		case "discord":
 			LoginDiscord(`${process.env.CLIENT_TOKEN}`, services);
