@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "ES2020",
+        "target": "ES2024",
         "module": "CommonJS",
         "rootDir": "./",
         "outDir": "./dist",
@@ -12,20 +12,7 @@
         "strictNullChecks": true,
         "skipLibCheck": true,
         "baseUrl": "./",
-        "paths": {
-            "discord/*": [ "./src/discord/*", "./dist/src/discord/*" ],
-            "telegram/*": [ "./src/telegram/*", "./dist/src/telegram/*" ],
-            "utility/*": [ "./src/utility/*", "./dist/src/utility/*" ],
-            "types/*": [ "./src/types/*", "./dist/src/types/*" ],
-            "logger/*": [ "./src/logger/*", "./dist/src/logger/*" ],
-            "develop/*": [ "./src/develop/*", "./dist/src/develop/*" ],
-            "ai/*": [ "./src/ai/*", "./dist/src/ai/*" ],
-            
-            "src/*": [ "./src/*", "./dist/src/*" ],
-
-            "@thevoid":  [ "./node_modules/@thevoidcommunity/the-void-database/index" ],
-            "@thevoid/*": [ "./node_modules/@thevoidcommunity/the-void-database/*" ]
-        }
+        "paths": {}
     },
     "include": [ "./**/*.ts" ],
     "exclude": [ "node_modules", "dist" ],

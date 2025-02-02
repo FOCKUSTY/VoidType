@@ -9,7 +9,7 @@ import { Debug } from "@voidy/develop/dist/debug.develop";
 import { LoginDiscord } from "@voidy/discord/dist/src/discord.bot";
 import { LoginTelegram } from "@voidy/telegram/dist/telegram.bot";
 
-import Llama from "utility/llama.ai";
+import Llama from "./utility/llama.ai";
 import DiscordService from "@voidy/discord/dist/src/utility/service/discord.service";
 import TelegramService from "@voidy/telegram/dist/utility/service/telegram.service";
 
@@ -30,6 +30,8 @@ for (const name in loggers) {
 		telegram: new TelegramService(),
 		llama: new Llama()
 	};
+
+	return;
 
 	switch (bot) {
 		case "discord":

@@ -6,6 +6,11 @@
   "keywords": [],
   "author": "FOCKUSTY",
   "license": "MIT",
+  "scripts": {
+    "build:all": "yarn workspaces foreach -A run build",
+    "start:bot": "yarn workspace voidtype run start:builded",
+    "lint:bot": "yarn workspace voidtype run lint"
+  },
   "workspaces": [
     "bot",
     "bots/*",

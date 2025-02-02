@@ -1,4 +1,4 @@
-import { loaders } from "@thevoid";
+import { loaders } from "@thevoidcommunity/the-void-database";
 import { version } from "../package.json";
 
 const { Constants } = loaders;

@@ -8,48 +8,6 @@
         "\u001b[0m"
     ],
     "loggers": {
-        "TheVoid": {
-            "name": "TheVoid",
-            "colors": [
-                "\u001b[31m",
-                "\u001b[35m"
-            ]
-        },
-        "Loader": {
-            "name": "Loader",
-            "colors": [
-                "\u001b[33;1m",
-                "\u001b[31m"
-            ]
-        },
-        "Activity": {
-            "name": "Activity",
-            "colors": [
-                "\u001b[31;1m",
-                "\u001b[32m"
-            ]
-        },
-        "Events": {
-            "name": "Events",
-            "colors": [
-                "\u001b[33;1m",
-                "\u001b[32m"
-            ]
-        },
-        "Updater": {
-            "name": "Updater",
-            "colors": [
-                "\u001b[33;1m",
-                "\u001b[33m"
-            ]
-        },
-        "Commands": {
-            "name": "Commands",
-            "colors": [
-                "\u001b[33;1m",
-                "\u001b[32m"
-            ]
-        },
         "Warner": {
             "name": "Warner",
             "colors": [
@@ -76,6 +34,48 @@
             "colors": [
                 "\u001b[31m",
                 "\u001b[31m"
+            ]
+        },
+        "Loader": {
+            "name": "Loader",
+            "colors": [
+                "\u001b[33;1m",
+                "\u001b[31m"
+            ]
+        },
+        "Events": {
+            "name": "Events",
+            "colors": [
+                "\u001b[33;1m",
+                "\u001b[32m"
+            ]
+        },
+        "Activity": {
+            "name": "Activity",
+            "colors": [
+                "\u001b[31;1m",
+                "\u001b[32m"
+            ]
+        },
+        "Updater": {
+            "name": "Updater",
+            "colors": [
+                "\u001b[33;1m",
+                "\u001b[33m"
+            ]
+        },
+        "Commands": {
+            "name": "Commands",
+            "colors": [
+                "\u001b[33;1m",
+                "\u001b[32m"
+            ]
+        },
+        "TheVoid": {
+            "name": "TheVoid",
+            "colors": [
+                "\u001b[31m",
+                "\u001b[35m"
             ]
         },
         "Success": {

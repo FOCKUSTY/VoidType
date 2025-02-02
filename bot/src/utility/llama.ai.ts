@@ -1,11 +1,9 @@
-import { ModelVersion } from "@thevoid/ollama/types/ollama.types";
+import { ModelVersion } from "@thevoidcommunity/the-void-database/ollama/types/ollama.types";
 
-import Ollama, { OllamaResponse } from "@thevoid/ollama";
-import { ChatResponse } from "@thevoid/ollama";
+import Ollama, { OllamaResponse, ChatResponse } from "@thevoidcommunity/the-void-database/ollama";
+import type { Response } from "@voidy/types/dist/all/response.type";
 
-import type { Response } from "types/all/response.type";
-
-import { Debug } from "develop/debug.develop";
+import { Debug } from "@voidy/develop/dist/debug.develop";
 import { Colors } from "f-formatter";
 
 const promts = new Map<string, string>();
