@@ -13,29 +13,30 @@ git clone https://github.com/FOCKUSTY/VoidType.git
 npm i
 ```
 
-- Дальше найдите `config.example.json`
+- Дальше найдите `.env.example`
 - Можете просто убрать `.exapmle` из название и заметить на Ваши значения.
 
-- Мы получаем такой `config.json` файл.
+- Мы получаем такой `.env` файл.
 
-```json
-{
-    "clientToken": "YOUR-TOKEN",
-    "clientId": "BOT-ID",
-    
-    "telegramToken": "YOUR-TELEGRAM-TOKEN",
+```
+CLIENT_TOKEN=
+CLIENT_ID=
 
-    "changeLogTelegramGroupId": "YOUR-TELEGRAM-GROUP-ID (link)",
-    "changeLogDiscordChannelId": "YOUR-DISCORD-CHANNEL-ID",
+TELEGRAM_TOKEN=
 
-    "guildId": "MAIN-GUILD-ID",
-    "authorId": "YOUR-ID",
-    
-    "aculaOneId": "This my, you can change this"
-}
+IDEA_CHANNEL_ID=
+
+CHANGELOG_TELEGRAM_CHANNEL_ID=
+CHANGELOG_DISCORD_CHANNEL_ID=
+
+GUILD_ICON_URL=
+
+GUILD_ID=
+AUTHOR_ID=
+FRIEND_ID=
 ```
 
-### token & id бота
+### `CLIENT_TOKEN` & `CLIENT_ID` бота
 
 - После берем id бота.
 
@@ -49,9 +50,9 @@ npm i
     <img src="../../pictures/token.png">
 </picture>
 
-- После вставляем полученный значения в `config.json`.
+- После вставляем полученный значения в `.env`.
 
-### telegram token
+### `TELEGRAM_TOKEN`
 
 - Заходим в telegram.
 - Находим бота BotFather или переходим по [ссылке](https://t.me/BotFather).
@@ -73,9 +74,9 @@ npm i
     <img src="../../pictures/bot-father-newbot-name.png">
 </picture>
 
-- После копируем token бота, который нам выдали и вставляем в `config.json`.
+- После копируем token бота, который нам выдали и вставляем в `.env`.
 
-### changeLogTelegramGroupId & changeLogDiscordChannelId & guildId & authorId
+### `CHANGELOG_TELEGRAM_CHANNEL_ID` & `CHANGELOG_DISCORD_CHANNEL_ID` & `GUILD_ID` & `AUTHOR_ID`
 
 - Вот здесь страшно.
 - Для начала получем `channelId` из discord.
@@ -113,7 +114,7 @@ npm i
     <img src="../../pictures/discord-author-id.png">
 </picture>
 
-- Насчет aculaOneId, это мой коллега по работе, и, можно сказать, друг, так что Вы можете скопировать id своего друга или вообще убрать это из `config.json`. Дальнейшие действия за Вами.
+- Насчет `FRIEND_ID` это, можно сказать, друг, так что Вы можете скопировать id своего друга или вообще убрать это из `.env`. Дальнейшие действия за Вами.
 
 <picture>
     <img src="../../pictures/discord-user-id.png">
@@ -126,5 +127,6 @@ npm i
     <img src="../../pictures/telegram-group-id.png">
 </picture>
 
-- Поздравляем, мы взяли все значения, теперь можете их вставлять в `config.json` !
+- Я бы мог и больше рассказать, но дальше, я думаю, что Вы и сами поймёте
+- Поздравляем, мы взяли все значения, теперь можете их вставлять в `.env` !
 - Можете прочитать [инструкцию по запуску](../start/instruction.md)
