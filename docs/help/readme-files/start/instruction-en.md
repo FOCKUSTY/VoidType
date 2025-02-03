@@ -1,5 +1,5 @@
 # Instructions
-## Instructions for launching the bot and the main files
+## Instructions for launching the bot and main files
 
 - We have a `src` folder that contains files, we will not touch the folders for now.
 - At the moment we have 5 files.
@@ -15,38 +15,44 @@
 - Let's analyze the code:
 
 ```ts
-// Import methods and objects
+// Importing the configurator from dotenv to work with .env files
+import { config } from "dotenv";
+
+// Using the configurator, in general it can be dragged down, but I usually leave it at the very top, it seems to not play a special role
+config();
+
+// Importing methods and objects
 // ICL - Listener object for slash commands to be used by users
 // ML - Listener object for modal users to be used
-import ICL from "discord/events/interaction-create.listener";
-import ML from "discord/events/modal.listener";
+import ICL from "./events/interaction-create.listener";
+import ML from "./events/modal.listener";
+
+// Importing functions for installing bot commands
+// Deployer - Assistant object for working with command deployment (and not only)
+// DeployEvents - Event loader
+import Deployer from "./deploy.commands";
+import DeployEvents from "./deploy.events";
 
 // Import additional material
-// config - Our config.json
+// Services - All types of services that we have (discord, telegram)
 // Debug - Helper object for debugging
-import { Debug } from "develop/debug.develop";
-import { config } from "./index.config";
+import { Services } from "@voidy/types/dist/all/services.type";
+import { Debug } from "@voidy/develop/dist/debug.develop";
 
-// Import functions for installing bot commands
-// Deployer - Helper object for working with command deployment (and more)
-// DeployEvents - Event loader
-import Deployer from "discord/deploy.commands";
-import DeployEvents from "discord/deploy.events";
-
-// Import modules from node.js to view files and folders
+// Import modules from node.js for viewing files and folders
 // path - helps find the path to files/folders
 // fs - reads files/folders
 import path from "path";
 import fs from "fs";
 
-// Import main modules
+// Import main modules and types
 import {
     Client as DiscordClient,
     Collection,
     Events,
     GatewayIntentBits,
     Partials
-} from 'discord.js';
+} from "discord.js";
 
 // Setting up the client
 const Client = new DiscordClient({
@@ -62,34 +68,41 @@ const Client = new DiscordClient({
     partials: [Partials.Channel]
 });
 
-// Setting up the command and cooldown collections
+// Setting up command and cooldown collections
 const Commands = new Collection();
 const Cooldowns = new Collection();
 
-// Interaction listener
-Client.on(Events.InteractionCreate, async interaction => {
-    ICL.InteractionCreate(interaction, Commands, Cooldowns);
-    ML.ModalListener(interaction);
-});
+// File type definitions
+const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod" ? ".ts" : ".js";
 
 // Login our bot
-const Login = async () => {
+const Login = async (clientToken: string, services: Services) => {
     // Read the commands folder
-    const foldersPath = path.join(__dirname, "discord/commands");
+    const foldersPath = path.join(__dirname, "commands");
     const commandsFolder = fs.readdirSync(foldersPath);
 
     // Read the events folder
-    const eventsPath = path.join(__dirname, "discord/events");
+    const eventsPath = path.join(__dirname, "events");
     const eventFiles = fs
         .readdirSync(eventsPath)
-        .filter((file) => file.endsWith(".js") || file.endsWith(".ts"));
+        .filter((file) => file.endsWith(fileType));
 
-    // Install loaders
+    // Create a listener
+    const modalListener = new ML(services);
+    const interactionListener = new ICL();
+
+    // Interaction Listener
+    Client.on(Events.InteractionCreate, async (interaction) => {
+        interactionListener.execute(interaction, Commands, Cooldowns);
+        modalListener.execute(interaction);
+    });
+
+    // Install bootloaders
     new Deployer(foldersPath, commandsFolder).write(Client, Commands);
-    new DeployEvents(eventsPath, eventFiles).execute();
+    new DeployEvents(eventsPath, eventFiles, services).execute();
 
-    // Login
-    await Client.login(config.clientToken).catch((e) => Debug.Error(e));
+    // Entrance
+    await Client.login(clientToken).catch((e) => Debug.Error(e));
 };
 
 // Export
@@ -99,40 +112,44 @@ export default Client;
 ```
 
 ### telegram.bot.ts
+
 ```ts
+import { config } from "dotenv";
+
+config();
+
 // Import the main module
-import { Telegraf } from 'telegraf';
+import { Telegraf } from "telegraf";
 
 // Import a custom interaction type
-import type { Interaction } from './types/telegram/interaction.type';
+import type { Interaction } from "@voidy/types/dist/telegram/interaction.type";
 
-// Import additional material
-// config - Our config.json
-// DeployCommands installs commands into the bot
-import { config } from 'config';
-import { DeployCommands } from './telegram/deploy.commands';
+// Deployer - Our command declarer, props - command type
+import Deployer, { Props } from "./deploy.commands";
 
 // Import listener functions
-import MessageListener from './telegram/events/message.listener';
-import SlashCommandsListener from './telegram/events/slash-commands.listener';
+import MessageListener from "./events/message.listener";
+import SlashCommandsListener from "./events/slash-commands.listener";
 
-import path from 'path';
-import fs from 'fs';
+import path from "path";
+import fs from "fs";
 
-const Client = new Telegraf(config.telegramToken);
+const Client = new Telegraf(process.env.TELEGRAM_TOKEN || "");
 
-Client.on('message', async (message: Interaction) => {
-    MessageListener(message);
+Client.on("message", async (message: Interaction) => {
     SlashCommandsListener(message);
+    MessageListener(message);
 });
 
-const Login = async() => {
-    const commandsPath = path.join(__dirname, "telegram/commands");
-    const commandsFiles = fs
-        .readdirSync(commandsPath)
-        .filter((file) => file.endsWith(".js") || file.endsWith(".ts"));
+const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod" ? ".ts" : ".js";
 
-    DeployCommands(Client, commandsPath, commandsFiles);
+const Login = async (services: Props) => {
+    const commandsPath = path.join(__dirname, "commands");
+    const commandsFiles = fs
+    .readdirSync(commandsPath)
+    .filter((file) => file.endsWith(fileType));
+
+    new Deployer(services).execute(Client, commandsPath, commandsFiles);
 
     await Client.launch();
 
@@ -146,20 +163,22 @@ export default Client;
 ```
 
 ### index.config.ts
-```ts
-// Import config and settings for the bot
-import config from '../config.json';
-import settings from '../settings.json';
 
-// Export
-export { config,settings };
+```ts
+// Import and export settings for the bot
+import settings from "../settings.json";
+
+export { settings };
 ```
 
 ### index.constant.ts
+
 ```ts
-// Import initializer
-import { Constants } from "@thevoid";
+// Import the initializer
+import { loaders } from "@thevoidcommunity/the-void-database";
 import { version } from "../package.json";
+
+const { Constants } = loaders;
 
 const THEVOIDs_CONSTANTS: { [key: string]: string } = {
     "THEVOIDSBOT_REVERSE_GENDER": "girl",
@@ -174,11 +193,9 @@ const THEVOIDs_CONSTANTS: { [key: string]: string } = {
     "version": version
 };
 
-// Initialization
 new Constants(THEVOIDs_CONSTANTS).execute();
 
 export { THEVOIDs_CONSTANTS };
-
 ```
 
 ### start.bot.ts
@@ -190,44 +207,53 @@ import Logger from "fock-logger";
 import Formatter, { Colors } from "f-formatter";
 
 import loggers from "./loggers.names";
-import { Debug } from "develop/debug.develop";
+import { Debug } from "@voidy/develop/dist/debug.develop";
 
-import { LoginDiscord } from './discord.bot';
-import { LoginTelegram } from './telegram.bot';
+import { LoginDiscord } from "@voidy/discord/dist/src/discord.bot";
+import { LoginTelegram } from "@voidy/telegram/dist/telegram.bot";
+
+import Llama from "./utility/llama.ai";
+import DiscordService from "@voidy/discord/dist/src/utility/service/discord.service";
+import TelegramService from "@voidy/telegram/dist/utility/service/telegram.service ";
 
 Debug.Console.clear();
-Debug.Log([new Formatter().Color("Start of program", Colors.magenta)]);
+Debug.Log([new Formatter().Color("Program Start", Colors.magenta)]);
 
-// BOT runtime declarations (Can be 'discrod'|'telegram'|'all')
-const bot = process.env.BOT || 'discord';
+// BOT launch environment declarations (May be 'discrod'|'telegram' |'all')
+const bot = process.env.BOT || "all";
 
 for (const name in loggers) {
-    const logger = loggers[name] ;
+    const logger = loggers[name];
 
-    new Logger(name, logger.colors).execute(`Hello, I'm ${name}!`);
+    new Logger(name, { colors: logger.colors }).execute (`Hello, I'm ${name}!`);
 }
 
 // anonymous async function
 (async () => {
+    const services = {
+        discord: new DiscordService(),
+        telegram: new TelegramService(),
+        llama: new Llama()
+    };
+
     switch (bot) {
-        case 'discord':
-            LoginDiscord();
+        case "discord":
+            LoginDiscord (`${process.env.CLIENT_TOKEN}`, services);
             break;
 
-        case 'telegram':
-            LoginTelegram();
+        case "telegram":
+            LoginTelegram(services);
             break;
 
         default:
-            LoginDiscord();
-            LoginTelegram();
+            LoginDiscord(`${process.env.CLIENT_TOKEN}`, services);
+            LoginTelegram(services );
             break;
-    };
+    }
 })();
 ```
 
-- I would also like to consider the scripts in `package.json `.
-
+- I would also like to look at the scripts in `package.json`.
 ### package.json > scripts
 ```json
 "scripts": {
