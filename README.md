@@ -110,7 +110,7 @@ YOUR-CODE-HERE
 
 */
 
-client.login(token);
+client.login(proccess.env.CLIENT_TOKEN!);
 ```
 
 # Если Вы кодите на TypeScript:
@@ -135,9 +135,7 @@ const client: Client = new Client({
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.DirectMessages,
-		GatewayIntentBits.MessageContent,
-		GatewayIntentBits.GuildVoiceStates,
-		GatewayIntentBits.GuildPresences
+		GatewayIntentBits.MessageContent
 	],
 	partials: [
 		Partials.Channel
@@ -150,7 +148,7 @@ YOUR-CODE-HERE
 
 */
 
-client.login(token);
+client.login(proccess.env.CLIENT_TOKEN!);
 ```
 
 - Создайте `tsconfig.json`:
@@ -166,6 +164,7 @@ client.login(token);
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,
+		"strictNullChecks": true,
         "skipLibCheck": true, 
 		"paths": {
 			// "название-пути": [ "ваши-пути", "еще-один-путь" ]

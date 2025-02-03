@@ -67,13 +67,11 @@
 	npm i discord.js
 ```
 
-- Create a `config.json` file and write the following in it, replacing `YOUR-TOKEN` and `YOUR-APP-ID` with the bot token and id respectively:
+- Create a `.env` file and write the following in it, replacing `YOUR_DISCORD_CLIENT_TOKEN` and `YOUR_DISCORD_CLIENT_ID` with the bot token and id respectively:
 
-```json
-{
-	"token": "YOUR-TOKEN",
-	"id": "YOUR-APP-ID"
-}
+```
+CLIENT_TOKEN=YOUR_DISCORD_CLIENT_TOKEN
+CLIENT_ID=YOUR_DISCORD_CLIENT_ID
 ```
 
 # If you are coding in JavaScript:
@@ -81,8 +79,10 @@
 - Create an index.js file and write in it:
 
 ```js
-const { Client, Collection, Events, GatewayIntentBits, Partials } = require('discord.js');
-const { token } = require('./config.json'); // or require('../config.json')
+const { Client, GatewayIntentBits, Partials } = require('discord.js');
+const { config } = require("dotenv");
+
+config("./.env"); // or "../.env"
 
 /*
 
@@ -96,9 +96,7 @@ const client = new Client({
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.DirectMessages,
-		GatewayIntentBits.MessageContent,
-		GatewayIntentBits.GuildVoiceStates,
-		GatewayIntentBits.GuildPresences
+		GatewayIntentBits.MessageContent
 	],
 	partials: [
 		Partials.Channel
@@ -111,7 +109,7 @@ YOUR-CODE-HERE
 
 */
 
-client.login(token);
+client.login(proccess.env.CLIENT_TOKEN!);
 ```
 
 # If you are coding in TypeScript:
@@ -120,7 +118,9 @@ client.login(token);
 
 ```ts
 import { Client, Collection, Events, GatewayIntentBits, Partials } from 'discord.js';
-import { token } from './config.json'; // or from '../config.json';
+import { config } from "dotenv";
+
+config("./.env"); // or "../.env"
 
 /*
 
@@ -134,9 +134,7 @@ const client: Client = new Client({
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.DirectMessages,
-		GatewayIntentBits.MessageContent,
-		GatewayIntentBits.GuildVoiceStates,
-		GatewayIntentBits.GuildPresences
+		GatewayIntentBits.MessageContent
 	],
 	partials: [
 		Partials.Channel
@@ -149,14 +147,14 @@ YOUR-CODE-HERE
 
 */
 
-client.login(token);
+client.login(proccess.env.CLIENT_TOKEN!);
 ```
 
 - Create `tsconfig.json`:
 ```json
 {
 	"compilerOptions": {
-		"target": "ES2020",
+		"target": "ES2024",
 		"module": "CommonJS",
 		"rootDir": "./",
 		"outDir": "./dist", // can be named build.
@@ -167,25 +165,25 @@ client.login(token);
 		"strict": true,
 		"strictNullChecks": true,
 		"skipLibCheck": true,
-		"baseUrl": "./",
 		"paths": {
 			// "path-name": [ "your-paths", "another-path" ]
 			// "folder-and-all-the-files-in-it/*": [ "another-folder/*", "another/*", "and-this-file.yea" ]
 		}
 	},
-	"include": ["./**/*.ts"], // ALL FILES IN A PROJECT. HAHAHAHAHAHAHHA.
+	"include": ["./**/*.ts"], // ALL TS-FILES IN A PROJECT. HAHAHAHAHAHAHHA.
 	"exclude": [ "node_modules", "dist" ] // And don't forget...
 }
 ```
 
 - Add to `package.json`:
-
 ```json
-"devDependencies": {
+  "devDependencies": {
     "@types/node": "^20.16.1",
+    "dotenv": "^16.4.5",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
     "tsc": "^2.0.4",
+    "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.4"
 }
