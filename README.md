@@ -55,7 +55,7 @@ git clone https://github.com/FOCKUSTY/VoidType.git
 npm i
 ```
 
-- Дальше найдите `config.example.json`
+- Дальше найдите `.env.example`
 - Можете просто убрать `.exapmle` из название и заметить на Ваши значения.
 - Если Вы не можете разобраться сами, можете перейти в [подробную инструкцию](./docs/help/readme-files/install/instruction.md).
 

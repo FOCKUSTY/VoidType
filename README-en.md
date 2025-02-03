@@ -55,7 +55,7 @@
 	npm i
 ```
 
-- Then find `config.example.json`
+- Then find `.env.example`
 - You can simply remove `.exapmle` from the name and note your values.
 - If you can't figure it out yourself, you can go to [detailed instructions](./docs/help/readme-files/install/instruction-en.md).
 
