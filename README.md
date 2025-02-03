@@ -68,13 +68,11 @@ npm i
 npm i discord.js
 ```
 
-- Создайте `config.json` файл и впишите в него следующее, заменив `YOUR-TOKEN` и `YOUR-APP-ID` на токен и id бота соответственно:
+- Создайте `.env` файл и впишите в него следующее, заменив `YOUR_DISCORD_CLIENT_TOKEN` и `YOUR_DISCORD_CLIENT_ID` на токен и id бота соответственно:
 
-```json
-{
-    "token": "YOUR-TOKEN",
-    "id": "YOUR-APP-ID"
-}
+```
+CLIENT_TOKEN=YOUR_DISCORD_CLIENT_TOKEN
+CLIENT_ID=YOUR_DISCORD_CLIENT_ID
 ```
 
 # Если Вы кодите на JavaScript:
@@ -82,8 +80,10 @@ npm i discord.js
 - Создайте index.js файл и впишите в него:
 
 ```js
-const { Client, Collection, Events, GatewayIntentBits, Partials } = require('discord.js');
-const { token } = require('./config.json'); // или require('../config.json')
+const { Client, GatewayIntentBits, Partials } = require('discord.js');
+const { config } = require("dotenv");
+
+config("./.env"); // или "../.env", смотря где у Вас расположен .env файл
 
 /* 
 
@@ -97,9 +97,7 @@ const client = new Client({
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.DirectMessages,
-		GatewayIntentBits.MessageContent,
-		GatewayIntentBits.GuildVoiceStates,
-		GatewayIntentBits.GuildPresences
+		GatewayIntentBits.MessageContent
 	],
 	partials: [
 		Partials.Channel
@@ -120,8 +118,10 @@ client.login(token);
 - Создайте `index.ts` файл и впишите в него:
 
 ```ts
-import { Client, Collection, Events, GatewayIntentBits, Partials } from 'discord.js';
-import { token } from './config.json'; // или from '../config.json';
+import { Client, GatewayIntentBits, Partials } from 'discord.js';
+import { config } from "dotenv";
+
+config("./.env"); // или "../.env", смотря где у Вас расположен .env файл
 
 /* 
 
@@ -157,7 +157,7 @@ client.login(token);
 ```json
 {
     "compilerOptions": {
-        "target": "ES2020",
+        "target": "ES2024",
         "module": "CommonJS",
         "rootDir": "./",
         "outDir": "./dist", // можно назвать build.
@@ -166,26 +166,26 @@ client.login(token);
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,
-        "strictNullChecks": true,
         "skipLibCheck": true, 
-        "baseUrl": "./",
 		"paths": {
 			// "название-пути": [ "ваши-пути", "еще-один-путь" ]
 			// "папка-и-все-файлы-в-ней/*": [ "еще-папка/*", "и-еще/*", "а-это-файл.да" ]
 		}
 	},
-    "include": ["./**/*.ts"], // БЕРЕМ ВСЁ, ЧТО НАХОДИТСЯ В ПРОЕКТА УХАХХАХАХАХ.
+	"include": ["./**/*.ts"], // БЕРЕМ ВСЕ TS ФАЙЛЫ, ЧТО НАХОДЯТСЯ В ПРОЕКТЕ УХАХХАХАХАХ.
 	"exclude": [ "node_modules", "dist" ] // И не забываем про...
 }
 ```
 
 - Добавьте в `package.json`:
 ```json
-"devDependencies": {
+  "devDependencies": {
     "@types/node": "^20.16.1",
+    "dotenv": "^16.4.5",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
     "tsc": "^2.0.4",
+    "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.4"
 }
