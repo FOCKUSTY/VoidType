@@ -1,3 +1,7 @@
+import { config } from "dotenv";
+
+config();
+
 import ICL from "./events/interaction-create.listener";
 import ML from "./events/modal.listener";
 
