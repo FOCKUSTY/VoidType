@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "ES2024",
+      "declaration": true,
+      "declarationDir": "dist",
+      "outDir": "dist",
+    },
+    "include": ["src"]
+}
