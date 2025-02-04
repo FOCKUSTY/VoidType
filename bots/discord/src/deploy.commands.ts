@@ -1,6 +1,4 @@
-import { config } from "dotenv";
-
-config();
+import Env from "@voidy/env/dist/env.service";
 
 import { Debug } from "@voidy/develop/dist/debug.develop";
 import { REST, Routes } from "discord.js";
@@ -16,7 +14,7 @@ import path from "node:path";
 
 let using = 0;
 
-const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod" ? ".ts" : ".js";
+const fileType: ".ts" | ".js" = Env.get<false>("NODE_ENV") === "prod" ? ".js" : ".ts";
 
 class Deployer {
 	private readonly _folders_path: string;
@@ -109,7 +107,7 @@ class Deployer {
 				this._updater.execute("Начало обновления глобальных (/) команд");
 
 				await this._rest.put(
-					Routes.applicationCommands(process.env.CLIENT_ID || ""),
+					Routes.applicationCommands(Env.get("CLIENT_ID")),
 					{
 						body: commands
 					}
@@ -123,8 +121,8 @@ class Deployer {
 
 				await this._rest.put(
 					Routes.applicationGuildCommands(
-						process.env.CLIENT_ID || "",
-						process.env.GUILD_ID || ""
+						Env.get("CLIENT_ID"),
+						Env.get("GUILD_ID")
 					),
 					{ body: commands }
 				);

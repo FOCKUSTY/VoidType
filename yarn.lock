@@ -610,6 +610,7 @@ __metadata:
     "@thevoidcommunity/the-void-database": "npm:1.0.2-alpha.1"
     "@types/node": "npm:^20.16.1"
     "@voidy/develop": "workspace:^"
+    "@voidy/env": "workspace:^"
     "@voidy/services": "workspace:^"
     "@voidy/types": "workspace:^"
     date-fns: "npm:^2.30.0"
@@ -630,6 +631,14 @@ __metadata:
     tsconfig-paths: "npm:^4.2.0"
     typescript: "npm:^5.5.4"
     typescript-eslint: "npm:^8.19.1"
+  languageName: unknown
+  linkType: soft
+
+"@voidy/env@workspace:^, @voidy/env@workspace:packages/env":
+  version: 0.0.0-use.local
+  resolution: "@voidy/env@workspace:packages/env"
+  dependencies:
+    tsc-alias: "npm:^1.8.10"
   languageName: unknown
   linkType: soft
 
@@ -660,6 +669,7 @@ __metadata:
     "@thevoidcommunity/the-void-database": "npm:1.0.2-alpha.1"
     "@types/node": "npm:^20.16.1"
     "@voidy/develop": "workspace:^"
+    "@voidy/env": "workspace:^"
     "@voidy/types": "workspace:^"
     date-fns: "npm:^2.30.0"
     discord.js: "npm:^14.15.3"
@@ -1134,7 +1144,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^16.4.5":
+"dotenv@npm:^16.4.5, dotenv@npm:^16.4.7":
   version: 16.4.7
   resolution: "dotenv@npm:16.4.7"
   checksum: 10c0/be9f597e36a8daf834452daa1f4cc30e5375a5968f98f46d89b16b983c567398a330580c88395069a77473943c06b877d1ca25b4afafcdd6d4adb549e8293462
@@ -3153,12 +3163,13 @@ __metadata:
     "@thevoidcommunity/the-void-database": "npm:1.0.2-alpha.1"
     "@types/node": "npm:^20.16.1"
     "@voidy/discord": "workspace:^"
+    "@voidy/env": "workspace:^"
     "@voidy/services": "workspace:^"
     "@voidy/telegram": "workspace:^"
     "@voidy/types": "workspace:^"
     date-fns: "npm:^2.30.0"
     discord.js: "npm:^14.15.3"
-    dotenv: "npm:^16.4.5"
+    dotenv: "npm:^16.4.7"
     eslint: "npm:^9.18.0"
     f-formatter: "npm:^0.3.1"
     fock-logger: "npm:2.0.5"

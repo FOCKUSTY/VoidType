@@ -1,3 +1,5 @@
+import Env from "@voidy/env/dist/env.service";
+
 import Command from "@voidy/types/dist/commands/discord-command.type";
 import path from "path";
 import fs from "fs";
@@ -7,7 +9,7 @@ const commands: string[] = [];
 const foldersPath = path.join(__dirname, "commands");
 const commandsFolder = fs.readdirSync(foldersPath);
 
-const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod" ? ".ts" : ".js";
+const fileType: ".ts" | ".js" = Env.get<false>("NODE_ENV") === "prod" ? ".js" : ".ts";
 
 for (const placeFolder of commandsFolder) {
 	const commandsPath = path.join(foldersPath, placeFolder);

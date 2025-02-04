@@ -1,3 +1,5 @@
+import Env from "@voidy/env/dist/env.service";
+
 import "src/index.constants";
 
 import Logger from "fock-logger";
@@ -16,7 +18,7 @@ import TelegramService from "@voidy/telegram/dist/utility/service/telegram.servi
 Debug.Console.clear();
 Debug.Log([new Formatter().Color("Начало программы", Colors.magenta)]);
 
-const bot = process.env.BOT || "all";
+const bot = Env.get<false>("BOT") || "all";
 
 for (const name in loggers) {
 	const logger = loggers[name];
@@ -33,7 +35,7 @@ for (const name in loggers) {
 
 	switch (bot) {
 		case "discord":
-			LoginDiscord(`${process.env.CLIENT_TOKEN}`, services);
+			LoginDiscord(Env.get("CLIENT_TOKEN"), services);
 			break;
 
 		case "telegram":
@@ -41,7 +43,7 @@ for (const name in loggers) {
 			break;
 
 		default:
-			LoginDiscord(`${process.env.CLIENT_TOKEN}`, services);
+			LoginDiscord(Env.get("CLIENT_TOKEN"), services);
 			LoginTelegram(services);
 			break;
 	}

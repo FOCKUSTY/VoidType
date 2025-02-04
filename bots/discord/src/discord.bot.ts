@@ -1,6 +1,4 @@
-import { config } from "dotenv";
-
-config();
+import Env from "@voidy/env/dist/env.service";
 
 import ICL from "./events/interaction-create.listener";
 import ML from "./events/modal.listener";
@@ -38,7 +36,7 @@ const Client = new DiscordClient({
 const Commands = new Collection();
 const Cooldowns = new Collection();
 
-const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod" ? ".ts" : ".js";
+const fileType: ".ts" | ".js" = Env.get<false>("NODE_ENV") === "prod" ? ".js" : ".ts";
 
 const Login = async (clientToken: string, services: Services) => {
 	const foldersPath = path.join(__dirname, "commands");

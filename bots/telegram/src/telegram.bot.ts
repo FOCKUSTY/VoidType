@@ -1,9 +1,6 @@
-import { config } from "dotenv";
-
-config();
+import Env from "@voidy/env/dist/env.service";
 
 import { Telegraf } from "telegraf";
-
 import type { Interaction } from "@voidy/types/dist/telegram/interaction.type";
 
 import Deployer, { Props } from "./deploy.commands";
@@ -21,7 +18,7 @@ Client.on("message", async (message: Interaction) => {
 	MessageListener(message);
 });
 
-const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod" ? ".ts" : ".js";
+const fileType: ".ts" | ".js" = Env.get<false>("NODE_ENV") === "prod" ? ".js" : ".ts";
 
 const Login = async (services: Props) => {
 	const commandsPath = path.join(__dirname, "commands");
