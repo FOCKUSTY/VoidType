@@ -106,12 +106,9 @@ class Deployer {
 			if (type === "global") {
 				this._updater.execute("Начало обновления глобальных (/) команд");
 
-				await this._rest.put(
-					Routes.applicationCommands(Env.get("CLIENT_ID")),
-					{
-						body: commands
-					}
-				);
+				await this._rest.put(Routes.applicationCommands(Env.get("CLIENT_ID")), {
+					body: commands
+				});
 
 				this._updater.execute("Успешно обновлены глобальные (/) команды", {
 					color: Colors.green
