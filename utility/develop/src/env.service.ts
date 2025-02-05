@@ -14,7 +14,7 @@ const data = {
 	GUILD_ID: process.env.GUILD_ID!,
 	AUTHOR_ID: process.env.AUTHOR_ID!,
 	FRIEND_ID: process.env.FRIEND_ID! || "",
-	
+
 	GITHUB_REPOS_URL: process.env.GITHUB_REPOS_URL!,
 	GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN!
 };
