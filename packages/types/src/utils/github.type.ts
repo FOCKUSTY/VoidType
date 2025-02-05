@@ -45,7 +45,7 @@ export interface Repo {
 };
 
 export abstract class GitHubApi {
-    public abstract getRepositories(ignoredRepo: string[]): Promise<Repo[]>;
+    public abstract getRepositories(owner: string, type: string, ignoredRepo: string[]): Promise<Repo[]>;
 
     /**
      * @param getRepository - A some repository

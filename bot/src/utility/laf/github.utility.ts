@@ -1,18 +1,19 @@
-import { Env } from "@voidy/develop/dist";
-
 import { Repo, GitHubApi as Service } from "@voidy/types/dist/utils/github.type";
 
 class GitHubApi extends Service {
-    public async getRepositories(ignoredRepo: string[] = [".github"]): Promise<Repo[]> {
-        const data: Repo[] = await (await fetch(Env.get("GITHUB_REPOS_URL"), {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authentication: Env.get("GITHUB_ACCESS_TOKEN")
-            }
-        })).json();
-
-        return data.filter((r: Repo) => !ignoredRepo.includes(r.name));
+    public async getRepositories(owner: string, type: string, ignoredRepo: string[] = [".github"]): Promise<Repo[]> {
+        try {
+            const data: Repo[] = await (await fetch(`https://api.github.com/${type}/${owner}/repos`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })).json();
+    
+            return data.filter((r: Repo) => !ignoredRepo.includes(r.name));
+        } catch (error) {
+            return [];
+        }
     }
 
     /**

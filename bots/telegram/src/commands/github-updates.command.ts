@@ -24,20 +24,31 @@ const cats = [
 const week = 7 * 24 * 60 * 60 * 1000;
 const dash = "—";
 
+const ownerTypes = ["users", "orgs"];
+
 const getCat = () => cats[new Random().integer(0, cats.length-1)];
 
 export default class Command extends TelegramCommand {
 	public constructor(services: Services<{github: GitHubApi}>) {
 		super({
-            name: "lafka",
+            name: "github_updates",
+            options: ["owner", "type"],
             async execute(interaction) {
-                if (!interaction.from?.id)
+                if (!interaction.from?.id || !interaction.message.text)
                     return await interaction.reply("Произошла ошибка, кот ошибки: " + getCat() + " 1");
 
                 if (!ids.includes(`${interaction.from.id}`))
                     return await interaction.reply("Произошла ошибка, кот ошибки: " + getCat() + " 2");
 
-                const repositories = await services.github.getRepositories([".github"]);
+                if (interaction.message.text.split(" ").length !== 3)
+                    return await interaction.reply("Вы должны ввести команду и название владельца репозиториев, к примеру: /github-updated Lazy-And-Focused orgs\nПервый аргумент - название владельца репозитория, второй - тип владельца, может быть: orgs или users");
+
+                const [ _, owner, type ] = interaction.message.text.split(" ");
+
+                if (!ownerTypes.includes(type))
+                    return await interaction.reply("Тип владельца может быть только orgs или users");
+
+                const repositories = await services.github.getRepositories(owner, type, [".github"]);
                 const repos = repositories
                     .filter(r => services.github.repositoryCommited(r, week))
                     .map(r => [r.name, r.html_url, `${r.pushed_at}`]);
@@ -60,7 +71,7 @@ export default class Command extends TelegramCommand {
                 for (const repo of repos) {
                     const date = `${new DateFormatter().Date(Date.parse(repo[2]), "dd.MM.yyyy")}`;
                     const name = repo[0];
-                    const string = dash + " " + name + " " + dash + " " + date;
+                    const string = dash + " " + name + " " + dash + " " + date + "\n";
                     text += string;
 
                     entities.push({
