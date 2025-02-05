@@ -1,11 +1,7 @@
-import { config } from "dotenv";
-
-config();
+import { Debug, Env } from "@voidy/develop/dist";
 
 import type { Interaction } from "discord.js";
 import { Collection } from "discord.js";
-
-import { Debug } from "@voidy/develop/dist/debug.develop";
 
 export default class Listener {
 	public readonly name = "interaction-create";
@@ -38,7 +34,7 @@ export default class Listener {
 
 		if (
 			timestamps.has(interaction.user.id) &&
-			interaction.user.id !== process.env.AUTHOR_ID
+			interaction.user.id !== Env.get("AUTHOR_ID")
 		) {
 			const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
 
@@ -51,7 +47,7 @@ export default class Listener {
 			}
 		}
 
-		if (interaction.user.id !== process.env.AUTHOR_ID) {
+		if (interaction.user.id !== Env.get("AUTHOR_ID")) {
 			timestamps.set(interaction.user.id, now);
 			setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
 		}

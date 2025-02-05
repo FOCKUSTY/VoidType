@@ -1,6 +1,6 @@
 import type { Interaction } from "@voidy/types/dist/telegram/interaction.type";
 import { Response } from "@voidy/types/dist/all/response.type";
-import { Debug } from "@voidy/develop/dist/debug.develop";
+import { Debug } from "@voidy/develop/dist";
 
 import { Service } from "@voidy/types/dist/telegram/service.type";
 import { Telegraf, Format } from "telegraf";

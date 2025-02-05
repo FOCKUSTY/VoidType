@@ -19,5 +19,8 @@
     "bots/*",
     "utility/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "fock-logger": "^2.1.0"
+  }
 }

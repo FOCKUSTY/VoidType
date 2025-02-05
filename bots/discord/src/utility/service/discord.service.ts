@@ -1,5 +1,5 @@
 import { Client as DiscordClient, EmbedBuilder } from "discord.js";
-import { Debug } from "@voidy/develop/dist/debug.develop";
+import { Debug } from "@voidy/develop/dist";
 
 import { Response } from "@voidy/types/dist/all/response.type";
 import { Service } from "@voidy/types/dist/discord/service.type";

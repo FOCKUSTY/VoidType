@@ -19,7 +19,6 @@
   "dependencies": {
     "@thevoidcommunity/the-void-database": "1.0.2-alpha.1",
     "@voidy/discord": "workspace:^",
-    "@voidy/env": "workspace:^",
     "@voidy/services": "workspace:^",
     "@voidy/telegram": "workspace:^",
     "@voidy/types": "workspace:^",
@@ -27,7 +26,6 @@
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.7",
     "f-formatter": "^0.3.1",
-    "fock-logger": "2.0.5",
     "fock-updater": "^1.4.1-beta",
     "ollama": "0.5.11",
     "random-js": "^2.1.0",

@@ -1,8 +1,18 @@
-import { Colors } from "f-formatter";
+import { Colors, Logger } from "@voidy/develop/dist"
 
-const loggers: {
-	[key: string]: { name: string; colors: [Colors, Colors] };
-} = {
+type Names = 
+	| "The Void"
+	| "Commands"
+	| "Updater"
+	| "Activity"
+	| "Events"
+	| "Loader"
+	| "Fail"
+	| "Debugger"
+	| "Errorer"
+	| "Warner";
+
+const loggers: Record<string, {name: Names, colors: [Colors, Colors]}> = {
 	TheVoid: { name: "The Void", colors: [Colors.red, Colors.magenta] },
 	Commands: { name: "Commands", colors: [Colors.brightYellow, Colors.green] },
 	Updater: { name: "Updater", colors: [Colors.brightYellow, Colors.yellow] },
@@ -15,4 +25,28 @@ const loggers: {
 	Warner: { name: "Warner", colors: [Colors.yellow, Colors.magenta] }
 };
 
-export default loggers;
+class Loggers {
+	private readonly _loggers: Logger<Names>[] = [];
+
+	public constructor() {
+		this.init();
+	}
+
+	private init() {
+		for (const name in loggers) {
+			this._loggers.push(new Logger<Names>(loggers[name].name, { colors: loggers[name].colors }));
+		}
+	}
+
+	public execute() {
+		for (const logger of this._loggers) {
+			logger.execute(`Hello, I'm ${logger.name}!`);
+		}
+	}
+
+	public get loggers(): Logger<Names>[] {
+		return this._loggers;
+	};
+}
+
+export default Loggers;

@@ -1,4 +1,4 @@
-import Env from "@voidy/env/dist/env.service";
+import { Env } from "@voidy/develop/dist";
 
 import { Telegraf } from "telegraf";
 import type { Interaction } from "@voidy/types/dist/telegram/interaction.type";

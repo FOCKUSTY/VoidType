@@ -1,6 +1,4 @@
-import { config } from "dotenv";
-
-config();
+import { Env } from "@voidy/develop/dist";
 
 import {
 	SlashCommandBuilder,
@@ -22,7 +20,7 @@ export = {
 		.setName("update")
 		.setDescription("Сообщение с помощью бота!"),
 	async execute(interaction: CommandInteraction) {
-		if (interaction.user.id !== process.env.AUTHOR_ID)
+		if (interaction.user.id !== Env.get("AUTHOR_ID"))
 			return await interaction.reply({
 				content: "У Вас нет прав на использование этой команды",
 				ephemeral: true

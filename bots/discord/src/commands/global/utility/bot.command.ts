@@ -1,6 +1,4 @@
-import { config } from "dotenv";
-
-config();
+import { Env } from "@voidy/develop/dist";
 
 import { SlashCommandBuilder, EmbedBuilder, CommandInteraction } from "discord.js";
 
@@ -19,9 +17,9 @@ export = {
 		}),
 	async execute(interaction: CommandInteraction) {
 		const name = interaction.client.user.username;
-		const guild = await interaction.client.guilds.fetch(`${process.env.GUILD_ID}`);
-		const author = await interaction.client.users.fetch(`${process.env.AUTHOR_ID}`);
-		const support = await interaction.client.users.fetch(`${process.env.FRIEND_ID}`);
+		const guild = await interaction.client.guilds.fetch(`${Env.get("GUILD_ID")}`);
+		const author = await interaction.client.users.fetch(`${Env.get("AUTHOR_ID")}`);
+		const support = await interaction.client.users.fetch(`${Env.get("FRIEND_ID")}`);
 
 		const iconURL = interaction.client.user.avatarURL() || undefined;
 

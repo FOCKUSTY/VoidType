@@ -6,7 +6,7 @@ import Ollama, {
 } from "@thevoidcommunity/the-void-database/ollama";
 import type { Response } from "@voidy/types/dist/all/response.type";
 
-import { Debug } from "@voidy/develop/dist/debug.develop";
+import { Debug } from "@voidy/develop/dist";
 import { Colors } from "f-formatter";
 
 const promts = new Map<string, string>();

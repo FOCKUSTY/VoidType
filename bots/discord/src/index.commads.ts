@@ -1,4 +1,4 @@
-import Env from "@voidy/env/dist/env.service";
+import { Env } from "@voidy/develop/dist";
 
 import Command from "@voidy/types/dist/commands/discord-command.type";
 import path from "path";

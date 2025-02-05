@@ -1,6 +1,5 @@
-import Env from "@voidy/env/dist/env.service";
+import { Env, Debug } from "@voidy/develop/dist";
 
-import { Debug } from "@voidy/develop/dist/debug.develop";
 import { REST, Routes } from "discord.js";
 import Logger, { Colors } from "fock-logger";
 

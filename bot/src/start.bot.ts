@@ -1,12 +1,11 @@
-import Env from "@voidy/env/dist/env.service";
+import { Env } from "@voidy/develop/dist";
 
 import "src/index.constants";
 
-import Logger from "fock-logger";
 import Formatter, { Colors } from "f-formatter";
 
-import loggers from "./loggers.names";
-import { Debug } from "@voidy/develop/dist/debug.develop";
+import Loggers from "./loggers.names";
+import { Debug } from "@voidy/develop/dist/debug.service";
 
 import { LoginDiscord } from "@voidy/discord/dist/src/discord.bot";
 import { LoginTelegram } from "@voidy/telegram/dist/telegram.bot";
@@ -20,11 +19,7 @@ Debug.Log([new Formatter().Color("Начало программы", Colors.magen
 
 const bot = Env.get<false>("BOT") || "all";
 
-for (const name in loggers) {
-	const logger = loggers[name];
-
-	new Logger(name, { colors: logger.colors }).execute(`Hello, I'm ${name}!`);
-}
+new Loggers().execute();
 
 (async () => {
 	const services = {

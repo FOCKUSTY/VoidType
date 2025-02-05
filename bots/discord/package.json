@@ -14,13 +14,11 @@
   "dependencies": {
     "@thevoidcommunity/the-void-database": "1.0.2-alpha.1",
     "@voidy/develop": "workspace:^",
-    "@voidy/env": "workspace:^",
     "@voidy/services": "workspace:^",
     "@voidy/types": "workspace:^",
     "date-fns": "^2.30.0",
     "discord.js": "^14.15.3",
     "f-formatter": "^0.3.1",
-    "fock-logger": "2.0.5",
     "fock-updater": "^1.4.1-beta",
     "ollama": "0.5.11",
     "random-js": "^2.1.0",

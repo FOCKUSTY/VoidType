@@ -5,7 +5,7 @@ import type { Option, SendData } from "@voidy/types/dist/telegram/options.type";
 
 import Telegram from "../utility/service/telegram.service";
 
-import { Debug } from "@voidy/develop/dist/debug.develop";
+import { Debug } from "@voidy/develop/dist";
 
 type DefaultOption = Option<any, any, any>;
 

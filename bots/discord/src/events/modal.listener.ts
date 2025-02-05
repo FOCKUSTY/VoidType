@@ -1,4 +1,4 @@
-import { Debug } from "@voidy/develop/dist/debug.develop";
+import { Debug } from "@voidy/develop/dist";
 import { Interaction, InteractionType } from "discord.js";
 import CustomIds from "@voidy/services/dist/modal/custom-ids.modal";
 

@@ -1,6 +1,5 @@
 {
     "logging": true,
-    "dir": "./",
     "level": "info",
     "deletion_interval": 7,
     "colors": [

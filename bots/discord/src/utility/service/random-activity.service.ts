@@ -13,7 +13,7 @@ import {
 import ObjectLoader from "@thevoidcommunity/the-void-database/loaders/data/objects.loader";
 import { Activity } from "@thevoidcommunity/the-void-database/types/activity.types";
 
-import { Debug } from "@voidy/develop/dist/debug.develop";
+import { Debug } from "@voidy/develop/dist";
 
 import ClientLoader from "@voidy/services/dist/loaders/client.loader";
 import Array from "@voidy/services/dist/service/array.service";

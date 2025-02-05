@@ -1,4 +1,4 @@
-import { Debug } from "@voidy/develop/dist/debug.develop";
+import { Debug } from "@voidy/develop/dist";
 import { Interaction } from "@voidy/types/dist/telegram/interaction.type";
 import { commands } from "../deploy.commands";
 
