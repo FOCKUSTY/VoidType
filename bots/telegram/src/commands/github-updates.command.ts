@@ -71,11 +71,11 @@ export default class Command extends TelegramCommand {
                 for (const repo of repos) {
                     const date = `${new DateFormatter().Date(Date.parse(repo[2]), "dd.MM.yyyy")}`;
                     const name = repo[0];
-                    const string = dash + " " + name + " " + dash + " " + date + "\n";
-                    text += string;
+                    const string = dash + " " + name + " " + dash + " " + date;
+                    text += string + "\n";
 
                     entities.push({
-                        offset: text.length - string.length + 2,
+                        offset: text.length - string.length + 1,
                         length: name.length,
                         type: "text_link",
                         url: repo[1],
