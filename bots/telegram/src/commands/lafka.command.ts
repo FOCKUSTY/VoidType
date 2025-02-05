@@ -6,6 +6,7 @@ import { GitHubApi } from "@voidy/types/dist/utils/github.type";
 import TelegramCommand from "@voidy/types/dist/commands/telegram-command.type";
 import { Random } from "random-js";
 
+import { DateFormatter } from "f-formatter";
 import { MessageEntity } from "@telegraf/types/message";
 import * as Telegraf from "telegraf";
 
@@ -20,7 +21,7 @@ const cats = [
     "Сфинкс"
 ];
 
-const dateOffset = 7 * 24 * 60 * 60 * 1000;
+const week = 7 * 24 * 60 * 60 * 1000;
 const dash = "—";
 
 const getCat = () => cats[new Random().integer(0, cats.length-1)];
@@ -38,18 +39,33 @@ export default class Command extends TelegramCommand {
 
                 const repositories = await services.github.getRepositories([".github"]);
                 const repos = repositories
-                    .filter(r => services.github.repositoryCommited(r, dateOffset))
-                    .map(r => [r.name, r.html_url]);
+                    .filter(r => services.github.repositoryCommited(r, week))
+                    .map(r => [r.name, r.html_url, `${r.pushed_at}`]);
 
-                let text = "Держите Ваши репозитории:\n";
-                const entities: MessageEntity[] = [];
+                const conclusion = "Итоги за неделю\n";
+                const updates = "За последнее время были обновлены:\n";
+
+                let text = conclusion + updates;
+
+                const entities: MessageEntity[] = [{
+                    length: conclusion.length,
+                    offset: 0,
+                    type: "blockquote"
+                }, {
+                    length: updates.length,
+                    offset: conclusion.length,
+                    type: "bold"
+                }];
 
                 for (const repo of repos) {
-                    text += (dash + " " + repo[0] + "\n");
+                    const date = `${new DateFormatter().Date(Date.parse(repo[2]), "dd.MM.yyyy")}`;
+                    const name = repo[0];
+                    const string = dash + " " + name + " " + dash + " " + date;
+                    text += string;
 
                     entities.push({
-                        offset: text.length - repo[0].length - 1,
-                        length: repo[0].length,
+                        offset: text.length - string.length + 2,
+                        length: name.length,
                         type: "text_link",
                         url: repo[1],
                     });
