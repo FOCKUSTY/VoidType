@@ -1,9 +1,6 @@
 import { Env } from "@voidy/develop/dist";
-import Formatter from "f-formatter";
 
 import { Repo, GitHubApi as Service } from "@voidy/types/dist/utils/github.type";
-
-const formatter = new Formatter();
 
 class GitHubApi extends Service {
     public async getRepositories(ignoredRepo: string[] = [".github"]): Promise<Repo[]> {
@@ -23,10 +20,10 @@ class GitHubApi extends Service {
      * @param dateOffset - A date offset in seconds
      */
     public repositoryCommited(repository: Repo, dateOffset: number): boolean {
-        const now = formatter.date.Timestamp(new Date(), "miliseconds");
-        const last_commit = formatter.date.Timestamp(repository.pushed_at, "miliseconds");
+        const now = Date.parse(new Date().toISOString());
+        const last_commit = Date.parse(`${repository.pushed_at}`);
 
-        if (last_commit - now < dateOffset)
+        if (now - last_commit < dateOffset)
             return false;
 
         return true;
