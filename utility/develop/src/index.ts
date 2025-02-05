@@ -5,7 +5,4 @@ export * from "./env.service";
 export * from "./logger.service";
 export * from "./debug.service";
 
-export {
-    Logger,
-    Env
-};
+export { Logger, Env };

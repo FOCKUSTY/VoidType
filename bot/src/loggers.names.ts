@@ -1,6 +1,6 @@
-import { Colors, Logger } from "@voidy/develop/dist"
+import { Colors, Logger } from "@voidy/develop/dist";
 
-type Names = 
+type Names =
 	| "The Void"
 	| "Commands"
 	| "Updater"
@@ -12,7 +12,7 @@ type Names =
 	| "Errorer"
 	| "Warner";
 
-const loggers: Record<string, {name: Names, colors: [Colors, Colors]}> = {
+const loggers: Record<string, { name: Names; colors: [Colors, Colors] }> = {
 	TheVoid: { name: "The Void", colors: [Colors.red, Colors.magenta] },
 	Commands: { name: "Commands", colors: [Colors.brightYellow, Colors.green] },
 	Updater: { name: "Updater", colors: [Colors.brightYellow, Colors.yellow] },
@@ -34,7 +34,9 @@ class Loggers {
 
 	private init() {
 		for (const name in loggers) {
-			this._loggers.push(new Logger<Names>(loggers[name].name, { colors: loggers[name].colors }));
+			this._loggers.push(
+				new Logger<Names>(loggers[name].name, { colors: loggers[name].colors })
+			);
 		}
 	}
 
@@ -46,7 +48,7 @@ class Loggers {
 
 	public get loggers(): Logger<Names>[] {
 		return this._loggers;
-	};
+	}
 }
 
 export default Loggers;
