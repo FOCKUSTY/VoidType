@@ -1,8 +1,5 @@
-import { config } from "dotenv";
-
-config();
-
-import Logger from "fock-logger";
+import Env from "./env.service";
+import Logger from "./logger.service";
 
 const warn = "------------- !Внимание! --------------";
 
@@ -10,22 +7,19 @@ class Debug {
 	private static readonly _log: Logger<"Debugger"> = new Logger("Debugger", {
 		write: true,
 		prefix: "debug",
-		level: "info",
-		dir: "./"
+		level: "info"
 	});
 
 	private static readonly _error: Logger<"Errorer"> = new Logger("Errorer", {
 		write: true,
 		prefix: "error",
-		level: "err",
-		dir: "./"
+		level: "err"
 	});
 
 	private static readonly _warn: Logger<"Warner"> = new Logger("Warner", {
 		write: true,
 		prefix: "warn",
-		level: "warn",
-		dir: "./"
+		level: "warn"
 	});
 
 	public static readonly Console = console;
@@ -60,7 +54,7 @@ class Debug {
 		enabled?: boolean,
 		trace?: boolean
 	): void => {
-		if ((enabled || process.env.DEVELOP_MODE === "true") && !trace)
+		if ((enabled || Env.data.DEVELOP_MODE === "true") && !trace)
 			this._log.execute(message);
 
 		if (trace) {
