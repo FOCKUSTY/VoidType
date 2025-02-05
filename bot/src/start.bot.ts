@@ -13,6 +13,7 @@ import { LoginTelegram } from "@voidy/telegram/dist/telegram.bot";
 import Llama from "./utility/llama.ai";
 import DiscordService from "@voidy/discord/dist/src/utility/service/discord.service";
 import TelegramService from "@voidy/telegram/dist/utility/service/telegram.service";
+import GitHubApi from "./utility/laf/github.utility";
 
 Debug.Console.clear();
 Debug.Log([new Formatter().Color("Начало программы", Colors.magenta)]);

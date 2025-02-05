@@ -1475,18 +1475,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fock-logger@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "fock-logger@npm:2.1.0"
-  dependencies:
-    f-formatter: "npm:^0.3.0-a"
-    fock-builder: "npm:^0.2.1"
-    node: "npm:^22.9.0"
-  checksum: 10c0/56da11a8295cf350716c601d46e754e44352f91a9fc68cc363cb05639a9f0f527325d6741b1494923bf421961aff7101384551ad772a7c2b316bdae3c4a58e9a
-  languageName: node
-  linkType: hard
-
-"fock-logger@npm:^2.1.2":
+"fock-logger@npm:^2.1.0, fock-logger@npm:^2.1.2":
   version: 2.1.2
   resolution: "fock-logger@npm:2.1.2"
   dependencies:
