@@ -24,7 +24,7 @@ class GitHubApi extends Service {
         const now = Date.parse(new Date().toISOString());
         const last_commit = Date.parse(`${repository.pushed_at}`);
 
-        if (now - last_commit < dateOffset)
+        if (now - last_commit > dateOffset)
             return false;
 
         return true;

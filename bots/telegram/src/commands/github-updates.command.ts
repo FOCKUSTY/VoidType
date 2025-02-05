@@ -69,7 +69,7 @@ export default class Command extends TelegramCommand {
                 }];
 
                 for (const repo of repos) {
-                    const date = `${new DateFormatter().Date(Date.parse(repo[2]), "dd.MM.yyyy")}`;
+                    const date = `${new DateFormatter().Date(Date.parse(repo[2]), "dd.MM.yyyy HH:mm:ss")}`;
                     const name = repo[0];
                     const string = dash + " " + name + " " + dash + " " + date;
                     text += string + "\n";
