@@ -1,11 +1,10 @@
-import { Env } from "@voidy/develop/dist";
+import { Env, Debug } from "@voidy/develop/dist";
 
 import "src/index.constants";
 
 import Formatter, { Colors } from "f-formatter";
 
 import Loggers from "./loggers.names";
-import { Debug } from "@voidy/develop/dist/debug.service";
 
 import { LoginDiscord } from "@voidy/discord/dist/src/discord.bot";
 import { LoginTelegram } from "@voidy/telegram/dist/telegram.bot";
