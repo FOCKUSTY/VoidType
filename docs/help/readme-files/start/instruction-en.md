@@ -15,11 +15,9 @@
 - Let's analyze the code:
 
 ```ts
-// Importing the configurator from dotenv to work with .env files
-import { config } from "dotenv";
-
-// Using the configurator, in general it can be dragged down, but I usually leave it at the very top, it seems to not play a special role
-config();
+// Importing the configurator self-written module to work with .env files
+// Debug - Объект-помощник для отладки
+import { Env, Debug } from "@voidy/develop/dist";
 
 // Importing methods and objects
 // ICL - Listener object for slash commands to be used by users
@@ -37,7 +35,6 @@ import DeployEvents from "./deploy.events";
 // Services - All types of services that we have (discord, telegram)
 // Debug - Helper object for debugging
 import { Services } from "@voidy/types/dist/all/services.type";
-import { Debug } from "@voidy/develop/dist/debug.develop";
 
 // Import modules from node.js for viewing files and folders
 // path - helps find the path to files/folders
@@ -73,7 +70,7 @@ const Commands = new Collection();
 const Cooldowns = new Collection();
 
 // File type definitions
-const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod" ? ".ts" : ".js";
+const fileType: ".ts" | ".js" = Env.get<false>("NODE_ENV") === "prod" ? ".js" : ".ts";
 
 // Login our bot
 const Login = async (clientToken: string, services: Services) => {
@@ -110,13 +107,10 @@ export { Commands, Login as LoginDiscord };
 
 export default Client;
 ```
-
 ### telegram.bot.ts
 
 ```ts
-import { config } from "dotenv";
-
-config();
+import { Env } from "@voidy/develop/dist";
 
 // Import the main module
 import { Telegraf } from "telegraf";
@@ -141,7 +135,7 @@ Client.on("message", async (message: Interaction) => {
     MessageListener(message);
 });
 
-const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod" ? ".ts" : ".js";
+const fileType: ".ts" | ".js" = Env.get<false>("NODE_ENV") === "prod" ? ".js" : ".ts";
 
 const Login = async (services: Props) => {
     const commandsPath = path.join(__dirname, "commands");
@@ -161,7 +155,6 @@ export { Login as LoginTelegram };
 
 export default Client;
 ```
-
 ### index.config.ts
 
 ```ts
@@ -170,7 +163,6 @@ import settings from "../settings.json";
 
 export { settings };
 ```
-
 ### index.constant.ts
 
 ```ts
@@ -200,6 +192,8 @@ export { THEVOIDs_CONSTANTS };
 
 ### start.bot.ts
 ```ts
+import { Env, Debug } from "@voidy/develop/dist";
+
 // Initialize constants
 import "src/index.constants";
 
@@ -213,32 +207,30 @@ import { LoginDiscord } from "@voidy/discord/dist/src/discord.bot";
 import { LoginTelegram } from "@voidy/telegram/dist/telegram.bot";
 
 import Llama from "./utility/llama.ai";
+import GitHubApi from "./utility/laf/github.utility";
 import DiscordService from "@voidy/discord/dist/src/utility/service/discord.service";
-import TelegramService from "@voidy/telegram/dist/utility/service/telegram.service ";
+import TelegramService from "@voidy/telegram/dist/utility/service/telegram.service";
 
 Debug.Console.clear();
 Debug.Log([new Formatter().Color("Program Start", Colors.magenta)]);
 
 // BOT launch environment declarations (May be 'discrod'|'telegram' |'all')
-const bot = process.env.BOT || "all";
+const bot = Env.get<false>("BOT") || "all";
 
-for (const name in loggers) {
-    const logger = loggers[name];
-
-    new Logger(name, { colors: logger.colors }).execute (`Hello, I'm ${name}!`);
-}
+new Loggers().execute();
 
 // anonymous async function
 (async () => {
-    const services = {
-        discord: new DiscordService(),
-        telegram: new TelegramService(),
-        llama: new Llama()
-    };
-
+	const services = {
+		discord: new DiscordService(),
+		telegram: new TelegramService(),
+		llama: new Llama(),
+		github: new GitHubApi()
+	};
+    
     switch (bot) {
         case "discord":
-            LoginDiscord (`${process.env.CLIENT_TOKEN}`, services);
+            LoginDiscord(Env.get("CLIENT_TOKEN"), services);
             break;
 
         case "telegram":
@@ -246,7 +238,7 @@ for (const name in loggers) {
             break;
 
         default:
-            LoginDiscord(`${process.env.CLIENT_TOKEN}`, services);
+            LoginDiscord(Env.get("CLIENT_TOKEN"), services);
             LoginTelegram(services );
             break;
     }

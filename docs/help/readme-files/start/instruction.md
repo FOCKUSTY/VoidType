@@ -14,11 +14,10 @@
 - Детально разбирать каждый файл не буду, чем больше файлов буду разбирать, тем меньше буду писать комментариев.
 - Разберем код:
 ```ts
-// Импорт конфигуратора из dotenv для работы с .env файлами
-import { config } from "dotenv";
+// Импорт Env из самописнового модуля для работы с .env файлами
+// Debug - Объект-помощник для отладки
+import { Env, Debug } from "@voidy/develop/dist";
 
-// Использование конфигуратора, вообще его можно и вниз утащить, но я обычно оставляю его самым верхним, вроде как особо роли не играет
-config();
 // Импорт методов и объектов
 // ICL - Объект-прослушиватель для использования пользователями slash команд
 // ML - Объект-послушиватель для использования пользовательми модальников
@@ -33,9 +32,7 @@ import DeployEvents from "./deploy.events";
 
 // Импорт дополнительного материала
 // Services - Все типы сервисов, которые у нас есть (discord, telegram)
-// Debug - Объект-помощник для отладки
 import { Services } from "@voidy/types/dist/all/services.type";
-import { Debug } from "@voidy/develop/dist/debug.develop";
 
 // Импорт модулей из node.js для просмотра файлов и папок
 // path - помогает найти путь до файлов/папок
@@ -71,7 +68,7 @@ const Commands = new Collection();
 const Cooldowns = new Collection();
 
 // Определения типа файлов
-const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod" ? ".ts" : ".js";
+const fileType: ".ts" | ".js" = Env.get<false>("NODE_ENV") === "prod" ? ".js" : ".ts";
 
 // Логиним нашего бота
 const Login = async (clientToken: string, services: Services) => {
@@ -111,9 +108,7 @@ export default Client;
 ### telegram.bot.ts
 
 ```ts
-import { config } from "dotenv";
-
-config();
+import { Env } from "@voidy/develop/dist";
 
 // Импортируем главный модуль
 import { Telegraf } from "telegraf";
@@ -138,7 +133,7 @@ Client.on("message", async (message: Interaction) => {
 	MessageListener(message);
 });
 
-const fileType: ".ts" | ".js" = process.env.NODE_ENV === "prod" ? ".ts" : ".js";
+const fileType: ".ts" | ".js" = Env.get<false>("NODE_ENV") === "prod" ? ".js" : ".ts";
 
 const Login = async (services: Props) => {
 	const commandsPath = path.join(__dirname, "commands");
@@ -194,6 +189,8 @@ export { THEVOIDs_CONSTANTS };
 ```
 ### start.bot.ts
 ```ts
+import { Env, Debug } from "@voidy/develop/dist";
+
 // Инициализация констант
 import "src/index.constants";
 
@@ -207,6 +204,7 @@ import { LoginDiscord } from "@voidy/discord/dist/src/discord.bot";
 import { LoginTelegram } from "@voidy/telegram/dist/telegram.bot";
 
 import Llama from "./utility/llama.ai";
+import GitHubApi from "./utility/laf/github.utility";
 import DiscordService from "@voidy/discord/dist/src/utility/service/discord.service";
 import TelegramService from "@voidy/telegram/dist/utility/service/telegram.service";
 
@@ -214,25 +212,22 @@ Debug.Console.clear();
 Debug.Log([new Formatter().Color("Начало программы", Colors.magenta)]);
 
 // Объявления среды запуска BOT (Может быть 'discrod'|'telegram'|'all')
-const bot = process.env.BOT || "all";
+const bot = Env.get<false>("BOT") || "all";
 
-for (const name in loggers) {
-	const logger = loggers[name];
-
-	new Logger(name, { colors: logger.colors }).execute(`Hello, I'm ${name}!`);
-}
+new Loggers().execute();
 
 // анонимная асинхронная функция
 (async () => {
 	const services = {
 		discord: new DiscordService(),
 		telegram: new TelegramService(),
-		llama: new Llama()
+		llama: new Llama(),
+		github: new GitHubApi()
 	};
 
 	switch (bot) {
 		case "discord":
-			LoginDiscord(`${process.env.CLIENT_TOKEN}`, services);
+			LoginDiscord(Env.get("CLIENT_TOKEN"), services);
 			break;
 
 		case "telegram":
@@ -240,7 +235,7 @@ for (const name in loggers) {
 			break;
 
 		default:
-			LoginDiscord(`${process.env.CLIENT_TOKEN}`, services);
+			LoginDiscord(Env.get("CLIENT_TOKEN"), services);
 			LoginTelegram(services);
 			break;
 	}
