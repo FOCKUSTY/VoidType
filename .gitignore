@@ -1,15 +1,16 @@
+# My files
 *.bat
 *.lnk
 
 # yarn
 .yarn
 
-# Logs
+# logs
 *.log
 logs
 log
 
-# Dependency directories
+# dependency directories
 node_modules/
 
 # dotenv environment variable files
