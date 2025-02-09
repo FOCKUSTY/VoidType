@@ -5,9 +5,9 @@
 - [Install instruction](./docs/help/readme-files/install/instruction-en.md)
 - [Start instruction](./docs/help/readme-files/start/instruction-en.md)
 
-## The Void - This is just a simple bot!
-- The Void Bot is aimed at increasing the author's experience in JavaScript and TypeScript.
-- In addition, The Void is slowly developing a story and, possibly, a mini-plot.
+## The Voidy - This is just a simple bot!
+- The Voidy Bot is aimed at increasing the author's experience in JavaScript and TypeScript.
+- In addition, The Voidy is slowly developing a story and, possibly, a mini-plot.
 
 ### How to understand the code?
 - The code is not difficult to understand, many functions are divided into files, of course, there are no comments, but all the names of variables and functions have a specific meaning, sometimes there are abbreviations, but usually they are accompanied by comments from the author.
