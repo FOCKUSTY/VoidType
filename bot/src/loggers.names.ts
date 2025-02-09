@@ -1,7 +1,7 @@
 import { Colors, Logger } from "@voidy/develop/dist";
 
 type Names =
-	| "The Void"
+	| "TheVoid"
 	| "Commands"
 	| "Updater"
 	| "Activity"
@@ -13,7 +13,7 @@ type Names =
 	| "Warner";
 
 const loggers: Record<string, { name: Names; colors: [Colors, Colors] }> = {
-	TheVoid: { name: "The Void", colors: [Colors.red, Colors.magenta] },
+	TheVoid: { name: "TheVoid", colors: [Colors.red, Colors.magenta] },
 	Commands: { name: "Commands", colors: [Colors.brightYellow, Colors.green] },
 	Updater: { name: "Updater", colors: [Colors.brightYellow, Colors.yellow] },
 	Activity: { name: "Activity", colors: [Colors.brightRed, Colors.green] },

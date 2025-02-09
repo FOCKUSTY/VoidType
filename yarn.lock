@@ -592,7 +592,7 @@ __metadata:
   resolution: "@voidy/develop@workspace:utility/develop"
   dependencies:
     dotenv: "npm:^16.4.5"
-    fock-logger: "npm:^2.1.2"
+    fock-logger: "npm:^2.2.1"
     tsc: "npm:^2.0.4"
     tsc-alias: "npm:^1.8.10"
     tsconfig-paths: "npm:^4.2.0"
@@ -635,11 +635,11 @@ __metadata:
   resolution: "@voidy/services@workspace:utility/services"
   dependencies:
     "@types/node": "npm:^20.16.1"
+    "@voidy/develop": "workspace:^"
     "@voidy/types": "workspace:^"
     discord.js: "npm:^14.15.3"
     dotenv: "npm:^16.4.5"
     f-formatter: "npm:^0.3.1"
-    fock-logger: "npm:2.0.5"
     telegraf: "npm:^4.16.3"
     ts-node: "npm:^10.9.2"
     tsc: "npm:^2.0.4"
@@ -1464,7 +1464,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fock-logger@npm:2.0.5, fock-logger@npm:^2.0.5":
+"fock-logger@npm:^2.0.5":
   version: 2.0.5
   resolution: "fock-logger@npm:2.0.5"
   dependencies:
@@ -1475,14 +1475,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fock-logger@npm:^2.1.0, fock-logger@npm:^2.1.2":
-  version: 2.1.2
-  resolution: "fock-logger@npm:2.1.2"
+"fock-logger@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "fock-logger@npm:2.2.1"
   dependencies:
     f-formatter: "npm:^0.3.0-a"
     fock-builder: "npm:^0.2.1"
     node: "npm:^22.9.0"
-  checksum: 10c0/496d060fc998cc6ffdde6420115aed9108296ea3790f2735669dc207d9134830f316eccb7d0f6203a8724c063c9801116c0d5ee2dc0e1ba5d87f8ebeb9708339
+  checksum: 10c0/68e7de24c4f65ac6b15607020430d94af058f58b51de71166a8329c22ced6fc4ae55f9cf67a14888047813012d07cb4c19a54150e50863fa274ff8feb489bf50
   languageName: node
   linkType: hard
 
@@ -2900,6 +2900,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"the-voidy@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "the-voidy@workspace:."
+  languageName: unknown
+  linkType: soft
+
 "through@npm:>=2.2.7 <3":
   version: 2.3.8
   resolution: "through@npm:2.3.8"
@@ -3180,14 +3186,6 @@ __metadata:
     tsconfig-paths: "npm:^4.2.0"
     typescript: "npm:^5.5.4"
     typescript-eslint: "npm:^8.19.1"
-  languageName: unknown
-  linkType: soft
-
-"voidy@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "voidy@workspace:."
-  dependencies:
-    fock-logger: "npm:^2.1.0"
   languageName: unknown
   linkType: soft
 

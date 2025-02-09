@@ -24,7 +24,7 @@ const Login = async (services: Props) => {
 	const commandsPath = path.join(__dirname, "commands");
 	const commandsFiles = fs
 		.readdirSync(commandsPath)
-		.filter((file) => file.endsWith(fileType));
+		.filter((file) => file.endsWith(fileType) && !file.endsWith(".d.ts"));
 
 	new Deployer(services).execute(Client, commandsPath, commandsFiles);
 

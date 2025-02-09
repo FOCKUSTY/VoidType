@@ -2,7 +2,7 @@ import type { Client as DiscordClient } from "discord.js";
 import { Events } from "discord.js";
 
 import { ActivityTypes } from "@voidy/types/dist/activities/activities.enum";
-import Logger from "fock-logger";
+import { Logger } from "@voidy/develop/dist";
 
 import ClientLoader from "@voidy/services/dist/loaders/client.loader";
 import { loaders } from "@thevoidcommunity/the-void-database";

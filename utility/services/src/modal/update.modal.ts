@@ -1,6 +1,4 @@
-import { config } from "dotenv";
-
-config();
+import { Env } from "@voidy/develop/dist";
 
 import { EmbedBuilder, ModalSubmitInteraction } from "discord.js";
 
@@ -66,18 +64,18 @@ class Modal extends DiscordModal {
 					);
 				}
 
-				discord.SendMessage(process.env.CHANGELOG_DISCORD_CHANNLE_ID, embeds);
+				discord.SendMessage(Env.get("CHANGELOG_DISCORD_CHANNEL_ID"), embeds);
 				telegram.SendMessage(
-					process.env.CHANGELOG_TELEGRAM_CHANNEL_ID,
+					Env.get("CHANGELOG_TELEGRAM_CHANNEL_ID"),
 					`${version}\n${ru}`
 				);
 			} else {
 				discord.SendMessage(
-					process.env.CHANGELOG_DISCORD_CHANNLE_ID,
+					Env.get("CHANGELOG_DISCORD_CHANNEL_ID"),
 					`# ${version}\n${ru}\n# ${version}\n${en}`
 				);
 				telegram.SendMessage(
-					process.env.CHANGELOG_TELEGRAM_CHANNEL_ID,
+					Env.get("CHANGELOG_TELEGRAM_CHANNEL_ID"),
 					`${version}\n${ru}`
 				);
 			}

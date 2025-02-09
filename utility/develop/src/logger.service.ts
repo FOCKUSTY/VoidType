@@ -1,8 +1,8 @@
-import Logger, { Colors, Configurator } from "fock-logger";
-import { join } from "path";
+import { Configurator } from "fock-logger"
 
-const { config } = new Configurator({ dir: join("../../../") });
+const { config } = new Configurator({ dir: "../../../" });
+
+import Logger, { Colors } from "fock-logger";
 
 export { Colors, Configurator, config };
-
 export default Logger;

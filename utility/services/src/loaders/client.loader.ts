@@ -1,8 +1,9 @@
+import { Logger } from "@voidy/develop/dist";
+
 import { Client as DiscordClient } from "discord.js";
 
 import Filter from "../service/filter.service";
 
-import Logger from "fock-logger";
 import Formatter, { Colors } from "f-formatter";
 
 const guilds: string[] = [];

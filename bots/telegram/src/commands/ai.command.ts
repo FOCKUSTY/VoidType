@@ -67,6 +67,8 @@ export default class Command extends TelegramCommand {
 
 							data.message.reply("Запрос принят! Ждите ответа!");
 
+							console.log(data.message);
+
 							data.response.data.ollama.then((d: ChatResponse) => {
 								data.send({
 									...data,

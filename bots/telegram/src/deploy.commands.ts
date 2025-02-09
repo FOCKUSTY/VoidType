@@ -1,15 +1,13 @@
+import { Debug, Logger } from "@voidy/develop/dist";
+
 import type { Interaction } from "@voidy/types/dist/telegram/interaction.type";
 import TelegramCommand from "@voidy/types/dist/commands/telegram-command.type";
 import { Services } from "@voidy/types/dist/all/services.type";
 
 import { Telegraf } from "telegraf";
 import Commands from "./index.commands";
-import Logger from "fock-logger";
 
 import path from "node:path";
-
-const CommandsLogger = new Logger("Commands").execute;
-const FailLogger = new Logger("Fail").execute;
 
 export const commands = new Map<
 	string,
@@ -20,6 +18,7 @@ export type Props = Services & { llama: any };
 type Command = new (services: Props) => TelegramCommand;
 
 export default class Deployer {
+	private readonly _logger = new Logger("Commands");
 	private readonly _services: Props;
 
 	public constructor(services: Props) {
@@ -33,7 +32,7 @@ export default class Deployer {
 				this._services
 			);
 
-			CommandsLogger(`Telegram команда ${command.name}`);
+			this._logger.execute(`Telegram команда ${command.name}`);
 
 			if (command.execute && command.name) {
 				commands.set(command.name, {
@@ -52,7 +51,7 @@ export default class Deployer {
 					command.execute(message)
 				);
 			} else
-				FailLogger(
+				Debug.Error(
 					`Потерян execute или name в ${command?.name || fileName}\nПуть: ${filePath}`
 				);
 		}

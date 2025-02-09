@@ -1,9 +1,11 @@
+import { Logger } from "@voidy/develop/dist";
+
 import type { Client as DiscordClient } from "discord.js";
 import Discord from "./utility/service/discord.service";
-import Logger from "fock-logger";
+
+import { Services } from "@voidy/types/dist/all/services.type";
 
 import path from "node:path";
-import { Services } from "@voidy/types/dist/all/services.type";
 
 class EventsLoader {
 	private readonly Logger = new Logger("Events").execute;

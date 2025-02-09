@@ -1,10 +1,11 @@
+import { Debug, Logger } from "@voidy/develop/dist";
+
 import { ActivityType, Client as DiscordClient } from "discord.js";
 import { Random } from "random-js";
 
 import { ActivityTypes } from "@voidy/types/dist/activities/activities.enum";
 
 import Formatter from "f-formatter";
-import Logger from "fock-logger";
 
 import {
 	activities as loadedActivities,
@@ -12,8 +13,6 @@ import {
 } from "@thevoidcommunity/the-void-database/loaders/data/activities.loader";
 import ObjectLoader from "@thevoidcommunity/the-void-database/loaders/data/objects.loader";
 import { Activity } from "@thevoidcommunity/the-void-database/types/activity.types";
-
-import { Debug } from "@voidy/develop/dist";
 
 import ClientLoader from "@voidy/services/dist/loaders/client.loader";
 import Array from "@voidy/services/dist/service/array.service";

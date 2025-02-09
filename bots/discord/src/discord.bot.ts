@@ -44,7 +44,7 @@ const Login = async (clientToken: string, services: Services) => {
 	const eventsPath = path.join(__dirname, "events");
 	const eventFiles = fs
 		.readdirSync(eventsPath)
-		.filter((file) => file.endsWith(fileType));
+		.filter((file) => file.endsWith(fileType) && !file.endsWith(".d.ts"));
 
 	const modalListener = new ML(services);
 	const interactionListener = new ICL();
