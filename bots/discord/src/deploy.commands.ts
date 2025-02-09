@@ -1,9 +1,4 @@
-import {
-	Env,
-	Logger,
-	Debug,
-	Colors
-} from "@voidy/develop/dist";
+import { Env, Logger, Debug, Colors } from "@voidy/develop/dist";
 
 import { REST, Routes } from "discord.js";
 
@@ -46,7 +41,10 @@ class Deployer {
 				const modifierPath = path.join(commandsPath, folder);
 				const files = fs
 					.readdirSync(modifierPath)
-					.filter((file: string) => file.endsWith(fileType) && !file.endsWith(".d.ts"));
+					.filter(
+						(file: string) =>
+							file.endsWith(fileType) && !file.endsWith(".d.ts")
+					);
 
 				for (const file of files) {
 					func(file, modifierPath, folder, commandsPath);

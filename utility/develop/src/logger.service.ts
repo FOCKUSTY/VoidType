@@ -1,4 +1,4 @@
-import { Configurator } from "fock-logger"
+import { Configurator } from "fock-logger";
 
 const { config } = new Configurator({ dir: "../../../" });
 
