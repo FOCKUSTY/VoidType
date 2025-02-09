@@ -1,4 +1,4 @@
-# VoidType
+# The Voidy
 
 ## Дополнительно
 - [Система коммитов](./docs/help/readme-files/docs/commit.system.md)
