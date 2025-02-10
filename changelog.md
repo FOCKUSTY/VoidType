@@ -29,3 +29,4 @@
 | `1.2.0-alpha.1`   | Alpha.1.Minor | Добалены новые команды `/send_anonimus_message` & `/start_anonimus` | Added a new commands `/send_anonimus_message` & `/start_anonimus` |
 | `1.3.0-alpha.1`   | Alpha.1.Minor | Добавлена новая telegram команда `/ai`, подключен ИИ (llama3.2), немного затронуты прослушиватель и его типы | Added a new telegram command `/ai`, connected AI (llama3.2), slightly updated listener and their types |
 | `1.3.1-alpha.1`   | Alpha.1.Patch | Обновлена telegram команда `/ai`, подключенна новая модель ИИ (TheVoid), улучшено логирование, рефакторинг кода | Updated telegram command `/ai`, connected new AI model (TheVoid), logging is better, code refactoring |
+| `2.0.0-alpha.1` | Alpha.1.Major | Repo -> Monorepo; The Void -> The Voidy; Обновлены типы; рефакторинг кода; обновлен ИИ llama -> OpenAi | Repo -> Monorepo; The Void -> The Voidy; Updated types; Code refactoing; Updated Ai llama -> OpenAi |
