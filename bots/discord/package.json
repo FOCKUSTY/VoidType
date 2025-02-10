@@ -12,7 +12,7 @@
   "author": "FOCKUSTY",
   "license": "MIT",
   "dependencies": {
-    "@thevoidcommunity/the-void-database": "1.0.2-alpha.1",
+    "@thevoidcommunity/the-void-database": "2.0.1-alpha.1",
     "@voidy/develop": "workspace:^",
     "@voidy/services": "workspace:^",
     "@voidy/types": "workspace:^",

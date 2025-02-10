@@ -1,29 +1,29 @@
 import type { Interaction } from "@voidy/types/dist/telegram/interaction.type";
 import type { Response } from "@voidy/types/dist/all/response.type";
 import type { ExecuteData, Option } from "@voidy/types/dist/telegram/options.type";
-
 import { options } from "../events/message.listener";
 
-import { ModelVersion } from "@thevoidcommunity/the-void-database/ollama/types/ollama.types";
-import { ChatResponse, OllamaResponse } from "@thevoidcommunity/the-void-database/ollama";
+import { Services } from "@voidy/types/dist/all/services.type";
+import { Models, OPENAI_MODELS } from "@thevoidcommunity/the-void-database/ai/types";
+import { ChatCompletion } from "openai/resources/chat/completions";
+import { APIPromise } from "openai/core";
 
 import TelegramCommand from "@voidy/types/dist/commands/telegram-command.type";
 
-type FunctionDataType = OllamaResponse<Promise<ChatResponse>> | "Error";
+type FunctionDataType = APIPromise<ChatCompletion> | null;
 type DefaultOption = Option<FunctionDataType, [], [], [string], { text: string }>;
 type DefaultExectuteData = ExecuteData<DefaultOption, FunctionDataType, { text: string }>;
 
 export default class Command extends TelegramCommand {
-	public constructor(services: { llama: any }) {
+	public constructor(services: Services) {
 		super({
 			name: "ai",
 			options: ["promt"],
 			async execute(interaction: Interaction) {
 				const command = interaction.message.text.split(" ");
-				const models = ["TheVoid", "llama3.2", "llama3.3"];
-				const model = models.includes(command[1])
-					? (command[1] as ModelVersion)
-					: "TheVoid";
+				const model: Models = OPENAI_MODELS.includes(command[1])
+					? (command[1] as Models)
+					: "gpt-4o-mini";
 
 				if (!interaction.from) return;
 
@@ -44,14 +44,14 @@ export default class Command extends TelegramCommand {
 						function: async (
 							promt: string
 						): Promise<Response<FunctionDataType>> => {
-							const data = services.llama.chat(
+							const data = services.ai.chat(
 								promt,
 								"Спасибо, что пользуетесь The Void",
 								model
 							);
 
 							if (data.type === 0)
-								return { data: "Error", text: "Error", type: 0 };
+								return { data: null, text: "Error", type: 0 };
 
 							return {
 								data: data.data,
@@ -62,17 +62,19 @@ export default class Command extends TelegramCommand {
 						execute: (data: DefaultExectuteData) => {
 							if (typeof data.response.data === "string") return;
 
-							if (data.response.type === 0 || !data.response.data.ollama)
+							if (data.response.type === 0 || !data.response.data)
 								return;
 
 							data.message.reply("Запрос принят! Ждите ответа!");
 
-							data.response.data.ollama.then((d: ChatResponse) => {
+							data.response.data.then((d) => {
 								data.send({
 									...data,
 									response: {
 										...data.response,
-										data: { text: d.message.content }
+										data: {
+											text: d.choices[0].message.content || "null"
+										}
 									}
 								});
 							});

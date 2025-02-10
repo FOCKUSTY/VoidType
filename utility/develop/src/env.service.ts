@@ -15,9 +15,8 @@ const data = {
 	AUTHOR_ID: process.env.AUTHOR_ID!,
 	FRIEND_ID: process.env.FRIEND_ID! || "",
 
-	GITHUB_REPOS_URL: process.env.GITHUB_REPOS_URL!,
-	GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN!
-};
+	OPEN_AI_KEY: process.env.OPEN_AI_KEY!
+} as const;
 
 const dynamicData = {
 	BOT: process.env.BOT,

@@ -1,24 +1,22 @@
-import { ModelVersion } from "@thevoidcommunity/the-void-database/ollama/types/ollama.types";
+import { Ai as OpenAi } from "@thevoidcommunity/the-void-database/ai/openai";
+import { Models } from "@thevoidcommunity/the-void-database/ai/types";
+import { ChatCompletion } from "openai/resources/chat/completions";
+import { APIPromise } from "openai/core";
 
-import Ollama, {
-	OllamaResponse,
-	ChatResponse
-} from "@thevoidcommunity/the-void-database/ollama";
+import { Ai as AiService } from "@voidy/types/dist/all/ai-service.type";
 import type { Response } from "@voidy/types/dist/all/response.type";
 
-import { Debug } from "@voidy/develop/dist";
+import { Debug, Env } from "@voidy/develop/dist";
 import { Colors } from "f-formatter";
 
 const promts = new Map<string, string>();
 
-class Llama {
-	public constructor() {}
-
+class Ai extends AiService {
 	public chat(
 		promt: string,
 		text: string = "",
-		model: ModelVersion = "TheVoid"
-	): Response<OllamaResponse<Promise<ChatResponse>>> {
+		model: Models = "gpt-4o-mini"
+	): Response<APIPromise<ChatCompletion>|null> {
 		try {
 			const id = new Date().getTime().toString(16);
 			promts.set(promt, id);
@@ -29,24 +27,20 @@ class Llama {
 				"Модель: " + model
 			]);
 
-			const data = new Ollama({ model }).chat({
-				model: model,
-				stream: false,
-				messages: [{ role: "user", content: promt }]
-			});
+			const data = new OpenAi(Env.get("OPEN_AI_KEY")).chat(promt, { model: model });
 
-			if (!data.ollama) {
+			if (!data) {
 				Debug.Error(new Error("Произошла ошибка с ответом."));
 
 				return {
-					data: data,
+					data: null,
 					text: "Произошла ошибка.",
 					type: 0
 				};
 			}
 
-			data.ollama.then((r) =>
-				Debug.Log(["Ответ на запрос: " + id + ":", r.message.content])
+			data.then((r) =>
+				Debug.Log(["Ответ на запрос: " + id + ":", r.choices[0].message.content||""])
 			);
 
 			return {
@@ -54,18 +48,14 @@ class Llama {
 				text: `${text}\nМодель: ${model}\nВаш id: ${id}\n`,
 				type: 1,
 				dataContent: {
-					text: ".message.content"
+					text: ".choices[0].message.content"
 				}
 			};
 		} catch (error) {
 			Debug.Error(error);
 
 			return {
-				data: {
-					model: "TheVoid",
-					text: `${error}`,
-					type: 0
-				},
+				data: null,
 				text: "Произошла ошибка",
 				type: 0
 			};
@@ -73,4 +63,4 @@ class Llama {
 	}
 }
 
-export default Llama;
+export default Ai;

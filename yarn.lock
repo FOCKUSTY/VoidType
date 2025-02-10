@@ -369,17 +369,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@thevoidcommunity/the-void-database@npm:1.0.2-alpha.1":
-  version: 1.0.2-alpha.1
-  resolution: "@thevoidcommunity/the-void-database@npm:1.0.2-alpha.1"
+"@thevoidcommunity/the-void-database@npm:2.0.1-alpha.1":
+  version: 2.0.1-alpha.1
+  resolution: "@thevoidcommunity/the-void-database@npm:2.0.1-alpha.1"
   dependencies:
     f-formatter: "npm:^0.3.1"
     fock-builder: "npm:^1.0.2-beta"
     fock-logger: "npm:^2.0.5"
     mongoose: "npm:^8.3.2"
     node: "npm:^22.12.0"
-    ollama: "npm:^0.5.11"
-  checksum: 10c0/6b1fdac6e31fee171293da9ec0ea87a3b91ae7b6a92a509ab5c1365a20a9a1534e8edaa1838a2ebc431ea8d7166ce4110f3c5ff0e66a86e78485257e4e110c5d
+    openai: "npm:^4.83.0"
+  checksum: 10c0/049da5e561479c714af8743784176eb0246b749ec1b67d6f340aca08c1323193fd845921add73d64aab74bcefbaf0fa4da99f22d4b815e26b40b3bb7e59f87af
   languageName: node
   linkType: hard
 
@@ -425,12 +425,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node-fetch@npm:^2.6.4":
+  version: 2.6.12
+  resolution: "@types/node-fetch@npm:2.6.12"
+  dependencies:
+    "@types/node": "npm:*"
+    form-data: "npm:^4.0.0"
+  checksum: 10c0/7693acad5499b7df2d1727d46cff092a63896dc04645f36b973dd6dd754a59a7faba76fcb777bdaa35d80625c6a9dd7257cca9c401a4bab03b04480cda7fd1af
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*":
   version: 22.12.0
   resolution: "@types/node@npm:22.12.0"
   dependencies:
     undici-types: "npm:~6.20.0"
   checksum: 10c0/be220706732d95db2ed1c441c1e64cab90bf9a47519ce6f4c79cc5a9ec9d5c517131a149a9ac30afac1a30103e67e3a00d453ba7c1b0141608a3a7ba6397c303
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.11.18":
+  version: 18.19.75
+  resolution: "@types/node@npm:18.19.75"
+  dependencies:
+    undici-types: "npm:~5.26.4"
+  checksum: 10c0/6a78833071d23dcd4010507d0a232da1cb6e939eb5b62023a01ab5f91eecb90223bda3e34aa536f02cd5c3bdf7962c754b7e2a051a8224aed5886788fce88fbf
   languageName: node
   linkType: hard
 
@@ -605,7 +624,7 @@ __metadata:
   resolution: "@voidy/discord@workspace:bots/discord"
   dependencies:
     "@eslint/js": "npm:^9.18.0"
-    "@thevoidcommunity/the-void-database": "npm:1.0.2-alpha.1"
+    "@thevoidcommunity/the-void-database": "npm:2.0.1-alpha.1"
     "@types/node": "npm:^20.16.1"
     "@voidy/develop": "workspace:^"
     "@voidy/services": "workspace:^"
@@ -654,7 +673,7 @@ __metadata:
   resolution: "@voidy/telegram@workspace:bots/telegram"
   dependencies:
     "@eslint/js": "npm:^9.18.0"
-    "@thevoidcommunity/the-void-database": "npm:1.0.2-alpha.1"
+    "@thevoidcommunity/the-void-database": "npm:2.0.1-alpha.1"
     "@types/node": "npm:^20.16.1"
     "@voidy/develop": "workspace:^"
     "@voidy/types": "workspace:^"
@@ -667,6 +686,7 @@ __metadata:
     globals: "npm:^15.14.0"
     nodemon: "npm:^3.1.7"
     ollama: "npm:0.5.11"
+    openai: "npm:4.83.0"
     random-js: "npm:^2.1.0"
     telegraf: "npm:^4.16.3"
     ts-node: "npm:^10.9.2"
@@ -682,7 +702,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@voidy/types@workspace:packages/types"
   dependencies:
+    "@thevoidcommunity/the-void-database": "npm:2.0.1-alpha.1"
     discord.js: "npm:^14.15.3"
+    openai: "npm:4.83.0"
     telegraf: "npm:^4.16.3"
     tsc-alias: "npm:^1.8.10"
   languageName: unknown
@@ -747,6 +769,15 @@ __metadata:
   version: 7.1.3
   resolution: "agent-base@npm:7.1.3"
   checksum: 10c0/6192b580c5b1d8fb399b9c62bf8343d76654c2dd62afcb9a52b2cf44a8b6ace1e3b704d3fe3547d91555c857d3df02603341ff2cb961b9cfe2b12f9f3c38ee11
+  languageName: node
+  linkType: hard
+
+"agentkeepalive@npm:^4.2.1":
+  version: 4.6.0
+  resolution: "agentkeepalive@npm:4.6.0"
+  dependencies:
+    humanize-ms: "npm:^1.2.1"
+  checksum: 10c0/235c182432f75046835b05f239708107138a40103deee23b6a08caee5136873709155753b394ec212e49e60e94a378189562cb01347765515cff61b692c69187
   languageName: node
   linkType: hard
 
@@ -820,6 +851,13 @@ __metadata:
   version: 2.1.0
   resolution: "array-union@npm:2.1.0"
   checksum: 10c0/429897e68110374f39b771ec47a7161fc6a8fc33e196857c0a396dc75df0b5f65e4d046674db764330b6bb66b39ef48dd7c53b6a2ee75cfb0681e0c1a7033962
+  languageName: node
+  linkType: hard
+
+"asynckit@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "asynckit@npm:0.4.0"
+  checksum: 10c0/d73e2ddf20c4eb9337e1b3df1a0f6159481050a5de457c55b14ea2e5cb6d90bb69e004c9af54737a5ee0917fcf2c9e25de67777bbe58261847846066ba75bc9d
   languageName: node
   linkType: hard
 
@@ -1020,6 +1058,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"combined-stream@npm:^1.0.8":
+  version: 1.0.8
+  resolution: "combined-stream@npm:1.0.8"
+  dependencies:
+    delayed-stream: "npm:~1.0.0"
+  checksum: 10c0/0dbb829577e1b1e839fa82b40c07ffaf7de8a09b935cadd355a73652ae70a88b4320db322f6634a4ad93424292fa80973ac6480986247f1734a1137debf271d5
+  languageName: node
+  linkType: hard
+
 "commander@npm:^9.0.0":
   version: 9.5.0
   resolution: "commander@npm:9.5.0"
@@ -1084,6 +1131,13 @@ __metadata:
   version: 0.1.4
   resolution: "deep-is@npm:0.1.4"
   checksum: 10c0/7f0ee496e0dff14a573dc6127f14c95061b448b87b995fc96c017ce0a1e66af1675e73f1d6064407975bc4ea6ab679497a29fff7b5b9c4e99cb10797c1ad0b4c
+  languageName: node
+  linkType: hard
+
+"delayed-stream@npm:~1.0.0":
+  version: 1.0.0
+  resolution: "delayed-stream@npm:1.0.0"
+  checksum: 10c0/d758899da03392e6712f042bec80aa293bbe9e9ff1b2634baae6a360113e708b91326594c8a486d475c69d6259afb7efacdc3537bfcda1c6c648e390ce601b19
   languageName: node
   linkType: hard
 
@@ -1520,6 +1574,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"form-data-encoder@npm:1.7.2":
+  version: 1.7.2
+  resolution: "form-data-encoder@npm:1.7.2"
+  checksum: 10c0/56553768037b6d55d9de524f97fe70555f0e415e781cb56fc457a68263de3d40fadea2304d4beef2d40b1a851269bd7854e42c362107071892cb5238debe9464
+  languageName: node
+  linkType: hard
+
+"form-data@npm:^4.0.0":
+  version: 4.0.1
+  resolution: "form-data@npm:4.0.1"
+  dependencies:
+    asynckit: "npm:^0.4.0"
+    combined-stream: "npm:^1.0.8"
+    mime-types: "npm:^2.1.12"
+  checksum: 10c0/bb102d570be8592c23f4ea72d7df9daa50c7792eb0cf1c5d7e506c1706e7426a4e4ae48a35b109e91c85f1c0ec63774a21ae252b66f4eb981cb8efef7d0463c8
+  languageName: node
+  linkType: hard
+
+"formdata-node@npm:^4.3.2":
+  version: 4.4.1
+  resolution: "formdata-node@npm:4.4.1"
+  dependencies:
+    node-domexception: "npm:1.0.0"
+    web-streams-polyfill: "npm:4.0.0-beta.3"
+  checksum: 10c0/74151e7b228ffb33b565cec69182694ad07cc3fdd9126a8240468bb70a8ba66e97e097072b60bcb08729b24c7ce3fd3e0bd7f1f80df6f9f662b9656786e76f6a
+  languageName: node
+  linkType: hard
+
 "fs-minipass@npm:^3.0.0":
   version: 3.0.3
   resolution: "fs-minipass@npm:3.0.3"
@@ -1669,6 +1751,15 @@ __metadata:
     agent-base: "npm:^7.1.2"
     debug: "npm:4"
   checksum: 10c0/f729219bc735edb621fa30e6e84e60ee5d00802b8247aac0d7b79b0bd6d4b3294737a337b93b86a0bd9e68099d031858a39260c976dc14cdbba238ba1f8779ac
+  languageName: node
+  linkType: hard
+
+"humanize-ms@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "humanize-ms@npm:1.2.1"
+  dependencies:
+    ms: "npm:^2.0.0"
+  checksum: 10c0/f34a2c20161d02303c2807badec2f3b49cbfbbb409abd4f95a07377ae01cfe6b59e3d15ac609cffcd8f2521f0eb37b7e1091acf65da99aa2a4f1ad63c21e7e7a
   languageName: node
   linkType: hard
 
@@ -2011,6 +2102,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mime-db@npm:1.52.0":
+  version: 1.52.0
+  resolution: "mime-db@npm:1.52.0"
+  checksum: 10c0/0557a01deebf45ac5f5777fe7740b2a5c309c6d62d40ceab4e23da9f821899ce7a900b7ac8157d4548ddbb7beffe9abc621250e6d182b0397ec7f10c7b91a5aa
+  languageName: node
+  linkType: hard
+
+"mime-types@npm:^2.1.12":
+  version: 2.1.35
+  resolution: "mime-types@npm:2.1.35"
+  dependencies:
+    mime-db: "npm:1.52.0"
+  checksum: 10c0/82fb07ec56d8ff1fc999a84f2f217aa46cb6ed1033fefaabd5785b9a974ed225c90dc72fff460259e66b95b73648596dbcc50d51ed69cdf464af2d237d3149b2
+  languageName: node
+  linkType: hard
+
 "minimatch@npm:^3.1.2":
   version: 3.1.2
   resolution: "minimatch@npm:3.1.2"
@@ -2211,7 +2318,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ms@npm:2.1.3, ms@npm:^2.1.3":
+"ms@npm:2.1.3, ms@npm:^2.0.0, ms@npm:^2.1.3":
   version: 2.1.3
   resolution: "ms@npm:2.1.3"
   checksum: 10c0/d924b57e7312b3b63ad21fc5b3dc0af5e78d61a1fc7cfb5457edaf26326bf62be5307cc87ffb6862ef1c2b33b0233cdb5d4f01c4c958cc0d660948b65a287a48
@@ -2246,7 +2353,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:^2.6.0, node-fetch@npm:^2.7.0":
+"node-domexception@npm:1.0.0":
+  version: 1.0.0
+  resolution: "node-domexception@npm:1.0.0"
+  checksum: 10c0/5e5d63cda29856402df9472335af4bb13875e1927ad3be861dc5ebde38917aecbf9ae337923777af52a48c426b70148815e890a5d72760f1b4d758cc671b1a2b
+  languageName: node
+  linkType: hard
+
+"node-fetch@npm:^2.6.0, node-fetch@npm:^2.6.7, node-fetch@npm:^2.7.0":
   version: 2.7.0
   resolution: "node-fetch@npm:2.7.0"
   dependencies:
@@ -2363,12 +2477,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ollama@npm:^0.5.11":
-  version: 0.5.12
-  resolution: "ollama@npm:0.5.12"
+"openai@npm:4.83.0, openai@npm:^4.83.0":
+  version: 4.83.0
+  resolution: "openai@npm:4.83.0"
   dependencies:
-    whatwg-fetch: "npm:^3.6.20"
-  checksum: 10c0/09944a14b6bd3a92f219ff635b33b14fb4e4095f04208ed9a25d6aceacd63ee9a95b13e2950d162842954c8cd83ec51dc782b4674460f83fb042e045727337b3
+    "@types/node": "npm:^18.11.18"
+    "@types/node-fetch": "npm:^2.6.4"
+    abort-controller: "npm:^3.0.0"
+    agentkeepalive: "npm:^4.2.1"
+    form-data-encoder: "npm:1.7.2"
+    formdata-node: "npm:^4.3.2"
+    node-fetch: "npm:^2.6.7"
+  peerDependencies:
+    ws: ^8.18.0
+    zod: ^3.23.8
+  peerDependenciesMeta:
+    ws:
+      optional: true
+    zod:
+      optional: true
+  bin:
+    openai: bin/cli
+  checksum: 10c0/8ca7cf1e67a91b746402575acff035dc664f4b50f95533229caa581a9c4f16e9692765fc53be3e8b0ecda0c5efc6735e803154b02c7d69119149f622792e0bb0
   languageName: node
   linkType: hard
 
@@ -3103,6 +3233,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"undici-types@npm:~5.26.4":
+  version: 5.26.5
+  resolution: "undici-types@npm:5.26.5"
+  checksum: 10c0/bb673d7876c2d411b6eb6c560e0c571eef4a01c1c19925175d16e3a30c4c428181fb8d7ae802a261f283e4166a0ac435e2f505743aa9e45d893f9a3df017b501
+  languageName: node
+  linkType: hard
+
 "undici-types@npm:~6.19.2":
   version: 6.19.8
   resolution: "undici-types@npm:6.19.8"
@@ -3163,7 +3300,7 @@ __metadata:
   resolution: "voidtype@workspace:bot"
   dependencies:
     "@eslint/js": "npm:^9.18.0"
-    "@thevoidcommunity/the-void-database": "npm:1.0.2-alpha.1"
+    "@thevoidcommunity/the-void-database": "npm:2.0.1-alpha.1"
     "@types/node": "npm:^20.16.1"
     "@voidy/discord": "workspace:^"
     "@voidy/services": "workspace:^"
@@ -3188,6 +3325,13 @@ __metadata:
     typescript-eslint: "npm:^8.19.1"
   languageName: unknown
   linkType: soft
+
+"web-streams-polyfill@npm:4.0.0-beta.3":
+  version: 4.0.0-beta.3
+  resolution: "web-streams-polyfill@npm:4.0.0-beta.3"
+  checksum: 10c0/a9596779db2766990117ed3a158e0b0e9f69b887a6d6ba0779940259e95f99dc3922e534acc3e5a117b5f5905300f527d6fbf8a9f0957faf1d8e585ce3452e8e
+  languageName: node
+  linkType: hard
 
 "webidl-conversions@npm:^3.0.0":
   version: 3.0.1

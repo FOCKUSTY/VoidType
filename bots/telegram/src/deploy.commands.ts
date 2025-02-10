@@ -14,14 +14,13 @@ export const commands = new Map<
 	{ execute: (interaction: Interaction) => Promise<void>; options: string[] }
 >();
 
-export type Props = Services & { llama: any };
-type Command = new (services: Props) => TelegramCommand;
+type Command = new (services: Services) => TelegramCommand;
 
 export default class Deployer {
 	private readonly _logger = new Logger("Commands");
-	private readonly _services: Props;
+	private readonly _services: Services;
 
-	public constructor(services: Props) {
+	public constructor(services: Services) {
 		this._services = services;
 	}
 

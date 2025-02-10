@@ -2,8 +2,9 @@ import { Env } from "@voidy/develop/dist";
 
 import { Telegraf } from "telegraf";
 import type { Interaction } from "@voidy/types/dist/telegram/interaction.type";
+import type { Services } from "@voidy/types/dist/all/services.type";
 
-import Deployer, { Props } from "./deploy.commands";
+import Deployer from "./deploy.commands";
 
 import MessageListener from "./events/message.listener";
 import SlashCommandsListener from "./events/slash-commands.listener";
@@ -20,7 +21,7 @@ Client.on("message", async (message: Interaction) => {
 
 const fileType: ".ts" | ".js" = Env.get<false>("NODE_ENV") === "prod" ? ".js" : ".ts";
 
-const Login = async (services: Props) => {
+const Login = async (services: Services) => {
 	const commandsPath = path.join(__dirname, "commands");
 	const commandsFiles = fs
 		.readdirSync(commandsPath)

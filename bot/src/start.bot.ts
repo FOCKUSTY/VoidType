@@ -9,7 +9,7 @@ import Loggers from "./loggers.names";
 import { LoginDiscord } from "@voidy/discord/dist/src/discord.bot";
 import { LoginTelegram } from "@voidy/telegram/dist/telegram.bot";
 
-import Llama from "./utility/llama.ai";
+import Ai from "./utility/ai";
 import GitHubApi from "./utility/laf/github.utility";
 import DiscordService from "@voidy/discord/dist/src/utility/service/discord.service";
 import TelegramService from "@voidy/telegram/dist/utility/service/telegram.service";
@@ -25,7 +25,7 @@ new Loggers().execute();
 	const services = {
 		discord: new DiscordService(),
 		telegram: new TelegramService(),
-		llama: new Llama(),
+		ai: new Ai(),
 		github: new GitHubApi()
 	};
 
