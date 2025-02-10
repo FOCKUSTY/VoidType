@@ -78,7 +78,7 @@ export default class Command extends TelegramCommand {
 					}
 				];
 
-				options.set(interaction.from.id, replyOptions);
+				options.set(`${interaction.from.id}`, replyOptions);
 
 				await interaction.reply(replyOptions[0].text);
 			},

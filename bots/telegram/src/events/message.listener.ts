@@ -9,7 +9,7 @@ import { Debug } from "@voidy/develop/dist";
 
 type DefaultOption = Option<any, any, any>;
 
-const options = new Map<string | number, DefaultOption[]>();
+const options = new Map<string, DefaultOption[]>();
 const saved = new Map<string, { key: string; value: string }[]>();
 const anonMessages = new Map<string, string>();
 
@@ -67,7 +67,7 @@ const MessageListener = async (message: Interaction) => {
 		);
 	}
 
-	const replyOptions = options.get(userId);
+	const replyOptions = options.get(`${userId}`);
 
 	if (!replyOptions) return;
 
@@ -98,7 +98,7 @@ const MessageListener = async (message: Interaction) => {
 				...(option.lastArgs || [])
 			);
 
-			options.delete(userId);
+			options.delete(`${userId}`);
 			saved.delete(`${userId}`);
 
 			if (option.execute)
