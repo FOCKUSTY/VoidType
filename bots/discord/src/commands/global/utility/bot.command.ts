@@ -1,12 +1,11 @@
 import { Env } from "@voidy/develop/dist";
+import Command from "@voidy/types/dist/commands/discord-command.type";
 
 import { SlashCommandBuilder, EmbedBuilder, CommandInteraction } from "discord.js";
 
-import { version } from "../../../../package.json";
 import commands from "../../../index.commads";
 
-export = {
-	cooldown: 5,
+export default new Command({
 	data: new SlashCommandBuilder()
 		.setName("bot")
 		.setDescription("Информация о боте !")
@@ -15,6 +14,7 @@ export = {
 			ru: "Информация о боте !",
 			"en-US": "Info about bot !"
 		}),
+		
 	async execute(interaction: CommandInteraction) {
 		const name = interaction.client.user.username;
 		const guild = await interaction.client.guilds.fetch(`${Env.get("GUILD_ID")}`);
@@ -36,7 +36,7 @@ export = {
 
 				{
 					name: "Версия:",
-					value: version,
+					value: "!!version!!",
 					inline: false
 				},
 
@@ -78,4 +78,4 @@ export = {
 
 		return await interaction.reply({ embeds: [embed], ephemeral: true });
 	}
-};
+});

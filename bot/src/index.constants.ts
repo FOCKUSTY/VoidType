@@ -1,5 +1,4 @@
 import { loaders } from "@thevoidcommunity/the-void-database";
-import { version } from "../package.json";
 
 const { Constants } = loaders;
 
@@ -13,7 +12,7 @@ const THEVOIDs_CONSTANTS: { [key: string]: string } = {
 	"THEVOID": "Меня",
 	"typend_A": "",
 	"typend_B": "ым",
-	"version": version
+	"version": "!!version!!"
 };
 
 new Constants(THEVOIDs_CONSTANTS).execute();

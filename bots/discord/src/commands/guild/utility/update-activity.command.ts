@@ -1,10 +1,10 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { loaders } from "@thevoidcommunity/the-void-database";
+import Command from "@voidy/types/dist/commands/discord-command.type";
 
 const { ActivitiesLoader } = loaders;
 
-export = {
-	cooldown: 5,
+export default new Command({
 	data: new SlashCommandBuilder()
 		.setName("update-activity")
 		.setDescription("Принудительное обновление активностей !")
@@ -28,4 +28,4 @@ export = {
 			});
 		}
 	}
-};
+});

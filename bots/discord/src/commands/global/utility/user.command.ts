@@ -1,3 +1,5 @@
+import Command from "@voidy/types/dist/commands/discord-command.type";
+
 import {
 	CommandInteraction,
 	SlashCommandBuilder,
@@ -7,7 +9,7 @@ import {
 	GuildMember
 } from "discord.js";
 
-export = {
+export default new Command({
 	data: new SlashCommandBuilder()
 		.setName("user")
 		.setDescription("Пользователь !")
@@ -90,13 +92,13 @@ export = {
 				{
 					name: `Команда запущена:`,
 					value:
-						`${interaction.user} (${interaction.user.username})` +
-						"**Участник" +
-						member.user.username +
-						"присоединился:**" +
-						`${time(member.joinedAt?.getTime() || 0)}\nЭто:\n${time(member.joinedAt?.getTime() || 0, `R`)}` +
+						`${interaction.user} (${interaction.user.username})\n`
+						+ "**Участник " 
+						+ member.user.username
+						+ " присоединился:**\n" +
+						`<t:${Math.round((member.joinedTimestamp||0)/1000)}>\nЭто:\n<t:${Math.round((member.joinedTimestamp||0)/1000)}:R>` +
 						"\n" +
-						"**Пользователь в Discord: **\n" +
+						"**Пользователь в Discord:**\n" +
 						`${time(user.createdAt)}\nЭто:\n${time(user.createdAt, `R`)}`,
 					inline: true
 				},
@@ -117,4 +119,4 @@ export = {
 
 		return await interaction.editReply({ embeds: [embed] });
 	}
-};
+});

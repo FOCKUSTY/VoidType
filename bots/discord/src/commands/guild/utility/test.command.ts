@@ -1,7 +1,7 @@
+import Command from "@voidy/types/dist/commands/discord-command.type";
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 
-export = {
-	cooldown: 5,
+export default new Command({
 	data: new SlashCommandBuilder()
 		.setName("test")
 		.setDescription("Тестовое сообщение !"),
@@ -12,4 +12,4 @@ export = {
 			ephemeral: true
 		});
 	}
-};
+});

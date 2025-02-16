@@ -1,7 +1,9 @@
+import Command from "@voidy/types/dist/commands/discord-command.type";
+
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { Random } from "random-js";
 
-export = {
+export default new Command({
 	data: new SlashCommandBuilder()
 		.setName("random")
 		.setDescription("Случайный выбор чисел !")
@@ -33,4 +35,4 @@ export = {
 			await interaction.editReply({ content: `Ваше число ${number}` });
 		}, 1000);
 	}
-};
+})

@@ -6,12 +6,12 @@ import Formatter, { Colors } from "f-formatter";
 
 import Loggers from "./loggers.names";
 
-import { LoginDiscord } from "@voidy/discord/dist/src/discord.bot";
+import { LoginDiscord } from "@voidy/discord/dist/discord.bot";
 import { LoginTelegram } from "@voidy/telegram/dist/telegram.bot";
 
 import Ai from "./utility/ai";
 import GitHubApi from "./utility/laf/github.utility";
-import DiscordService from "@voidy/discord/dist/src/utility/service/discord.service";
+import DiscordService from "@voidy/discord/dist/utility/service/discord.service";
 import TelegramService from "@voidy/telegram/dist/utility/service/telegram.service";
 
 Debug.Console.clear();

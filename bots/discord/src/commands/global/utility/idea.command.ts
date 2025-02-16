@@ -11,13 +11,13 @@ import {
 import ObjectsLoader from "@thevoidcommunity/the-void-database/loaders/data/objects.loader";
 import CustomIds from "@voidy/services/dist/modal/custom-ids.modal";
 
-const customIds = CustomIds.getIds();
-
 import { Random } from "random-js";
+import Command from "@voidy/types/dist/commands/discord-command.type";
 
+const customIds = CustomIds.getIds();
 const objects = new ObjectsLoader().execute();
-export = {
-	cooldown: 5,
+
+export default new Command({
 	data: new SlashCommandBuilder()
 		.setName("idea")
 		.setDescription("Отправить свою идею!")
@@ -26,6 +26,7 @@ export = {
 			ru: "Отправить свою идею",
 			"en-US": "Send a your idea"
 		}),
+		
 	async execute(interaction: CommandInteraction) {
 		const components = customIds.ideaModal.components;
 		const idea: { idea: string; ideaDetail: string }[] = objects.idea;
@@ -60,4 +61,4 @@ export = {
 
 		await interaction.showModal(modal);
 	}
-};
+});

@@ -1,10 +1,10 @@
 import { Env, Logger, Debug, Colors } from "@voidy/develop/dist";
+import Command from "@voidy/types/dist/commands/discord-command.type";
 
 import { REST, Routes } from "discord.js";
 
 import type {
-	Collection as CommandsCollection,
-	SlashCommandBuilder
+	Collection as CommandsCollection
 } from "discord.js";
 
 import fs from "node:fs";
@@ -59,9 +59,9 @@ class Deployer {
 	) => {
 		this.ForeachFolders((file, modifierPath) => {
 			const filePath = path.join(modifierPath, file);
-			const command: { name: string, data: SlashCommandBuilder } = require(filePath);
+			const command: Command = (require(filePath)).default;
 
-			if ("data" in command && "execute" in command) {
+			if (!!command && !!command.data && !!command.execute) {
 				const options = command.data.options;
 				const name = command.data.name;
 
@@ -92,11 +92,7 @@ class Deployer {
 
 				if (subcommands.length != 0)
 					this._logger.execute(`${subcommands.join(" ")}`);
-			} else {
-				Debug.Error(
-					`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
-				);
-			}
+			} else Debug.Warn(`The command at ${filePath} is missing a required "data" or "execute" property.`)
 		}, type);
 	};
 
@@ -135,14 +131,11 @@ class Deployer {
 	public readonly execute = (Commands: unknown[], type: "guild" | "global") => {
 		this.ForeachFolders((file, modifierPath) => {
 			const filePath = path.join(modifierPath, file);
-			const command: { name: string, data: SlashCommandBuilder } = require(filePath);
+			const command: Command = (require(filePath)).default;
 
-			if ("data" in command && "execute" in command)
+			if (!!command && !!command.data && !!command.execute)
 				Commands.push(command.data.toJSON());
-			else
-				console.log(
-					`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
-				);
+			else Debug.Warn(`The command at ${filePath} is missing a required "data" or "execute" property.`)
 		}, type);
 	};
 }

@@ -1,9 +1,9 @@
+import Command from "@voidy/types/dist/commands/discord-command.type";
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
 import type { CommandInteraction, Role, Collection, EmbedField } from "discord.js";
 import Formatter from "f-formatter";
 
-export = {
-	cooldown: 5,
+export default new Command({
 	data: new SlashCommandBuilder()
 		.setName("roles")
 		.setDescription("Все роли на сервере !")
@@ -12,6 +12,7 @@ export = {
 			ru: "Все роли на сервере",
 			"en-US": "All roles on guild"
 		}),
+		
 	async execute(interaction: CommandInteraction) {
 		if (!interaction.guild)
 			return await interaction.reply({
@@ -76,4 +77,4 @@ export = {
 
 		await interaction.editReply({ embeds: [embed] });
 	}
-};
+});

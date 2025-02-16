@@ -4,8 +4,6 @@ import Command from "@voidy/types/dist/commands/discord-command.type";
 import path from "path";
 import fs from "fs";
 
-import "./slash.commands";
-
 const commands: string[] = [];
 
 const foldersPath = path.join(__dirname, "commands");
@@ -21,15 +19,15 @@ for (const placeFolder of commandsFolder) {
 		const modifierPath = path.join(commandsPath, folder);
 		const files = fs
 			.readdirSync(modifierPath)
-			.filter((file: string) => file.endsWith(fileType));
+			.filter((file: string) => file.endsWith(fileType) && !file.endsWith(".d.ts"));
 
 		for (const file of files) {
 			const filePath = path.join(modifierPath, file);
-			const command: Command = require(
+			const command: Command = (require(
 				path.toNamespacedPath(filePath).replace("\\\\?\\", "")
-			);
+			)).default;
 
-			if ("data" in command && "execute" in command)
+			if (!!command && !!command.data && !!command.execute)
 				commands.push(command.data.name);
 		}
 	}

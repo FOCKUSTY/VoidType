@@ -1,4 +1,18 @@
-import { CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { CommandInteraction, SlashCommandOptionsOnlyBuilder } from "discord.js";
+
+export type CommandCreateData<T> = {
+	name?: string;
+	cooldown?: number;
+	data: SlashCommandOptionsOnlyBuilder;
+	execute: (interaction: CommandInteraction) => Promise<T | void>
+}
+
+export interface CommandData<T> {
+	readonly name: string;
+	readonly data: SlashCommandOptionsOnlyBuilder;
+	readonly cooldown: number;
+	readonly execute: (interaction: CommandInteraction) => Promise<T | void>
+}
 
 class Command<T = void> {
 	private readonly _error = {
@@ -7,24 +21,19 @@ class Command<T = void> {
 			"Если Вы видите это сообщение, срочно обратитесь к нам: https://discord.gg/5MJrRjzPec",
 		ephemeral: true
 	};
-	private readonly _data: SlashCommandBuilder;
-	private readonly _cooldown: number = 5;
+	public readonly data: SlashCommandOptionsOnlyBuilder;
+	public readonly cooldown: number = 5;
+	public readonly name: string;
 
-	public constructor(cooldown?: number) {
-		this._data = new SlashCommandBuilder();
-		this._cooldown = cooldown || 5;
+	public constructor(data: CommandCreateData<T>) {
+		this.data = data.data;
+		this.name = data.name || data.data.name;
+		this.cooldown = data.cooldown || 5;
+		this.execute = data.execute;
 	}
 
 	private async init(interaction: CommandInteraction): Promise<T | void> {
 		await interaction.reply(this._error);
-	}
-
-	public get cooldown(): number {
-		return this._cooldown;
-	}
-
-	public get data(): SlashCommandBuilder {
-		return this._data;
 	}
 
 	public get execute(): (interaction: CommandInteraction) => Promise<T | void> {

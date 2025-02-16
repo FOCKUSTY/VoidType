@@ -19,6 +19,8 @@ import {
 	Partials
 } from "discord.js";
 
+import "./slash.commands";
+
 const Client = new DiscordClient({
 	intents: [
 		GatewayIntentBits.Guilds,

@@ -13,15 +13,16 @@ import {
 import { Random } from "random-js";
 import ObjectsLoader from "@thevoidcommunity/the-void-database/loaders/data/objects.loader";
 import CustomIds from "@voidy/services/dist/modal/custom-ids.modal";
+import Command from "@voidy/types/dist/commands/discord-command.type";
 
 const customIds = CustomIds.getIds();
 const objects = new ObjectsLoader().execute();
 
-export = {
-	cooldown: 5,
+export default new Command({
 	data: new SlashCommandBuilder()
 		.setName("server-say")
 		.setDescription("Сообщение с помощью бота!"),
+		
 	async execute(interaction: CommandInteraction) {
 		if (interaction.user.id !== Env.get("AUTHOR_ID"))
 			return await interaction.reply({
@@ -61,4 +62,4 @@ export = {
 
 		await interaction.showModal(modal);
 	}
-};
+});

@@ -17,7 +17,7 @@ class GitHubApi extends Service {
 			).json();
 
 			return data.filter((r: Repo) => !ignoredRepo.includes(r.name));
-		} catch (error) {
+		} catch {
 			return [];
 		}
 	}

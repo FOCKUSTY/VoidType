@@ -11,11 +11,11 @@ import {
 } from "discord.js";
 
 import CustomIds from "@voidy/services/dist/modal/custom-ids.modal";
+import Command from "@voidy/types/dist/commands/discord-command.type";
 
 const customIds = CustomIds.getIds();
 
-export = {
-	cooldown: 5,
+export default new Command({
 	data: new SlashCommandBuilder()
 		.setName("update")
 		.setDescription("Сообщение с помощью бота!"),
@@ -60,4 +60,4 @@ export = {
 
 		await interaction.showModal(modal);
 	}
-};
+});
