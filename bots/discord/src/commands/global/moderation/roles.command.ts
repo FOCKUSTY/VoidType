@@ -12,7 +12,7 @@ export default new Command({
 			ru: "Все роли на сервере",
 			"en-US": "All roles on guild"
 		}),
-		
+
 	async execute(interaction: CommandInteraction) {
 		if (!interaction.guild)
 			return await interaction.reply({

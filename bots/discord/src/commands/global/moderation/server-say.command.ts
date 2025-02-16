@@ -22,7 +22,7 @@ export default new Command({
 	data: new SlashCommandBuilder()
 		.setName("server-say")
 		.setDescription("Сообщение с помощью бота!"),
-		
+
 	async execute(interaction: CommandInteraction) {
 		if (interaction.user.id !== Env.get("AUTHOR_ID"))
 			return await interaction.reply({

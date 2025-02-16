@@ -35,4 +35,4 @@ export default new Command({
 			await interaction.editReply({ content: `Ваше число ${number}` });
 		}, 1000);
 	}
-})
+});

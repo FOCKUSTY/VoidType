@@ -4,14 +4,14 @@ export type CommandCreateData<T> = {
 	name?: string;
 	cooldown?: number;
 	data: SlashCommandOptionsOnlyBuilder;
-	execute: (interaction: CommandInteraction) => Promise<T | void>
-}
+	execute: (interaction: CommandInteraction) => Promise<T | void>;
+};
 
 export interface CommandData<T> {
 	readonly name: string;
 	readonly data: SlashCommandOptionsOnlyBuilder;
 	readonly cooldown: number;
-	readonly execute: (interaction: CommandInteraction) => Promise<T | void>
+	readonly execute: (interaction: CommandInteraction) => Promise<T | void>;
 }
 
 class Command<T = void> {

@@ -16,7 +16,7 @@ class Ai extends AiService {
 		promt: string,
 		text: string = "",
 		model: Models = "gpt-4o-mini"
-	): Response<APIPromise<ChatCompletion>|null> {
+	): Response<APIPromise<ChatCompletion> | null> {
 		try {
 			const id = new Date().getTime().toString(16);
 			promts.set(promt, id);
@@ -40,7 +40,10 @@ class Ai extends AiService {
 			}
 
 			data.then((r) =>
-				Debug.Log(["Ответ на запрос: " + id + ":", r.choices[0].message.content||""])
+				Debug.Log([
+					"Ответ на запрос: " + id + ":",
+					r.choices[0].message.content || ""
+				])
 			);
 
 			return {

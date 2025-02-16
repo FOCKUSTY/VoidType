@@ -92,11 +92,11 @@ export default new Command({
 				{
 					name: `Команда запущена:`,
 					value:
-						`${interaction.user} (${interaction.user.username})\n`
-						+ "**Участник " 
-						+ member.user.username
-						+ " присоединился:**\n" +
-						`<t:${Math.round((member.joinedTimestamp||0)/1000)}>\nЭто:\n<t:${Math.round((member.joinedTimestamp||0)/1000)}:R>` +
+						`${interaction.user} (${interaction.user.username})\n` +
+						"**Участник " +
+						member.user.username +
+						" присоединился:**\n" +
+						`<t:${Math.round((member.joinedTimestamp || 0) / 1000)}>\nЭто:\n<t:${Math.round((member.joinedTimestamp || 0) / 1000)}:R>` +
 						"\n" +
 						"**Пользователь в Discord:**\n" +
 						`${time(user.createdAt)}\nЭто:\n${time(user.createdAt, `R`)}`,

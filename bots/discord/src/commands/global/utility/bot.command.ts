@@ -14,7 +14,7 @@ export default new Command({
 			ru: "Информация о боте !",
 			"en-US": "Info about bot !"
 		}),
-		
+
 	async execute(interaction: CommandInteraction) {
 		const name = interaction.client.user.username;
 		const guild = await interaction.client.guilds.fetch(`${Env.get("GUILD_ID")}`);

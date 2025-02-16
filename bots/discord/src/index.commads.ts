@@ -23,9 +23,9 @@ for (const placeFolder of commandsFolder) {
 
 		for (const file of files) {
 			const filePath = path.join(modifierPath, file);
-			const command: Command = (require(
+			const command: Command = require(
 				path.toNamespacedPath(filePath).replace("\\\\?\\", "")
-			)).default;
+			).default;
 
 			if (!!command && !!command.data && !!command.execute)
 				commands.push(command.data.name);

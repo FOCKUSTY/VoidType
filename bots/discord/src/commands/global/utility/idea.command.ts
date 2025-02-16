@@ -26,7 +26,7 @@ export default new Command({
 			ru: "Отправить свою идею",
 			"en-US": "Send a your idea"
 		}),
-		
+
 	async execute(interaction: CommandInteraction) {
 		const components = customIds.ideaModal.components;
 		const idea: { idea: string; ideaDetail: string }[] = objects.idea;

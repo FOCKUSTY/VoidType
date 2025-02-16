@@ -30,7 +30,7 @@ export default new Command({
 		.setDefaultMemberPermissions(
 			PermissionFlagsBits.ManageChannels & PermissionFlagsBits.ManageMessages
 		),
-		
+
 	async execute(interaction: CommandInteraction) {
 		if (!interaction.guild)
 			return await interaction.reply({

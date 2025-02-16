@@ -62,8 +62,7 @@ export default class Command extends TelegramCommand {
 						execute: (data: DefaultExectuteData) => {
 							if (typeof data.response.data === "string") return;
 
-							if (data.response.type === 0 || !data.response.data)
-								return;
+							if (data.response.type === 0 || !data.response.data) return;
 
 							data.message.reply("Запрос принят! Ждите ответа!");
 
