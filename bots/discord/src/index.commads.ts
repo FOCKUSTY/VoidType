@@ -4,6 +4,8 @@ import Command from "@voidy/types/dist/commands/discord-command.type";
 import path from "path";
 import fs from "fs";
 
+import "./slash.commands";
+
 const commands: string[] = [];
 
 const foldersPath = path.join(__dirname, "commands");

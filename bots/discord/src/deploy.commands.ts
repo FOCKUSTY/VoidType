@@ -4,7 +4,8 @@ import { REST, Routes } from "discord.js";
 
 import type {
 	Client as DiscordClient,
-	Collection as CommandsCollection
+	Collection as CommandsCollection,
+	SlashCommandBuilder
 } from "discord.js";
 
 import fs from "node:fs";
@@ -28,7 +29,7 @@ class Deployer {
 	}
 
 	private readonly ForeachFolders = (
-		func: (...args: any) => any,
+		func: (...args: string[]) => void,
 		type?: "guild" | "global"
 	) => {
 		for (const placeFolder of this._commands_folder) {
@@ -55,12 +56,12 @@ class Deployer {
 
 	public readonly write = (
 		Client: DiscordClient,
-		Commands: CommandsCollection<any, any>,
+		Commands: CommandsCollection<unknown, unknown>,
 		type?: "guild" | "global"
 	) => {
 		this.ForeachFolders((file, modifierPath) => {
 			const filePath = path.join(modifierPath, file);
-			const command: any = require(filePath);
+			const command: { name: string, data: SlashCommandBuilder } = require(filePath);
 
 			if ("data" in command && "execute" in command) {
 				const options = command.data.options;
@@ -79,7 +80,7 @@ class Deployer {
 
 					for (const key in command.data.options) {
 						using += 1;
-						subcommands.push(`${options[key].name}`);
+						subcommands.push(`${options[key].toJSON().name}`);
 
 						if (using <= options.length - 1) subcommands.push("|");
 					}
@@ -102,7 +103,7 @@ class Deployer {
 		}, type);
 	};
 
-	public readonly update = async (commands: any, type: "guild" | "global") => {
+	public readonly update = async (commands: unknown, type: "guild" | "global") => {
 		try {
 			if (type === "global") {
 				this._updater.execute("Начало обновления глобальных (/) команд");
@@ -134,10 +135,10 @@ class Deployer {
 		}
 	};
 
-	public readonly execute = (Commands: any[], type: "guild" | "global") => {
+	public readonly execute = (Commands: unknown[], type: "guild" | "global") => {
 		this.ForeachFolders((file, modifierPath) => {
 			const filePath = path.join(modifierPath, file);
-			const command: any = require(filePath);
+			const command: { name: string, data: SlashCommandBuilder } = require(filePath);
 
 			if ("data" in command && "execute" in command)
 				Commands.push(command.data.toJSON());
