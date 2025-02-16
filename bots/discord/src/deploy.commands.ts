@@ -3,7 +3,6 @@ import { Env, Logger, Debug, Colors } from "@voidy/develop/dist";
 import { REST, Routes } from "discord.js";
 
 import type {
-	Client as DiscordClient,
 	Collection as CommandsCollection,
 	SlashCommandBuilder
 } from "discord.js";
@@ -55,7 +54,6 @@ class Deployer {
 	};
 
 	public readonly write = (
-		Client: DiscordClient,
 		Commands: CommandsCollection<unknown, unknown>,
 		type?: "guild" | "global"
 	) => {
@@ -89,7 +87,6 @@ class Deployer {
 				}
 
 				Commands.set(command.data.name, command);
-				Client.application?.commands.set(command.data.name, command);
 
 				subcommands.unshift(text);
 

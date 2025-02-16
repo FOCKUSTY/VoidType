@@ -54,7 +54,7 @@ const Login = async (clientToken: string, services: Services) => {
 		modalListener.execute(interaction);
 	});
 
-	new Deployer(foldersPath, commandsFolder).write(Client, Commands);
+	new Deployer(foldersPath, commandsFolder).write(Commands);
 	new DeployEvents(eventsPath, eventFiles, services).execute();
 
 	await Client.login(clientToken).catch((e) => Debug.Error(e));
