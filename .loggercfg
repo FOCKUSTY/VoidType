@@ -1,6 +1,8 @@
 {
+    "dir": "F:\\projects\\thevoid\\bots\\voidtype\\utility\\develop\\dist\\config.js\\..\\..\\..\\..\\",
     "logging": true,
     "level": "info",
+    "date": true,
     "deletion_interval": 7,
     "colors": [
         "\u001b[0m",
@@ -28,6 +30,13 @@
                 "\u001b[32m"
             ]
         },
+        "Commands": {
+            "name": "Commands",
+            "colors": [
+                "\u001b[33;1m",
+                "\u001b[32m"
+            ]
+        },
         "Events": {
             "name": "Events",
             "colors": [
@@ -40,13 +49,6 @@
             "colors": [
                 "\u001b[33;1m",
                 "\u001b[33m"
-            ]
-        },
-        "Commands": {
-            "name": "Commands",
-            "colors": [
-                "\u001b[33;1m",
-                "\u001b[32m"
             ]
         },
         "Warner": {

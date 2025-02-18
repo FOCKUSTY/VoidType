@@ -1,3 +1,5 @@
+import "@voidy/develop/dist/config";
+
 import { Env, Debug } from "@voidy/develop/dist";
 
 import "src/index.constants";
@@ -14,7 +16,7 @@ import GitHubApi from "./utility/laf/github.utility";
 import DiscordService from "@voidy/discord/dist/utility/service/discord.service";
 import TelegramService from "@voidy/telegram/dist/utility/service/telegram.service";
 
-Debug.Console.clear();
+// Debug.Console.clear();
 Debug.Log([new Formatter().Color("Начало программы", Colors.magenta)]);
 
 const bot = Env.get<false>("BOT") || "all";

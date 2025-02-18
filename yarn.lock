@@ -611,7 +611,7 @@ __metadata:
   resolution: "@voidy/develop@workspace:utility/develop"
   dependencies:
     dotenv: "npm:^16.4.5"
-    fock-logger: "npm:^2.2.1"
+    fock-logger: "npm:2.2.2-b"
     tsc: "npm:^2.0.4"
     tsc-alias: "npm:^1.8.10"
     tsconfig-paths: "npm:^4.2.0"
@@ -1525,6 +1525,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fock-logger@npm:2.2.2-b":
+  version: 2.2.2-b
+  resolution: "fock-logger@npm:2.2.2-b"
+  dependencies:
+    f-formatter: "npm:^0.3.0-a"
+    fock-builder: "npm:^0.2.1"
+    node: "npm:^22.9.0"
+  checksum: 10c0/ba8010ad07c9eea6d60b4d0e974d06072d8b3ab836c9a04d52fd3002dc6d6e1ac02ce2a8a4f76a3363ee3d2bdff712bc823c0023494a13927462c749320ea34e
+  languageName: node
+  linkType: hard
+
 "fock-logger@npm:^2.0.5":
   version: 2.0.5
   resolution: "fock-logger@npm:2.0.5"
@@ -1533,17 +1544,6 @@ __metadata:
     fock-builder: "npm:^0.2.1"
     node: "npm:^22.9.0"
   checksum: 10c0/2541bbaa9505d16aa71bdb77c79f85f0120331dd8ba2b085c9530317389d4f674dab044d07c69c5a53cf95b29d6f70556ccf9cf771e19cc137156a0243dcc909
-  languageName: node
-  linkType: hard
-
-"fock-logger@npm:^2.2.1":
-  version: 2.2.1
-  resolution: "fock-logger@npm:2.2.1"
-  dependencies:
-    f-formatter: "npm:^0.3.0-a"
-    fock-builder: "npm:^0.2.1"
-    node: "npm:^22.9.0"
-  checksum: 10c0/68e7de24c4f65ac6b15607020430d94af058f58b51de71166a8329c22ced6fc4ae55f9cf67a14888047813012d07cb4c19a54150e50863fa274ff8feb489bf50
   languageName: node
   linkType: hard
 
